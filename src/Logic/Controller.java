@@ -1,4 +1,4 @@
-package src.Logic;
+package Logic;
 
 public class Controller {
 }
