@@ -1,4 +1,4 @@
-package main;
+package src.Logic;
 
 public class StartGame {
 
