@@ -11,6 +11,5 @@
         <Button layoutX="249.0" layoutY="199.0" mnemonicParsing="false" text="Einstellungen" />
         <Button layoutX="255.0" layoutY="145.0" mnemonicParsing="false" text="Spiel laden" />
         <Button layoutX="246.0" layoutY="259.0" mnemonicParsing="false" text="Spiel beenden" />
-      <Slider layoutX="496.0" layoutY="121.0" orientation="VERTICAL" />
     </AnchorPane>
 </ScrollPane>

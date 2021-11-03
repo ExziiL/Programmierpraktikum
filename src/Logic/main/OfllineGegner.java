@@ -1,4 +1,4 @@
-package main;
+package Logic.main;
 
-public class OfllineGegner extends Gegner{
+public class OfllineGegner extends Gegner {
 }
