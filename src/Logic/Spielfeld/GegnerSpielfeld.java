@@ -1,6 +1,6 @@
-package Logic;
+package Logic.Spielfeld;
 
-import Logic.Ausnahmen.FalscheSpielfeldGroesse;
+import Logic.Spielfeld.Ausnahmen.*;
 
 public class GegnerSpielfeld extends Spielfeld {
 
