@@ -2,7 +2,7 @@ package Logic.main;
 
 import java.awt.*;
 
-public class Gegner {
+public class Spieler {
 
     private int[][] spielarray;
 
