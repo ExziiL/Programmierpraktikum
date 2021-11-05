@@ -1,10 +1,15 @@
 package Logic.main;
 
-import java.awt.*;
+//import java.awt.*;
+import Logic.Spielfeld.*;
 
-public class Spieler {
+public abstract class Spieler {
 
-    private int[][] spielarray;
+    protected Spielfeld spielfeld;
+
+
+    public String schießen;
+
 
     // public Point feuern(){}
 
