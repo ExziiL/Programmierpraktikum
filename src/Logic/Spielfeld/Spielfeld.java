@@ -1,7 +1,9 @@
 package Logic.Spielfeld;
 
 import Logic.Spielfeld.Ausnahmen.*;
+
 import static Logic.main.LogicKonstanten.*;
+
 import Logic.main.*;
 
 
@@ -19,18 +21,26 @@ public class Spielfeld {
         spielfeld = new int[groesse][groesse];
     }
 
-    private Spieler erstelleSpieler( Spielertyp t )throws FalscherSpielertyp{
+    public void initialisiereSpielfeld() {
+        System.out.println("Spielfeld initialisiert");
+    }
+
+    private Spieler erstelleSpieler(String name, Spielertyp t) throws FalscherSpielertyp {
         Spieler neuerSpieler;
 
-        if(t == t.OFFLINE){
-            neuerSpieler = new OfflineSpieler();
+        // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
 
-        }else if( t== t.ONLINE) {
+        if (t == t.OFFLINE) {
+            neuerSpieler = new OfflineSpieler(this, name);
 
-            neuerSpieler = new OnlineSpieler();
-        }else{
+        } else if (t == t.ONLINE) {
+
+            neuerSpieler = new OnlineSpieler(this, name);
+        } else {
             throw new FalscherSpielertyp();
         }
         return neuerSpieler;
     }
+
+
 }
