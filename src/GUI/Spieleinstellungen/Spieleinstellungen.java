@@ -4,7 +4,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 
 public class Spieleinstellungen extends Application {
@@ -14,9 +13,6 @@ public class Spieleinstellungen extends Application {
     primaryStage.setTitle("Spieleinstellungen");
     primaryStage.setScene(new Scene(root, 600, 400));
     primaryStage.show();
-
-    ChoiceBox<String> choiceBox = new ChoiceBox<>();
-    choiceBox.getItems().addAll("Apples", "Bananas", "Oranges", "Melons");
   }
 
   public static void main(String[] args) {
