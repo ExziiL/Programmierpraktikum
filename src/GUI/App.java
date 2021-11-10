@@ -11,7 +11,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("App.fxml"));
-        primaryStage.setTitle("Battleship");
+        primaryStage.setTitle(GUIKonstanten.titel);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
