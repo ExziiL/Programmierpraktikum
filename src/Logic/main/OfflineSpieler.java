@@ -2,9 +2,8 @@ package Logic.main;
 
 import Logic.Spielfeld.Spielfeld;
 
-public class OnlineSpieler extends Spieler {
-
-    public OnlineSpieler(Spielfeld spielfeld, String name) {
+public class OfflineSpieler extends Spieler {
+    public OfflineSpieler(Spielfeld spielfeld, String name) {
         super(spielfeld, name);
     }
 
@@ -16,6 +15,9 @@ public class OnlineSpieler extends Spieler {
     @Override
     public void schiffSetzen() {
 
+    }
+
+    private void zielsuche() {
     }
 
 
