@@ -10,4 +10,10 @@ public class LogicKonstanten {
         OFFLINE,
         SELF
     }
+    public static enum SpielSchwierigkeit{
+        Leicht,
+        Mittel,
+        Schwer
+    }
+
 }
