@@ -26,7 +26,7 @@
          <VBox.margin>
             <Insets/>
          </VBox.margin>
-      </HBox>
+      </VBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="25.0" prefWidth="51.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
@@ -44,6 +44,6 @@
             <Insets/>
          </VBox.margin>
       </HBox>
-   </VBox>
+   </children>
    <Label layoutX="62.0" layoutY="228.0" text="3x 2-Feld-Schiffe"/>
 </AnchorPane>
