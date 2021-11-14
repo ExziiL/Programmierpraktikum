@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Spieleinstellungen extends Application {
-
     private Stage primarystage;
     private static BorderPane mainLayout;
 
@@ -23,9 +22,6 @@ public class Spieleinstellungen extends Application {
         this.primarystage.setTitle(GUIKonstanten.titel);
         this.primarystage.setTitle("Spieleinstellungen");
         showApp();
-
-        ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().addAll("Apples", "Bananas", "Oranges", "Melons");
     }
 
     public static void main(String[] args) {
