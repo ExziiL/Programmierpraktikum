@@ -20,7 +20,6 @@ public class App extends Application {
         this.primarystage.setTitle(GUIKonstanten.titel);
         zeigeApp();
         zeigeSpielStarten();
-
     }
 
     public static void main(String[] args) {
