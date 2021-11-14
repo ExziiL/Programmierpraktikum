@@ -6,12 +6,14 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.layout.BorderPane?>
+<BorderPane fx:controller="GUI.Controller.SpieleinstellungenController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Button layoutX="36.0" layoutY="341.0" mnemonicParsing="false" text="zurück" />
       <Button disable="true" layoutX="515.0" layoutY="341.0" mnemonicParsing="false" text="weiter" />
@@ -61,4 +63,4 @@
          </font>
       </Label>
    </children>
-</AnchorPane>
+</BorderPane>
