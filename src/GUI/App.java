@@ -1,5 +1,6 @@
 package GUI;
 
+import Logic.main.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class App extends Application {
     private Stage primarystage;
     private static BorderPane mainLayout;
+    public static Controller logicController;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -20,6 +22,7 @@ public class App extends Application {
         this.primarystage.setTitle(GUIKonstanten.titel);
         zeigeApp();
         zeigeSpielStarten();
+        logicController = new Controller();
     }
 
     public static void main(String[] args) {
@@ -39,6 +42,13 @@ public class App extends Application {
         loader.setLocation(App.class.getResource("SpielStarten/SpielStarten.fxml"));
         BorderPane SpielStarten = loader.load();
         mainLayout.setCenter(SpielStarten);
+    }
+
+    public static void zeigePlatzierfeld() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(App.class.getResource("Platzierfeld/Platzierfeld.fxml"));
+        AnchorPane Platzierfeld = loader.load();
+        mainLayout.setCenter(Platzierfeld);
     }
 
     private void zeigeApp() throws IOException {
