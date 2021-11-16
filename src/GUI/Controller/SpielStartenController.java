@@ -8,13 +8,19 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 
 public class SpielStartenController {
-    App app;
-
     @FXML
     private Button SpielStarten;
-    
+
     @FXML
     void starten(ActionEvent event) throws IOException {
-        app.zeigeSpieleinstellungen();
+        App.zeigeSpieleinstellungen();
     }
+
+    @FXML
+    void beenden(ActionEvent event) throws IOException {
+        App.logicController.beenden();
+    }
+
+
+
 }
