@@ -2,11 +2,8 @@ package GUI.Spieleinstellungen;
 
 import GUI.*;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -31,7 +28,7 @@ public class Spieleinstellungen extends Application {
     private void showApp() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Spieleinstellungen.class.getResource("Spieleinstellungen.fxml"));
-        this.mainLayout = loader.load();
+        mainLayout = loader.load();
         Scene scene = new Scene(mainLayout, 600, 400);
         this.primarystage.setScene(scene);
         this.primarystage.show();

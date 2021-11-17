@@ -1,20 +1,15 @@
 package GUI.Controller;
 
-import GUI.Spieleinstellungen.Spieleinstellungen;
-import Logic.main.Controller;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import GUI.App;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 public class SpieleinstellungenController {
-    private App app;
     private int[] spielfeldGroessenWerte = new int[26];
 
     @FXML
@@ -37,7 +32,7 @@ public class SpieleinstellungenController {
 
     @FXML
     void zurueck(ActionEvent event) throws IOException {
-        app.zeigeSpielStarten(); // Wieso ist heis app klein geschrieben und weiter unten Groß?
+        App.zeigeSpielStarten();
     }
 
     @FXML

@@ -8,7 +8,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-
 import java.io.IOException;
 
 public class App extends Application {
@@ -28,7 +27,6 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
 
     public static void zeigeSpieleinstellungen() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -56,8 +54,8 @@ public class App extends Application {
         loader.setLocation(App.class.getResource("App.fxml"));
         // Parent root = FXMLLoader.load(getClass().getResource("App.fxml"));
 
-        this.mainLayout = loader.load();
-        Scene scene = new Scene(this.mainLayout);
+        mainLayout = loader.load();
+        Scene scene = new Scene(mainLayout);
         this.primarystage.setScene(scene);
         this.primarystage.show();
     }
