@@ -17,7 +17,6 @@ public class SpieleinstellungenController {
     private App app;
     private int[] spielfeldGroessenWerte = new int[26];
 
-
     @FXML
     private Button weiter;
     @FXML
@@ -38,12 +37,11 @@ public class SpieleinstellungenController {
 
     @FXML
     void zurueck(ActionEvent event) throws IOException {
-        app.zeigeSpielStarten();
+        app.zeigeSpielStarten(); // Wieso ist heis app klein geschrieben und weiter unten Groß?
     }
 
     @FXML
     void nameEingabe(ActionEvent event) throws IOException {
-
 
     }
 
@@ -53,7 +51,8 @@ public class SpieleinstellungenController {
         App.zeigePlatzierfeld();
 
         App.logicController.setName(name.getCharacters().toString());
-        App.logicController.setSpielfeldGroesse(spielfeldGroessenWerte[spielfeldgroesse.getSelectionModel().getSelectedIndex()]);
+        App.logicController
+                .setSpielfeldGroesse(spielfeldGroessenWerte[spielfeldgroesse.getSelectionModel().getSelectedIndex()]);
     }
 
 }
