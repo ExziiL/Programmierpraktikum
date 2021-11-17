@@ -3,7 +3,6 @@ package Logic.main;
 //import java.awt.*;
 
 import Logic.Spielfeld.*;
-import sun.security.provider.ConfigFile;
 
 public abstract class Spieler {
 
@@ -34,7 +33,6 @@ public abstract class Spieler {
     }
 
     ;
-
 
     // public Point feuern(){}
 

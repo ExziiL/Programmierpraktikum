@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.SpielStartenController">
+
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="397.0" prefWidth="598.0">
+        <Button fx:id="SpielStarten" layoutX="251.0" layoutY="83.0" mnemonicParsing="false" onAction="#starten" text="Spiel starten" />
+        <Button layoutX="249.0" layoutY="199.0" mnemonicParsing="false" text="Einstellungen" />
+        <Button layoutX="255.0" layoutY="145.0" mnemonicParsing="false" text="Spiel laden" />
+        <Button layoutX="246.0" layoutY="259.0" mnemonicParsing="false" onAction="#beenden" text="Spiel beenden" />
+    </AnchorPane>
+</BorderPane>

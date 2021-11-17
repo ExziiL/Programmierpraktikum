@@ -1,22 +1,16 @@
 package GUI.Controller;
 
-import GUI.Spieleinstellungen.Spieleinstellungen;
-import Logic.main.Controller;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import GUI.App;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
 public class SpieleinstellungenController {
-    private App app;
     private int[] spielfeldGroessenWerte = new int[26];
-
 
     @FXML
     private Button weiter;
@@ -38,12 +32,11 @@ public class SpieleinstellungenController {
 
     @FXML
     void zurueck(ActionEvent event) throws IOException {
-        app.zeigeSpielStarten();
+        App.zeigeSpielStarten();
     }
 
     @FXML
     void nameEingabe(ActionEvent event) throws IOException {
-
 
     }
 
@@ -53,7 +46,8 @@ public class SpieleinstellungenController {
         App.zeigePlatzierfeld();
 
         App.logicController.setName(name.getCharacters().toString());
-        App.logicController.setSpielfeldGroesse(spielfeldGroessenWerte[spielfeldgroesse.getSelectionModel().getSelectedIndex()]);
+        App.logicController
+                .setSpielfeldGroesse(spielfeldGroessenWerte[spielfeldgroesse.getSelectionModel().getSelectedIndex()]);
     }
 
 }
