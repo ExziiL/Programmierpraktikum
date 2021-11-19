@@ -12,7 +12,7 @@ public class PlatzierfeldController {
   private Button zurück; // braucht man das?
 
   @FXML
-  void handle_zurueck(ActionEvent event) throws IOException {
+  void handleBack(ActionEvent event) throws IOException {
     App.zeigeSpieleinstellungen();
   }
 }

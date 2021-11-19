@@ -12,12 +12,12 @@ public class SpielStartenController {
     private Button SpielStarten;
 
     @FXML
-    void starten(ActionEvent event) throws IOException {
+    void handleStartGame(ActionEvent event) throws IOException {
         App.zeigeSpieleinstellungen();
     }
 
     @FXML
-    void beenden(ActionEvent event) throws IOException {
+    void handleClose(ActionEvent event) throws IOException {
         App.logicController.beenden();
     }
 

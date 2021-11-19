@@ -90,6 +90,6 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="23.0" layoutY="353.0" mnemonicParsing="false" text="Zurück" onAction="#handle_zurueck" />
+      <Button layoutX="23.0" layoutY="353.0" mnemonicParsing="false" text="Zurück" onAction="#handleBack" />
    </children>
 </AnchorPane>
