@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlatzierfeldController">
    <children>
       <GridPane fx:id="auswahlSpielfeld" gridLinesVisible="true" layoutX="41.0" layoutY="30.0" prefHeight="300.0" prefWidth="300.0">
         <columnConstraints>
@@ -90,6 +90,6 @@
             </HBox>
          </children>
       </VBox>
-      <Button layoutX="23.0" layoutY="353.0" mnemonicParsing="false" text="Zurück" />
+      <Button layoutX="23.0" layoutY="353.0" mnemonicParsing="false" text="Zurück" onAction="#handleBack" />
    </children>
 </AnchorPane>
