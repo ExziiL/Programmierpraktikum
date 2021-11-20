@@ -3,6 +3,7 @@ package Logic.main;
 public class Controller {
     public Controller() {
     }
+    private int spielfeldgroesse;
 
     public void SpielLaden() {
 
@@ -27,7 +28,11 @@ public class Controller {
     }
 
     public void setSpielfeldGroesse(int n) {
+        spielfeldgroesse = n;
         System.out.println(n);
+    }
+    public  int getSpielfeldgroesse(){
+        return spielfeldgroesse;
     }
 
 }
