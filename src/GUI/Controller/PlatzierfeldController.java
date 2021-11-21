@@ -2,8 +2,11 @@ package GUI.Controller;
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import GUI.App;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 import java.io.IOException;
@@ -12,15 +15,19 @@ public class PlatzierfeldController {
   @FXML
   private Button zurueck; // braucht man das?
   @FXML
-  private GridPane gridPane;
-  private int groesse = App.logicController.getSpielfeldgroesse();
+  private AnchorPane anchorPane;
+
 
   @FXML
-  void initialize() {
-    for (int i = 1; i <= groesse ; i++) {
-        gridPane.addRow(i);
-        gridPane.addColumn(i);
+  public static GridPane changeGridpane(int groesse) {
+    GridPane table = new GridPane();
+    for (int i = 0; i <= groesse ; i++) {
+      table.addRow(i);
+      table.addColumn(i);
     }
+    table.setGridLinesVisible(true);
+    table.setAlignment(Pos.TOP_LEFT);
+    return table;
   }
 
   @FXML

@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Controller.PlatzierfeldController;
 import Logic.main.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -45,6 +46,7 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("Platzierfeld/Platzierfeld.fxml"));
         AnchorPane Platzierfeld = loader.load();
+        Platzierfeld.getChildren().add(PlatzierfeldController.changeGridpane(logicController.getSpielfeldgroesse()));
         mainLayout.setCenter(Platzierfeld);
     }
 
