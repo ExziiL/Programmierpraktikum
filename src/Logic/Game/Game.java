@@ -34,7 +34,6 @@ public class Game {
             throw new FalscheSpielfeldGroesse(size);
         }
 
-        this.size = size;
         spielfeld = new int[size][size];
 
         determineNumbersOfShips();

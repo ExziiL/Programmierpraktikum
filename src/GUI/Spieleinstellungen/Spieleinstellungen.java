@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Spieleinstellungen extends Application {
+/*public class Spieleinstellungen extends Application {
     private Stage primarystage;
     private static AnchorPane mainLayout;
 
@@ -34,4 +34,4 @@ public class Spieleinstellungen extends Application {
         this.primarystage.show();
     }
 
-}
+}*/
