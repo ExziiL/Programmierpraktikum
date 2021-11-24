@@ -10,41 +10,45 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 
 public class SpieleinstellungenController {
-    private int[] spielfeldGroessenWerte = new int[26];
+    private int[] gameSizeValues = new int[26];
 
     @FXML
-    private Button weiter;
+    private Button next;
     @FXML
     private TextField name;
     @FXML
-    private ComboBox<String> spielfeldgroesse;
+    private ComboBox<String> gameSize;
 
     @FXML
     void initialize() {
-        for (int i = 0; i < spielfeldGroessenWerte.length; i++) {
+        for (int i = 0; i < gameSizeValues.length; i++) {
             int x = i + 5;
-            spielfeldGroessenWerte[i] = x;
-            spielfeldgroesse.getItems().add(x + " x " + x);
+            gameSizeValues[i] = x;
+            gameSize.getItems().add(x + " x " + x);
         }
-        spielfeldgroesse.getSelectionModel().selectFirst();
-
+        if (App.logicController.getGameSize() >= 5) {
+            // Index Anpassen auf Array z.B. wenn Size = 5 Index = 0 .....
+            gameSize.getSelectionModel().select(App.logicController.getGameSize() - 5);
+        } else {
+            gameSize.getSelectionModel().selectFirst();
+        }
     }
 
     @FXML
-    void zurueck(ActionEvent event) throws IOException {
+    void handleBack(ActionEvent event) throws IOException {
         App.zeigeSpielStarten();
     }
 
     @FXML
-    void nameEingabe(ActionEvent event) throws IOException {
+    void handleInputName(ActionEvent event) throws IOException {
 
     }
 
     @FXML
-    void handle_weiter(ActionEvent event) throws IOException {
+    void handleNext(ActionEvent event) throws IOException {
+
         App.logicController.setName(name.getCharacters().toString());
-        App.logicController
-                .setSpielfeldGroesse(spielfeldGroessenWerte[spielfeldgroesse.getSelectionModel().getSelectedIndex()]);
+        App.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
         App.zeigePlatzierfeld();
     }
 

@@ -1,4 +1,4 @@
-package Logic.Spielfeld.Ausnahmen;
+package Logic.Game.Exceptions;
 
 public class FalscheSpielfeldGroesse extends Exception {
     public final int groesse;
