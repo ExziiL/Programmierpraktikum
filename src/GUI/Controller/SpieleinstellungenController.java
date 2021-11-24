@@ -47,10 +47,9 @@ public class SpieleinstellungenController {
     @FXML
     void handleNext(ActionEvent event) throws IOException {
 
-        App.zeigePlatzierfeld();
-
         App.logicController.setName(name.getCharacters().toString());
         App.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
+        App.zeigePlatzierfeld();
     }
 
 }
