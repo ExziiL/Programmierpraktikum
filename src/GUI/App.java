@@ -46,7 +46,7 @@ public class App extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(App.class.getResource("Platzierfeld/Platzierfeld.fxml"));
         AnchorPane Platzierfeld = loader.load();
-        Platzierfeld.getChildren().addAll(PlatzierfeldController.changeGridpane(logicController.getSpielfeldgroesse()));
+        Platzierfeld.getChildren().addAll(PlatzierfeldController.changeGridpane(logicController.getGameSize()));
         mainLayout.setCenter(Platzierfeld);
     }
 
