@@ -45,4 +45,21 @@ public class Controller {
 
         return myGame.getSize();
     }
+
+    public int getCountTwoShip() {
+        return myGame.getCountTwoShip();
+    }
+
+    public int getCountThreeShip() {
+        return myGame.getCountThreeShip();
+    }
+
+    public int getCountFourShip() {
+        return myGame.getCountFourShip();
+    }
+
+    public int getCountFiveShip() {
+        return myGame.getCountFiveShip();
+    }
+
 }
