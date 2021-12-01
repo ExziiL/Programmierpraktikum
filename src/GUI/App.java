@@ -1,6 +1,6 @@
 package GUI;
 
-import GUI.Controller.PlatzierfeldController;
+import GUI.Controller.*;
 import Logic.main.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
