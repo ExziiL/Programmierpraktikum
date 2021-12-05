@@ -62,4 +62,9 @@ public class Controller {
         return myGame.getCountFiveShip();
     }
 
+    public boolean checkPlaceforShip(Ship ship, int x, int y, boolean vertical) {
+
+        return myGame.checkPlaceforShip(ship, x, y, vertical);
+    }
+
 }

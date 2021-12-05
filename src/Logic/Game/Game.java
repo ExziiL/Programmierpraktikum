@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Game {
     protected int size = 0;
     protected String name;
-    protected int[][] spielfeld;
+    protected GameElement[][] spielfeld;
     protected Player player;
     protected ArrayList<Ship> ships = new ArrayList<Ship>();
     protected int countTwoShip;
@@ -38,7 +38,7 @@ public class Game {
             throw new FalscheSpielfeldGroesse(size);
         }
 
-        spielfeld = new int[size][size];
+        spielfeld = new GameElement[size][size];
 
         determineNumbersOfShips();
     }
@@ -60,6 +60,11 @@ public class Game {
 
         throw new FalscherSpielertyp();
     }
+
+    public boolean checkPlaceforShip(Ship ship, int x, int y, boolean vertical) {
+        return true;
+    }
+
 
     public int getCountTwoShip() {
         return countTwoShip;
