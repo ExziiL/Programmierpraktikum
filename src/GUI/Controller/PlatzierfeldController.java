@@ -58,7 +58,7 @@ public class PlatzierfeldController {
       row.setPrefHeight(hight);
       table.addColumn(j);
       for (int i = 0; i < groesse ; i++) {
-        Button anchor = new Button();
+        Pane anchor = new Pane();
         anchor.setPrefWidth(width);
         anchor.setPrefHeight(hight);
         table.addRow(i, anchor);
