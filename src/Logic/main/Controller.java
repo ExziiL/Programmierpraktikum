@@ -42,7 +42,6 @@ public class Controller {
     }
 
     public int getGameSize() {
-
         return myGame.getSize();
     }
 

@@ -2,11 +2,13 @@ package GUI;
 
 import GUI.Controller.*;
 import Logic.main.Controller;
+import com.sun.corba.se.impl.orbutil.graph.Node;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -44,9 +46,8 @@ public class App extends Application {
 
     public static void zeigePlatzierfeld() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(App.class.getResource("Platzierfeld/Platzierfeld.fxml"));
+        loader.setLocation(App.class.getResource("./Platzierfeld/Platzierfeld.fxml"));
         AnchorPane Platzierfeld = loader.load();
-        Platzierfeld.getChildren().addAll(PlatzierfeldController.changeGridpane(logicController.getGameSize()));
         mainLayout.setCenter(Platzierfeld);
     }
 
