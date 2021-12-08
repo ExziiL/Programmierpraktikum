@@ -12,7 +12,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.input.*;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -31,7 +30,11 @@ public class PlatzierfeldController implements Initializable {
     @FXML
     private Label labelFive;
 
+    @FXML
+    private AnchorPane placingField;
+
     private int size = App.logicController.getGameSize();
+    private boolean isHorizental = false;
 
     private ObservableList children;
 
@@ -65,25 +68,29 @@ public class PlatzierfeldController implements Initializable {
             table.setMinWidth(Region.USE_COMPUTED_SIZE);
             table.setMaxWidth(Region.USE_PREF_SIZE);
 
-             pane.setOnMouseEntered(event -> {
+            pane.setOnMouseEntered(event -> {
                 placingShips(pane);
             });
 
             pane.setOnMouseExited(event -> {
                 unplacingShips(pane);
             });
+
         }
+
+
+        placingField.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                if (isHorizental) {
+                    isHorizental = false;
+                } else {
+                    isHorizental = true;
+                }
+            }
+        });
 
         children = table.getChildren();
         setLabelTexts();
-    }
-
-    @FXML
-    public void handleMouseRightClicked(ActionEvent event) throws  IOException{
-
-      //  if (event.getButton() == MouseEvent.BUTTON2){
-      //      System.out.println("Rechte Maustatste");
-      //  }
     }
 
     @FXML
@@ -121,33 +128,58 @@ public class PlatzierfeldController implements Initializable {
 
     }
 
-    private int[] placingShips(Pane pane) {
+    private void placingShips(Pane pane) {
         int shipIndex = children.indexOf(pane);
-        if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size )) {
-            Pane bug = (Pane) children.get(shipIndex - size);
-            Pane back = (Pane) children.get(shipIndex + size);
+        if (isHorizental == false) {
+            if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
+                Pane bug = (Pane) children.get(shipIndex - size);
+                Pane back = (Pane) children.get(shipIndex + size);
+
+                // check
+                setColorPane(pane, "#FF0000");
+                setColorPane(bug, "#FF0000");
+                setColorPane(back, "#FF0000");
+            }
+        } else if (isHorizental == true) {
+
+            //if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
+            Pane bug = (Pane) children.get(shipIndex - 1);
+            Pane back = (Pane) children.get(shipIndex + 1);
 
             // check
             setColorPane(pane, "#FF0000");
             setColorPane(bug, "#FF0000");
             setColorPane(back, "#FF0000");
         }
-        //gib indexe zurück
-        return null;
     }
-    private void unplacingShips(Pane pane){
-        int shipIndex = children.indexOf(pane);
-        if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
-            Pane bug = (Pane) children.get(shipIndex - size);
-            Pane back = (Pane) children.get(shipIndex + size);
 
+    private void unplacingShips(Pane pane) {
+        int shipIndex = children.indexOf(pane);
+
+        if (isHorizental == false) {
+            if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
+                Pane bug = (Pane) children.get(shipIndex - size);
+                Pane back = (Pane) children.get(shipIndex + size);
+
+                setColorPane(pane, "#66CDAA");
+                setColorPane(bug, "#66CDAA");
+                setColorPane(back, "#66CDAA");
+            }
+        } else if (isHorizental == true) {
+
+            //if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
+            Pane bug = (Pane) children.get(shipIndex - 1);
+            Pane back = (Pane) children.get(shipIndex + 1);
+
+            // check
             setColorPane(pane, "#66CDAA");
             setColorPane(bug, "#66CDAA");
             setColorPane(back, "#66CDAA");
+            // }
         }
     }
 
-    private void setColorPane(Pane pane, String color){
+    private void setColorPane(Pane pane, String color) {
         pane.setStyle("-fx-background-color: " + color);
     }
 }
