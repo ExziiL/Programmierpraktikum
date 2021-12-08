@@ -11,9 +11,13 @@ import java.util.ArrayList;
 public class Game {
     protected int size = 0;
     protected String name;
-    protected int[][] spielfeld;
+    protected GameElement[][] spielfeld;
     protected Player player;
     protected ArrayList<Ship> ships = new ArrayList<Ship>();
+    protected int countTwoShip;
+    protected int countThreeShip;
+    protected int countFourShip;
+    protected int countFiveShip;
 
     public Game() {
 
@@ -34,7 +38,7 @@ public class Game {
             throw new FalscheSpielfeldGroesse(size);
         }
 
-        spielfeld = new int[size][size];
+        spielfeld = new GameElement[size][size];
 
         determineNumbersOfShips();
     }
@@ -57,6 +61,27 @@ public class Game {
         throw new FalscherSpielertyp();
     }
 
+    public boolean checkPlaceforShip(Ship ship, int x, int y, boolean vertical) {
+        return true;
+    }
+
+
+    public int getCountTwoShip() {
+        return countTwoShip;
+    }
+
+    public int getCountThreeShip() {
+        return countThreeShip;
+    }
+
+    public int getCountFourShip() {
+        return countFourShip;
+    }
+
+    public int getCountFiveShip() {
+        return countFiveShip;
+    }
+
     private void determineNumbersOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
@@ -66,6 +91,11 @@ public class Game {
         int percentThree = 0;
         int percentFour = 0;
         int percentFive = 0;
+        countTwoShip = 0;
+        countThreeShip = 0;
+        countFourShip = 0;
+        countFiveShip = 0;
+
 
         // die ersten Spielfelder werden fest bestimmt
         if (size < 9) {
@@ -119,33 +149,20 @@ public class Game {
         addShip(2, placesForShip / 2);
         placesRemaining += placesForShip % 2;
 
-        //Testausgabe:
-        System.out.println("2: " + places + " " + placesForShip + " " + placesRemaining);
-
         // Dreier Shiffe vergeben
         placesForShip = (places * percentThree) / 100;
         addShip(3, placesForShip / 3);
         placesRemaining += placesForShip % 3;
-
-        //Testausgabe:
-        System.out.println("3: " + places + " " + placesForShip + " " + placesRemaining);
 
         // Vierer Shiffe vergeben
         placesForShip = (places * percentFour) / 100;
         addShip(4, placesForShip / 4);
         placesRemaining += placesForShip % 4;
 
-        //Testausgabe:
-        System.out.println("4: " + places + " " + placesForShip + " " + placesRemaining);
-
         // Fünfer Shiffe vergeben
         placesForShip = (places * percentFive) / 100;
         addShip(5, placesForShip / 5);
         placesRemaining += placesForShip % 5;
-
-        //Testausgabe:
-        System.out.println("5: " + places + " " + placesForShip + " " + placesRemaining);
-
 
         // Restliche Plätze vergeben Reihenfolge 3 -> 4 -> 5 -> 2
         while (placesRemaining > 2) {
@@ -167,20 +184,27 @@ public class Game {
             }
         }
 
-        // Testausgabe
-        int sizes = 0;
-        for (int i = 0; i < ships.size(); i++) {
-            System.out.println(ships.get(i).toString());
-            sizes += ships.get(i).getSize();
-        }
-        System.out.println(sizes);
-
-
     }
 
 
     private void addShip(int size, int number) {
         for (int i = 0; i < number; i++) {
+
+            switch (size) {
+                case 2:
+                    countTwoShip++;
+                    break;
+                case 3:
+                    countThreeShip++;
+                    break;
+                case 4:
+                    countFourShip++;
+                    break;
+                case 5:
+                    countFiveShip++;
+                    break;
+            }
+
             ships.add(new Ship(size));
         }
     }

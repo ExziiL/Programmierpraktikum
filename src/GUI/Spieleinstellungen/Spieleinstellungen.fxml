@@ -34,7 +34,7 @@
                                 <Insets right="75.0" />
                             </HBox.margin>
                         </Text>
-                  <ComboBox fx:id="gameSize" prefWidth="150.0" />
+                  <ComboBox fx:id="gameSize" onAction="#handleSizeChangend" prefWidth="150.0" />
                     </children>
                     <VBox.margin>
                         <Insets />
@@ -45,20 +45,25 @@
                 <Insets right="25.0" />
             </padding>
         </VBox>
-        <Label layoutX="62.0" layoutY="200.0" text="3x 2er-Schiff">
+        <Label fx:id="labelTwo" layoutX="62.0" layoutY="200.0" text="0x 2er-Schiff">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label layoutX="62.0" layoutY="235.0" text="2x 3er-Schiff">
+        <Label fx:id="labelThree" layoutX="234.0" layoutY="200.0" text="0x 3er-Schiff">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label layoutX="62.0" layoutY="270.0" text="1x 4er-Schiff">
+        <Label fx:id="labelFour" layoutX="416.0" layoutY="200.0" text="0x 4er-Schiff">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
+      <Label fx:id="labelFive" layoutX="234.0" layoutY="268.0" text="0x 5er-Schiff">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

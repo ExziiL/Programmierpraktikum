@@ -1,6 +1,6 @@
 package GUI;
 
-import GUI.Controller.PlatzierfeldController;
+import GUI.Controller.*;
 import Logic.main.Controller;
 import com.sun.corba.se.impl.orbutil.graph.Node;
 import javafx.application.Application;

@@ -15,7 +15,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="4x">
+                  <Label fx:id="labelTwo" text="4x">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -25,7 +25,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="3x">
+                  <Label fx:id="labelThree" text="3x">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -35,7 +35,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="2x">
+                  <Label fx:id="labelFour" text="2x">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -45,7 +45,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="2x">
+                  <Label fx:id="labelFive" text="2x">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -55,11 +55,6 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                <children>
-                  <Label text="1x">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                  </Label>
                   <ImageView fitHeight="64.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
                </children>
             </HBox>
@@ -70,6 +65,7 @@
          <children>
             <GridPane fx:id="table" gridLinesVisible="true" prefHeight="325.0" prefWidth="401.0">
             </GridPane>
-         </children></HBox>
+         </children>
+     </HBox>
    </children>
 </AnchorPane>

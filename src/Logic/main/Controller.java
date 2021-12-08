@@ -44,4 +44,26 @@ public class Controller {
     public int getGameSize() {
         return myGame.getSize();
     }
+
+    public int getCountTwoShip() {
+        return myGame.getCountTwoShip();
+    }
+
+    public int getCountThreeShip() {
+        return myGame.getCountThreeShip();
+    }
+
+    public int getCountFourShip() {
+        return myGame.getCountFourShip();
+    }
+
+    public int getCountFiveShip() {
+        return myGame.getCountFiveShip();
+    }
+
+    public boolean checkPlaceforShip(Ship ship, int x, int y, boolean vertical) {
+
+        return myGame.checkPlaceforShip(ship, x, y, vertical);
+    }
+
 }

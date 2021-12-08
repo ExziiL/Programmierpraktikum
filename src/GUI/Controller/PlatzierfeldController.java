@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import GUI.App;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -96,4 +97,11 @@ public class PlatzierfeldController implements Initializable {
     return hight;
   }
 
+    private void setLabelTexts() {
+        labelTwo.setText(App.logicController.getCountTwoShip() + "x");
+        labelThree.setText(App.logicController.getCountThreeShip() + "x");
+        labelFour.setText(App.logicController.getCountFourShip() + "x");
+        labelFive.setText(App.logicController.getCountFiveShip() + "x");
+
+    }
 }
