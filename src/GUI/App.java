@@ -46,10 +46,8 @@ public class App extends Application {
 
     public static void zeigePlatzierfeld() throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(App.class.getResource("Platzierfeld/Platzierfeld.fxml"));
+        loader.setLocation(App.class.getResource("./Platzierfeld/Platzierfeld.fxml"));
         AnchorPane Platzierfeld = loader.load();
-        HBox box = (HBox) Platzierfeld.getChildren().get(2);
-        box.getChildren().addAll(PlatzierfeldController.changeGridpane(logicController.getGameSize()));
         mainLayout.setCenter(Platzierfeld);
     }
 

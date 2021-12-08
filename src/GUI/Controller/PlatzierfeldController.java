@@ -1,21 +1,80 @@
 package GUI.Controller;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import javafx.geometry.Pos;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import GUI.App;
 import javafx.scene.layout.*;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class PlatzierfeldController {
+public class PlatzierfeldController implements Initializable {
   @FXML
   private Button zurueck; // braucht man das?
+  @FXML
+  private GridPane table;
 
-  public static GridPane changeGridpane(int groesse) {
-    GridPane table = new GridPane();
 
-    //Size of Fields in Gridpane
+  int groesse = App.logicController.getGameSize();
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    int column = 0;
+    int row = 0;
+    double paneSize = setPaneSize();
+    for (int i = 0; i < groesse * groesse ; i++) {
+      Pane pane = new Pane();
+      pane.setStyle("-fx-background-color: #66CDAA;");
+      pane.setPrefWidth(paneSize);
+      pane.setPrefHeight(paneSize);
+      pane.setId("field" + column + row);
+
+      pane.setOnMouseEntered(event -> {
+        pane.setStyle("-fx-background-color: #FF0000;");
+      });
+
+      pane.setOnMouseExited(event -> {
+        table.getChildren();
+        pane.setStyle("-fx-background-color: #66CDAA;");
+      });
+      if (column == groesse){
+        column = 0;
+        row++;
+      }
+      table.add(pane, column++, row);
+
+      GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
+
+      //set Gridpane Hights
+      table.setPrefHeight(Region.USE_COMPUTED_SIZE);
+      table.setMinHeight(Region.USE_COMPUTED_SIZE);
+      table.setMaxHeight(Region.USE_PREF_SIZE);
+
+      //set Gridpane Widths
+      table.setPrefWidth(Region.USE_COMPUTED_SIZE);
+      table.setMinWidth(Region.USE_COMPUTED_SIZE);
+      table.setMaxWidth(Region.USE_PREF_SIZE);
+  }
+  }
+
+
+  @FXML
+  void handleBack(ActionEvent event) throws IOException {
+    App.zeigeSpieleinstellungen();
+  }
+
+  @FXML
+  void  handlehovern(MouseEvent event) throws IOException {
+
+  }
+
+
+
+  private double setPaneSize(){
     double hight;
     double width;
     if (groesse < 9) {
@@ -34,41 +93,7 @@ public class PlatzierfeldController {
       hight = 80;
       width = 80;
     }
-
-    // Set GridPane Layout
-    table.setGridLinesVisible(true);
-    table.setAlignment(Pos.TOP_LEFT);
-    table.prefHeight(300);
-    table.prefWidth(300);
-    table.setLayoutX(41);
-    table.setLayoutY(305);
-
-
-    //Horizontal and Vertical Grow
-    GridPane.setHgrow(table, Priority.ALWAYS);
-    GridPane.setVgrow(table, Priority.ALWAYS);
-
-    //Dynamic Change of Rows and Collumns
-    for (int j = 0; j < groesse ; j++) {
-      ColumnConstraints column = new ColumnConstraints();
-      table.getColumnConstraints().add(column);
-      column.setPrefWidth(width);
-      RowConstraints row = new RowConstraints();
-      table.getRowConstraints().add(row);
-      row.setPrefHeight(hight);
-      table.addColumn(j);
-      for (int i = 0; i < groesse ; i++) {
-        Pane anchor = new Pane();
-        anchor.setPrefWidth(width);
-        anchor.setPrefHeight(hight);
-        table.addRow(i, anchor);
-      }
-    }
-     return table;
+    return hight;
   }
 
-  @FXML
-  void handleBack(ActionEvent event) throws IOException {
-    App.zeigeSpieleinstellungen();
-  }
 }
