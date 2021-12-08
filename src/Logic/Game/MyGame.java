@@ -37,11 +37,12 @@ public class MyGame extends Game {
     }
 
     public boolean checkPlaceforTwoShip(int x, int y, boolean vertical) {
-        if (vertical == true) {
+   //   if (vertical == true) {
 
 
-        } else {
+   //   } else {
 
-        }
+   //   }
+        return true;
     }
 }
