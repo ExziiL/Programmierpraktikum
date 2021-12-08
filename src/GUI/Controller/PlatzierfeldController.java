@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -40,10 +41,11 @@ public class PlatzierfeldController implements Initializable {
             pane.setStyle("-fx-background-color: #66CDAA;");
             pane.setPrefWidth(paneSize);
             pane.setPrefHeight(paneSize);
-            pane.setId("field" + column + row);
+            pane.setId("field" + row + column);
 
             pane.setOnMouseEntered(event -> {
                 pane.setStyle("-fx-background-color: #FF0000;");
+                placingships(pane);
             });
 
             pane.setOnMouseExited(event -> {
@@ -111,4 +113,18 @@ public class PlatzierfeldController implements Initializable {
         labelFive.setText(App.logicController.getCountFiveShip() + "x");
 
     }
+
+    private int[] placingships(Pane pane){
+        ObservableList children = table.getChildren();
+
+        int shipind = children.indexOf(pane);
+        Pane bug = (Pane) children.get(shipind - 1);
+        Pane back = (Pane) children.get(shipind + 1);
+
+        bug.setStyle("-fx-background-color: #FF0000");
+        back.setStyle("-fx-background-color: #FF0000");
+
+        return null;
+    }
 }
+
