@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Game {
     protected int size = 0;
     protected String name;
-    protected GameElement[][] spielfeld;
+    protected GameElement[][] gameField;
     protected Player player;
     protected ArrayList<Ship> ships = new ArrayList<Ship>();
     protected int countTwoShip;
@@ -24,7 +24,7 @@ public class Game {
 
     }
 
-    public void initialisiereSpielfeld() {
+    public void initializeGameField() {
         System.out.println("Spielfeld initialisiert");
     }
 
@@ -32,22 +32,22 @@ public class Game {
         this.name = n;
     }
 
-    public void setSize(int s) throws FalscheSpielfeldGroesse {
+    public void setSize(int s) throws FalseFieldSize {
         this.size = s;
         if (size < 5 || size > 30) {
-            throw new FalscheSpielfeldGroesse(size);
+            throw new FalseFieldSize(size);
         }
 
-        spielfeld = new GameElement[size][size];
+        gameField = new GameElement[size][size];
 
-        determineNumbersOfShips();
+        determineNumberOfShips();
     }
 
     public int getSize() {
         return size;
     }
 
-    protected Player createPlayer(String name, PlayerType t) throws FalscherSpielertyp {
+    protected Player createPlayer(String name, PlayerType t) throws FalsePlayerType {
         // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
         switch (t) {
             case ONLINE:
@@ -58,10 +58,10 @@ public class Game {
                 return new Player(this, name);
         }
 
-        throw new FalscherSpielertyp();
+        throw new FalsePlayerType();
     }
 
-    public boolean checkPlaceforShip(Ship ship, int x, int y, boolean vertical) {
+    public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
         return true;
     }
 
@@ -82,7 +82,7 @@ public class Game {
         return countFiveShip;
     }
 
-    private void determineNumbersOfShips() {
+    private void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
         int placesForShip = 0;

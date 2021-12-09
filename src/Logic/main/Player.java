@@ -29,16 +29,12 @@ public class Player {
     public void placeShips() {
     }
 
-    public void statistik() {
+    public void statistics() {
 
         System.out.println("Anzahl Schüsse: " + countShots);
         System.out.println("Anzahl Treffer: " + countHits);
         System.out.println("Zerstört: " + count_destroyed);
     }
-
-    ;
-
-    // public Point feuern(){}
 
     /*
      * public Point getroffen(){ switch (spielarray[""][""]){ case 0:
