@@ -1,7 +1,7 @@
 package Logic.main;
 
 import Logic.Game.*;
-import Logic.Game.Exceptions.FalscheSpielfeldGroesse;
+import Logic.Game.Exceptions.FalseFieldSize;
 
 public class Controller {
     private MyGame myGame;
@@ -10,21 +10,21 @@ public class Controller {
         myGame = new MyGame();
     }
 
-    public void SpielLaden() {
+    public void loadGame() {
 
     }
 
-    public void SpielStarten() {
+    public void startGame() {
 
     }
 
-    public void SpielSpeichern() {
+    public void saveGame() {
     }
 
-    public void Einstellungen() {
+    public void settings() {
     }
 
-    public void beenden() {
+    public void exitGame() {
         System.exit(0);
     }
 
@@ -36,7 +36,7 @@ public class Controller {
 
         try {
             myGame.setSize(n);
-        } catch (FalscheSpielfeldGroesse falscheSpielfeldGroesse) {
+        } catch (FalseFieldSize falseFieldSize) {
             System.out.println("Falsche Spielfeldgröße");
         }
     }
@@ -61,9 +61,9 @@ public class Controller {
         return myGame.getCountFiveShip();
     }
 
-    public boolean checkPlaceforShip(Ship ship, int x, int y, boolean vertical) {
+    public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
 
-        return myGame.checkPlaceforShip(ship, x, y, vertical);
+        return myGame.checkPlaceForShip(ship, x, y, vertical);
     }
 
 }
