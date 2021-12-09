@@ -1,37 +1,40 @@
 package GUI.Spieleinstellungen;
 
-import GUI.*;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
+// import GUI.*;
+// import javafx.application.Application;
+// import javafx.fxml.FXMLLoader;
+// import javafx.scene.Scene;
+// import javafx.scene.layout.AnchorPane;
+// import javafx.stage.Stage;
 
-import java.io.IOException;
+// import java.io.IOException;
 
-/*public class Spieleinstellungen extends Application {
-    private Stage primarystage;
-    private static AnchorPane mainLayout;
-
-    @Override
-    public void start(Stage primaryStage) throws IOException {
-        this.primarystage = primaryStage;
-        this.primarystage.setTitle(GUIKonstanten.titel);
-        this.primarystage.setTitle("Spieleinstellungen");
-        showApp();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    private void showApp() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Spieleinstellungen.class.getResource("Spieleinstellungen.fxml"));
-        mainLayout = loader.load();
-        Scene scene = new Scene(mainLayout, 600, 400);
-        this.primarystage.setScene(scene);
-        this.primarystage.show();
-    }
-
-}*/
+/*
+ * public class Spieleinstellungen extends Application {
+ * private Stage primarystage;
+ * private static AnchorPane mainLayout;
+ * 
+ * @Override
+ * public void start(Stage primaryStage) throws IOException {
+ * this.primarystage = primaryStage;
+ * this.primarystage.setTitle(GUIKonstanten.titel);
+ * this.primarystage.setTitle("Spieleinstellungen");
+ * showApp();
+ * }
+ * 
+ * public static void main(String[] args) {
+ * launch(args);
+ * }
+ * 
+ * private void showApp() throws IOException {
+ * FXMLLoader loader = new FXMLLoader();
+ * loader.setLocation(Spieleinstellungen.class.getResource(
+ * "Spieleinstellungen.fxml"));
+ * mainLayout = loader.load();
+ * Scene scene = new Scene(mainLayout, 600, 400);
+ * this.primarystage.setScene(scene);
+ * this.primarystage.show();
+ * }
+ * 
+ * }
+ */

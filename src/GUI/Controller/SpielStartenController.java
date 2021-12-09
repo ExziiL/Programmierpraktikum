@@ -13,14 +13,12 @@ public class SpielStartenController {
 
     @FXML
     void handleStartGame(ActionEvent event) throws IOException {
-        App.zeigeSpieleinstellungen();
+        App.showGameSettings();
     }
 
     @FXML
     void handleClose(ActionEvent event) throws IOException {
         App.logicController.beenden();
     }
-
-
 
 }

@@ -1,6 +1,5 @@
 package GUI.Controller;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -74,7 +73,7 @@ public class PlatzierfeldController implements Initializable {
 
     @FXML
     void handleBack(ActionEvent event) throws IOException {
-        App.zeigeSpieleinstellungen();
+        App.showGameSettings();
     }
 
     @FXML
