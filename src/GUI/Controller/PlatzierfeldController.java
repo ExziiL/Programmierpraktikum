@@ -10,7 +10,6 @@ import GUI.App;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-import javafx.scene.input.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,13 +28,11 @@ public class PlatzierfeldController implements Initializable {
     private Label labelFour;
     @FXML
     private Label labelFive;
-
     @FXML
     private AnchorPane placingField;
 
     private int size = App.logicController.getGameSize();
     private boolean isHorizental = false;
-
     private ObservableList children;
 
     @Override
@@ -48,12 +45,12 @@ public class PlatzierfeldController implements Initializable {
             pane.setStyle("-fx-background-color: #66CDAA;");
             pane.setPrefWidth(paneSize);
             pane.setPrefHeight(paneSize);
-            pane.setId("field" + row + column);
 
             if (column == size) {
                 column = 0;
                 row++;
             }
+            pane.setId("field" + row + column);
             table.add(pane, column++, row);
 
             GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
@@ -100,22 +97,16 @@ public class PlatzierfeldController implements Initializable {
 
     private double setPaneSize() {
         double hight;
-        double width;
         if (size < 9) {
             hight = 175;
-            width = 175;
         } else if (size < 15) {
             hight = 140;
-            width = 140;
         } else if (size < 20) {
             hight = 115;
-            width = 115;
         } else if (size < 25) {
             hight = 100;
-            width = 100;
         } else {
             hight = 80;
-            width = 80;
         }
         return hight;
     }
@@ -129,6 +120,7 @@ public class PlatzierfeldController implements Initializable {
     }
 
     private void placingShips(Pane pane) {
+        unplacingShips(pane);
         int shipIndex = children.indexOf(pane);
         if (isHorizental == false) {
             if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
@@ -141,8 +133,7 @@ public class PlatzierfeldController implements Initializable {
                 setColorPane(back, "#FF0000");
             }
         } else if (isHorizental == true) {
-
-            //if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
+            //if ((shipIndex - 1) % 5 < 4 && (shipIndex + 1) % 5 > 0) {
             Pane bug = (Pane) children.get(shipIndex - 1);
             Pane back = (Pane) children.get(shipIndex + 1);
 
@@ -150,6 +141,7 @@ public class PlatzierfeldController implements Initializable {
             setColorPane(pane, "#FF0000");
             setColorPane(bug, "#FF0000");
             setColorPane(back, "#FF0000");
+            //}
         }
     }
 
@@ -167,7 +159,7 @@ public class PlatzierfeldController implements Initializable {
             }
         } else if (isHorizental == true) {
 
-            //if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
+            //if ((shipIndex - 1) % 5 != 4 && (shipIndex + 1) % 5 != 0) {
             Pane bug = (Pane) children.get(shipIndex - 1);
             Pane back = (Pane) children.get(shipIndex + 1);
 
@@ -175,7 +167,7 @@ public class PlatzierfeldController implements Initializable {
             setColorPane(pane, "#66CDAA");
             setColorPane(bug, "#66CDAA");
             setColorPane(back, "#66CDAA");
-            // }
+            //}
         }
     }
 
