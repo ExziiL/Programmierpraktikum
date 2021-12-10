@@ -17,8 +17,6 @@ import java.util.ResourceBundle;
 
 public class PlacingFieldController implements Initializable {
     @FXML
-    private Button zurueck; // braucht man das?
-    @FXML
     private GridPane table;
     @FXML
     private Label labelTwo;
