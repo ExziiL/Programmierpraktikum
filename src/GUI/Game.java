@@ -1,5 +1,6 @@
 package GUI;
 
+import GUI.Controller.PlacingFieldController;
 import Logic.main.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -44,14 +45,13 @@ public class Game extends Application {
     public static void showPlacingFieldWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Game.class.getResource("PlacingField/PlacingField.fxml"));
-        BorderPane placingField = loader.load();
+        AnchorPane placingField = loader.load();
         mainLayout.setCenter(placingField);
     }
 
     private void showAppWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Game.class.getResource("Game.fxml"));
-        // Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
 
         mainLayout = loader.load();
         Scene scene = new Scene(mainLayout);
