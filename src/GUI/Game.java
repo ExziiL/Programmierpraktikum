@@ -44,7 +44,7 @@ public class Game extends Application {
     public static void showPlacingFieldWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Game.class.getResource("PlacingField/PlacingField.fxml"));
-        BorderPane placingField = loader.load();
+        AnchorPane placingField = loader.load();
         mainLayout.setCenter(placingField);
     }
 
