@@ -1,39 +1,24 @@
 package Logic.Game;
+
 import Logic.main.Ship;
+
+import static Logic.main.LogicConstants.*;
 
 public class GameElement {
 
-    private boolean isHit = false;
-    private boolean isShip = false;
-    private boolean isNearShip = false;
+    private GameElementStatus status;
     private Ship ship;
 
-    public boolean isHit() {
-        return isHit;
+    public GameElement() {
+        setStatus(GameElementStatus.WATER);
     }
 
-    public void setHit(boolean hit) {
-        isHit = hit;
+    public GameElementStatus getStatus() {
+        return this.status;
     }
 
-    public boolean isShip() {
-        return isShip;
-    }
-
-    public void setShip(boolean ship) {
-        isShip = ship;
-    }
-
-    public boolean isNearShip() {
-        return isNearShip;
-    }
-
-    public void setNearShip(boolean nearShip) {
-        isNearShip = nearShip;
-    }
-
-    public Ship getShip() {
-        return ship;
+    public void setStatus(GameElementStatus status) {
+        this.status = status;
     }
 
     public void setShip(Ship ship) {

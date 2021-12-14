@@ -7,6 +7,7 @@ import static Logic.main.LogicConstants.*;
 import Logic.main.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game {
     protected int size = 0;
@@ -40,6 +41,10 @@ public class Game {
 
         gameField = new GameElement[size][size];
 
+        for (int i = 0; i < size; i++) {
+            Arrays.fill(gameField[i], new GameElement());
+        }
+
         determineNumberOfShips();
     }
 
@@ -63,6 +68,13 @@ public class Game {
 
     public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
         return true;
+    }
+
+    public GameElementStatus gameElementStatus(int element) {
+        int x = element % size;
+        int y = element / size;
+
+        return gameField[x][y].getStatus();
     }
 
 
