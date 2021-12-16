@@ -3,6 +3,8 @@ package Logic.main;
 import Logic.Game.*;
 import Logic.Game.Exceptions.FalseFieldSize;
 
+import static Logic.main.LogicConstants.*;
+
 public class Controller {
     private MyGame myGame;
 
@@ -59,6 +61,10 @@ public class Controller {
 
     public int getCountFiveShip() {
         return myGame.getCountFiveShip();
+    }
+
+    public GameElementStatus getGameElementStatus(int element) {
+        return myGame.gameElementStatus(element);
     }
 
     public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
