@@ -53,6 +53,7 @@ public class PlacingFieldController implements Initializable {
         for (int i = 0; i < size * size; i++) {
             Pane pane = new Pane();
             pane.setStyle("-fx-background-color: white;");
+            pane.setStyle("-fx-border-color: #999898 ;");
             pane.setPrefWidth(paneSize);
             pane.setPrefHeight(paneSize);
 
@@ -63,7 +64,7 @@ public class PlacingFieldController implements Initializable {
             pane.setId("field" + row + column);
             table.add(pane, column++, row);
 
-            GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
+            //GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
             table.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -187,6 +188,7 @@ public class PlacingFieldController implements Initializable {
     private void redrawPanes() {
         for (int j = 0; j < shipPartsList.size(); j++) {
             Pane pane = (Pane) shipPartsList.get(j);
+
             switch (Game.logicController.getGameElementStatus(j)) {
                 case SHIP:
                     setColorPane(pane, "black");
@@ -195,6 +197,7 @@ public class PlacingFieldController implements Initializable {
                     setColorPane(pane, "white");
                     break;
             }
+            pane.setStyle("-fx-border-color: #999898 ;");
         }
     }
 
@@ -249,7 +252,7 @@ public class PlacingFieldController implements Initializable {
     private Pane[] getShipParts(Pane pane, boolean horizontal) {
         Pane[] shipParts = new Pane[currentShip];
         int shipIndex = shipPartsList.indexOf(pane);
-        if (shipIndex != 0) {
+        if (shipIndex != 0 || currentShip == 2) {
 
             switch (currentShip) {
                 case 2:
