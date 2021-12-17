@@ -7,6 +7,6 @@ public class LogicConstants {
     }
 
     public static enum GameElementStatus {
-        WATER, SHIP, HIT, CLOSE
+        WATER, SHIP, HIT, CLOSE, ERROR
     }
 }
