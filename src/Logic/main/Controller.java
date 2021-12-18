@@ -74,6 +74,10 @@ public class Controller {
         return myGame.getHoverStateStatus(element, size, isHorizontal);
     }
 
+    public void placeShip(int element, int size, boolean isHorizontal) {
+        myGame.placeShip(element, size, isHorizontal);
+    }
+
     public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
 
         return myGame.checkPlaceForShip(ship, x, y, vertical);
