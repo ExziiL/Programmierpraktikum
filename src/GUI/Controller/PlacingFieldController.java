@@ -1,11 +1,13 @@
 package GUI.Controller;
 
+import Logic.main.LogicConstants;
 import Utilities.Exception.ShipOutofGame;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import GUI.Game;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import Utilities.Hover.HoverState;
+import Utilities.HoverState;
 
 public class PlacingFieldController implements Initializable {
     @FXML
@@ -38,6 +40,12 @@ public class PlacingFieldController implements Initializable {
     private HBox BoxFour;
     @FXML
     private HBox BoxFive;
+    @FXML
+    private Button Next;
+    @FXML
+    private Button EditShips;
+    @FXML
+    private Button Random;
 
     private int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
@@ -87,9 +95,22 @@ public class PlacingFieldController implements Initializable {
                 redrawPanes();
             });
 
+            pane.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (currentShip != 0) {
+                        placeShip(pane);
+                        redrawPanes();
+                        setChoosenShipProperties();
+                    } else {
+
+                        resetShip(pane);
+                    }
+                }
+            });
+
         }
 
-// Event switch Ship
+        // Event Shiff wechseln
         placingField.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 if (isHorizontal) {
@@ -99,15 +120,10 @@ public class PlacingFieldController implements Initializable {
                 }
                 redrawPanes();
                 hoverShip(currentPane);
-            } else if (event.getButton() == MouseButton.PRIMARY) {
-
-                placeShip(currentPane);
-                redrawPanes();
-                setChoosenShipProperties();
             }
         });
 
-// Events Choose Ship
+        // Event Shiff auswählen
         BoxTwo.setOnMouseClicked(event -> {
             chooseShip(2);
         });
@@ -121,17 +137,35 @@ public class PlacingFieldController implements Initializable {
             chooseShip(5);
         });
 
-        // set List
+        // Grid liste Speichern
         shipPartsList = table.getChildren();
-        // Set Labels
+        // Auswahl Shiffe aufbauen
         setChoosenShipProperties();
 
-        // set default Ship
+        // Startshiff auswählen
         if (Game.logicController.getCountTwoShip() != 0) {
             chooseShip(2);
         } else {
             chooseShip(3);
         }
+
+        // Weiter Butten ausblenden
+        Next.setDisable(true);
+        Next.setOnAction(event -> {
+            // Screen wechseln
+        });
+
+        EditShips.setOnAction(event -> {
+            chooseShip(0);
+        });
+
+        Random.setOnAction(event -> {
+            Game.logicController.shuffleShips();
+            redrawPanes();
+            setChoosenShipProperties();
+        });
+
+
     }
 
     @FXML
@@ -242,20 +276,21 @@ public class PlacingFieldController implements Initializable {
 
 
         }
-        //  // Array Panes with size of choosen Ship
-        //  Pane[] shipParts = getShipParts(pane);
-        //  Pane[] shipEdges = getShipEdges(shipParts);
-
-        //  for (int i = 0; i < shipParts.length; i++) {
-        //      if (shipParts[i] != null) {
-        //          setColorPane(shipParts[i], "black");
-        //      }
-        //  }
     }
 
     private void placeShip(Pane pane) {
         if (noPlacingAllowed == false) {
             Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
+        }
+        if (Game.logicController.allShipPlaced() == true) {
+            Next.setDisable(false);
+        }
+    }
+
+    private void resetShip(Pane pane) {
+        if (Game.logicController.getGameElementStatus(shipPartsList.indexOf(pane)) == LogicConstants.GameElementStatus.SHIP) {
+
+
         }
     }
 

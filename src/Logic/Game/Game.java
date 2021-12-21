@@ -5,8 +5,8 @@ import Logic.Game.Exceptions.*;
 import static Logic.main.LogicConstants.*;
 
 import Logic.main.*;
-import Utilities.Exception.ShipOutofGame;
-import Utilities.Hover.HoverState;
+import Utilities.*;
+import Utilities.Exception.*;
 
 import java.util.ArrayList;
 
@@ -16,22 +16,12 @@ public class Game {
     protected String name;
     protected GameElement[][] gameField;
     protected Player player;
-    protected ArrayList<Ship> ships = new ArrayList<Ship>();
+    protected ArrayList<Ship> ships = new ArrayList<>();
     protected int countTwoShip;
     protected int countThreeShip;
     protected int countFourShip;
     protected int countFiveShip;
 
-    protected enum direction {up, left, down, right, topLeft, topRight, buttonLeft, buttonRight}
-
-    public Game() {
-
-
-    }
-
-    public void initializeGameField() {
-        System.out.println("Spielfeld initialisiert");
-    }
 
     public void setName(String n) {
         this.name = n;
@@ -87,6 +77,13 @@ public class Game {
         return gameField[x][y].getStatus();
     }
 
+    public boolean allShipPlaced() {
+        return getCountTwoShip() == 0 &&
+                getCountThreeShip() == 0 &&
+                getCountFourShip() == 0 &&
+                getCountFiveShip() == 0;
+    }
+
     public int getCountTwoShip() {
         return countTwoShip;
     }
@@ -104,192 +101,173 @@ public class Game {
     }
 
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) throws ShipOutofGame {
-        ArrayList<HoverState> states = new ArrayList<>();
-
+        ArrayList<HoverState> stateList = new ArrayList<>();
         int x = index % size;
         int y = index / size;
-        int bufferIndex = 0;
+
+        GameElementStatus shipStatus;
+        if (ShipinGameField(x, y, ShipSize, isHorizontal)) {
+            shipStatus = GameElementStatus.SHIP;
+        } else {
+            shipStatus = GameElementStatus.ERROR;
+        }
 
         switch (ShipSize) {
             case 2:
+
                 if (isHorizontal == false) {
-                    if (inGameField(x, y + 1)) {
-                        // Zweier Schiff oben
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesTop(x, y, index, states);
 
-                        // Zweier Shiff unten
-                        bufferIndex = matchIndex(index, direction.down, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesButton(x, y + 1, bufferIndex, states);
-                    }
+
+                    // Zweier Schiff oben
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesTop(x, y, stateList);
+
+                    // Zweier Shiff unten
+                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setEdgesButton(x, y + 1, stateList);
+
                 } else {
-                    if (inGameField(x + 1, y)) {
 
-                        // Zweier Schiff links
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesLeft(x, y, index, states);
+                    // Zweier Schiff links
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesLeft(x, y, stateList);
 
-                        // Zweier Shiff rechts
-                        bufferIndex = matchIndex(index, direction.right, 1); // Index ermitteln
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesRight(x + 1, y, bufferIndex, states);
-                    }
+                    // Zweier Shiff rechts
+                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setEdgesRight(x + 1, y, stateList);
                 }
                 break;
 
             case 3:
                 if (isHorizontal == false) {
 
-                    if (inGameField(x, y + 1) && inGameField(x, y - 1)) {
-                        // Dreier Schiff oben
-                        bufferIndex = matchIndex(index, direction.up, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesTop(x, y - 1, bufferIndex, states);
+                    // Dreier Schiff oben
+                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setEdgesTop(x, y - 1, stateList);
 
-                        // Dreier Shiff mitte
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesLeftRight(x, y, index, states);
+                    // Dreier Shiff mitte
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesLeftRight(x, y, stateList);
 
-                        // Dreier Shiff unten
-                        bufferIndex = matchIndex(index, direction.down, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesButton(x, y + 1, bufferIndex, states);
-                    }
+                    // Dreier Shiff unten
+                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setEdgesButton(x, y + 1, stateList);
+
                 } else {
-                    if (inGameField(x - 1, y) && inGameField(x + 1, y)) {
-                        // Dreier Schiff links
-                        bufferIndex = matchIndex(index, direction.left, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesLeft(x - 1, y, bufferIndex, states);
+
+                    // Dreier Schiff links
+                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setEdgesLeft(x - 1, y, stateList);
 
 
-                        // Dreier Shiff mitte
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesUpDown(x, y, index, states);
+                    // Dreier Shiff mitte
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesUpDown(x, y, stateList);
 
-                        // Dreier Shiff unten
-                        bufferIndex = matchIndex(index, direction.right, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesRight(x + 1, y, bufferIndex, states);
-                    }
+                    // Dreier Shiff unten
+                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setEdgesRight(x + 1, y, stateList);
                 }
                 break;
 
             case 4:
                 if (isHorizontal == false) {
 
-                    if (inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
-                        // Vierer Schiff oben
-                        bufferIndex = matchIndex(index, direction.up, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesTop(x, y - 1, bufferIndex, states);
+                    // Vierer Schiff oben
+                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setEdgesTop(x, y - 1, stateList);
 
-                        // Vierer Shiff mitte
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesLeftRight(x, y, index, states);
+                    // Vierer Shiff mitte
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesLeftRight(x, y, stateList);
 
-                        // Vierer Shiff mitte
-                        bufferIndex = matchIndex(index, direction.down, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesLeftRight(x, y + 1, bufferIndex, states);
+                    // Vierer Shiff mitte
+                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setEdgesLeftRight(x, y + 1, stateList);
 
-                        // Vierer Shiff unten
-                        bufferIndex = matchIndex(index, direction.down, 2);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesButton(x, y + 2, bufferIndex, states);
-                    }
+                    // Vierer Shiff unten
+                    stateList = setShip(x, y + 2, stateList, shipStatus);
+                    stateList = setEdgesButton(x, y + 2, stateList);
 
                 } else {
-                    if (inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
-                        // Vierer Schiff links
-                        bufferIndex = matchIndex(index, direction.left, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesLeft(x - 1, y, bufferIndex, states);
+
+                    // Vierer Schiff links
+                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setEdgesLeft(x - 1, y, stateList);
 
 
-                        // Vierer Shiff mitte
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesUpDown(x, y, index, states);
+                    // Vierer Shiff mitte
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesUpDown(x, y, stateList);
 
-                        // Vierer Shiff mitte
-                        bufferIndex = matchIndex(index, direction.right, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesUpDown(x + 1, y, bufferIndex, states);
+                    // Vierer Shiff mitte
+                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setEdgesUpDown(x + 1, y, stateList);
 
 
-                        // Vierer Shiff rechts + 2
-                        bufferIndex = matchIndex(index, direction.right, 2);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesRight(x + 2, y, bufferIndex, states);
-                    }
+                    // Vierer Shiff rechts + 2
+                    stateList = setShip(x + 2, y, stateList, shipStatus);
+                    stateList = setEdgesRight(x + 2, y, stateList);
                 }
                 break;
 
             case 5:
                 if (isHorizontal == false) {
 
-                    if (inGameField(x, y - 2) && inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
-                        // Fünfer Schiff oben + 2
-                        bufferIndex = matchIndex(index, direction.up, 2);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesTop(x, y - 2, bufferIndex, states);
 
-                        // Fünfer Schiff oben + 1
-                        bufferIndex = matchIndex(index, direction.up, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesLeftRight(x, y - 1, bufferIndex, states);
+                    // Fünfer Schiff oben + 2
+                    stateList = setShip(x, y - 2, stateList, shipStatus);
+                    stateList = setEdgesTop(x, y - 2, stateList);
+
+                    // Fünfer Schiff oben + 1
+                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setEdgesLeftRight(x, y - 1, stateList);
 
 
-                        // Fünfer Shiff mitte
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesLeftRight(x, y, index, states);
+                    // Fünfer Shiff mitte
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesLeftRight(x, y, stateList);
 
-                        // Fünfer Shiff unten + 1
-                        bufferIndex = matchIndex(index, direction.down, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesLeftRight(x, y + 1, bufferIndex, states);
+                    // Fünfer Shiff unten + 1
+                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setEdgesLeftRight(x, y + 1, stateList);
 
-                        // Vierer Shiff unten + 2
-                        bufferIndex = matchIndex(index, direction.down, 2);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesButton(x, y + 2, bufferIndex, states);
-                    }
+                    // Fünfer Shiff unten + 2
+                    stateList = setShip(x, y + 2, stateList, shipStatus);
+                    stateList = setEdgesButton(x, y + 2, stateList);
+
 
                 } else {
-                    if (inGameField(x - 2, y) && inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
-                        // Vierer Schiff links + 2
-                        bufferIndex = matchIndex(index, direction.left, 2);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesLeft(x - 2, y, bufferIndex, states);
 
-                        // Vierer Schiff links
-                        bufferIndex = matchIndex(index, direction.left, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesUpDown(x - 1, y, bufferIndex, states);
+                    // Fünfer Schiff links + 2
+                    stateList = setShip(x - 2, y, stateList, shipStatus);
+                    stateList = setEdgesLeft(x - 2, y, stateList);
 
-                        // Vierer Shiff mitte
-                        states.add(new HoverState(index, GameElementStatus.SHIP));
-                        states = setEdgesUpDown(x, y, index, states);
+                    // Fünfer Schiff links
+                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setEdgesUpDown(x - 1, y, stateList);
 
-                        // Vierer Shiff mitte
-                        bufferIndex = matchIndex(index, direction.right, 1);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesUpDown(x + 1, y, bufferIndex, states);
+                    // Fünfer Shiff mitte
+                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setEdgesUpDown(x, y, stateList);
+
+                    // Fünfer Shiff mitte
+                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setEdgesUpDown(x + 1, y, stateList);
 
 
-                        // Vierer Shiff rechts + 2
-                        bufferIndex = matchIndex(index, direction.right, 2);
-                        states.add(new HoverState(bufferIndex, GameElementStatus.SHIP));
-                        states = setEdgesRight(x + 2, y, bufferIndex, states);
-                    }
+                    // Vierer Shiff rechts + 2
+                    stateList = setShip(x + 2, y, stateList, shipStatus);
+                    stateList = setEdgesRight(x + 2, y, stateList);
+
                 }
 
                 break;
 
         }
-        return states.toArray(new HoverState[states.size()]);
+        return stateList.toArray(new HoverState[stateList.size()]);
     }
+
 
     public void placeShip(int index, int ShipSize, boolean isHorizontal) {
         int x = 0;
@@ -324,6 +302,49 @@ public class Game {
             return;
         }
     }
+
+    public void shuffleShips() {
+        int x = 0;
+        int y = 0;
+        int shipSize = 0;
+        boolean isHorizontal;
+
+        initializeGameField();
+
+        while (allShipPlaced() != true) {
+
+            // Zufällig einen Platz aussuchen
+            x = MyRandom.getRandomNumberInRange(0, size - 1);
+            y = MyRandom.getRandomNumberInRange(0, size - 1);
+            isHorizontal = MyRandom.getRandomBoolean();
+
+            if (getCountTwoShip() != 0) {
+                shipSize = 2;
+            } else if (getCountThreeShip() != 0) {
+                shipSize = 3;
+            } else if (getCountFourShip() != 0) {
+                shipSize = 4;
+            } else if (getCountFiveShip() != 0) {
+                shipSize = 5;
+            }
+
+            if (ShipinGameField(x, y, shipSize, isHorizontal)) {
+                placeShip(matchIndex(x, y), shipSize, isHorizontal);
+            }
+        }
+    }
+
+    private void initializeGameField() {
+
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                gameField[i][j].init();
+            }
+        }
+        ships = new ArrayList<>();
+        determineNumberOfShips();
+    }
+
 
     private void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
@@ -472,6 +493,61 @@ public class Game {
         }
     }
 
+
+    private boolean ShipinGameField(int x, int y, int ShipSize, boolean isHorizontal) {
+        if (inGameField(x, y) == false) {
+            return false;
+        }
+        switch (ShipSize) {
+            case 2:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y + 1)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x + 1, y)) {
+                        return true;
+                    }
+                }
+                break;
+            case 3:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y + 1) && inGameField(x, y - 1)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x - 1, y) && inGameField(x + 1, y)) {
+                        return true;
+                    }
+                }
+                break;
+            case 4:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
+                        return true;
+                    }
+                }
+                break;
+
+            case 5:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y - 2) && inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x - 2, y) && inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
+                        return true;
+                    }
+                }
+                break;
+        }
+        return false;
+    }
+
     private boolean inGameField(int x, int y) {
 
         if (x >= 0 && x < size &&
@@ -482,146 +558,139 @@ public class Game {
         }
     }
 
-    private HoverState setEdge(int x, int y, int index, direction direction) {
+
+    private HoverState setEdge(int x, int y) {
         if (inGameField(x, y)) {
             // Ecke kann einach eingefügt werden
             if (getgameElementStatus(x, y) != GameElementStatus.CLOSE && getgameElementStatus(x, y) != GameElementStatus.SHIP) {
-                return new HoverState(matchIndex(index, direction, 1), GameElementStatus.CLOSE);
+                return new HoverState(matchIndex(x, y), GameElementStatus.CLOSE);
             } // Ecke überlappt mit einem anderen Shiff
             else if (getgameElementStatus(x, y) == GameElementStatus.SHIP) {
-                return new HoverState(matchIndex(index, direction, 1), GameElementStatus.ERROR);
+                return new HoverState(matchIndex(x, y), GameElementStatus.ERROR);
             }
         }
         return null;
     }
 
-    private int matchIndex(int index, direction direction, int range) {
-        switch (direction) {
-            case up:
-                return index - (range * size);
+    private int matchIndex(int x, int y) {
 
-            case down:
-                return index + (range * size);
+        return y * (size) + x;
+    }
 
-            case left:
-                return index - range;
 
-            case right:
-                return index + range;
-            case topLeft:
-                return (index - (range * size)) - 1;
-            case topRight:
-                return (index - (range * size)) + 1;
-            case buttonLeft:
-                return (index + (range * size) - 1);
-            case buttonRight:
-                return (index + (range * size)) + 1;
+    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
+
+        if (inGameField(x, y)) {
+            states.add(new HoverState(matchIndex(x, y), status));
         }
-        return 0;
+        return states;
     }
 
     // ___________________________________________Ränder der Shiffe setzen__________________________________
-    private ArrayList<HoverState> setEdgesTop(int x, int y, int index, ArrayList<HoverState> states) {
+    private ArrayList<HoverState> setEdgesTop(int x, int y, ArrayList<HoverState> states) {
 
         // Rand oben
-        states.add(setEdge(x, y - 1, index, direction.up));
+        states.add(setEdge(x, y - 1));
 
         // Rand rechts
-        states.add(setEdge(x + 1, y, index, direction.right));
+        states.add(setEdge(x + 1, y));
 
         //Rand links
-        states.add(setEdge(x - 1, y, index, direction.left));
+        states.add(setEdge(x - 1, y));
 
         //Rand rechtoben
-        states.add(setEdge(x + 1, y - 1, index, direction.topRight));
+        states.add(setEdge(x + 1, y - 1));
 
         //Rand link oben
-        states.add(setEdge(x - 1, y - 1, index, direction.topLeft));
+        states.add(setEdge(x - 1, y - 1));
 
         return states;
     }
 
-    private ArrayList<HoverState> setEdgesButton(int x, int y, int index, ArrayList<HoverState> states) {
-        states.add(new HoverState(index, GameElementStatus.SHIP));
+    private ArrayList<HoverState> setEdgesButton(int x, int y, ArrayList<HoverState> states) {
+        //states.add(new HoverState(index, GameElementStatus.SHIP));
 
         // Rand unten
-        states.add(setEdge(x, y + 1, index, direction.down));
+        states.add(setEdge(x, y + 1));
 
         // Rand rechts
-        states.add(setEdge(x + 1, y, index, direction.right));
+        states.add(setEdge(x + 1, y));
 
         //Rand links
-        states.add(setEdge(x - 1, y, index, direction.left));
+        states.add(setEdge(x - 1, y));
 
         //Rand recht unten
-        states.add(setEdge(x + 1, y + 1, index, direction.buttonRight));
+        states.add(setEdge(x + 1, y + 1));
 
         //Rand link unten
-        states.add(setEdge(x - 1, y + 1, index, direction.buttonLeft));
+        states.add(setEdge(x - 1, y + 1));
 
 
         return states;
     }
 
-    private ArrayList<HoverState> setEdgesLeft(int x, int y, int index, ArrayList<HoverState> states) {
+    private ArrayList<HoverState> setEdgesLeft(int x, int y, ArrayList<HoverState> states) {
 
         // Rand unten
-        states.add(setEdge(x, y + 1, index, direction.down));
+        states.add(setEdge(x, y + 1));
 
         // Rand oben
-        states.add(setEdge(x, y - 1, index, direction.up));
+        states.add(setEdge(x, y - 1));
 
         //Rand links
-        states.add(setEdge(x - 1, y, index, direction.left));
+        states.add(setEdge(x - 1, y));
 
         //Rand links oben
-        states.add(setEdge(x - 1, y - 1, index, direction.topLeft));
+        states.add(setEdge(x - 1, y - 1));
 
         //Rand links unten
-        states.add(setEdge(x - 1, y + 1, index, direction.buttonLeft));
+        states.add(setEdge(x - 1, y + 1));
 
 
         return states;
     }
 
-    private ArrayList<HoverState> setEdgesRight(int x, int y, int index, ArrayList<HoverState> states) {
+    private ArrayList<HoverState> setEdgesRight(int x, int y, ArrayList<HoverState> states) {
 
         // Rand unten
-        states.add(setEdge(x, y + 1, index, direction.down));
+        states.add(setEdge(x, y + 1));
 
         // Rand oben
-        states.add(setEdge(x, y - 1, index, direction.up));
+        states.add(setEdge(x, y - 1));
 
         //Rand rechts
-        states.add(setEdge(x + 1, y, index, direction.right));
+        states.add(setEdge(x + 1, y));
 
         //Rand rechts oben
-        states.add(setEdge(x + 1, y - 1, index, direction.topRight));
+        states.add(setEdge(x + 1, y - 1));
 
         //Rand links unten
-        states.add(setEdge(x + 1, y + 1, index, direction.buttonRight));
+        states.add(setEdge(x + 1, y + 1));
 
 
         return states;
     }
 
-    private ArrayList<HoverState> setEdgesLeftRight(int x, int y, int index, ArrayList<HoverState> states) {
+    private ArrayList<HoverState> setEdgesLeftRight(int x, int y, ArrayList<HoverState> states) {
         //Rand links
-        states.add(setEdge(x - 1, y, index, direction.left));
+        states.add(setEdge(x - 1, y));
 
         //Rand rechts
-        states.add(setEdge(x + 1, y, index, direction.right));
+        states.add(setEdge(x + 1, y));
 
         return states;
     }
 
-    private ArrayList<HoverState> setEdgesUpDown(int x, int y, int index, ArrayList<HoverState> states) {
+    private ArrayList<HoverState> setEdgesUpDown(int x, int y, ArrayList<HoverState> states) {
         // Rand unten
-        states.add(setEdge(x, y + 1, index, direction.down));
+        states.add(setEdge(x, y + 1));
 
         // Rand oben
-        states.add(setEdge(x, y - 1, index, direction.up));
+        states.add(setEdge(x, y - 1));
 
         return states;
     }
+
+    // ___________________________________________Random Generator__________________________________
+
 }

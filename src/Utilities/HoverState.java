@@ -1,4 +1,4 @@
-package Utilities.Hover;
+package Utilities;
 
 import Logic.main.LogicConstants.GameElementStatus;
 
