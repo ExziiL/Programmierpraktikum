@@ -13,6 +13,11 @@ public class GameElement {
         setStatus(GameElementStatus.WATER);
     }
 
+    public void init() {
+        setStatus(GameElementStatus.WATER);
+        ship = null;
+    }
+
     public GameElementStatus getStatus() {
         return this.status;
     }
