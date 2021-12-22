@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -45,25 +47,49 @@
                 <Insets right="25.0" />
             </padding>
         </VBox>
-        <Label fx:id="labelTwo" layoutX="62.0" layoutY="200.0" text="0x 2er-Schiff">
+        <Label fx:id="labelTwo" layoutX="59.0" layoutY="200.0" text="0x">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="labelThree" layoutX="234.0" layoutY="200.0" text="0x 3er-Schiff">
+        <Label fx:id="labelThree" layoutX="196.0" layoutY="200.0" text="0x">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="labelFour" layoutX="416.0" layoutY="200.0" text="0x 4er-Schiff">
+        <Label fx:id="labelFour" layoutX="350.0" layoutY="200.0" text="0x">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-      <Label fx:id="labelFive" layoutX="234.0" layoutY="268.0" text="0x 5er-Schiff">
+      <Label fx:id="labelFive" layoutX="503.0" layoutY="200.0" text="0x">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <ImageView fitHeight="61.0" fitWidth="97.0" layoutX="22.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="133.0" layoutX="148.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="128.0" layoutX="300.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="60.0" fitWidth="139.0" layoutX="456.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
+         </image>
+      </ImageView>
+      <Text fill="#7c7c7c" layoutX="46.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
+      <Text fill="#7c7c7c" layoutX="183.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
+      <Text fill="#7c7c7c" layoutX="337.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
+      <Text fill="#7c7c7c" layoutX="490.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5er Schiff" />
     </children>
 </AnchorPane>

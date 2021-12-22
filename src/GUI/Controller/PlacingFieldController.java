@@ -64,7 +64,7 @@ public class PlacingFieldController implements Initializable {
             pane.setId("field" + row + column);
             table.add(pane, column++, row);
 
-            //GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
+            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
             table.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -87,7 +87,7 @@ public class PlacingFieldController implements Initializable {
 
         }
 
-// Event switch Ship
+        // Event switch Ship
         placingField.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 if (isHorizontal) {
@@ -98,11 +98,10 @@ public class PlacingFieldController implements Initializable {
                 rotateShip(currentPane);
             } else if (event.getButton() == MouseButton.PRIMARY) {
 
-
             }
         });
 
-// Events Choose Ship
+        // Events Choose Ship
         BoxTwo.setOnMouseClicked(event -> {
             chooseShip(2);
         });
@@ -216,7 +215,6 @@ public class PlacingFieldController implements Initializable {
         pane.setStyle("-fx-background-color: " + color);
     }
 
-
     private void unchooseActualShip() {
         HBox box = getBoxShip(currentShip);
         if (box != null) {
@@ -230,7 +228,7 @@ public class PlacingFieldController implements Initializable {
         currentShip = ship;
         HBox box = getBoxShip(ship);
         if (box != null) {
-            box.setStyle("-fx-border-color: black ;");
+            box.setStyle("-fx-border-color: black ; -fx-border-radius: 7px;");
         }
     }
 

@@ -72,10 +72,10 @@ public class GameSettingsController {
     }
 
     private void setLabelTexts() {
-        labelTwo.setText(Game.logicController.getCountTwoShip() + "x 2er Schiffe");
-        labelThree.setText(Game.logicController.getCountThreeShip() + "x 3er Schiffe");
-        labelFour.setText(Game.logicController.getCountFourShip() + "x 4er Schiffe");
-        labelFive.setText(Game.logicController.getCountFiveShip() + "x 5er Schiffe");
+        labelTwo.setText(Game.logicController.getCountTwoShip() + "x");
+        labelThree.setText(Game.logicController.getCountThreeShip() + "x");
+        labelFour.setText(Game.logicController.getCountFourShip() + "x");
+        labelFive.setText(Game.logicController.getCountFiveShip() + "x");
 
     }
 
