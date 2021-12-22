@@ -1,11 +1,13 @@
 package GUI.Controller;
 
+import Logic.main.LogicConstants;
+import Utilities.Exception.ShipOutofGame;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import GUI.Game;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static Logic.main.LogicConstants.*;
+import Utilities.HoverState;
 
 public class PlacingFieldController implements Initializable {
     @FXML
@@ -38,9 +40,16 @@ public class PlacingFieldController implements Initializable {
     private HBox BoxFour;
     @FXML
     private HBox BoxFive;
+    @FXML
+    private Button Next;
+    @FXML
+    private Button EditShips;
+    @FXML
+    private Button Random;
 
     private int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
+    private boolean noPlacingAllowed = false;
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
@@ -77,12 +86,25 @@ public class PlacingFieldController implements Initializable {
             table.setMaxWidth(Region.USE_PREF_SIZE);
 
             pane.setOnMouseEntered(event -> {
-                placingShips(pane);
+                hoverShip(pane);
                 currentPane = pane;
             });
 
             pane.setOnMouseExited(event -> {
                 redrawPanes();
+            });
+
+            pane.setOnMouseClicked(event -> {
+                if (event.getButton() == MouseButton.PRIMARY) {
+                    if (currentShip != 0) {
+                        placeShip(pane);
+                        redrawPanes();
+                        setChoosenShipProperties();
+                    } else {
+
+                        resetShip(pane);
+                    }
+                }
             });
 
         }
@@ -95,13 +117,12 @@ public class PlacingFieldController implements Initializable {
                 } else {
                     isHorizontal = true;
                 }
-                rotateShip(currentPane);
-            } else if (event.getButton() == MouseButton.PRIMARY) {
-
+                redrawPanes();
+                hoverShip(currentPane);
             }
         });
 
-        // Events Choose Ship
+        // Event Shiff auswählen
         BoxTwo.setOnMouseClicked(event -> {
             chooseShip(2);
         });
@@ -115,17 +136,34 @@ public class PlacingFieldController implements Initializable {
             chooseShip(5);
         });
 
-        // set List
+        // Grid liste Speichern
         shipPartsList = table.getChildren();
-        // Set Labels
-        setLabelTexts();
+        // Auswahl Shiffe aufbauen
+        setChoosenShipProperties();
 
-        // set default Ship
+        // Startshiff auswählen
         if (Game.logicController.getCountTwoShip() != 0) {
             chooseShip(2);
         } else {
             chooseShip(3);
         }
+
+        // Weiter Butten ausblenden
+        Next.setDisable(true);
+        Next.setOnAction(event -> {
+            // Screen wechseln
+        });
+
+        EditShips.setOnAction(event -> {
+            chooseShip(0);
+        });
+
+        Random.setOnAction(event -> {
+            Game.logicController.shuffleShips();
+            redrawPanes();
+            setChoosenShipProperties();
+        });
+
     }
 
     @FXML
@@ -149,7 +187,7 @@ public class PlacingFieldController implements Initializable {
         return hight;
     }
 
-    private void setLabelTexts() {
+    private void setChoosenShipProperties() {
         labelTwo.setText(Game.logicController.getCountTwoShip() + "x");
         labelThree.setText(Game.logicController.getCountThreeShip() + "x");
         labelFour.setText(Game.logicController.getCountFourShip() + "x");
@@ -157,30 +195,101 @@ public class PlacingFieldController implements Initializable {
 
         if (Game.logicController.getCountTwoShip() == 0) {
             BoxTwo.setDisable(true);
+            if (currentShip == 2) {
+                determineNewChoosenShip();
+            }
         }
         if (Game.logicController.getCountThreeShip() == 0) {
             BoxThree.setDisable(true);
+            if (currentShip == 3) {
+                determineNewChoosenShip();
+            }
         }
         if (Game.logicController.getCountFourShip() == 0) {
             BoxFour.setDisable(true);
+            if (currentShip == 4) {
+                determineNewChoosenShip();
+            }
         }
         if (Game.logicController.getCountFiveShip() == 0) {
             BoxFive.setDisable(true);
+            if (currentShip == 5) {
+                determineNewChoosenShip();
+            }
         }
-
     }
 
-    private void placingShips(Pane pane) {
-
-        // unplacingShips(pane);
-
-        // Array Panes with size of choosen Ship
-        Pane[] shipParts = getShipParts(pane, isHorizontal);
-
-        for (int i = 0; i < shipParts.length; i++) {
-            if (shipParts[i] != null) {
-                setColorPane(shipParts[i], "black");
+    private void determineNewChoosenShip() {
+        for (int i = 2; i <= 5; i++) {
+            switch (i) {
+                case 2:
+                    if (currentShip != 2 && !BoxTwo.isDisabled()) {
+                        chooseShip(2);
+                    }
+                    break;
+                case 3:
+                    if (currentShip != 3 && !BoxThree.isDisabled()) {
+                        chooseShip(3);
+                    }
+                    break;
+                case 4:
+                    if (currentShip != 4 && !BoxFour.isDisabled()) {
+                        chooseShip(4);
+                    }
+                    break;
+                case 5:
+                    if (currentShip != 5 && !BoxFive.isDisabled()) {
+                        chooseShip(5);
+                    }
+                    break;
             }
+        }
+    }
+
+    private void hoverShip(Pane pane) {
+        Pane newPane = null;
+        noPlacingAllowed = false;
+        try {
+            HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
+                    isHorizontal);
+
+            for (int i = 0; i < states.length; i++) {
+                if (states[i] != null) {
+                    newPane = (Pane) shipPartsList.get(states[i].getIndex());
+
+                    switch (states[i].getStatus()) {
+                        case SHIP:
+                            setColorPane(newPane, "black");
+                            break;
+                        case ERROR:
+                            setColorPane(newPane, "red");
+                            noPlacingAllowed = true;
+                            break;
+                        case CLOSE:
+                            setColorPane(newPane, "#E0F8E6");
+                            break;
+                    }
+                }
+            }
+        } catch (ShipOutofGame e) {
+
+        }
+    }
+
+    private void placeShip(Pane pane) {
+        if (noPlacingAllowed == false) {
+            Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
+        }
+        if (Game.logicController.allShipPlaced() == true) {
+            Next.setDisable(false);
+            chooseShip(0);
+        }
+    }
+
+    private void resetShip(Pane pane) {
+        if (Game.logicController
+                .getGameElementStatus(shipPartsList.indexOf(pane)) == LogicConstants.GameElementStatus.SHIP) {
+
         }
     }
 
@@ -192,27 +301,19 @@ public class PlacingFieldController implements Initializable {
                 case SHIP:
                     setColorPane(pane, "black");
                     break;
+                case CLOSE:
+                    setColorPane(pane, "#E0F8E6");
+                    break;
                 default: // WATER
                     setColorPane(pane, "white");
                     break;
             }
-            pane.setStyle("-fx-border-color: #999898 ;");
-        }
-    }
 
-    private void rotateShip(Pane pane) {
-        Pane[] shipParts = getShipParts(pane, isHorizontal);
-
-        redrawPanes();
-        for (int i = 0; i < shipParts.length; i++) {
-            if (shipParts[i] != null) {
-                setColorPane(shipParts[i], "black");
-            }
         }
     }
 
     private void setColorPane(Pane pane, String color) {
-        pane.setStyle("-fx-background-color: " + color);
+        pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: #999898;");
     }
 
     private void unchooseActualShip() {
@@ -228,8 +329,8 @@ public class PlacingFieldController implements Initializable {
         currentShip = ship;
         HBox box = getBoxShip(ship);
         if (box != null) {
-            box.setStyle( // TODO hier statt setStyle das jeweilige Bild einsetzen (gemeinsam mit der
-                          // unchooseActualShip (Z. 218))
+            box.setStyle( // TODO: hier statt setStyle das jeweilige Bild einsetzen (gemeinsam mit der
+                          // TODO: unchooseActualShip (Z. 218))
                     "-fx-border-color: black ; -fx-border-radius: 7px;");
         }
     }
@@ -248,85 +349,4 @@ public class PlacingFieldController implements Initializable {
                 return null;
         }
     }
-
-    private Pane[] getShipParts(Pane pane, boolean horizontal) {
-        Pane[] shipParts = new Pane[currentShip];
-        int shipIndex = shipPartsList.indexOf(pane);
-        if (shipIndex != 0 || currentShip == 2) {
-
-            switch (currentShip) {
-                case 2:
-                    if (horizontal == false) {
-                        if ((shipIndex + size) < (size * size)) {
-                            shipParts[0] = pane;
-                            shipParts[1] = (Pane) shipPartsList.get(shipIndex + size);
-                        }
-                    } else {
-                        if ((shipIndex + 1) % size > 0) {
-                            shipParts[0] = pane;
-                            shipParts[1] = (Pane) shipPartsList.get(shipIndex + 1);
-                        }
-                    }
-                    break;
-                case 3:
-                    if (horizontal == false) {
-                        if ((shipIndex - size) >= 0 && (shipIndex + size) < (size * size)) {
-                            shipParts[0] = (Pane) shipPartsList.get(shipIndex - size);
-                            shipParts[1] = pane;
-                            shipParts[2] = (Pane) shipPartsList.get(shipIndex + size);
-                        }
-                    } else {
-                        if ((shipIndex - 1) % size < (size - 1) && (shipIndex + 1) % size > 0) {
-                            shipParts[0] = (Pane) shipPartsList.get(shipIndex - 1);
-                            shipParts[1] = pane;
-                            shipParts[2] = (Pane) shipPartsList.get(shipIndex + 1);
-                        }
-                    }
-                    break;
-                case 4:
-                    if (horizontal == false) {
-                        if ((shipIndex - size) >= 0 && (shipIndex + size < (size * size))
-                                && (shipIndex + (2 * size) < (size * size))) {
-                            shipParts[0] = (Pane) shipPartsList.get(shipIndex - size);
-                            shipParts[1] = pane;
-                            shipParts[2] = (Pane) shipPartsList.get(shipIndex + size);
-                            shipParts[3] = (Pane) shipPartsList.get(shipIndex + (2 * size));
-                        }
-                    } else {
-                        if ((shipIndex - 1) % size < (size - 1) && (shipIndex + 1) % size > 0
-                                && (shipIndex + 2) % size > 0) {
-                            shipParts[0] = (Pane) shipPartsList.get(shipIndex - 1);
-                            shipParts[1] = pane;
-                            shipParts[2] = (Pane) shipPartsList.get(shipIndex + 1);
-                            shipParts[3] = (Pane) shipPartsList.get(shipIndex + 2);
-                        }
-                    }
-                    break;
-
-                case 5:
-                    if (horizontal == false) {
-                        if ((shipIndex - size) >= 0 && (shipIndex - (2 * size)) >= 0 &&
-                                (shipIndex + size < (size * size)) && (shipIndex + (2 * size) < (size * size))) {
-                            shipParts[0] = (Pane) shipPartsList.get(shipIndex - (2 * size));
-                            shipParts[1] = (Pane) shipPartsList.get(shipIndex - size);
-                            shipParts[2] = pane;
-                            shipParts[3] = (Pane) shipPartsList.get(shipIndex + size);
-                            shipParts[4] = (Pane) shipPartsList.get(shipIndex + (2 * size));
-                        }
-                    } else {
-                        if ((shipIndex - 1) % size < (size - 1) && ((shipIndex + size - 2) % size) < (size - 2) &&
-                                (shipIndex + 1) % size > 0 && (shipIndex + 2) % size > 0) {
-                            shipParts[0] = (Pane) shipPartsList.get(shipIndex - 2);
-                            shipParts[1] = (Pane) shipPartsList.get(shipIndex - 1);
-                            shipParts[2] = pane;
-                            shipParts[3] = (Pane) shipPartsList.get(shipIndex + 1);
-                            shipParts[4] = (Pane) shipPartsList.get(shipIndex + 2);
-                        }
-                    }
-                    break;
-            }
-        }
-        return shipParts;
-    }
-
 }

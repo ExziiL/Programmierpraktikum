@@ -5,6 +5,9 @@ import Logic.Game.Exceptions.FalseFieldSize;
 
 import static Logic.main.LogicConstants.*;
 
+import Utilities.Exception.ShipOutofGame;
+import Utilities.HoverState;
+
 public class Controller {
     private MyGame myGame;
 
@@ -64,9 +67,24 @@ public class Controller {
     }
 
     public GameElementStatus getGameElementStatus(int element) {
-        return myGame.gameElementStatus(element);
+        return myGame.getgameElementStatus(element);
     }
 
+    public HoverState[] getHoverStateStatus(int element, int size, boolean isHorizontal) throws ShipOutofGame {
+        return myGame.getHoverStateStatus(element, size, isHorizontal);
+    }
+
+    public void placeShip(int element, int size, boolean isHorizontal) {
+        myGame.placeShip(element, size, isHorizontal);
+    }
+
+    public boolean allShipPlaced() {
+        return myGame.allShipPlaced();
+    }
+
+    public void shuffleShips(){
+        myGame.shuffleShips();
+    }
     public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
 
         return myGame.checkPlaceForShip(ship, x, y, vertical);

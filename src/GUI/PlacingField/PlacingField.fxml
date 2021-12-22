@@ -100,5 +100,8 @@
                 </GridPane>
             </children>
         </HBox>
+      <Button fx:id="Next" layoutX="534.0" layoutY="353.0" mnemonicParsing="false" text="Weiter" />
+      <Button fx:id="EditShips" layoutX="266.0" layoutY="341.0" mnemonicParsing="false" text="Bearbeiten" />
+      <Button fx:id="Random" layoutX="348.0" layoutY="341.0" mnemonicParsing="false" text="Random" />
     </children>
 </AnchorPane>
