@@ -1,12 +1,18 @@
 package GUI;
 
+import GUI.Controller.PlacingFieldController;
 import Logic.main.Controller;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class Game extends Application {
@@ -21,6 +27,30 @@ public class Game extends Application {
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
+
+        this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                ObservableList scenes = mainLayout.getChildren();
+                for (Object obj : scenes) {
+                    if (obj instanceof Node) {
+                        Node object = (Node) obj;
+                        object.prefWidth(newValue.doubleValue());
+                    }
+                }
+            }
+        });
+        this.primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                ObservableList scenes = mainLayout.getChildren();
+                for (Object obj : scenes) {
+                    if (obj instanceof Node) {
+                        Node object = (Node) obj;
+                    }
+                }
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -58,5 +88,4 @@ public class Game extends Application {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
-
 }

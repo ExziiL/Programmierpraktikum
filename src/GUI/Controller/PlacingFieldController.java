@@ -1,5 +1,7 @@
 package GUI.Controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -7,11 +9,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import GUI.Game;
 import javafx.scene.control.Label;
+import javafx.scene.control.ResizeFeaturesBase;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import static Logic.main.LogicConstants.*;
@@ -29,7 +33,8 @@ public class PlacingFieldController implements Initializable {
     private Label labelFive;
     @FXML
     private AnchorPane placingField;
-
+    @FXML
+    private HBox placingBox;
     @FXML
     private HBox BoxTwo;
     @FXML
@@ -67,14 +72,14 @@ public class PlacingFieldController implements Initializable {
             //GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
-            table.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            table.setMinHeight(Region.USE_COMPUTED_SIZE);
-            table.setMaxHeight(Region.USE_PREF_SIZE);
+//            table.setPrefHeight(Region.USE_COMPUTED_SIZE);
+//            table.setMinHeight(Region.USE_COMPUTED_SIZE);
+//            table.setMaxHeight(Region.USE_PREF_SIZE);
 
             // set Gridpane Widths
-            table.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            table.setMinWidth(Region.USE_COMPUTED_SIZE);
-            table.setMaxWidth(Region.USE_PREF_SIZE);
+//            table.setPrefWidth(Region.USE_COMPUTED_SIZE);
+//            table.setMinWidth(Region.USE_COMPUTED_SIZE);
+//            table.setMaxWidth(Region.USE_PREF_SIZE);
 
             pane.setOnMouseEntered(event -> {
                 placingShips(pane);
@@ -85,9 +90,10 @@ public class PlacingFieldController implements Initializable {
                 redrawPanes();
             });
 
+
         }
 
-// Event switch Ship
+       // Event switch Ship
         placingField.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
                 if (isHorizontal) {
@@ -96,10 +102,7 @@ public class PlacingFieldController implements Initializable {
                     isHorizontal = true;
                 }
                 rotateShip(currentPane);
-            } else if (event.getButton() == MouseButton.PRIMARY) {
-
-
-            }
+            } else if (event.getButton() == MouseButton.PRIMARY) {}
         });
 
 // Events Choose Ship
@@ -128,6 +131,8 @@ public class PlacingFieldController implements Initializable {
             chooseShip(3);
         }
     }
+
+
 
     @FXML
     public void handleBack(ActionEvent event) throws IOException {
@@ -215,7 +220,6 @@ public class PlacingFieldController implements Initializable {
     private void setColorPane(Pane pane, String color) {
         pane.setStyle("-fx-background-color: " + color);
     }
-
 
     private void unchooseActualShip() {
         HBox box = getBoxShip(currentShip);
@@ -327,6 +331,14 @@ public class PlacingFieldController implements Initializable {
             }
         }
         return shipParts;
+    }
+
+    private void handleResizing() {
+        placingBox.prefWidthProperty().bind(placingField.minWidthProperty().multiply(13 / 16));
+        placingBox.prefHeightProperty().bind(placingField.maxHeightProperty().multiply(7 / 12));
+
+        table.prefHeightProperty().bind(placingBox.prefHeightProperty());
+        table.prefWidthProperty().bind(placingBox.prefWidthProperty());
     }
 
 }
