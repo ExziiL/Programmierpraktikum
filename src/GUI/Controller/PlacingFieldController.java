@@ -228,8 +228,9 @@ public class PlacingFieldController implements Initializable {
         currentShip = ship;
         HBox box = getBoxShip(ship);
         if (box != null) {
-            box.setStyle(
-                    "-fx-border-color: black ; -fx-border-radius: 7px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0)");
+            box.setStyle( // TODO hier statt setStyle das jeweilige Bild einsetzen (gemeinsam mit der
+                          // unchooseActualShip (Z. 218))
+                    "-fx-border-color: black ; -fx-border-radius: 7px;");
         }
     }
 
