@@ -27,18 +27,19 @@ public class Game extends Application {
         launch(args);
     }
 
-    public static void showGameSettingsWindow() throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(Game.class.getResource("GameSettings/GameSettings.fxml"));
-        AnchorPane gameSettings = loader.load();
-        mainLayout.setCenter(gameSettings);
-    }
-
     public static void showStartGameWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Game.class.getResource("StartGame/StartGame.fxml"));
         BorderPane startGame = loader.load();
         mainLayout.setCenter(startGame);
+        mainLayout.setStyle("-fx-background-color: #ffffff");
+    }
+
+    public static void showGameSettingsWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("GameSettings/GameSettings.fxml"));
+        AnchorPane gameSettings = loader.load();
+        mainLayout.setCenter(gameSettings);
     }
 
     public static void showPlacingFieldWindow() throws IOException {
