@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="placingField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlacingFieldController">
+<AnchorPane fx:id="placingField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlacingFieldController">
     <children>
-        <VBox layoutX="404.0" layoutY="14.0" prefHeight="319.0" prefWidth="182.0">
+        <VBox layoutX="579.0" layoutY="62.0" prefHeight="400.0" prefWidth="182.0">
             <children>
                 <HBox fx:id="BoxTwo" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                     <children>
@@ -93,15 +93,22 @@
                 </HBox>
             </children>
         </VBox>
-        <Button layoutX="23.0" layoutY="353.0" mnemonicParsing="false" onAction="#handleBack" text="Zurück" />
-        <HBox fx:id="placingBox" prefHeight="325.0" prefWidth="350.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+        <Button layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleBack" text="Zurück" />
+        <HBox fx:id="placingBox" layoutX="41.0" layoutY="62.0" prefHeight="400.0" prefWidth="435.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="62.0">
             <children>
-                <GridPane fx:id="table" prefHeight="325.0" prefWidth="401.0">
+                <GridPane fx:id="table" prefHeight="400.0" prefWidth="442.0">
                 </GridPane>
             </children>
         </HBox>
-      <Button fx:id="Next" layoutX="534.0" layoutY="353.0" mnemonicParsing="false" text="Weiter" />
-      <Button fx:id="EditShips" layoutX="266.0" layoutY="341.0" mnemonicParsing="false" text="Bearbeiten" />
-      <Button fx:id="Random" layoutX="348.0" layoutY="341.0" mnemonicParsing="false" text="Random" />
+      <Button fx:id="Next" layoutX="735.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleNext" text="Weiter" />
+      <Button fx:id="EditShips" layoutX="493.0" layoutY="437.0" mnemonicParsing="false" text="Bearbeiten" />
+      <Button fx:id="Random" layoutX="493.0" layoutY="402.0" mnemonicParsing="false" text="Random" />
+      <Text layoutX="264.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="272.00390625">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
+      <Text layoutX="41.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss auf ein beliebiges Feld abfeuern" />
     </children>
 </AnchorPane>

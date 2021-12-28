@@ -152,6 +152,12 @@ public class PlacingFieldController implements Initializable {
         Next.setDisable(true);
         Next.setOnAction(event -> {
             // Screen wechseln
+            try {
+                Game.showPlayingFieldWindow();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         });
 
         EditShips.setOnAction(event -> {
@@ -169,6 +175,11 @@ public class PlacingFieldController implements Initializable {
     @FXML
     public void handleBack(ActionEvent event) throws IOException {
         Game.showGameSettingsWindow();
+    }
+
+    @FXML
+    public void handleNext(ActionEvent event) throws IOException {
+        Game.showPlayingFieldWindow();
     }
 
     private double setPaneSize() {

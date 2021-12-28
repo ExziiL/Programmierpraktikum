@@ -49,13 +49,20 @@ public class Game extends Application {
         mainLayout.setCenter(placingField);
     }
 
+    public static void showPlayingFieldWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("PlayingField/PlayingField.fxml"));
+        AnchorPane playingField = loader.load();
+        mainLayout.setCenter(playingField);
+    }
+
     private void showAppWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Game.class.getResource("Game.fxml"));
         // Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
 
         mainLayout = loader.load();
-        Scene scene = new Scene(mainLayout);
+        Scene scene = new Scene(mainLayout, 800, 600);
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
