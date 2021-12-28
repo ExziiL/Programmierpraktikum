@@ -14,6 +14,64 @@ public class Game extends Application {
     private static BorderPane mainLayout;
     public static Controller logicController;
 
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle(GUIConstants.titel);
+        logicController = new Controller();
+
+        showAppWindow();
+        showStartGameWindow();
+    }
+
+    /**
+     * sets the Borderpane of Game.fxml as a new Scene, which is displayed.
+     * @throws IOException can potentially throw this Exception
+     */
+    private void showAppWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("Game.fxml"));
+        mainLayout = loader.load();
+        Scene scene = new Scene(mainLayout);
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
+    }
+
+    /**
+     * loads the StartGame.fxml and set in the center of the mainLayout-Borderpane
+     * @throws IOException
+     */
+    public static void showStartGameWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("StartGame/StartGame.fxml"));
+        BorderPane startGame = loader.load();
+        mainLayout.setCenter(startGame);
+    }
+
+    /**
+     * loads the GameSettings.fxml and replaces the center of the mainLayout-Borderpane,
+     * the StartGame.fxml
+     * @throws IOException
+     */
+    public static void showGameSettingsWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("GameSettings/GameSettings.fxml"));
+        AnchorPane gameSettings = loader.load();
+        mainLayout.setCenter(gameSettings);
+    }
+
+
+
+}
+/*public class Game extends Application {
+    private Stage primaryStage;
+    private static BorderPane mainLayout;
+    public static Controller logicController;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
@@ -58,5 +116,4 @@ public class Game extends Application {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();
     }
-
-}
+}*/

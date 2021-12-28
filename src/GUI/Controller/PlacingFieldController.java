@@ -5,20 +5,19 @@ import Utilities.Exception.ShipOutofGame;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import GUI.Game;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import Utilities.HoverState;
 
-public class PlacingFieldController implements Initializable {
+
+public class PlacingFieldController {
+
+    //FXML-Variables
+    // region
     @FXML
     private GridPane table;
     @FXML
@@ -31,7 +30,6 @@ public class PlacingFieldController implements Initializable {
     private Label labelFive;
     @FXML
     private AnchorPane placingField;
-
     @FXML
     private HBox BoxTwo;
     @FXML
@@ -46,16 +44,21 @@ public class PlacingFieldController implements Initializable {
     private Button EditShips;
     @FXML
     private Button Random;
+    //endregion
 
+    //local Variables
+    //region
     private int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
     private boolean noPlacingAllowed = false;
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
+    //endregion
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    //Methods
+    public void initialize() {
+        System.out.println("main:" + Thread.currentThread().getName());
         int column = 0;
         int row = 0;
         double paneSize = setPaneSize();
@@ -124,6 +127,7 @@ public class PlacingFieldController implements Initializable {
 
         // Event Shiff auswählen
         BoxTwo.setOnMouseClicked(event -> {
+            System.out.println("main:" + Thread.currentThread().getName());
             chooseShip(2);
         });
         BoxThree.setOnMouseClicked(event -> {

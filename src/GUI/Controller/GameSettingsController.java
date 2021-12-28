@@ -62,7 +62,7 @@ public class GameSettingsController {
 
         Game.logicController.setName(name.getCharacters().toString());
         Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
-        Game.showPlacingFieldWindow();
+        //Game.showPlacingFieldWindow();
     }
 
     @FXML
