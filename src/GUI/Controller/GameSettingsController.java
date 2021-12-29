@@ -4,15 +4,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import GUI.Game;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
 
 import java.io.IOException;
 
 public class GameSettingsController {
-    private final int[] gameSizeValues = new int[26];
-
+    @FXML
+    private Slider slider;
     @FXML
     private Button next;
     @FXML
@@ -26,49 +26,48 @@ public class GameSettingsController {
     @FXML
     private Label labelFive;
 
-    @FXML
-    private ComboBox<String> gameSize;
+    private int gameSize;
 
     @FXML
     void initialize() {
-        for (int i = 0; i < gameSizeValues.length; i++) {
-            int x = i + 5;
-            gameSizeValues[i] = x;
-            gameSize.getItems().add(x + " x " + x);
-        }
         if (Game.logicController.getGameSize() >= 5) {
-            // Index Anpassen auf Array z.B. wenn Size = 5 Index = 0 .....
-            gameSize.getSelectionModel().select(Game.logicController.getGameSize() - 5);
+            gameSize = Game.logicController.getGameSize();
         } else {
-            gameSize.getSelectionModel().selectFirst();
+            gameSize = 5;
         }
-
-        Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
+        Game.logicController.setGameSize(gameSize);
+        slider.setValue(gameSize);
         setLabelTexts();
     }
 
+    // ------------------------------- Zurück-Button ------------------------------
     @FXML
     void handleBack(ActionEvent event) throws IOException {
         Game.showStartGameWindow();
     }
 
+    // ------------------------------- Name-Input ---------------------------------
     @FXML
     void handleInputName(ActionEvent event) throws IOException {
-
     }
+
+    // ------------------------------- Slider ---------------------------------
+    @FXML
+    void handleSliderChange() throws IOException {
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            gameSize = newValue.intValue();
+            Game.logicController.setGameSize(gameSize);
+            setLabelTexts();
+        });
+    };
+
+    // ------------------------------- Next-Button ---------------------------------
 
     @FXML
     void handleNext(ActionEvent event) throws IOException {
-
         Game.logicController.setName(name.getCharacters().toString());
-        Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
+        Game.logicController.setGameSize(gameSize);
         Game.showPlacingFieldWindow();
-    }
-
-    @FXML
-    void handleSizeChanged(ActionEvent event) throws IOException {
-        Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
-        setLabelTexts();
     }
 
     private void setLabelTexts() {

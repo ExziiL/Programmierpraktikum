@@ -18,7 +18,7 @@
     <children>
         <Button layoutX="11.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleBack" text="zurück" />
         <Button fx:id="next" layoutX="737.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleNext" text="weiter" />
-        <VBox alignment="CENTER_RIGHT" layoutX="86.0" layoutY="90.0" prefHeight="248.0" prefWidth="625.0" spacing="20.0">
+        <VBox alignment="CENTER_RIGHT" layoutX="87.0" layoutY="74.0" prefHeight="292.0" prefWidth="625.0" spacing="20.0">
             <children>
                 <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="263.0">
                     <children>
@@ -27,7 +27,7 @@
                                 <Insets right="75.0" />
                             </HBox.margin>
                         </Text>
-                        <TextField fx:id="name" onAction="#handleInputName" />
+                        <TextField fx:id="name" onAction="#handleInputName" prefHeight="30.0" />
                     </children>
                 </HBox>
             <HBox prefHeight="19.0" prefWidth="539.0">
@@ -37,35 +37,22 @@
                         <Insets right="83.0" />
                      </HBox.margin>
                   </Text>
-                  <Slider blockIncrement="1.0" max="30.0" min="5.0" prefHeight="14.0" prefWidth="431.0" showTickLabels="true" showTickMarks="true" />
+                  <Slider fx:id="slider" blockIncrement="1.0" max="30.0" min="5.0" onDragDetected="#handleSliderChange" prefHeight="14.0" prefWidth="431.0" showTickLabels="true" showTickMarks="true" value="5.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="539.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="539.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielmodus">
                      <HBox.margin>
                         <Insets right="100.0" />
                      </HBox.margin>
                   </Text>
-                  <ComboBox fx:id="gameSize1" onAction="#handleSizeChanged" prefHeight="0.0" prefWidth="150.0" />
+                  <ComboBox fx:id="gameSize1" onAction="#handleSizeChanged" prefHeight="35.0" prefWidth="150.0" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="539.0">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
-                            <HBox.margin>
-                                <Insets right="85.0" />
-                            </HBox.margin>
-                        </Text>
-                  <ComboBox fx:id="gameSize" onAction="#handleSizeChanged" prefHeight="0.0" prefWidth="150.0" />
-                    </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </HBox>
             </children>
             <padding>
                 <Insets right="25.0" />

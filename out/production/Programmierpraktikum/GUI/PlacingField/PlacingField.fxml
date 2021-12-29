@@ -109,6 +109,7 @@
          </font>
       </Text>
       <Text layoutX="41.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
-      <Text layoutX="41.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss auf ein beliebiges Feld abfeuern" />
+      <Text layoutX="41.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" />
+      <Text layoutX="41.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" />
     </children>
 </AnchorPane>
