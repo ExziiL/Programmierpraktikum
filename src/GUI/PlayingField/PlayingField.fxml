@@ -98,6 +98,6 @@
       </Text>
       <Button layoutX="17.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleBack" text="Zurück" />
       <Text layoutX="350.0" layoutY="540.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
-      <Text layoutX="366.0" layoutY="557.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss abfeuern" />
+      <Text layoutX="350.0" layoutY="556.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss abfeuern" />
    </children>
 </AnchorPane>
