@@ -4,10 +4,12 @@ import Logic.main.Ship;
 
 import static Logic.main.LogicConstants.*;
 
-public class GameElement {
+import java.util.ArrayList;
 
+public class GameElement {
     private GameElementStatus status;
-    private Ship ship;
+    private ArrayList<Ship> ships = new ArrayList<>();
+
 
     public GameElement() {
         setStatus(GameElementStatus.WATER);
@@ -15,7 +17,8 @@ public class GameElement {
 
     public void init() {
         setStatus(GameElementStatus.WATER);
-        ship = null;
+        ships = new ArrayList<>();
+
     }
 
     public GameElementStatus getStatus() {
@@ -26,7 +29,27 @@ public class GameElement {
         this.status = status;
     }
 
+    public int getCountShips() {
+        return ships.size();
+    }
+
     public void setShip(Ship ship) {
-        this.ship = ship;
+        ships.add(ship);
+    }
+
+    public Ship getShip(int index) {
+        return ships.get(index);
+    }
+
+    public boolean removeShip(Ship ship) {
+        try {
+            return ships.remove(ship);
+        } catch (UnsupportedOperationException e) {
+            return false;
+        } catch (ClassCastException e) {
+            return false;
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 }
