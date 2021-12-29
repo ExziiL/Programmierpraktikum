@@ -6,7 +6,6 @@ import static Logic.main.LogicConstants.*;
 
 import Logic.main.*;
 import Utilities.*;
-import Utilities.Exception.*;
 
 import java.util.ArrayList;
 
@@ -100,7 +99,7 @@ public class Game {
         return countFiveShip;
     }
 
-    public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) throws ShipOutofGame {
+    public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
         ArrayList<HoverState> stateList = new ArrayList<>();
         int x = index % size;
         int y = index / size;
@@ -269,38 +268,42 @@ public class Game {
     }
 
 
-    public void placeShip(int index, int ShipSize, boolean isHorizontal) {
+    public boolean placeShip(int index, int ShipSize, boolean isHorizontal) {
         int x = 0;
         int y = 0;
         Ship ship = null;
-        try {
-            // aktuellen Status des Schiffes holen
-            HoverState[] hoverStates = getHoverStateStatus(index, ShipSize, isHorizontal);
+        // aktuellen Status des Schiffes holen
+        HoverState[] hoverStates = getHoverStateStatus(index, ShipSize, isHorizontal);
 
-            // Shiff aus Arreylist ermitteln
-            for (int s = 0; s < ships.size(); s++) {
-                if (ships.get(s).getSize() == ShipSize) {
-                    ship = ships.get(s);
-                    removeShip(s);
-                    break;
-                }
+        // prüfen ob Shiff placierbar ist
+        for (int i = 0; i < hoverStates.length; i++) {
+            if (hoverStates[i] != null && hoverStates[i].getStatus() == GameElementStatus.ERROR) {
+                return false;
             }
-
-            // Status und Shiff auf Spielfeld ändern
-            for (int i = 0; i < hoverStates.length; i++) {
-                if (hoverStates[i] != null) {
-                    x = hoverStates[i].getIndex() % size;
-                    y = hoverStates[i].getIndex() / size;
-
-                    gameField[x][y].setStatus(hoverStates[i].getStatus());
-                    if (hoverStates[i].getStatus() == GameElementStatus.SHIP) {
-                        gameField[x][y].setShip(ship);
-                    }
-                }
-            }
-        } catch (ShipOutofGame e) {
-            return;
         }
+
+        // Shiff aus Arreylist ermitteln
+        for (int s = 0; s < ships.size(); s++) {
+            if (ships.get(s).getSize() == ShipSize) {
+                ship = ships.get(s);
+                removeShip(s);
+                break;
+            }
+        }
+
+        // Status und Shiff auf Spielfeld ändern
+        for (int i = 0; i < hoverStates.length; i++) {
+            if (hoverStates[i] != null) {
+                x = hoverStates[i].getIndex() % size;
+                y = hoverStates[i].getIndex() / size;
+
+                gameField[x][y].setStatus(hoverStates[i].getStatus());
+                if (hoverStates[i].getStatus() == GameElementStatus.SHIP) {
+                    gameField[x][y].setShip(ship);
+                }
+            }
+        }
+        return true;
     }
 
     public void shuffleShips() {
@@ -328,9 +331,8 @@ public class Game {
                 shipSize = 5;
             }
 
-            if (ShipinGameField(x, y, shipSize, isHorizontal)) {
-                placeShip(matchIndex(x, y), shipSize, isHorizontal);
-            }
+            // wenn nicht platzierbar bricht placeShip ab
+            placeShip(matchIndex(x, y), shipSize, isHorizontal);
         }
     }
 
