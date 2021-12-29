@@ -371,7 +371,7 @@ public class Game {
         }
     }
 
-    public void deleteShip(int index) {
+    public boolean deleteShip(int index) {
         int x = index % size;
         int y = index / size;
         Ship ship;
@@ -389,7 +389,9 @@ public class Game {
             }
 
             addShip(ship.getSize(), 1);
+            return true;
         }
+        return false;
     }
 
     public void initializeGameField() {

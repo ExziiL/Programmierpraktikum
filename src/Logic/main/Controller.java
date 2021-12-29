@@ -93,8 +93,8 @@ public class Controller {
         myGame.initializeGameField();
     }
 
-    public void deleteShip(int index) {
-        myGame.deleteShip(index);
+    public boolean deleteShip(int index) {
+        return myGame.deleteShip(index);
     }
 
     public int getShipSize(int index) {
