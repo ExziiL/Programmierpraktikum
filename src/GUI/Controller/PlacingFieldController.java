@@ -46,10 +46,14 @@ public class PlacingFieldController implements Initializable {
     private Button EditShips;
     @FXML
     private Button Random;
+    @FXML
+    private Button Clear;
 
     private int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
     private boolean noPlacingAllowed = false;
+    private boolean editField = false;
+    private boolean replaceShip = false;
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
@@ -96,22 +100,36 @@ public class PlacingFieldController implements Initializable {
 
             pane.setOnMouseClicked(event -> {
                 if (event.getButton() == MouseButton.PRIMARY) {
-                    if (currentShip != 0) {
-                        placeShip(pane);
-                        redrawPanes();
-                        setChoosenShipProperties();
+                    if (editField == false) {
+                        if (currentShip != 0) {
+                            placeShip(pane);
+                        }
+                    } else {
+                        if (replaceShip == false) {
+                            replaceShip(pane);
+                            replaceShip = true;
+                        } else {
+                            placeShip(pane);
+                            replaceShip = false;
+                            chooseShip(0);
+                        }
+                    }
+                } else if (event.getButton() == MouseButton.SECONDARY)
+                    if (editField == true && replaceShip == false) {
+                        deleteShip(pane);
+
                     } else {
 
-                        resetShip(pane);
                     }
-                }
+                setChoosenShipProperties();
+                redrawPanes();
             });
 
         }
 
         // Event switch Ship
         placingField.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY) {
+            if (event.getButton() == MouseButton.SECONDARY && editField == false) {
                 if (isHorizontal) {
                     isHorizontal = false;
                 } else {
@@ -124,15 +142,19 @@ public class PlacingFieldController implements Initializable {
 
         // Event Shiff auswählen
         BoxTwo.setOnMouseClicked(event -> {
+            editField = false;
             chooseShip(2);
         });
         BoxThree.setOnMouseClicked(event -> {
+            editField = false;
             chooseShip(3);
         });
         BoxFour.setOnMouseClicked(event -> {
+            editField = false;
             chooseShip(4);
         });
         BoxFive.setOnMouseClicked(event -> {
+            editField = false;
             chooseShip(5);
         });
 
@@ -161,11 +183,19 @@ public class PlacingFieldController implements Initializable {
         });
 
         EditShips.setOnAction(event -> {
+            editField = true;
             chooseShip(0);
         });
 
         Random.setOnAction(event -> {
             Game.logicController.shuffleShips();
+            redrawPanes();
+            setChoosenShipProperties();
+            chooseShip(0);
+        });
+
+        Clear.setOnAction(event -> {
+            Game.logicController.initializeGameField();
             redrawPanes();
             setChoosenShipProperties();
         });
@@ -209,24 +239,32 @@ public class PlacingFieldController implements Initializable {
             if (currentShip == 2) {
                 determineNewChoosenShip();
             }
+        } else {
+            BoxTwo.setDisable(false);
         }
         if (Game.logicController.getCountThreeShip() == 0) {
             BoxThree.setDisable(true);
             if (currentShip == 3) {
                 determineNewChoosenShip();
             }
+        } else {
+            BoxThree.setDisable(false);
         }
         if (Game.logicController.getCountFourShip() == 0) {
             BoxFour.setDisable(true);
             if (currentShip == 4) {
                 determineNewChoosenShip();
             }
+        } else {
+            BoxFour.setDisable(false);
         }
         if (Game.logicController.getCountFiveShip() == 0) {
             BoxFive.setDisable(true);
             if (currentShip == 5) {
                 determineNewChoosenShip();
             }
+        } else {
+            BoxFive.setDisable(false);
         }
     }
 
@@ -236,21 +274,25 @@ public class PlacingFieldController implements Initializable {
                 case 2:
                     if (currentShip != 2 && !BoxTwo.isDisabled()) {
                         chooseShip(2);
+                        return;
                     }
                     break;
                 case 3:
                     if (currentShip != 3 && !BoxThree.isDisabled()) {
                         chooseShip(3);
+                        return;
                     }
                     break;
                 case 4:
                     if (currentShip != 4 && !BoxFour.isDisabled()) {
                         chooseShip(4);
+                        return;
                     }
                     break;
                 case 5:
                     if (currentShip != 5 && !BoxFive.isDisabled()) {
                         chooseShip(5);
+                        return;
                     }
                     break;
             }
@@ -260,30 +302,25 @@ public class PlacingFieldController implements Initializable {
     private void hoverShip(Pane pane) {
         Pane newPane = null;
         noPlacingAllowed = false;
-        try {
-            HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
-                    isHorizontal);
+        HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip, isHorizontal);
 
-            for (int i = 0; i < states.length; i++) {
-                if (states[i] != null) {
-                    newPane = (Pane) shipPartsList.get(states[i].getIndex());
+        for (int i = 0; i < states.length; i++) {
+            if (states[i] != null) {
+                newPane = (Pane) shipPartsList.get(states[i].getIndex());
 
-                    switch (states[i].getStatus()) {
-                        case SHIP:
-                            setColorPane(newPane, "black");
-                            break;
-                        case ERROR:
-                            setColorPane(newPane, "red");
-                            noPlacingAllowed = true;
-                            break;
-                        case CLOSE:
-                            setColorPane(newPane, "#E0F8E6");
-                            break;
-                    }
+                switch (states[i].getStatus()) {
+                    case SHIP:
+                        setColorPane(newPane, "black");
+                        break;
+                    case ERROR:
+                        setColorPane(newPane, "red");
+                        noPlacingAllowed = true;
+                        break;
+                    case CLOSE:
+                        setColorPane(newPane, "#E0F8E6");
+                        break;
                 }
             }
-        } catch (ShipOutofGame e) {
-
         }
     }
 
@@ -297,11 +334,16 @@ public class PlacingFieldController implements Initializable {
         }
     }
 
-    private void resetShip(Pane pane) {
-        if (Game.logicController
-                .getGameElementStatus(shipPartsList.indexOf(pane)) == LogicConstants.GameElementStatus.SHIP) {
+    private void deleteShip(Pane pane) {
+        Game.logicController.deleteShip(shipPartsList.indexOf(pane));
+    }
 
-        }
+    private void replaceShip(Pane pane) {
+        int shipSize = Game.logicController.getShipSize(shipPartsList.indexOf(pane));
+        boolean isHorizontal = Game.logicController.isShipHorizontal(shipPartsList.indexOf(pane));
+        deleteShip(pane);
+        this.currentShip = shipSize;
+        this.isHorizontal = isHorizontal;
     }
 
     private void redrawPanes() {
@@ -341,7 +383,7 @@ public class PlacingFieldController implements Initializable {
         HBox box = getBoxShip(ship);
         if (box != null) {
             box.setStyle( // TODO: hier statt setStyle das jeweilige Bild einsetzen (gemeinsam mit der
-                          // TODO: unchooseActualShip (Z. 218))
+                    // TODO: unchooseActualShip (Z. 218))
                     "-fx-border-color: black ; -fx-border-radius: 7px;");
         }
     }

@@ -103,6 +103,7 @@
       <Button fx:id="Next" layoutX="735.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleNext" text="Weiter" />
       <Button fx:id="EditShips" layoutX="493.0" layoutY="437.0" mnemonicParsing="false" text="Bearbeiten" />
       <Button fx:id="Random" layoutX="493.0" layoutY="402.0" mnemonicParsing="false" text="Random" />
+      <Button fx:id="Clear" layoutX="422.0" layoutY="341.0" mnemonicParsing="false" text="Clear" />
       <Text layoutX="264.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="272.00390625">
          <font>
             <Font size="36.0" />

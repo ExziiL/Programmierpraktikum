@@ -65,12 +65,12 @@ public class Controller {
         return myGame.getCountFiveShip();
     }
 
-    public GameElementStatus getGameElementStatus(int element) {
-        return myGame.getgameElementStatus(element);
+    public GameElementStatus getGameElementStatus(int index) {
+        return myGame.getgameElementStatus(index);
     }
 
-    public HoverState[] getHoverStateStatus(int element, int size, boolean isHorizontal) throws ShipOutofGame {
-        return myGame.getHoverStateStatus(element, size, isHorizontal);
+    public HoverState[] getHoverStateStatus(int index, int size, boolean isHorizontal) {
+        return myGame.getHoverStateStatus(index, size, isHorizontal);
     }
 
     public void placeShip(int element, int size, boolean isHorizontal) {
@@ -89,4 +89,19 @@ public class Controller {
         return myGame.checkPlaceForShip(ship, x, y, vertical);
     }
 
+    public void initializeGameField() {
+        myGame.initializeGameField();
+    }
+
+    public void deleteShip(int index) {
+        myGame.deleteShip(index);
+    }
+
+    public int getShipSize(int index) {
+        return myGame.getShipSize(index);
+    }
+
+    public boolean isShipHorizontal(int index) {
+        return myGame.isShipHorizontal(index);
+    }
 }
