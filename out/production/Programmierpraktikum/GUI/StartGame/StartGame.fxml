@@ -9,10 +9,11 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="467.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.StartGameController">
+<BorderPane prefHeight="467.0" prefWidth="586.0" stylesheets="@../../assets/css/StartGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.StartGameController">
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Battleships" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -36,42 +37,74 @@
          <children>
             <Pane prefHeight="206.0" prefWidth="295.0">
                <children>
-                  <ImageView fx:id="startGameIcon" fitHeight="33.0" fitWidth="40.0" layoutX="82.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/Icons/sailboat.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="SpielStarten" layoutX="58.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleStartGame" text="Spiel starten" />
+                  <VBox id="spielStartenPane" alignment="CENTER" layoutX="21.0" prefHeight="134.0" prefWidth="159.0">
+                     <children>
+                        <ImageView fx:id="startGameIcon" fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/Icons/sailboat.png" />
+                           </image>
+                        </ImageView>
+                        <Button fx:id="SpielStarten" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handleStartGame" text="Spiel starten">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
             <Pane prefHeight="206.0" prefWidth="295.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="startGameIcon1" fitHeight="33.0" fitWidth="40.0" layoutX="82.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/Icons/synchronization.png" />
-                     </image>
-                  </ImageView>
-                  <Button layoutX="62.0" layoutY="74.0" mnemonicParsing="false" text="Spiel laden" />
+                  <VBox alignment="CENTER" prefHeight="136.0" prefWidth="201.0">
+                     <children>
+                        <ImageView fx:id="startGameIcon1" fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/Icons/synchronization.png" />
+                           </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" text="Spiel laden">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
             <Pane prefHeight="206.0" prefWidth="295.0" GridPane.rowIndex="1">
                <children>
-                  <ImageView fx:id="startGameIcon2" fitHeight="33.0" fitWidth="40.0" layoutX="83.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/Icons/setting.png" />
-                     </image>
-                  </ImageView>
-                  <Button layoutX="56.0" layoutY="74.0" mnemonicParsing="false" text="Einstellungen" />
+                  <VBox alignment="CENTER" prefHeight="138.0" prefWidth="204.0">
+                     <children>
+                        <ImageView fx:id="startGameIcon2" fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/Icons/setting.png" />
+                           </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" text="Einstellungen">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
             <Pane prefHeight="206.0" prefWidth="295.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <ImageView fx:id="startGameIcon21" fitHeight="33.0" fitWidth="40.0" layoutX="82.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/Icons/logout.png" />
-                     </image>
-                  </ImageView>
-                  <Button layoutX="53.0" layoutY="74.0" mnemonicParsing="false" onAction="#handleClose" text="Spiel beenden" />
+                  <VBox alignment="CENTER" prefHeight="137.0" prefWidth="202.0">
+                     <children>
+                        <ImageView fx:id="startGameIcon21" fitHeight="33.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/Icons/logout.png" />
+                           </image>
+                        </ImageView>
+                        <Button mnemonicParsing="false" onAction="#handleClose" text="Spiel beenden">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                </children>
             </Pane>
          </children>

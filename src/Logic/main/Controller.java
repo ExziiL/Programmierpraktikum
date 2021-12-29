@@ -38,7 +38,6 @@ public class Controller {
     }
 
     public void setGameSize(int n) {
-
         try {
             myGame.setSize(n);
         } catch (FalseFieldSize falseFieldSize) {
@@ -87,7 +86,6 @@ public class Controller {
     }
 
     public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
-
         return myGame.checkPlaceForShip(ship, x, y, vertical);
     }
 

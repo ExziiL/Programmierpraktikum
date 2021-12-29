@@ -14,11 +14,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
     <children>
-        <Button layoutX="36.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleBack" text="zurück" />
-        <Button fx:id="next" layoutX="515.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleNext" text="weiter" />
-        <VBox alignment="CENTER_RIGHT" layoutX="36.0" layoutY="37.0" prefHeight="98.0" prefWidth="564.0" spacing="20.0">
+        <Button layoutX="11.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleBack" text="zurück" />
+        <Button fx:id="next" layoutX="737.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleNext" text="weiter" />
+        <VBox alignment="CENTER_RIGHT" layoutX="86.0" layoutY="90.0" prefHeight="248.0" prefWidth="625.0" spacing="20.0">
             <children>
                 <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="263.0">
                     <children>
@@ -30,37 +30,37 @@
                         <TextField fx:id="name" onAction="#handleInputName" />
                     </children>
                 </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="19.0" prefWidth="539.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
                      <HBox.margin>
                         <Insets right="83.0" />
                      </HBox.margin>
                   </Text>
-                  <Slider prefHeight="14.0" prefWidth="431.0" />
+                  <Slider fx:id="slider" blockIncrement="1.0" max="30.0" min="5.0" onDragDetected="#handleSliderChange" prefHeight="14.0" prefWidth="431.0" showTickLabels="true" showTickMarks="true" value="5.0" />
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="539.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="9.0" prefWidth="539.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielmodus">
                      <HBox.margin>
                         <Insets right="100.0" />
                      </HBox.margin>
                   </Text>
-                  <ComboBox fx:id="gameSize1" onAction="#handleSizeChanged" prefWidth="150.0" />
+                  <ComboBox fx:id="gameSize1" onAction="#handleSizeChanged" prefHeight="35.0" prefWidth="150.0" />
                </children>
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="539.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="0.0" prefWidth="539.0">
                     <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
                             <HBox.margin>
                                 <Insets right="85.0" />
                             </HBox.margin>
                         </Text>
-                  <ComboBox fx:id="gameSize" onAction="#handleSizeChanged" prefHeight="47.0" prefWidth="150.0" />
+                  <ComboBox fx:id="gameSize" onAction="#handleSizeChanged" prefHeight="35.0" prefWidth="150.0" />
                     </children>
                     <VBox.margin>
                         <Insets />
@@ -71,49 +71,49 @@
                 <Insets right="25.0" />
             </padding>
         </VBox>
-        <Label fx:id="labelTwo" layoutX="59.0" layoutY="200.0" text="0x">
+        <Label fx:id="labelTwo" layoutX="124.0" layoutY="410.0" text="0x">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="labelThree" layoutX="196.0" layoutY="200.0" text="0x">
+        <Label fx:id="labelThree" layoutX="290.0" layoutY="410.0" text="0x">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-        <Label fx:id="labelFour" layoutX="350.0" layoutY="200.0" text="0x">
+        <Label fx:id="labelFour" layoutX="467.0" layoutY="410.0" text="0x">
             <font>
                 <Font size="24.0" />
             </font>
         </Label>
-      <Label fx:id="labelFive" layoutX="503.0" layoutY="200.0" text="0x">
+      <Label fx:id="labelFive" layoutX="641.0" layoutY="410.0" text="0x">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="61.0" fitWidth="97.0" layoutX="22.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="61.0" fitWidth="97.0" layoutX="87.0" layoutY="447.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="133.0" layoutX="148.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="60.0" fitWidth="133.0" layoutX="242.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="128.0" layoutX="300.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="60.0" fitWidth="128.0" layoutX="417.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="60.0" fitWidth="139.0" layoutX="456.0" layoutY="236.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="60.0" fitWidth="139.0" layoutX="594.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
          </image>
       </ImageView>
-      <Text fill="#7c7c7c" layoutX="46.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
-      <Text fill="#7c7c7c" layoutX="183.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
-      <Text fill="#7c7c7c" layoutX="337.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
-      <Text fill="#7c7c7c" layoutX="490.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5er Schiff" />
+      <Text fill="#7c7c7c" layoutX="111.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
+      <Text fill="#7c7c7c" layoutX="277.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
+      <Text fill="#7c7c7c" layoutX="454.0" layoutY="519.0" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
+      <Text fill="#7c7c7c" layoutX="628.0" layoutY="518.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5er Schiff" />
     </children>
 </AnchorPane>
