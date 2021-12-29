@@ -63,6 +63,8 @@ public class PlacingFieldController implements Initializable {
         int column = 0;
         int row = 0;
         double paneSize = setPaneSize();
+
+        // Build up Grid pane and set Events for Panes
         for (int i = 0; i < size * size; i++) {
             Pane pane = new Pane();
             pane.setStyle("-fx-background-color: white;");
@@ -103,26 +105,36 @@ public class PlacingFieldController implements Initializable {
                     if (editField == false) {
                         if (currentShip != 0) {
                             placeShip(pane);
+                            redrawPanes();
                         }
                     } else {
                         if (replaceShip == false) {
                             replaceShip(pane);
                             replaceShip = true;
+                            redrawPanes();
+                            hoverShip(pane);
                         } else {
                             placeShip(pane);
                             replaceShip = false;
                             chooseShip(0);
+                            redrawPanes();
                         }
                     }
-                } else if (event.getButton() == MouseButton.SECONDARY)
+                } else if (event.getButton() == MouseButton.SECONDARY) {
                     if (editField == true && replaceShip == false) {
                         deleteShip(pane);
-
-                    } else {
-
+                        redrawPanes();
+                    } else if (editField == true && replaceShip == true) {
+                        if (isHorizontal) {
+                            isHorizontal = false;
+                        } else {
+                            isHorizontal = true;
+                        }
+                        redrawPanes();
+                        hoverShip(pane);
                     }
+                }
                 setChoosenShipProperties();
-                redrawPanes();
             });
 
         }
@@ -140,7 +152,7 @@ public class PlacingFieldController implements Initializable {
             }
         });
 
-        // Event Shiff auswählen
+        // Event choose Ship
         BoxTwo.setOnMouseClicked(event -> {
             editField = false;
             chooseShip(2);
@@ -158,20 +170,24 @@ public class PlacingFieldController implements Initializable {
             chooseShip(5);
         });
 
-        // Grid liste Speichern
+        // Save Grid List
         shipPartsList = table.getChildren();
-        // Auswahl Shiffe aufbauen
+        // Build up Choosen Ships Properties
         setChoosenShipProperties();
 
-        // Startshiff auswählen
+        // Set Starting Ship
         if (Game.logicController.getCountTwoShip() != 0) {
             chooseShip(2);
         } else {
             chooseShip(3);
         }
 
-        // Weiter Butten ausblenden
-        Next.setDisable(true);
+        if (Game.logicController.allShipPlaced()) {
+            Next.setDisable(false);
+        } else {
+            Next.setDisable(true);
+        }
+
         Next.setOnAction(event -> {
             // Screen wechseln
             try {
@@ -183,14 +199,20 @@ public class PlacingFieldController implements Initializable {
         });
 
         EditShips.setOnAction(event -> {
-            editField = true;
-            chooseShip(0);
+            if (editField) {
+                editField = false;
+                determineNewChoosenShip();
+            } else {
+                editField = true;
+                chooseShip(0);
+            }
         });
 
         Random.setOnAction(event -> {
             Game.logicController.shuffleShips();
             redrawPanes();
             setChoosenShipProperties();
+            Next.setDisable(false);
             chooseShip(0);
         });
 
@@ -200,6 +222,7 @@ public class PlacingFieldController implements Initializable {
             setChoosenShipProperties();
         });
 
+        redrawPanes();
     }
 
     @FXML
@@ -335,7 +358,9 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void deleteShip(Pane pane) {
-        Game.logicController.deleteShip(shipPartsList.indexOf(pane));
+        if (Game.logicController.deleteShip(shipPartsList.indexOf(pane))) {
+            Next.setDisable(true);
+        }
     }
 
     private void replaceShip(Pane pane) {
