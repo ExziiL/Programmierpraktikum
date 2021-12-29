@@ -275,7 +275,7 @@ public class Game {
         // aktuellen Status des Schiffes holen
         HoverState[] hoverStates = getHoverStateStatus(index, ShipSize, isHorizontal);
 
-        // prüfen ob Shiff placierbar ist
+        // prüfen ob Shiff plazierbar ist
         for (int i = 0; i < hoverStates.length; i++) {
             if (hoverStates[i] != null && hoverStates[i].getStatus() == GameElementStatus.ERROR) {
                 return false;
