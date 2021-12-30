@@ -2,11 +2,20 @@ package GUI;
 
 import Logic.main.Controller;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Labeled;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class Game extends Application {
@@ -26,10 +35,27 @@ public class Game extends Application {
 
         showAppWindow();
         showStartGameWindow();
+
+        //System.out.println(Thread.currentThread().getName());
+        mainLayout.widthProperty().toString();
+
+        this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                Thread t = new Thread(() -> {
+                    ObservableList<Node> child = mainLayout.getChildren();
+                    Platform.runLater(() -> {
+                        handleNodeSize(child, mainLayout, oldValue, newValue);
+                    });
+                });
+                t.start();
+            }
+        });
     }
 
     /**
-     * sets the Borderpane of Game.fxml as a new Scene, which is displayed.
+     * Sets the Borderpane of Game.fxml as a new Scene, which is displayed.
+     *
      * @throws IOException can potentially throw this Exception
      */
     private void showAppWindow() throws IOException {
@@ -42,7 +68,8 @@ public class Game extends Application {
     }
 
     /**
-     * loads the StartGame.fxml and set in the center of the mainLayout-Borderpane
+     * Loads the StartGame.fxml and set in the center of the mainLayout-Borderpane
+     *
      * @throws IOException
      */
     public static void showStartGameWindow() throws IOException {
@@ -53,8 +80,9 @@ public class Game extends Application {
     }
 
     /**
-     * loads the GameSettings.fxml and replaces the center of the mainLayout-Borderpane,
+     * Loads the GameSettings.fxml and replaces the center of the mainLayout-Borderpane,
      * the StartGame.fxml
+     *
      * @throws IOException
      */
     public static void showGameSettingsWindow() throws IOException {
@@ -65,7 +93,44 @@ public class Game extends Application {
     }
 
 
+    private void handleNodeSize(ObservableList<Node> nodes, Pane parentnode, Number oldV, Number newV) {
+        for (Node x : nodes) {
+            if (x instanceof Pane) {
+                Pane node = (Pane) x;
+                ObservableList<Node> children = node.getChildren();
+                if (node instanceof GridPane) {
+                    node.setPrefWidth(node.getWidth() + newV.doubleValue() - oldV.doubleValue());
+                    node.setPrefHeight(node.getHeight() + newV.doubleValue() - oldV.doubleValue());
+                    handleNodeSize(children, parentnode, oldV, newV);
+                } else if (node instanceof HBox) {
 
+                } else if (node instanceof VBox) {
+
+                } else {
+                    handleNodeSize(children, node, oldV, newV);
+                }
+            }
+            else if (x instanceof Button) {
+                Button button = (Button) x;
+
+
+                button.setLayoutX(button.getLayoutX() + (newV.doubleValue() - oldV.doubleValue())/4);
+                button.setLayoutY(button.getLayoutY() + (newV.doubleValue() - oldV.doubleValue())/4);
+
+            }
+            else if (x instanceof Text){
+
+            }
+            else if (x instanceof ImageView){
+                ImageView image = (ImageView) x;
+
+                image.setLayoutX(image.getLayoutX() + (newV.doubleValue() - oldV.doubleValue())/4);
+                image.setLayoutY(image.getLayoutY() + (newV.doubleValue() - oldV.doubleValue())/4);
+            }
+
+
+        }
+    }
 }
 /*public class Game extends Application {
     private Stage primaryStage;
