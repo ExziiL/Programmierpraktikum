@@ -3,9 +3,11 @@ package GUI.Controller;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
 import GUI.Game;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
@@ -41,7 +43,7 @@ public class PlacingFieldController implements Initializable {
     @FXML
     private Button Next;
     @FXML
-    private Button EditShips;
+    private ToggleButton EditShips;
     @FXML
     private Button Random;
     @FXML
@@ -105,21 +107,21 @@ public class PlacingFieldController implements Initializable {
             chooseShip(3);
         }
 
-        if (Game.logicController.allShipPlaced()) {
-            Next.setDisable(false);
-        } else {
-            Next.setDisable(true);
-        }
+        // if (Game.logicController.allShipPlaced()) {
+        // Next.setDisable(false);
+        // } else {
+        // Next.setDisable(true);
+        // }
 
-        Next.setOnAction(event -> {
-            // Screen wechseln
-            try {
-                Game.showPlayingFieldWindow();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        });
+        // Next.setOnAction(event -> {
+        // // Screen wechseln
+        // try {
+        // Game.showPlayingFieldWindow();
+        // } catch (IOException e) {
+        // // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+        // });
 
         EditShips.setOnAction(event -> {
             if (editMode) {
@@ -136,7 +138,7 @@ public class PlacingFieldController implements Initializable {
             gridBuilder.redrawPlacingField();
             ;
             setChoosenShipProperties();
-            Next.setDisable(false);
+            // Next.setDisable(false);
             chooseShip(0);
         });
 
@@ -148,7 +150,6 @@ public class PlacingFieldController implements Initializable {
 
         gridBuilder.redrawPlacingField();
     }
-
 
     // Event Handler
     public void handlePaneOnMouseEntered(Pane pane) {
@@ -194,15 +195,14 @@ public class PlacingFieldController implements Initializable {
     }
 
     @FXML
-    public void handleBack(ActionEvent event) throws IOException {
+    public void handleBack(MouseEvent event) throws IOException {
         Game.showGameSettingsWindow();
     }
 
     @FXML
-    public void handleNext(ActionEvent event) throws IOException {
+    public void handleNext(MouseEvent event) throws IOException {
         Game.showPlayingFieldWindow();
     }
-
 
     private void setChoosenShipProperties() {
         labelTwo.setText(Game.logicController.getCountTwoShip() + "x");
@@ -277,7 +277,8 @@ public class PlacingFieldController implements Initializable {
 
     private void hoverShip(Pane pane) {
 
-        HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip, isHorizontal);
+        HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
+                isHorizontal);
 
         noPlacingAllowed = gridBuilder.hoverShip(states);
     }
@@ -287,14 +288,14 @@ public class PlacingFieldController implements Initializable {
             Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
         }
         if (Game.logicController.allShipPlaced() == true) {
-            Next.setDisable(false);
+            // Next.setDisable(false);
             chooseShip(0);
         }
     }
 
     private void deleteShip(Pane pane) {
         if (Game.logicController.deleteShip(shipPartsList.indexOf(pane))) {
-            Next.setDisable(true);
+            // Next.setDisable(true);
         }
     }
 
