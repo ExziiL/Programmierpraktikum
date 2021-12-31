@@ -34,7 +34,7 @@
                         <Insets right="83.0" />
                      </HBox.margin>
                   </Text>
-                  <Slider fx:id="slider" blockIncrement="1.0" max="30.0" min="5.0" onDragDetected="#handleSliderChange" prefHeight="14.0" prefWidth="431.0" showTickLabels="true" showTickMarks="true" value="5.0" />
+                  <Slider fx:id="slider" blockIncrement="1.0" max="30.0" min="5.0" onDragDetected="#handleSliderChange" onMouseClicked="#handleSliderChange" prefHeight="14.0" prefWidth="431.0" showTickLabels="true" showTickMarks="true" value="5.0" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="539.0">
