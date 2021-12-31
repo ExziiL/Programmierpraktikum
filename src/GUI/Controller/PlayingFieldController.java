@@ -4,7 +4,7 @@ import GUI.Game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class PlayingFieldController implements Initializable {
   }
 
   @FXML
-  public void handleBack(ActionEvent event) throws IOException {
+  public void handleBack(MouseEvent event) throws IOException {
     Game.showPlacingFieldWindow();
   }
 
