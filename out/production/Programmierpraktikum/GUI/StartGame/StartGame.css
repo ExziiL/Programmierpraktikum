@@ -1,3 +1,11 @@
-.root {
+#paneBox:hover {
+	/* Ich würde es gerne so machen, dass wenn man bereits über der VBox den "Button" bestätigen kann und nicht erst auf dem Button direkt */
+	-fx-cursor: hand;
+}
 
+#gameStartLine {
+	-fx-opacity: 0;
+}
+#paneBox:hover #gameStartLine {
+	-fx-opacity: 1;
 }

@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import GUI.Game;
@@ -42,7 +43,7 @@ public class GameSettingsController {
 
     // ------------------------------- Zurück-Button ------------------------------
     @FXML
-    void handleBack(ActionEvent event) throws IOException {
+    void handleBack(MouseEvent event) throws IOException {
         Game.showStartGameWindow();
     }
 
@@ -64,7 +65,7 @@ public class GameSettingsController {
     // ------------------------------- Next-Button ---------------------------------
 
     @FXML
-    void handleNext(ActionEvent event) throws IOException {
+    void handleNext(MouseEvent event) throws IOException {
         Game.logicController.setName(name.getCharacters().toString());
         Game.logicController.setGameSize(gameSize);
         Game.showPlacingFieldWindow();
@@ -75,7 +76,5 @@ public class GameSettingsController {
         labelThree.setText(Game.logicController.getCountThreeShip() + "x");
         labelFour.setText(Game.logicController.getCountFourShip() + "x");
         labelFive.setText(Game.logicController.getCountFiveShip() + "x");
-
     }
-
 }
