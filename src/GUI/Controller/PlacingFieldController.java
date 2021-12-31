@@ -1,7 +1,5 @@
 package GUI.Controller;
 
-import Logic.main.LogicConstants;
-import Utilities.Exception.ShipOutofGame;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -51,124 +49,49 @@ public class PlacingFieldController implements Initializable {
     @FXML
     private Button Clear;
 
+    private GridPaneBuilder gridBuilder;
     private int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
     private boolean noPlacingAllowed = false;
-    private boolean editField = false;
-    private boolean replaceShip = false;
+    private boolean editMode = false;
+    private boolean replaceShipMode = false;
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        int column = 0;
-        int row = 0;
-        double paneSize = setPaneSize();
-
-        // Build up Grid pane and set Events for Panes
-        for (int i = 0; i < size * size; i++) {
-            Pane pane = new Pane();
-            pane.setStyle("-fx-background-color: white;");
-            pane.setStyle("-fx-border-color: #999898 ;");
-            pane.setPrefWidth(paneSize);
-            pane.setPrefHeight(paneSize);
-
-            if (column == size) {
-                column = 0;
-                row++;
-            }
-            pane.setId("field" + row + column);
-            table.add(pane, column++, row);
-
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
-
-            // set Gridpane Hights
-            table.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            table.setMinHeight(Region.USE_COMPUTED_SIZE);
-            table.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            table.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            table.setMinWidth(Region.USE_COMPUTED_SIZE);
-            table.setMaxWidth(Region.USE_PREF_SIZE);
-
-            pane.setOnMouseEntered(event -> {
-                hoverShip(pane);
-                currentPane = pane;
-            });
-
-            pane.setOnMouseExited(event -> {
-                redrawPanes();
-            });
-
-            pane.setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    if (editField == false) {
-                        if (currentShip != 0) {
-                            placeShip(pane);
-                            redrawPanes();
-                        }
-                    } else {
-                        if (replaceShip == false) {
-                            replaceShip(pane);
-                            replaceShip = true;
-                            redrawPanes();
-                            hoverShip(pane);
-                        } else {
-                            placeShip(pane);
-                            replaceShip = false;
-                            chooseShip(0);
-                            redrawPanes();
-                        }
-                    }
-                } else if (event.getButton() == MouseButton.SECONDARY) {
-                    if (editField == true && replaceShip == false) {
-                        deleteShip(pane);
-                        redrawPanes();
-                    } else if (editField == true && replaceShip == true) {
-                        if (isHorizontal) {
-                            isHorizontal = false;
-                        } else {
-                            isHorizontal = true;
-                        }
-                        redrawPanes();
-                        hoverShip(pane);
-                    }
-                }
-                setChoosenShipProperties();
-            });
-
-        }
+        gridBuilder = new GridPaneBuilder(size);
+        table = gridBuilder.createTablePlacingField(table, this);
 
         // Event switch Ship
         placingField.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY && editField == false) {
+            if (event.getButton() == MouseButton.SECONDARY && editMode == false) {
                 if (isHorizontal) {
                     isHorizontal = false;
                 } else {
                     isHorizontal = true;
                 }
-                redrawPanes();
+                gridBuilder.redrawPlacingField();
                 hoverShip(currentPane);
             }
         });
 
         // Event choose Ship
         BoxTwo.setOnMouseClicked(event -> {
-            editField = false;
+            editMode = false;
             chooseShip(2);
         });
         BoxThree.setOnMouseClicked(event -> {
-            editField = false;
+            editMode = false;
             chooseShip(3);
         });
         BoxFour.setOnMouseClicked(event -> {
-            editField = false;
+            editMode = false;
             chooseShip(4);
         });
         BoxFive.setOnMouseClicked(event -> {
-            editField = false;
+            editMode = false;
             chooseShip(5);
         });
 
@@ -201,18 +124,19 @@ public class PlacingFieldController implements Initializable {
         // });
 
         EditShips.setOnAction(event -> {
-            if (editField) {
-                editField = false;
+            if (editMode) {
+                editMode = false;
                 determineNewChoosenShip();
             } else {
-                editField = true;
+                editMode = true;
                 chooseShip(0);
             }
         });
 
         Random.setOnAction(event -> {
             Game.logicController.shuffleShips();
-            redrawPanes();
+            gridBuilder.redrawPlacingField();
+            ;
             setChoosenShipProperties();
             // Next.setDisable(false);
             chooseShip(0);
@@ -220,11 +144,54 @@ public class PlacingFieldController implements Initializable {
 
         Clear.setOnAction(event -> {
             Game.logicController.initializeGameField();
-            redrawPanes();
+            gridBuilder.redrawPlacingField();
             setChoosenShipProperties();
         });
 
-        redrawPanes();
+        gridBuilder.redrawPlacingField();
+    }
+
+    // Event Handler
+    public void handlePaneOnMouseEntered(Pane pane) {
+        hoverShip(pane);
+        currentPane = pane;
+    }
+
+    public void handlePaneOnMouseClicked(Pane pane, MouseButton button) {
+        if (button == MouseButton.PRIMARY) {
+            if (editMode == false) {
+                if (currentShip != 0) {
+                    placeShip(pane);
+                    gridBuilder.redrawPlacingField();
+                }
+            } else {
+                if (replaceShipMode == false) {
+                    replaceShip(pane);
+                    replaceShipMode = true;
+                    gridBuilder.redrawPlacingField();
+                    hoverShip(pane);
+                } else {
+                    placeShip(pane);
+                    replaceShipMode = false;
+                    chooseShip(0);
+                    gridBuilder.redrawPlacingField();
+                }
+            }
+        } else if (button == MouseButton.SECONDARY) {
+            if (editMode == true && replaceShipMode == false) {
+                deleteShip(pane);
+                gridBuilder.redrawPlacingField();
+            } else if (editMode == true && replaceShipMode == true) {
+                if (isHorizontal) {
+                    isHorizontal = false;
+                } else {
+                    isHorizontal = true;
+                }
+                gridBuilder.redrawPlacingField();
+                hoverShip(pane);
+            }
+        }
+        setChoosenShipProperties();
     }
 
     @FXML
@@ -235,22 +202,6 @@ public class PlacingFieldController implements Initializable {
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
         Game.showPlayingFieldWindow();
-    }
-
-    private double setPaneSize() {
-        double hight;
-        if (size < 9) {
-            hight = 175;
-        } else if (size < 15) {
-            hight = 140;
-        } else if (size < 20) {
-            hight = 115;
-        } else if (size < 25) {
-            hight = 100;
-        } else {
-            hight = 80;
-        }
-        return hight;
     }
 
     private void setChoosenShipProperties() {
@@ -325,29 +276,11 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void hoverShip(Pane pane) {
-        Pane newPane = null;
-        noPlacingAllowed = false;
+
         HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
                 isHorizontal);
 
-        for (int i = 0; i < states.length; i++) {
-            if (states[i] != null) {
-                newPane = (Pane) shipPartsList.get(states[i].getIndex());
-
-                switch (states[i].getStatus()) {
-                    case SHIP:
-                        setColorPane(newPane, "black");
-                        break;
-                    case ERROR:
-                        setColorPane(newPane, "red");
-                        noPlacingAllowed = true;
-                        break;
-                    case CLOSE:
-                        setColorPane(newPane, "#E0F8E6");
-                        break;
-                }
-            }
-        }
+        noPlacingAllowed = gridBuilder.hoverShip(states);
     }
 
     private void placeShip(Pane pane) {
@@ -372,25 +305,6 @@ public class PlacingFieldController implements Initializable {
         deleteShip(pane);
         this.currentShip = shipSize;
         this.isHorizontal = isHorizontal;
-    }
-
-    private void redrawPanes() {
-        for (int j = 0; j < shipPartsList.size(); j++) {
-            Pane pane = (Pane) shipPartsList.get(j);
-
-            switch (Game.logicController.getGameElementStatus(j)) {
-                case SHIP:
-                    setColorPane(pane, "black");
-                    break;
-                case CLOSE:
-                    setColorPane(pane, "#E0F8E6");
-                    break;
-                default: // WATER
-                    setColorPane(pane, "white");
-                    break;
-            }
-
-        }
     }
 
     private void setColorPane(Pane pane, String color) {
