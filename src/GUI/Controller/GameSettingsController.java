@@ -1,5 +1,6 @@
 package GUI.Controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,6 +14,7 @@ import java.io.IOException;
 public class GameSettingsController {
     private final int[] gameSizeValues = new int[26];
 
+    //region FXML-Variables
     @FXML
     private Button next;
     @FXML
@@ -25,9 +27,9 @@ public class GameSettingsController {
     private Label labelFour;
     @FXML
     private Label labelFive;
-
     @FXML
     private ComboBox<String> gameSize;
+    //endregion
 
     @FXML
     void initialize() {
@@ -43,8 +45,18 @@ public class GameSettingsController {
             gameSize.getSelectionModel().selectFirst();
         }
 
-        Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
-        setLabelTexts();
+        Thread t = new Thread(()-> {
+            // ------------- Testcase ---------------
+            //for (int i = 0; i < 1_000_000; i++) {
+           //     System.out.println("Woo");
+           // }
+            // ------------- End Testcase ---------------
+            Platform.runLater(()-> {
+                Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
+                setLabelTexts();
+            });
+        });
+        t.start();
     }
 
     @FXML
@@ -59,16 +71,25 @@ public class GameSettingsController {
 
     @FXML
     void handleNext(ActionEvent event) throws IOException {
-
-        Game.logicController.setName(name.getCharacters().toString());
-        Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
-        //Game.showPlacingFieldWindow();
+        Thread t = new Thread(() -> {
+            Platform.runLater(() -> {
+                Game.logicController.setName(name.getCharacters().toString());
+                Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
+            });
+        });
+        t.start();
+        Game.showPlacingFieldWindow();
     }
 
     @FXML
     void handleSizeChanged(ActionEvent event) throws IOException {
-        Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
-        setLabelTexts();
+        Thread t = new Thread(()-> {
+            Platform.runLater(()-> {
+                Game.logicController.setGameSize(gameSizeValues[gameSize.getSelectionModel().getSelectedIndex()]);
+                setLabelTexts();
+            });
+        });
+        t.start();
     }
 
     private void setLabelTexts() {

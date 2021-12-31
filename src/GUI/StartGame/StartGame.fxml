@@ -36,7 +36,7 @@
          <children>
             <Pane fx:id="start1" style="-fx-background-color: blue;">
                <children>
-                  <ImageView fx:id="startGameIcon" fitHeight="33.0" fitWidth="59.0" layoutX="82.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="startGameIcon" fitHeight="33.0" fitWidth="85.0" layoutX="82.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Icons/sailboat.png" />
                      </image>

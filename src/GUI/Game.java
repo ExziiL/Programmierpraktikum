@@ -15,8 +15,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+
 
 public class Game extends Application {
     private Stage primaryStage;
@@ -92,7 +92,19 @@ public class Game extends Application {
         mainLayout.setCenter(gameSettings);
     }
 
+    /**
+     * Loads the PlacingField.fxml and replaces the center of the mainLayout-Borderpane,
+     * @throws IOException
+     */
+    public static void showPlacingFieldWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("PlacingField/PlacingField.fxml"));
+        AnchorPane placingField = loader.load();
+        mainLayout.setCenter(placingField);
+    }
 
+
+    //region Helperfunction
     private void handleNodeSize(ObservableList<Node> nodes, Pane parentnode, Number oldV, Number newV) {
         for (Node x : nodes) {
             if (x instanceof Pane) {
@@ -131,6 +143,7 @@ public class Game extends Application {
 
         }
     }
+    //endregion
 }
 /*public class Game extends Application {
     private Stage primaryStage;

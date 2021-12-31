@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import Logic.main.LogicConstants;
 import Utilities.Exception.ShipOutofGame;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
@@ -10,14 +11,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
+
 import java.io.IOException;
+
 import Utilities.HoverState;
 
 
 public class PlacingFieldController {
 
-    //FXML-Variables
-    // region
+    // region FXML-Variables
     @FXML
     private GridPane table;
     @FXML
@@ -46,8 +48,7 @@ public class PlacingFieldController {
     private Button Random;
     //endregion
 
-    //local Variables
-    //region
+    //region Local-Variables
     private int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
     private boolean noPlacingAllowed = false;
@@ -58,7 +59,6 @@ public class PlacingFieldController {
 
     //Methods
     public void initialize() {
-        System.out.println("main:" + Thread.currentThread().getName());
         int column = 0;
         int row = 0;
         double paneSize = setPaneSize();
@@ -75,8 +75,6 @@ public class PlacingFieldController {
             }
             pane.setId("field" + row + column);
             table.add(pane, column++, row);
-
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
             table.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -192,35 +190,41 @@ public class PlacingFieldController {
     }
 
     private void setChoosenShipProperties() {
-        labelTwo.setText(Game.logicController.getCountTwoShip() + "x");
-        labelThree.setText(Game.logicController.getCountThreeShip() + "x");
-        labelFour.setText(Game.logicController.getCountFourShip() + "x");
-        labelFive.setText(Game.logicController.getCountFiveShip() + "x");
+        Thread t = new Thread(() -> {
+            Platform.runLater(() -> {
+                labelTwo.setText(Game.logicController.getCountTwoShip() + "x");
+                labelThree.setText(Game.logicController.getCountThreeShip() + "x");
+                labelFour.setText(Game.logicController.getCountFourShip() + "x");
+                labelFive.setText(Game.logicController.getCountFiveShip() + "x");
+            });
 
-        if (Game.logicController.getCountTwoShip() == 0) {
-            BoxTwo.setDisable(true);
-            if (currentShip == 2) {
-                determineNewChoosenShip();
+            if (Game.logicController.getCountTwoShip() == 0) {
+                BoxTwo.setDisable(true);
+                if (currentShip == 2) {
+                    determineNewChoosenShip();
+                }
             }
-        }
-        if (Game.logicController.getCountThreeShip() == 0) {
-            BoxThree.setDisable(true);
-            if (currentShip == 3) {
-                determineNewChoosenShip();
+            if (Game.logicController.getCountThreeShip() == 0) {
+                BoxThree.setDisable(true);
+                if (currentShip == 3) {
+                    determineNewChoosenShip();
+                }
             }
-        }
-        if (Game.logicController.getCountFourShip() == 0) {
-            BoxFour.setDisable(true);
-            if (currentShip == 4) {
-                determineNewChoosenShip();
+            if (Game.logicController.getCountFourShip() == 0) {
+                BoxFour.setDisable(true);
+                if (currentShip == 4) {
+                    determineNewChoosenShip();
+                }
             }
-        }
-        if (Game.logicController.getCountFiveShip() == 0) {
-            BoxFive.setDisable(true);
-            if (currentShip == 5) {
-                determineNewChoosenShip();
+            if (Game.logicController.getCountFiveShip() == 0) {
+                BoxFive.setDisable(true);
+                if (currentShip == 5) {
+                    determineNewChoosenShip();
+                }
             }
-        }
+        });
+        t.start();
+
     }
 
     private void determineNewChoosenShip() {
@@ -251,43 +255,53 @@ public class PlacingFieldController {
     }
 
     private void hoverShip(Pane pane) {
-        Pane newPane = null;
-        noPlacingAllowed = false;
-        try {
-            HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
-                    isHorizontal);
+        Thread t = new Thread(()->{
+            Platform.runLater(()-> {
+                Pane newPane = null;
+                noPlacingAllowed = false;
+                try {
+                    HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
+                            isHorizontal);
 
-            for (int i = 0; i < states.length; i++) {
-                if (states[i] != null) {
-                    newPane = (Pane) shipPartsList.get(states[i].getIndex());
+                    for (int i = 0; i < states.length; i++) {
+                        if (states[i] != null) {
+                            newPane = (Pane) shipPartsList.get(states[i].getIndex());
 
-                    switch (states[i].getStatus()) {
-                        case SHIP:
-                            setColorPane(newPane, "black");
-                            break;
-                        case ERROR:
-                            setColorPane(newPane, "red");
-                            noPlacingAllowed = true;
-                            break;
-                        case CLOSE:
-                            setColorPane(newPane, "#E0F8E6");
-                            break;
+                            switch (states[i].getStatus()) {
+                                case SHIP:
+                                    setColorPane(newPane, "black");
+                                    break;
+                                case ERROR:
+                                    setColorPane(newPane, "red");
+                                    noPlacingAllowed = true;
+                                    break;
+                                case CLOSE:
+                                    setColorPane(newPane, "#E0F8E6");
+                                    break;
+                            }
+                        }
                     }
-                }
-            }
-        } catch (ShipOutofGame e) {
+                } catch (ShipOutofGame e) {
 
-        }
+                }
+            });
+        });
+        t.start();
     }
 
     private void placeShip(Pane pane) {
-        if (noPlacingAllowed == false) {
-            Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
-        }
-        if (Game.logicController.allShipPlaced() == true) {
-            Next.setDisable(false);
-            chooseShip(0);
-        }
+        Thread t = new Thread(()->{
+            Platform.runLater(()-> {
+                if (noPlacingAllowed == false) {
+                    Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
+                }
+                if (Game.logicController.allShipPlaced() == true) {
+                    Next.setDisable(false);
+                    chooseShip(0);
+                }
+            });
+        });
+        t.start();
     }
 
     private void resetShip(Pane pane) {
@@ -298,22 +312,28 @@ public class PlacingFieldController {
     }
 
     private void redrawPanes() {
-        for (int j = 0; j < shipPartsList.size(); j++) {
-            Pane pane = (Pane) shipPartsList.get(j);
+        Thread t = new Thread(()-> {
+            Platform.runLater(()->{
+                for (int j = 0; j < shipPartsList.size(); j++) {
+                    Pane pane = (Pane) shipPartsList.get(j);
 
-            switch (Game.logicController.getGameElementStatus(j)) {
-                case SHIP:
-                    setColorPane(pane, "black");
-                    break;
-                case CLOSE:
-                    setColorPane(pane, "#E0F8E6");
-                    break;
-                default: // WATER
-                    setColorPane(pane, "white");
-                    break;
-            }
+                    switch (Game.logicController.getGameElementStatus(j)) {
+                        case SHIP:
+                            setColorPane(pane, "black");
+                            break;
+                        case CLOSE:
+                            setColorPane(pane, "#E0F8E6");
+                            break;
+                        default: // WATER
+                            setColorPane(pane, "white");
+                            break;
+                    }
 
-        }
+                }
+            });
+        });
+        t.start();
+
     }
 
     private void setColorPane(Pane pane, String color) {
@@ -334,7 +354,7 @@ public class PlacingFieldController {
         HBox box = getBoxShip(ship);
         if (box != null) {
             box.setStyle( // TODO: hier statt setStyle das jeweilige Bild einsetzen (gemeinsam mit der
-                          // TODO: unchooseActualShip (Z. 218))
+                    // TODO: unchooseActualShip (Z. 218))
                     "-fx-border-color: black ; -fx-border-radius: 7px;");
         }
     }

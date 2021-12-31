@@ -22,7 +22,6 @@ public class StartGameController {
     void handleClose(ActionEvent event) throws IOException {
         System.out.println(Thread.currentThread().getName());
         Thread t = new Thread(()-> {
-            System.out.println(Thread.currentThread().getName());
             Game.logicController.exitGame();
         });
         t.start();
