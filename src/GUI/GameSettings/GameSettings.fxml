@@ -44,7 +44,7 @@
                         <Insets right="100.0" />
                      </HBox.margin>
                   </Text>
-                  <ComboBox fx:id="gameSize" prefHeight="35.0" prefWidth="150.0" />
+                  <ComboBox fx:id="gameMode" prefHeight="35.0" prefWidth="150.0" />
                </children>
                <VBox.margin>
                   <Insets />

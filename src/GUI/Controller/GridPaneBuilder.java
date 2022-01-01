@@ -62,9 +62,10 @@ public class GridPaneBuilder {
             });
 
             pane.setOnMouseClicked(event -> {
-                if (event.getButton() == MouseButton.PRIMARY) {
-                    controller.shoot(shipPartsEnemyList.indexOf(pane));
-                }
+
+                controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
+
+
             });
 
         }
@@ -178,6 +179,12 @@ public class GridPaneBuilder {
                 case SHIP:
                     setColorPane(pane, GUIConstants.colorShip);
                     break;
+                case HIT:
+                    setColorPane(pane, GUIConstants.colorHit);
+                    break;
+                case MISS:
+                    setColorPane(pane, GUIConstants.colorMiss);
+                    break;
                 default: // WATER
                     setColorPane(pane, GUIConstants.colorGameField);
                     break;
@@ -193,7 +200,9 @@ public class GridPaneBuilder {
                 case HIT:
                     setColorPane(pane, GUIConstants.colorHit);
                     break;
-
+                case MISS:
+                    setColorPane(pane, GUIConstants.colorMiss);
+                    break;
                 default: // WATER
                     setColorPane(pane, GUIConstants.colorGameField);
                     break;

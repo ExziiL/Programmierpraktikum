@@ -2,6 +2,7 @@ package Logic.Game;
 
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.main.LogicConstants;
+import Logic.main.MyPlayer;
 
 public class EnemyGame extends Game {
 
@@ -14,19 +15,15 @@ public class EnemyGame extends Game {
             System.out.println(e);
         }
 
+        player = new MyPlayer(this, name);
         determineNumberOfShips();
         shuffleShips();
     }
-
 
     public boolean shoot(int index) {
         int x = index % size;
         int y = index / size;
 
-        if (gameField[x][y].getStatus() == LogicConstants.GameElementStatus.SHIP) {
-            gameField[x][y].setStatus(LogicConstants.GameElementStatus.HIT);
-            return true;
-        }
-        return false;
+        return player.shoot(x, y);
     }
 }

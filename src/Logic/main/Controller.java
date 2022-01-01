@@ -46,6 +46,10 @@ public class Controller {
         }
     }
 
+    public void setGameMode(GameMode m) {
+        myGame.setGameMode(m);
+    }
+
     public int getGameSize() {
         return myGame.getSize();
     }
@@ -114,6 +118,10 @@ public class Controller {
     }
 
     public boolean shoot(int index) {
-       return enemyGame.shoot(index);
+        return enemyGame.shoot(index);
+    }
+
+    public void enemyTurn() {
+        myGame.enemyTurn();
     }
 }

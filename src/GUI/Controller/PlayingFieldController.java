@@ -29,7 +29,6 @@ public class PlayingFieldController implements Initializable {
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gridBuilder = new GridPaneBuilder(size);
@@ -46,8 +45,24 @@ public class PlayingFieldController implements Initializable {
         Game.showPlacingFieldWindow();
     }
 
-    public void shoot(int index) {
-        Game.logicController.shoot(index);
+    public void handleSetOnMouseClicked(MouseEvent event, int index) {
+
+        if (event.getButton() == MouseButton.PRIMARY) {
+            yourTurn(index);
+        }
+    }
+
+    public void yourTurn(int index) {
+        boolean isHit = Game.logicController.shoot(index);
         gridBuilder.redrawEnemyPanes();
+
+        if (isHit == false) {
+            enemyTurn();
+        }
+    }
+
+    public void enemyTurn() {
+        Game.logicController.enemyTurn();
+        gridBuilder.redrawGamerPanes();
     }
 }

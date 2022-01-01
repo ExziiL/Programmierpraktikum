@@ -1,13 +1,13 @@
 package GUI.Controller;
 
+import Logic.main.LogicConstants;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import GUI.Game;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Slider;
 
 import java.io.IOException;
 
@@ -26,6 +26,9 @@ public class GameSettingsController {
     private Label labelFour;
     @FXML
     private Label labelFive;
+    @FXML
+    private ComboBox<String> gameMode;
+
 
     private int gameSize;
 
@@ -39,6 +42,11 @@ public class GameSettingsController {
         Game.logicController.setGameSize(gameSize);
         slider.setValue(gameSize);
         setLabelTexts();
+
+
+        ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online", "???");
+        gameMode.setItems(options);
+        gameMode.setValue("Offline");
     }
 
     // ------------------------------- Zurück-Button ------------------------------
@@ -60,7 +68,9 @@ public class GameSettingsController {
             Game.logicController.setGameSize(gameSize);
             setLabelTexts();
         });
-    };
+    }
+
+    ;
 
     // ------------------------------- Next-Button ---------------------------------
 
@@ -68,6 +78,7 @@ public class GameSettingsController {
     void handleNext(MouseEvent event) throws IOException {
         Game.logicController.setName(name.getCharacters().toString());
         Game.logicController.setGameSize(gameSize);
+        Game.logicController.setGameMode(determineGameMode());
         Game.showPlacingFieldWindow();
     }
 
@@ -76,5 +87,13 @@ public class GameSettingsController {
         labelThree.setText(Game.logicController.getCountThreeShip() + "x");
         labelFour.setText(Game.logicController.getCountFourShip() + "x");
         labelFive.setText(Game.logicController.getCountFiveShip() + "x");
+    }
+
+    private LogicConstants.GameMode determineGameMode() {
+
+        if (gameMode.getSelectionModel().equals("Online")) {
+            return LogicConstants.GameMode.ONLINE;
+        }
+        return LogicConstants.GameMode.OFFLINE;
     }
 }

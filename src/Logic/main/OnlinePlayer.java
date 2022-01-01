@@ -4,19 +4,13 @@ import Logic.Game.Game;
 
 public class OnlinePlayer extends Player {
 
-    public OnlinePlayer(Game game, String name) {
-        super(game, name);
+    public OnlinePlayer(Game game) {
+        super(game);
     }
 
     @Override
-    public void shoot() {
+    public void takeTurn() {
 
     }
-
-    @Override
-    public void placeShips() {
-
-    }
-
 
 }

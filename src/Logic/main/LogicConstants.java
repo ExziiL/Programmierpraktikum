@@ -7,6 +7,10 @@ public class LogicConstants {
     }
 
     public static enum GameElementStatus {
-        WATER, SHIP, HIT, CLOSE, ERROR, OVERLAP
+        WATER, SHIP, HIT, CLOSE, ERROR, OVERLAP,MISS
+    }
+
+    public static enum GameMode {
+        OFFLINE, ONLINE
     }
 }

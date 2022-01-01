@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class Game {
     protected int size = 0;
     protected String name;
+    protected GameMode gameMode;
     protected GameElement[][] gameField;
     protected ArrayList<Ship> ships = new ArrayList<>();
     protected Player player;
@@ -47,6 +48,10 @@ public class Game {
         return size;
     }
 
+    public void setGameMode(GameMode m) {
+        this.gameMode = m;
+    }
+
     public GameElementStatus getgameElementStatus(int element) {
         int x = element % size;
         int y = element / size;
@@ -56,6 +61,10 @@ public class Game {
 
     public GameElementStatus getgameElementStatus(int x, int y) {
         return gameField[x][y].getStatus();
+    }
+
+    public void setgameElementStatus(int x, int y, GameElementStatus status) {
+        gameField[x][y].setStatus(status);
     }
 
     public boolean allShipPlaced() {
@@ -94,11 +103,13 @@ public class Game {
 
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
         ArrayList<HoverState> stateList = new ArrayList<>();
-        int x = index % size;
-        int y = index / size;
+        Point p = matchIndex(index);
+
+        int x = p.x;
+        int y = p.y;
 
         GameElementStatus shipStatus;
-        if (ShipinGameField(x, y, ShipSize, isHorizontal)) {
+        if (ShipinGameField(p, ShipSize, isHorizontal)) {
             shipStatus = GameElementStatus.SHIP;
         } else {
             shipStatus = GameElementStatus.ERROR;
@@ -111,7 +122,7 @@ public class Game {
 
 
                     // Zweier Schiff oben
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(p.x, p.y, stateList, shipStatus);
                     stateList = setEdgesTop(x, y, stateList);
 
                     // Zweier Shiff unten
@@ -312,13 +323,9 @@ public class Game {
         //System.out.println("-------------------");
 
         while (allShipPlaced() != true) {
-
             // Zufällig einen Platz aussuchen
-            x = MyRandom.getRandomNumberInRange(0, size - 1);
-            y = MyRandom.getRandomNumberInRange(0, size - 1);
+            Point p = new Point(MyRandom.getRandomNumberInRange(0, size - 1), MyRandom.getRandomNumberInRange(0, size - 1));
             isHorizontal = MyRandom.getRandomBoolean();
-
-            //  System.out.println(x + "/" + y);
 
             if (getCountFiveShip() != 0) {
                 shipSize = 5;
@@ -330,9 +337,9 @@ public class Game {
                 shipSize = 2;
             }
 
-            if (ShipinGameField(x, y, shipSize, isHorizontal)) {
+            if (ShipinGameField(p, shipSize, isHorizontal)) {
                 // wenn nicht platzierbar bricht placeShip ab
-                boolean placed = placeShip(matchIndex(x, y), shipSize, isHorizontal);
+                boolean placed = placeShip(matchIndex(p.x, p.y), shipSize, isHorizontal);
 
                 if (placed == false && trys++ > 100) {
                     initializeGameField();
@@ -392,6 +399,10 @@ public class Game {
         return y * (size) + x;
     }
 
+    protected Point matchIndex(int index) {
+        return new Point(index % size, index / size);
+    }
+
     protected void addShip(int size, int number) {
         for (int i = 0; i < number; i++) {
 
@@ -414,7 +425,10 @@ public class Game {
         }
     }
 
-    protected boolean ShipinGameField(int x, int y, int ShipSize, boolean isHorizontal) {
+    protected boolean ShipinGameField(Point p, int ShipSize, boolean isHorizontal) {
+        int x = p.x;
+        int y = p.y;
+
         if (inGameField(x, y) == false) {
             return false;
         }
@@ -492,18 +506,18 @@ public class Game {
         ships.remove(index);
     }
 
-    protected Player createPlayer(String name, PlayerType t) throws FalsePlayerType {
+    protected Player createPlayer(PlayerType t) {
         // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
         switch (t) {
             case ONLINE:
-                return new OnlinePlayer(this, name);
+                return new OnlinePlayer(this);
             case OFFLINE:
-                return new OfflinePlayer(this, name);
+                return new OfflinePlayer(this);
             case SELF:
-                return new Player(this, name);
+                return new MyPlayer(this, name);
+            default:
+                return null;
         }
-
-        throw new FalsePlayerType();
     }
 
     protected void determineNumberOfShips() {

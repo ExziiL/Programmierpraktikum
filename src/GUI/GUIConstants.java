@@ -11,6 +11,7 @@ public class GUIConstants {
     public static final String colorClose = "#E0F8E6";
     public static final String colorHit = "pink";
     public static final String colorShotMarker = "grey";
+    public static final String colorMiss = "yellow";
 
     public static final String explTextPlacingLeft = "Links Klick Schiff setzen";
     public static final String explTextPlacingRight = "Rechts Klick drehen";
