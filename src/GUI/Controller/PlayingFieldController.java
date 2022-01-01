@@ -20,28 +20,34 @@ import java.io.IOException;
 
 public class PlayingFieldController implements Initializable {
 
-  @FXML
-  private GridPane tableEnemy;
+    @FXML
+    private GridPane tableEnemy;
 
-  @FXML
-  private GridPane tableGamer;
+    @FXML
+    private GridPane tableGamer;
 
-  private int size = Game.logicController.getGameSize();
+    private int size = Game.logicController.getGameSize();
+    private GridPaneBuilder gridBuilder;
 
-  private GridPaneBuilder gridBuilder;
 
-  @Override
-  public void initialize(URL location, ResourceBundle resources) {
-    gridBuilder = new GridPaneBuilder(size);
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        gridBuilder = new GridPaneBuilder(size);
 
-    tableEnemy = gridBuilder.createTableEnemy(tableEnemy);
-    tableGamer = gridBuilder.createTableGamer(tableGamer);
+        Game.logicController.createEnemyGame();
 
-  }
+        tableEnemy = gridBuilder.createTableEnemy(tableEnemy, this);
+        tableGamer = gridBuilder.createTableGamer(tableGamer);
 
-  @FXML
-  public void handleBack(MouseEvent event) throws IOException {
-    Game.showPlacingFieldWindow();
-  }
+    }
 
+    @FXML
+    public void handleBack(MouseEvent event) throws IOException {
+        Game.showPlacingFieldWindow();
+    }
+
+    public void shoot(int index) {
+        Game.logicController.shoot(index);
+        gridBuilder.redrawEnemyPanes();
+    }
 }

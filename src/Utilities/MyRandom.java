@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class MyRandom {
 
-   private static Random r = new Random();
-
     public static int getRandomNumberInRange(int min, int max) {
+
+        Random r = new Random();
 
         if (min >= max) {
             throw new IllegalArgumentException("max must be greater than min");
@@ -16,6 +16,6 @@ public class MyRandom {
     }
 
     public static boolean getRandomBoolean() {
-        return r.nextBoolean();
+        return new Random().nextBoolean();
     }
 }

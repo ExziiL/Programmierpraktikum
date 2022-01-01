@@ -14,8 +14,8 @@ public class Game {
     protected int size = 0;
     protected String name;
     protected GameElement[][] gameField;
-    protected Player player;
     protected ArrayList<Ship> ships = new ArrayList<>();
+    protected Player player;
     protected int countTwoShip;
     protected int countThreeShip;
     protected int countFourShip;
@@ -45,24 +45,6 @@ public class Game {
 
     public int getSize() {
         return size;
-    }
-
-    protected Player createPlayer(String name, PlayerType t) throws FalsePlayerType {
-        // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
-        switch (t) {
-            case ONLINE:
-                return new OnlinePlayer(this, name);
-            case OFFLINE:
-                return new OfflinePlayer(this, name);
-            case SELF:
-                return new Player(this, name);
-        }
-
-        throw new FalsePlayerType();
-    }
-
-    public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
-        return true;
     }
 
     public GameElementStatus getgameElementStatus(int element) {
@@ -99,26 +81,15 @@ public class Game {
         return countFiveShip;
     }
 
-    public int getShipSize(int index) {
-        int x = index % size;
-        int y = index / size;
-        Ship ship;
+    public void initializeGameField() {
 
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
-            return gameField[x][y].getShip(0).getSize();
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                gameField[i][j].init();
+            }
         }
-        return 0;
-    }
-
-    public boolean isShipHorizontal(int index) {
-        int x = index % size;
-        int y = index / size;
-        Ship ship;
-
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
-            return gameField[x][y].getShip(0).isHorizontal();
-        }
-        return false;
+        ships = new ArrayList<>();
+        determineNumberOfShips();
     }
 
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
@@ -289,7 +260,6 @@ public class Game {
         return stateList.toArray(new HoverState[stateList.size()]);
     }
 
-
     public boolean placeShip(int index, int ShipSize, boolean isHorizontal) {
         int x = 0;
         int y = 0;
@@ -328,6 +298,7 @@ public class Game {
         }
         return true;
     }
+
 
     public void shuffleShips() {
         int x = 0;
@@ -371,6 +342,28 @@ public class Game {
         }
     }
 
+    public int getShipSize(int index) {
+        int x = index % size;
+        int y = index / size;
+        Ship ship;
+
+        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
+            return gameField[x][y].getShip(0).getSize();
+        }
+        return 0;
+    }
+
+    public boolean isShipHorizontal(int index) {
+        int x = index % size;
+        int y = index / size;
+        Ship ship;
+
+        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
+            return gameField[x][y].getShip(0).isHorizontal();
+        }
+        return false;
+    }
+
     public boolean deleteShip(int index) {
         int x = index % size;
         int y = index / size;
@@ -394,19 +387,126 @@ public class Game {
         return false;
     }
 
-    public void initializeGameField() {
+    protected int matchIndex(int x, int y) {
 
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                gameField[i][j].init();
-            }
-        }
-        ships = new ArrayList<>();
-        determineNumberOfShips();
+        return y * (size) + x;
     }
 
+    protected void addShip(int size, int number) {
+        for (int i = 0; i < number; i++) {
 
-    private void determineNumberOfShips() {
+            switch (size) {
+                case 2:
+                    countTwoShip++;
+                    break;
+                case 3:
+                    countThreeShip++;
+                    break;
+                case 4:
+                    countFourShip++;
+                    break;
+                case 5:
+                    countFiveShip++;
+                    break;
+            }
+
+            ships.add(new Ship(size));
+        }
+    }
+
+    protected boolean ShipinGameField(int x, int y, int ShipSize, boolean isHorizontal) {
+        if (inGameField(x, y) == false) {
+            return false;
+        }
+        if (gameField[x][y].getStatus() == GameElementStatus.SHIP ||
+                gameField[x][y].getStatus() == GameElementStatus.CLOSE) {
+            return false;
+        }
+        switch (ShipSize) {
+            case 2:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y + 1)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x + 1, y)) {
+                        return true;
+                    }
+                }
+                break;
+            case 3:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y + 1) && inGameField(x, y - 1)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x - 1, y) && inGameField(x + 1, y)) {
+                        return true;
+                    }
+                }
+                break;
+            case 4:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
+                        return true;
+                    }
+                }
+                break;
+
+            case 5:
+                if (isHorizontal == false) {
+                    if (inGameField(x, y - 2) && inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
+                        return true;
+                    }
+                } else {
+                    if (inGameField(x - 2, y) && inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
+                        return true;
+                    }
+                }
+                break;
+        }
+        return false;
+    }
+
+    protected void removeShip(int index) {
+
+        switch (ships.get(index).getSize()) {
+            case 2:
+                countTwoShip--;
+                break;
+            case 3:
+                countThreeShip--;
+                break;
+            case 4:
+                countFourShip--;
+                break;
+            case 5:
+                countFiveShip--;
+                break;
+        }
+
+        ships.remove(index);
+    }
+
+    protected Player createPlayer(String name, PlayerType t) throws FalsePlayerType {
+        // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
+        switch (t) {
+            case ONLINE:
+                return new OnlinePlayer(this, name);
+            case OFFLINE:
+                return new OfflinePlayer(this, name);
+            case SELF:
+                return new Player(this, name);
+        }
+
+        throw new FalsePlayerType();
+    }
+
+    protected void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
         int placesForShip = 0;
@@ -510,106 +610,12 @@ public class Game {
 
     }
 
+    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
 
-    private void removeShip(int index) {
-
-        switch (ships.get(index).getSize()) {
-            case 2:
-                countTwoShip--;
-                break;
-            case 3:
-                countThreeShip--;
-                break;
-            case 4:
-                countFourShip--;
-                break;
-            case 5:
-                countFiveShip--;
-                break;
+        if (inGameField(x, y)) {
+            states.add(new HoverState(matchIndex(x, y), status));
         }
-
-        ships.remove(index);
-    }
-
-    private void addShip(int size, int number) {
-        for (int i = 0; i < number; i++) {
-
-            switch (size) {
-                case 2:
-                    countTwoShip++;
-                    break;
-                case 3:
-                    countThreeShip++;
-                    break;
-                case 4:
-                    countFourShip++;
-                    break;
-                case 5:
-                    countFiveShip++;
-                    break;
-            }
-
-            ships.add(new Ship(size));
-        }
-    }
-
-
-    private boolean ShipinGameField(int x, int y, int ShipSize, boolean isHorizontal) {
-        if (inGameField(x, y) == false) {
-            return false;
-        }
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP ||
-                gameField[x][y].getStatus() == GameElementStatus.CLOSE) {
-            return false;
-        }
-        switch (ShipSize) {
-            case 2:
-                if (isHorizontal == false) {
-                    if (inGameField(x, y + 1)) {
-                        return true;
-                    }
-                } else {
-                    if (inGameField(x + 1, y)) {
-                        return true;
-                    }
-                }
-                break;
-            case 3:
-                if (isHorizontal == false) {
-                    if (inGameField(x, y + 1) && inGameField(x, y - 1)) {
-                        return true;
-                    }
-                } else {
-                    if (inGameField(x - 1, y) && inGameField(x + 1, y)) {
-                        return true;
-                    }
-                }
-                break;
-            case 4:
-                if (isHorizontal == false) {
-                    if (inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
-                        return true;
-                    }
-                } else {
-                    if (inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
-                        return true;
-                    }
-                }
-                break;
-
-            case 5:
-                if (isHorizontal == false) {
-                    if (inGameField(x, y - 2) && inGameField(x, y - 1) && inGameField(x, y + 1) && inGameField(x, y + 2)) {
-                        return true;
-                    }
-                } else {
-                    if (inGameField(x - 2, y) && inGameField(x - 1, y) && inGameField(x + 1, y) && inGameField(x + 2, y)) {
-                        return true;
-                    }
-                }
-                break;
-        }
-        return false;
+        return states;
     }
 
     private boolean inGameField(int x, int y) {
@@ -636,19 +642,6 @@ public class Game {
         return null;
     }
 
-    private int matchIndex(int x, int y) {
-
-        return y * (size) + x;
-    }
-
-
-    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
-
-        if (inGameField(x, y)) {
-            states.add(new HoverState(matchIndex(x, y), status));
-        }
-        return states;
-    }
 
     // ___________________________________________Ränder der Shiffe setzen__________________________________
     private ArrayList<HoverState> setEdgesTop(int x, int y, ArrayList<HoverState> states) {
@@ -754,5 +747,4 @@ public class Game {
 
         return states;
     }
-
 }
