@@ -64,19 +64,6 @@ public class PlacingFieldController implements Initializable {
         gridBuilder = new GridPaneBuilder(size);
         table = gridBuilder.createTablePlacingField(table, this);
 
-        // Event switch Ship
-        placingField.setOnMouseClicked(event -> {
-            if (event.getButton() == MouseButton.SECONDARY && editMode == false) {
-                if (isHorizontal) {
-                    isHorizontal = false;
-                } else {
-                    isHorizontal = true;
-                }
-                gridBuilder.redrawPlacingField();
-                hoverShip(currentPane);
-            }
-        });
-
         // Event choose Ship
         BoxTwo.setOnMouseClicked(event -> {
             editMode = false;
@@ -181,14 +168,8 @@ public class PlacingFieldController implements Initializable {
             if (editMode == true && replaceShipMode == false) {
                 deleteShip(pane);
                 gridBuilder.redrawPlacingField();
-            } else if (editMode == true && replaceShipMode == true) {
-                if (isHorizontal) {
-                    isHorizontal = false;
-                } else {
-                    isHorizontal = true;
-                }
-                gridBuilder.redrawPlacingField();
-                hoverShip(pane);
+            } else if (editMode == false || replaceShipMode == true) {
+                rotateShip();
             }
         }
         setChoosenShipProperties();
@@ -307,8 +288,15 @@ public class PlacingFieldController implements Initializable {
         this.isHorizontal = isHorizontal;
     }
 
-    private void setColorPane(Pane pane, String color) {
-        pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: #999898;");
+    private void rotateShip() {
+        if (isHorizontal) {
+            isHorizontal = false;
+        } else {
+            isHorizontal = true;
+        }
+        gridBuilder.redrawPlacingField();
+        hoverShip(currentPane);
+
     }
 
     private void unchooseActualShip() {
