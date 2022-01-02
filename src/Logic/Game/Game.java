@@ -320,8 +320,6 @@ public class Game {
 
         initializeGameField();
 
-        //System.out.println("-------------------");
-
         while (allShipPlaced() != true) {
             // Zufällig einen Platz aussuchen
             Point p = new Point(MyRandom.getRandomNumberInRange(0, size - 1), MyRandom.getRandomNumberInRange(0, size - 1));

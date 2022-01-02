@@ -20,7 +20,7 @@ public class OfflinePlayer extends Player {
             Point p = determineNextShot();
 
 
-            // Sekunde warten
+            // kurz warten
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {

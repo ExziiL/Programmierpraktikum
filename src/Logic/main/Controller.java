@@ -4,8 +4,6 @@ import Logic.Game.*;
 import Logic.Game.Exceptions.FalseFieldSize;
 
 import static Logic.main.LogicConstants.*;
-
-import Utilities.Exception.ShipOutofGame;
 import Utilities.HoverState;
 
 public class Controller {
