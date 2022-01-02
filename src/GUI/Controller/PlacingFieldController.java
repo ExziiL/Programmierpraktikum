@@ -2,7 +2,6 @@ package GUI.Controller;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
 import GUI.Game;
@@ -11,11 +10,9 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import Utilities.HoverState;
 
 public class PlacingFieldController implements Initializable {
@@ -31,7 +28,6 @@ public class PlacingFieldController implements Initializable {
     private Label labelFive;
     @FXML
     private AnchorPane placingField;
-
     @FXML
     private HBox BoxTwo;
     @FXML
@@ -276,21 +272,31 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void hoverShip(Pane pane) {
-
-        HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
-                isHorizontal);
-
-        noPlacingAllowed = gridBuilder.hoverShip(states);
+        Thread t = new Thread(() -> {
+            HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
+                    isHorizontal);
+            noPlacingAllowed = gridBuilder.hoverShip(states);
+        });
+        t.start();
     }
 
     private void placeShip(Pane pane) {
-        if (noPlacingAllowed == false) {
-            Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
+        try {
+            if (noPlacingAllowed == false) {
+                Thread t = new Thread(()->{
+                    Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
+                });
+                t.start();
+                t.join();
+            }
+            if (Game.logicController.allShipPlaced() == true) {
+                // Next.setDisable(false);
+                chooseShip(0);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        if (Game.logicController.allShipPlaced() == true) {
-            // Next.setDisable(false);
-            chooseShip(0);
-        }
+
     }
 
     private void deleteShip(Pane pane) {
@@ -300,11 +306,15 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void replaceShip(Pane pane) {
-        int shipSize = Game.logicController.getShipSize(shipPartsList.indexOf(pane));
-        boolean isHorizontal = Game.logicController.isShipHorizontal(shipPartsList.indexOf(pane));
-        deleteShip(pane);
-        this.currentShip = shipSize;
-        this.isHorizontal = isHorizontal;
+        Thread t = new Thread(() -> {
+            int shipSize = Game.logicController.getShipSize(shipPartsList.indexOf(pane));
+            boolean isHorizontal = Game.logicController.isShipHorizontal(shipPartsList.indexOf(pane));
+            deleteShip(pane);
+            this.currentShip = shipSize;
+            this.isHorizontal = isHorizontal;
+        });
+        t.start();
+
     }
 
     private void setColorPane(Pane pane, String color) {
