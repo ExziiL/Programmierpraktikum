@@ -2,11 +2,17 @@ package GUI;
 
 import Logic.main.Controller;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class Game extends Application {
@@ -22,6 +28,32 @@ public class Game extends Application {
         showStartGameWindow();
         logicController = new Controller();
     }
+
+    //     this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+    //         @Override
+    //         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+    //             Thread t = new Thread(() -> {
+    //                 ObservableList<Node> child = mainLayout.getChildren();
+    //                 Platform.runLater(() -> {
+    //                     //handleNodeSize(child, mainLayout, oldValue, newValue);
+    //                 });
+    //             });
+    //             t.start();
+    //         }
+    //     });
+    //     this.primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
+    //         @Override
+    //         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+    //             Thread t = new Thread(() -> {
+    //                 ObservableList<Node> child = mainLayout.getChildren();
+    //                 Platform.runLater(() -> {
+    //                     //handleNodeSize(child, mainLayout, oldValue, newValue);
+    //                 });
+    //             });
+    //             t.start();
+    //         }
+    //     });
+    // }
 
     public static void main(String[] args) {
         launch(args);
