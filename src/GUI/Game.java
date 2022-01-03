@@ -78,6 +78,7 @@ public class Game extends Application {
         loader.setLocation(Game.class.getResource("PlayingField/PlayingField.fxml"));
         AnchorPane playingField = loader.load();
         mainLayout.setCenter(playingField);
+
     }
 
     @Override
