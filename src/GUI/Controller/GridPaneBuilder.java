@@ -97,7 +97,7 @@ public class GridPaneBuilder {
         }
 
         // Save Grid List
-        shipPartsGamerList = tableGamer.getChildren();
+        shipPartsGamerList = tableGamer.getChildren(); //TODO filter nachtragen
         redrawPanesWithoutClose(shipPartsGamerList);
 
         return tableGamer;
@@ -107,10 +107,11 @@ public class GridPaneBuilder {
         int column = 0;
         int row = 0;
         double paneSize = setPaneSize();
-        Pane pane;
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size + 1) * (size + 1); i++) {
+            Pane pane = new Pane();
+
             if (column == size + 1) {
                 column = 0;
                 row++;
@@ -121,7 +122,6 @@ public class GridPaneBuilder {
                 String b = Integer.toString(i % (size+1));
                 tablePlacing.add(new Label(b), column++, row);
             } else {
-                pane = new Pane();
                 pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
                 pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
                 pane.setPrefWidth(paneSize);
@@ -242,10 +242,4 @@ public class GridPaneBuilder {
         pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
     }
 
-    private void makeLabels() {
-        for (int i = 0; i < size; i++) {
-            numberLables.add(new Label(Integer.toString(i)));
-            letterLables.add(new Label(Integer.toString(i)));
-        }
-    }
 }

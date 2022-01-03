@@ -291,14 +291,14 @@ public class Game {
 
 
     public boolean placeShip(int index, int ShipSize, boolean isHorizontal) {
-        int x = 1;
-        int y = 1;
+        int x = 0;
+        int y = 0;
         Ship ship = null;
         // aktuellen Status des Schiffes holen
         HoverState[] hoverStates = getHoverStateStatus(index, ShipSize, isHorizontal);
 
         // prüfen ob Shiff plazierbar ist
-        for (int i = 1; i < (hoverStates.length + 1); i++) {
+        for (int i = 1; i < (hoverStates.length); i++) {
             if (hoverStates[i] != null && hoverStates[i].getStatus() == GameElementStatus.ERROR) {
                 return false;
             }
