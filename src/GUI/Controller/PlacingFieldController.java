@@ -1,22 +1,24 @@
 package GUI.Controller;
 
+import GUI.GUIConstants;
+import GUI.Game;
+import Utilities.HoverState;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
-import GUI.Game;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import Utilities.HoverState;
 
 public class PlacingFieldController implements Initializable {
     @FXML
@@ -30,9 +32,6 @@ public class PlacingFieldController implements Initializable {
     @FXML
     private Label labelFive;
     @FXML
-    private AnchorPane placingField;
-
-    @FXML
     private HBox BoxTwo;
     @FXML
     private HBox BoxThree;
@@ -41,13 +40,15 @@ public class PlacingFieldController implements Initializable {
     @FXML
     private HBox BoxFive;
     @FXML
-    private Button Next;
-    @FXML
     private ToggleButton EditShips;
     @FXML
     private Button Random;
     @FXML
     private Button Clear;
+    @FXML
+    private Text textLeftClick;
+    @FXML
+    private Text textRightClick;
 
     private GridPaneBuilder gridBuilder;
     private int size = Game.logicController.getGameSize();
@@ -66,19 +67,19 @@ public class PlacingFieldController implements Initializable {
 
         // Event choose Ship
         BoxTwo.setOnMouseClicked(event -> {
-            editMode = false;
+            setEditMode(false);
             chooseShip(2);
         });
         BoxThree.setOnMouseClicked(event -> {
-            editMode = false;
+            setEditMode(false);
             chooseShip(3);
         });
         BoxFour.setOnMouseClicked(event -> {
-            editMode = false;
+            setEditMode(false);
             chooseShip(4);
         });
         BoxFive.setOnMouseClicked(event -> {
-            editMode = false;
+            setEditMode(false);
             chooseShip(5);
         });
 
@@ -112,10 +113,10 @@ public class PlacingFieldController implements Initializable {
 
         EditShips.setOnAction(event -> {
             if (editMode) {
-                editMode = false;
+                setEditMode(false);
                 determineNewChoosenShip();
             } else {
-                editMode = true;
+                setEditMode(true);
                 chooseShip(0);
             }
         });
@@ -135,10 +136,13 @@ public class PlacingFieldController implements Initializable {
             setChoosenShipProperties();
         });
 
+        textLeftClick.setText(GUIConstants.explTextPlacingLeft);
+        textRightClick.setText(GUIConstants.explTextPlacingRight);
+
         gridBuilder.redrawPlacingField();
     }
 
-    // Event Handler
+    // Event Handler (Called by GridPaneBuilder)
     public void handlePaneOnMouseEntered(Pane pane) {
         hoverShip(pane);
         currentPane = pane;
@@ -146,29 +150,30 @@ public class PlacingFieldController implements Initializable {
 
     public void handlePaneOnMouseClicked(Pane pane, MouseButton button) {
         if (button == MouseButton.PRIMARY) {
-            if (editMode == false) {
+            if (editMode) {
+                if (replaceShipMode) {
+                    placeShip(pane);
+                    setReplaceShipMode(false);
+                    chooseShip(0);
+                    gridBuilder.redrawPlacingField();
+                } else {
+                    replaceShip(pane);
+                    setReplaceShipMode(true);
+                    gridBuilder.redrawPlacingField();
+                    hoverShip(pane);
+                }
+            } else {
                 if (currentShip != 0) {
                     placeShip(pane);
                     gridBuilder.redrawPlacingField();
                 }
-            } else {
-                if (replaceShipMode == false) {
-                    replaceShip(pane);
-                    replaceShipMode = true;
-                    gridBuilder.redrawPlacingField();
-                    hoverShip(pane);
-                } else {
-                    placeShip(pane);
-                    replaceShipMode = false;
-                    chooseShip(0);
-                    gridBuilder.redrawPlacingField();
-                }
+
             }
         } else if (button == MouseButton.SECONDARY) {
-            if (editMode == true && replaceShipMode == false) {
+            if (editMode && !replaceShipMode) {
                 deleteShip(pane);
                 gridBuilder.redrawPlacingField();
-            } else if (editMode == false || replaceShipMode == true) {
+            } else if (!editMode || replaceShipMode) {
                 rotateShip();
             }
         }
@@ -330,6 +335,27 @@ public class PlacingFieldController implements Initializable {
                 return BoxFive;
             default:
                 return null;
+        }
+    }
+
+    private void setEditMode(boolean mode) {
+        editMode = mode;
+        EditShips.setSelected(mode);
+        setHelpTexts();
+    }
+
+    private void setReplaceShipMode(boolean mode) {
+        replaceShipMode = mode;
+        setHelpTexts();
+    }
+
+    private void setHelpTexts() {
+        if (editMode && !replaceShipMode) {
+            textLeftClick.setText(GUIConstants.explTextEditLeft);
+            textRightClick.setText(GUIConstants.explTextEditRight);
+        } else {
+            textLeftClick.setText(GUIConstants.explTextPlacingLeft);
+            textRightClick.setText(GUIConstants.explTextPlacingRight);
         }
     }
 }

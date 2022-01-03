@@ -13,10 +13,10 @@ public class GUIConstants {
     public static final String colorShotMarker = "grey";
     public static final String colorMiss = "yellow";
 
-    public static final String explTextPlacingLeft = "Links Klick Schiff setzen";
-    public static final String explTextPlacingRight = "Rechts Klick drehen";
+    public static final String explTextPlacingLeft = "Mit der linken Maustaste können sie ein Schiff platzieren";
+    public static final String explTextPlacingRight = "Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen";
 
-    public static final String explTextEditLeft = "Links Klick Schiff neu plazieren";
-    public static final String explTextEditRight = "Rechts Klick löschen";
+    public static final String explTextEditLeft = "Mit der linken Maustaste können sie ein Schiff neu plazieren";
+    public static final String explTextEditRight = "Mit der rechten Maustaste können sie ein Schiff löschen";
 
 }
