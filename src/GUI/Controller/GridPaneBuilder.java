@@ -4,6 +4,8 @@ import GUI.GUIConstants;
 import GUI.Game;
 import Utilities.HoverState;
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -13,6 +15,8 @@ public class GridPaneBuilder {
     private ObservableList shipPartsGamerList;
     private ObservableList shipPartsEnemyList;
     private ObservableList shipPartsPlacingList;
+    private ObservableList<Node> numberLables;
+    private ObservableList<Node> letterLables;
 
     public GridPaneBuilder(int size) {
         this.size = size;
@@ -103,21 +107,28 @@ public class GridPaneBuilder {
         int column = 0;
         int row = 0;
         double paneSize = setPaneSize();
+        Pane pane;
 
         // Build up Grid pane and set Events for Panes
-        for (int i = 0; i < size * size; i++) {
-            Pane pane = new Pane();
-            pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
-            pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
-            pane.setPrefWidth(paneSize);
-            pane.setPrefHeight(paneSize);
-
-            if (column == size) {
+        for (int i = 0; i < (size + 1) * (size + 1); i++) {
+            if (column == size + 1) {
                 column = 0;
                 row++;
             }
-            pane.setId("field" + row + column);
-            tablePlacing.add(pane, column++, row);
+            if (i % (size + 1) == 0) {
+                tablePlacing.add(new Label(Integer.toString(i)), column++, row);
+            } else if (row == 0) {
+                String b = Integer.toString(i % (size+1));
+                tablePlacing.add(new Label(b), column++, row);
+            } else {
+                pane = new Pane();
+                pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
+                pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
+                pane.setPrefWidth(paneSize);
+                pane.setPrefHeight(paneSize);
+                pane.setId("field" + row + column);
+                tablePlacing.add(pane, column++, row);
+            }
 
             // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
@@ -145,7 +156,7 @@ public class GridPaneBuilder {
 
         }
         // Save Grid List
-        shipPartsPlacingList = tablePlacing.getChildren();
+        shipPartsPlacingList = tablePlacing.getChildren().filtered(node -> node instanceof Pane);
         return tablePlacing;
     }
 
@@ -229,5 +240,12 @@ public class GridPaneBuilder {
 
     private void setColorPane(Pane pane, String color) {
         pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
+    }
+
+    private void makeLabels() {
+        for (int i = 0; i < size; i++) {
+            numberLables.add(new Label(Integer.toString(i)));
+            letterLables.add(new Label(Integer.toString(i)));
+        }
     }
 }
