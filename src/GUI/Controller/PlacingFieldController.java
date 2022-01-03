@@ -1,19 +1,24 @@
 package GUI.Controller;
 
+import GUI.Game;
+import Utilities.HoverState;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
-import GUI.Game;
 import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import Utilities.HoverState;
 
 public class PlacingFieldController implements Initializable {
     @FXML
@@ -272,18 +277,26 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void hoverShip(Pane pane) {
-        Thread t = new Thread(() -> {
-            HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
-                    isHorizontal);
-            noPlacingAllowed = gridBuilder.hoverShip(states);
-        });
-        t.start();
+        try {
+            Thread t = new Thread(() -> {
+                Platform.runLater(() -> {
+                    HoverState[] states = Game.logicController.getHoverStateStatus(shipPartsList.indexOf(pane), currentShip,
+                            isHorizontal);
+                    noPlacingAllowed = gridBuilder.hoverShip(states);
+                });
+
+            });
+            t.start();
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void placeShip(Pane pane) {
         try {
             if (noPlacingAllowed == false) {
-                Thread t = new Thread(()->{
+                Thread t = new Thread(() -> {
                     Game.logicController.placeShip(shipPartsList.indexOf(pane), currentShip, isHorizontal);
                 });
                 t.start();
@@ -306,6 +319,7 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void replaceShip(Pane pane) {
+
         Thread t = new Thread(() -> {
             int shipSize = Game.logicController.getShipSize(shipPartsList.indexOf(pane));
             boolean isHorizontal = Game.logicController.isShipHorizontal(shipPartsList.indexOf(pane));
