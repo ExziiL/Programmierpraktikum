@@ -1,13 +1,14 @@
 package Logic.Game;
 
-import Logic.Game.Exceptions.*;
-
-import static Logic.main.LogicConstants.*;
-
+import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.main.*;
-import Utilities.*;
+import Utilities.HoverState;
+import Utilities.MyRandom;
+import Utilities.Point;
 
 import java.util.ArrayList;
+
+import static Logic.main.LogicConstants.*;
 
 
 public class Game {
@@ -109,7 +110,7 @@ public class Game {
         int y = p.y;
 
         GameElementStatus shipStatus;
-        if (ShipinGameField(p, ShipSize, isHorizontal)) {
+        if (shipinGameField(p, ShipSize, isHorizontal)) {
             shipStatus = GameElementStatus.SHIP;
         } else {
             shipStatus = GameElementStatus.ERROR;
@@ -335,7 +336,7 @@ public class Game {
                 shipSize = 2;
             }
 
-            if (ShipinGameField(p, shipSize, isHorizontal)) {
+            if (shipinGameField(p, shipSize, isHorizontal)) {
                 // wenn nicht platzierbar bricht placeShip ab
                 boolean placed = placeShip(matchIndex(p.x, p.y), shipSize, isHorizontal);
 
@@ -353,7 +354,7 @@ public class Game {
         Ship ship;
 
         if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
-            return gameField[x][y].getShip(0).getSize();
+            return gameField[x][y].getShip().getSize();
         }
         return 0;
     }
@@ -364,7 +365,7 @@ public class Game {
         Ship ship;
 
         if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
-            return gameField[x][y].getShip(0).isHorizontal();
+            return gameField[x][y].getShip().isHorizontal();
         }
         return false;
     }
@@ -375,12 +376,16 @@ public class Game {
         Ship ship;
 
         if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
-            ship = gameField[x][y].getShip(0);
+            ship = gameField[x][y].getShip();
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    gameField[i][j].removeShip(ship);
-                    if (gameField[i][j].getCountShips() == 0) {
+                    if (gameField[i][j].getStatus() == GameElementStatus.CLOSE && gameField[i][j].isShipClose(ship)) {
+                        gameField[i][j].removeShip(ship);
+                        if (gameField[i][j].getCountShips() == 0) {
+                            gameField[i][j].init();
+                        }
+                    } else if (gameField[i][j].getStatus() == GameElementStatus.SHIP && gameField[i][j].getShip() == ship) {
                         gameField[i][j].init();
                     }
                 }
@@ -390,6 +395,16 @@ public class Game {
             return true;
         }
         return false;
+    }
+
+    public boolean inGameField(int x, int y) {
+
+        if (x >= 0 && x < size &&
+                y >= 0 && y < size) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     protected int matchIndex(int x, int y) {
@@ -423,7 +438,7 @@ public class Game {
         }
     }
 
-    protected boolean ShipinGameField(Point p, int ShipSize, boolean isHorizontal) {
+    protected boolean shipinGameField(Point p, int ShipSize, boolean isHorizontal) {
         int x = p.x;
         int y = p.y;
 
@@ -629,17 +644,6 @@ public class Game {
         }
         return states;
     }
-
-    private boolean inGameField(int x, int y) {
-
-        if (x >= 0 && x < size &&
-                y >= 0 && y < size) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 
     private HoverState setEdge(int x, int y) {
         if (inGameField(x, y)) {

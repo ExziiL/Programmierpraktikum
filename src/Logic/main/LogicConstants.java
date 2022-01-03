@@ -2,15 +2,19 @@ package Logic.main;
 
 public class LogicConstants {
 
-    public static enum PlayerType {
+    public enum PlayerType {
         ONLINE, OFFLINE, SELF
     }
 
-    public static enum GameElementStatus {
-        WATER, SHIP, HIT, CLOSE, ERROR, OVERLAP,MISS
+    public enum GameElementStatus {
+        WATER, SHIP, HIT, CLOSE, ERROR, OVERLAP, MISS
     }
 
-    public static enum GameMode {
+    public enum GameMode {
         OFFLINE, ONLINE
+    }
+
+    public enum Direction {
+        RIGHT, LEFT, UP, DOWN, NONE
     }
 }
