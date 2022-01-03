@@ -148,6 +148,7 @@ public class PlacingFieldController implements Initializable {
         currentPane = pane;
     }
 
+    // Event Handler (Called by GridPaneBuilder)
     public void handlePaneOnMouseClicked(Pane pane, MouseButton button) {
         if (button == MouseButton.PRIMARY) {
             if (editMode) {
