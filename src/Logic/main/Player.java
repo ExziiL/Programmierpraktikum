@@ -2,7 +2,7 @@ package Logic.main;
 
 //import java.awt.*;
 
-import Logic.Game.*;
+import Logic.Game.Game;
 
 public abstract class Player {
 
@@ -14,6 +14,7 @@ public abstract class Player {
     }
 
     public boolean shoot(int x, int y) {
+
         if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.SHIP) {
 
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);

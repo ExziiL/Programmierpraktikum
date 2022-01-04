@@ -1,22 +1,15 @@
 package GUI.Controller;
 
-import GUI.GUIConstants;
 import GUI.Game;
-
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class PlayingFieldController implements Initializable {
 
@@ -56,13 +49,24 @@ public class PlayingFieldController implements Initializable {
         boolean isHit = Game.logicController.shoot(index);
         gridBuilder.redrawEnemyPanes();
 
+        checkMyWin();
+
         if (isHit == false) {
             enemyTurn();
+            checkEnemyWin();
         }
     }
 
     public void enemyTurn() {
         Game.logicController.enemyTurn();
         gridBuilder.redrawGamerPanes();
+    }
+
+    public void checkMyWin() {
+
+    }
+
+    public void checkEnemyWin() {
+
     }
 }

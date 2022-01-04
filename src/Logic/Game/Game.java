@@ -370,6 +370,45 @@ public class Game {
         return false;
     }
 
+    public boolean isShipDestroyed(int x, int y) {
+        int countTrys = 0;
+
+        if (gameField[x][y].getStatus() == GameElementStatus.SHIP || gameField[x][y].getStatus() == GameElementStatus.HIT) {
+
+            Ship ship = gameField[x][y].getShip();
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+                    // if all Parts of the Ship are HIT return true
+                    if (countTrys == ship.getSize()) {
+                        return true;
+                    }
+                    // if a Pane is found which isn't destroyed return false
+                    // else if Pane is HIT and the same Ship then increase Counter
+                    if (gameField[i][j].getStatus() == GameElementStatus.SHIP && gameField[i][j].getShip() == ship) {
+                        return false;
+                    } else if (gameField[i][j].getStatus() == GameElementStatus.HIT && gameField[i][j].getShip() == ship) {
+                        countTrys++;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean allShipDestryed() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                // if a Ship is found not all are destroyed
+                if (gameField[i][j].getStatus() == GameElementStatus.SHIP) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     public boolean deleteShip(int index) {
         int x = index % size;
         int y = index / size;
