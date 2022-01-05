@@ -9,8 +9,8 @@ public class OnlinePlayer extends Player {
     }
 
     @Override
-    public void takeTurn() {
-
+    public boolean takeTurn() {
+        return false;
     }
 
 }

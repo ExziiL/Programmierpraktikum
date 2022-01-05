@@ -58,8 +58,12 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void enemyTurn() {
-        Game.logicController.enemyTurn();
-        gridBuilder.redrawGamerPanes();
+        boolean isEnemyTurn = false;
+        do {
+            isEnemyTurn = Game.logicController.enemyTurn();
+            gridBuilder.redrawGamerPanes();
+        } while (isEnemyTurn);
+
     }
 
     public void checkMyWin() {

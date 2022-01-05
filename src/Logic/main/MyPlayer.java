@@ -13,7 +13,7 @@ public class MyPlayer extends Player {
     }
 
     @Override
-    public void takeTurn() {
-
+    public boolean takeTurn() {
+        return false;
     }
 }

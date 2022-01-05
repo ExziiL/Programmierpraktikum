@@ -119,7 +119,7 @@ public class Controller {
         return enemyGame.shoot(index);
     }
 
-    public void enemyTurn() {
-        myGame.enemyTurn();
+    public boolean enemyTurn() {
+        return myGame.enemyTurn();
     }
 }

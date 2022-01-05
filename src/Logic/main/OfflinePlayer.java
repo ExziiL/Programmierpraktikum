@@ -4,8 +4,6 @@ import Logic.Game.Game;
 import Utilities.MyRandom;
 import Utilities.Point;
 
-import java.util.concurrent.TimeUnit;
-
 import static Logic.main.LogicConstants.Direction.*;
 
 public class OfflinePlayer extends Player {
@@ -15,6 +13,8 @@ public class OfflinePlayer extends Player {
     private Point hit = null;
     // did the last Shot hit
     private boolean wasHit = false;
+    // should the Player try Again hitting in a Direction
+    private boolean tryAgain = false;
 
 
     public OfflinePlayer(Game game) {
@@ -24,135 +24,137 @@ public class OfflinePlayer extends Player {
     @Override
     public boolean shoot(int x, int y) {
         //wait shortly
-          try {
-              Thread.sleep(200);
-          } catch (InterruptedException e) {
-              e.printStackTrace();
-          }
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         return super.shoot(x, y);
     }
 
     @Override
-    public void takeTurn() {
+    public boolean takeTurn() {
 
-        boolean isHit = true;
         boolean isDestroyed = false;
 
         // if a Ship is hit and not destroyed then destroy the rest of the Ship (Shoot in Other Direction)
         if (hit != null && direction != NONE) {
 
-            do {
+            //  do {
 
-                switch (direction) {
-                    case UP:
-                        // Shoot Down
-                        hit.y++;
-                        break;
-                    case DOWN:
-                        //Shoot Up
-                        hit.y--;
-                        break;
-                    case LEFT:
-                        //Shoot Right
-                        hit.x++;
-                        break;
-                    case RIGHT:
-                        //Shoot Left
-                        hit.x--;
-                        break;
-                }
+            switch (direction) {
+                case UP:
+                    // Shoot Down
+                    hit.y++;
+                    break;
+                case DOWN:
+                    //Shoot Up
+                    hit.y--;
+                    break;
+                case LEFT:
+                    //Shoot Right
+                    hit.x++;
+                    break;
+                case RIGHT:
+                    //Shoot Left
+                    hit.x--;
+                    break;
+            }
 
-                isHit = tryShot(hit.x, hit.y);
-                if (isHit) {
-                    isDestroyed = tryDestroyed(hit.x, hit.y);
-                }
-
-            } while (isHit && !isDestroyed);
-
-            hit = null;
-            direction = NONE;
-        }
-
-
-        if (wasHit) {
-
-            // if right was not a Miss and in Game Field try Shoot Right
-            if (game.inGameField(hit.x + 1, hit.y) && game.getgameElementStatus(hit.x + 1, hit.y) != LogicConstants.GameElementStatus.MISS) {
-
-                Point nextHit = new Point(hit.x, hit.y);
-
-                // Shoot right until Miss / Destroyed or OutofGame
-                do {
-                    nextHit.x++;
-                    isHit = tryShot(nextHit.x, nextHit.y);
-                    if (isHit) {
-                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
-                        direction = RIGHT;
-                    }
-
-                } while (isHit && !isDestroyed);
-
-                // if left was not a Miss and in Game Field try Shoot Left
-            } else if (game.inGameField(hit.x - 1, hit.y) && game.getgameElementStatus(hit.x - 1, hit.y) != LogicConstants.GameElementStatus.MISS) {
-
-                Point nextHit = new Point(hit.x, hit.y);
-
-
-                // Shoot right until Miss / Destroyed or OutofGame
-                do {
-                    nextHit.x--;
-                    isHit = tryShot(nextHit.x, nextHit.y);
-                    if (isHit) {
-                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
-                        direction = LEFT;
-                    }
-
-                } while (isHit && !isDestroyed);
-
-                // if up was not a Miss and in Game Field try Shoot up
-            } else if (game.inGameField(hit.x, hit.y - 1) && game.getgameElementStatus(hit.x, hit.y - 1) != LogicConstants.GameElementStatus.MISS) {
-
-                Point nextHit = new Point(hit.x, hit.y);
-
-
-                // Shoot right until Miss / Destroyed or OutofGame
-                do {
-                    nextHit.y--;
-                    isHit = tryShot(nextHit.x, nextHit.y);
-                    if (isHit) {
-                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
-                        direction = UP;
-                    }
-
-                } while (isHit && !isDestroyed);
-
-                // if down was not a Miss and in Game Field try Shoot down
-            } else if (game.inGameField(hit.x, hit.y + 1) && game.getgameElementStatus(hit.x, hit.y + 1) != LogicConstants.GameElementStatus.MISS) {
-
-                Point nextHit = new Point(hit.x, hit.y);
-
-
-                // Shoot right until Miss / Destroyed or OutofGame
-                do {
-                    nextHit.y++;
-
-                    isHit = tryShot(nextHit.x, nextHit.y);
-                    if (isHit) {
-                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
-                        direction = DOWN;
-                    }
-
-                } while (isHit && !isDestroyed);
+            wasHit = tryShot(hit.x, hit.y);
+            if (wasHit) {
+                isDestroyed = tryDestroyed(hit.x, hit.y);
             }
 
             if (isDestroyed) {
                 shootRandom();
             }
+            // } while (isHit && !isDestroyed);
 
         } else {
-            shootRandom();
+            if (tryAgain) {
+
+                // if right was not a Miss and in Game Field try Shoot Right
+                if (game.inGameField(hit.x + 1, hit.y) && game.getgameElementStatus(hit.x + 1, hit.y) != LogicConstants.GameElementStatus.MISS) {
+
+                    Point nextHit = new Point(hit.x, hit.y);
+
+                    // Shoot right until Miss / Destroyed or OutofGame
+                    //   do {
+                    nextHit.x++;
+                    wasHit = tryShot(nextHit.x, nextHit.y);
+                    if (wasHit) {
+                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
+                        direction = RIGHT;
+                    }
+
+                    //     } while (isHit && !isDestroyed);
+
+                    // if left was not a Miss and in Game Field try Shoot Left
+                } else if (game.inGameField(hit.x - 1, hit.y) && game.getgameElementStatus(hit.x - 1, hit.y) != LogicConstants.GameElementStatus.MISS) {
+
+                    Point nextHit = new Point(hit.x, hit.y);
+
+                    // Shoot right until Miss / Destroyed or OutofGame
+                    //   do {
+                    nextHit.x--;
+                    wasHit = tryShot(nextHit.x, nextHit.y);
+                    if (wasHit) {
+                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
+                        direction = LEFT;
+                    }
+
+                    // } while (isHit && !isDestroyed);
+
+                    // if up was not a Miss and in Game Field try Shoot up
+                } else if (game.inGameField(hit.x, hit.y - 1) && game.getgameElementStatus(hit.x, hit.y - 1) != LogicConstants.GameElementStatus.MISS) {
+
+                    Point nextHit = new Point(hit.x, hit.y);
+
+                    // Shoot right until Miss / Destroyed or OutofGame
+                    //  do {
+                    nextHit.y--;
+                    wasHit = tryShot(nextHit.x, nextHit.y);
+                    if (wasHit) {
+                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
+                        direction = UP;
+                    }
+
+                    //   } while (isHit && !isDestroyed);
+
+                    // if down was not a Miss and in Game Field try Shoot down
+                } else if (game.inGameField(hit.x, hit.y + 1) && game.getgameElementStatus(hit.x, hit.y + 1) != LogicConstants.GameElementStatus.MISS) {
+
+                    Point nextHit = new Point(hit.x, hit.y);
+
+
+                    // Shoot right until Miss / Destroyed or OutofGame
+                    //  do {
+                    nextHit.y++;
+
+                    wasHit = tryShot(nextHit.x, nextHit.y);
+                    if (wasHit) {
+                        isDestroyed = tryDestroyed(nextHit.x, nextHit.y);
+                        direction = DOWN;
+                    }
+
+                    //     } while (isHit && !isDestroyed);
+                } else {
+                    tryAgain = false;
+                }
+
+                if (isDestroyed) {
+                    tryAgain = false;
+                    shootRandom();
+                }
+
+            } else {
+                shootRandom();
+            }
         }
+
+        return wasHit;
     }
 
     private void initStatusVariables() {
@@ -193,7 +195,8 @@ public class OfflinePlayer extends Player {
         wasHit = shoot(hit.x, hit.y);
         // if a Ship is Hit then try again
         if (wasHit) {
-            takeTurn();
+            //takeTurn();
+            tryAgain = true;
         }
     }
 
