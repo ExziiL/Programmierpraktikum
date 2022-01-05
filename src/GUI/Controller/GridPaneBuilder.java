@@ -116,10 +116,14 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
+            if (i == 0){
+                continue;
+            }
             if (i % (size + 1) == 0) {
-                tablePlacing.add(new Label(Integer.toString(i)), column++, row);
+                String b = Integer.toString(i % (size+1) - 1);
+                tablePlacing.add(new Label(b), column++, row);
             } else if (row == 0) {
-                String b = Integer.toString(i % (size+1));
+                String b = Integer.toString(i - 1);
                 tablePlacing.add(new Label(b), column++, row);
             } else {
                 pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
@@ -133,14 +137,14 @@ public class GridPaneBuilder {
             // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
-            tablePlacing.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            tablePlacing.setMinHeight(Region.USE_COMPUTED_SIZE);
-            tablePlacing.setMaxHeight(Region.USE_PREF_SIZE);
+          // tablePlacing.setPrefHeight(Region.USE_COMPUTED_SIZE);
+          // tablePlacing.setMinHeight(Region.USE_COMPUTED_SIZE);
+          // tablePlacing.setMaxHeight(Region.USE_PREF_SIZE);
 
             // set Gridpane Widths
-            tablePlacing.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            tablePlacing.setMinWidth(Region.USE_COMPUTED_SIZE);
-            tablePlacing.setMaxWidth(Region.USE_PREF_SIZE);
+           // tablePlacing.setPrefWidth(Region.USE_COMPUTED_SIZE);
+           // tablePlacing.setMinWidth(Region.USE_COMPUTED_SIZE);
+           // tablePlacing.setMaxWidth(Region.USE_PREF_SIZE);
 
             pane.setOnMouseEntered(event -> {
                 controller.handlePaneOnMouseEntered(pane);

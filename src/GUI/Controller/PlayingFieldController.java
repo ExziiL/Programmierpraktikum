@@ -33,10 +33,8 @@ public class PlayingFieldController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     gridBuilder = new GridPaneBuilder(size);
-
     tableEnemy = gridBuilder.createTableEnemy(tableEnemy);
     tableGamer = gridBuilder.createTableGamer(tableGamer);
-
   }
 
   @FXML
