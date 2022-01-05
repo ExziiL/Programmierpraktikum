@@ -23,17 +23,12 @@ public class OfflinePlayer extends Player {
 
     @Override
     public boolean shoot(int x, int y) {
-        // wait shortly
-        //   try {
-        //       Thread.sleep(100);
-        //   } catch (InterruptedException e) {
-        //       e.printStackTrace();
-        //   }
-        try {
-            TimeUnit.MILLISECONDS.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        //wait shortly
+          try {
+              Thread.sleep(200);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
 
         return super.shoot(x, y);
     }
