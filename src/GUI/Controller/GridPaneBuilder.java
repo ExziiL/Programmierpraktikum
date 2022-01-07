@@ -4,11 +4,14 @@ import GUI.GUIConstants;
 import GUI.Game;
 import Utilities.HoverState;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class GridPaneBuilder {
     private int size;
@@ -117,19 +120,37 @@ public class GridPaneBuilder {
                 row++;
             }
             if (i == 0){
+                column++;
                 continue;
             }
             if (i % (size + 1) == 0) {
-                String b = Integer.toString(i % (size+1) - 1);
-                tablePlacing.add(new Label(b), column++, row);
+                String b = Integer.toString(row - 1);
+                Label verticallLabel = new Label(b);
+                verticallLabel.setMinWidth(15);
+                verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+                if (size > 20){
+                    verticallLabel.setFont(Font.font(10));
+                } else if (size > 25){
+                    verticallLabel.setFont(Font.font(0.5));
+                }
+                tablePlacing.add(verticallLabel, column++, row);
             } else if (row == 0) {
-                String b = Integer.toString(i - 1);
-                tablePlacing.add(new Label(b), column++, row);
+                String b = Integer.toString(column - 1);
+                Label horizonatlLabel = new Label(b);
+                horizonatlLabel.setPrefWidth(paneSize);
+                horizonatlLabel.setAlignment(Pos.CENTER);
+
+                if (size > 20){
+                    horizonatlLabel.setFont(Font.font(10));
+                }
+                else if (size > 25){
+                    horizonatlLabel.setFont(Font.font(0.5));
+                }
+                tablePlacing.add(horizonatlLabel, column++, row);
             } else {
                 pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
                 pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
-                pane.setPrefWidth(paneSize);
-                pane.setPrefHeight(paneSize);
+                pane.setPrefSize(paneSize,paneSize);
                 pane.setId("field" + row + column);
                 tablePlacing.add(pane, column++, row);
             }
@@ -194,19 +215,19 @@ public class GridPaneBuilder {
     }
 
     private double setPaneSize() {
-        double hight;
+        double height;
         if (size < 9) {
-            hight = 175;
+            height = 93;
         } else if (size < 15) {
-            hight = 140;
+            height = 31;
         } else if (size < 20) {
-            hight = 115;
+            height = 24;
         } else if (size < 25) {
-            hight = 100;
+            height = 19;
         } else {
-            hight = 80;
+            height = 15;
         }
-        return hight;
+        return height;
     }
 
     private void redrawPanes(ObservableList list) {
