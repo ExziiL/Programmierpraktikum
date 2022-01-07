@@ -2,44 +2,32 @@ package Logic.main;
 
 //import java.awt.*;
 
-import Logic.Game.*;
+import Logic.Game.Game;
 
-public class Player {
+public abstract class Player {
 
     protected Game game;
-    protected String name;
-    protected int countShots;
-    protected int countHits;
-    protected int count_destroyed;
 
-    protected static int countMoves;
 
-    public String shoot;
-
-    public Player(Game game, String name) {
+    public Player(Game game) {
         this.game = game;
-        this.name = name;
-
-        System.out.println(name);
     }
 
-    public void shoot() {
+    public boolean shoot(int x, int y) {
+
+        if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.SHIP) {
+
+            game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
+            return true;
+        } else if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.HIT) {
+
+            return true;
+        } else {
+            game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
+            return false;
+
+        }
     }
 
-    public void placeShips() {
-    }
-
-    public void statistics() {
-
-        System.out.println("Anzahl Schüsse: " + countShots);
-        System.out.println("Anzahl Treffer: " + countHits);
-        System.out.println("Zerstört: " + count_destroyed);
-    }
-
-    /*
-     * public Point getroffen(){ switch (spielarray[""][""]){ case 0:
-     * System.out.println("Verfehlt!");break; case 1:
-     * System.out.println("Treffer!");break; case 2:
-     * System.out.println("Versenkt!!!");break; default: break; } ; }
-     */
+    public abstract boolean takeTurn();
 }

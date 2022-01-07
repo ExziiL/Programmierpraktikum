@@ -2,13 +2,14 @@ package Logic.Game;
 
 import Logic.main.Ship;
 
-import static Logic.main.LogicConstants.*;
-
 import java.util.ArrayList;
+
+import static Logic.main.LogicConstants.GameElementStatus;
 
 public class GameElement {
     private GameElementStatus status;
-    private ArrayList<Ship> ships = new ArrayList<>();
+    private ArrayList<Ship> closeShips = new ArrayList<>();
+    private Ship ship = null;
 
 
     public GameElement() {
@@ -17,8 +18,8 @@ public class GameElement {
 
     public void init() {
         setStatus(GameElementStatus.WATER);
-        ships = new ArrayList<>();
-
+        closeShips = new ArrayList<>();
+        ship = null;
     }
 
     public GameElementStatus getStatus() {
@@ -30,20 +31,33 @@ public class GameElement {
     }
 
     public int getCountShips() {
-        return ships.size();
+        return closeShips.size();
     }
 
     public void setShip(Ship ship) {
-        ships.add(ship);
+        if (status == GameElementStatus.SHIP) {
+            this.ship = ship;
+        } else if (status == GameElementStatus.CLOSE) {
+            closeShips.add(ship);
+        }
     }
 
-    public Ship getShip(int index) {
-        return ships.get(index);
+    public Ship getShip() {
+        return ship;
+    }
+
+    public boolean isShipClose(Ship ship){
+        for(int i = 0; i<closeShips.size(); i++){
+            if(closeShips.get(i) == ship){
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean removeShip(Ship ship) {
         try {
-            return ships.remove(ship);
+            return closeShips.remove(ship);
         } catch (UnsupportedOperationException e) {
             return false;
         } catch (ClassCastException e) {

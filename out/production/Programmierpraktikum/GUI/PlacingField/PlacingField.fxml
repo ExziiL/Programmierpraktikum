@@ -109,8 +109,8 @@
       </Text>
       <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="493.0" layoutY="437.0" mnemonicParsing="false" text="Bearbeiten" />
       <Text layoutX="41.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
-      <Text layoutX="41.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" />
-      <Text layoutX="41.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" />
+      <Text fx:id="textLeftClick" layoutX="41.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" />
+      <Text fx:id="textRightClick" layoutX="41.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" />
       <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="563.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
          <image>
             <Image url="@../../assets/Icons/right-arrow.png" />
