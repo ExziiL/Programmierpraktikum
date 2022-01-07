@@ -61,9 +61,9 @@ public class PlayingFieldController implements Initializable {
         boolean isEnemyTurn = false;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
-            gridBuilder.redrawGamerPanes();
         } while (isEnemyTurn);
 
+        gridBuilder.redrawGamerPanes();
     }
 
     public void checkMyWin() {
