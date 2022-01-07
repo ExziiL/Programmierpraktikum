@@ -94,23 +94,23 @@
                 </HBox>
             </children>
         </VBox>
-        <HBox fx:id="placingBox" layoutX="41.0" layoutY="62.0" prefHeight="400.0" prefWidth="435.0" AnchorPane.leftAnchor="41.0" AnchorPane.topAnchor="62.0">
+        <HBox fx:id="placingBox" layoutX="41.0" layoutY="62.0" prefHeight="465.0" prefWidth="465.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="50.0">
             <children>
-                <GridPane fx:id="table" prefHeight="400.0" prefWidth="442.0">
+                <GridPane fx:id="table" prefHeight="465.0" prefWidth="465.0">
                 </GridPane>
             </children>
         </HBox>
-      <Button fx:id="Random" layoutX="493.0" layoutY="398.0" mnemonicParsing="false" text="Random" />
-      <Button fx:id="Clear" layoutX="493.0" layoutY="360.0" mnemonicParsing="false" text="Clear" />
+      <Button fx:id="Random" layoutX="498.0" layoutY="398.0" mnemonicParsing="false" text="Random" />
+      <Button fx:id="Clear" layoutX="498.0" layoutY="360.0" mnemonicParsing="false" text="Clear" />
       <Text layoutX="264.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="272.00390625">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="493.0" layoutY="437.0" mnemonicParsing="false" text="Bearbeiten" />
-      <Text layoutX="41.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
-      <Text layoutX="41.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" />
-      <Text layoutX="41.0" layoutY="526.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" />
+      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="498.0" layoutY="437.0" mnemonicParsing="false" text="Bearbeiten" />
+      <Text layoutX="41.0" layoutY="530.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
+      <Text layoutX="41.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" />
+      <Text layoutX="41.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" />
       <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="563.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
          <image>
             <Image url="@../../assets/Icons/right-arrow.png" />
