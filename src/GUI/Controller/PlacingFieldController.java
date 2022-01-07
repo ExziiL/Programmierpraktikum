@@ -33,8 +33,7 @@ public class PlacingFieldController implements Initializable {
     private Label labelFour;
     @FXML
     private Label labelFive;
-    @FXML
-    private AnchorPane placingField;
+
     @FXML
     private HBox BoxTwo;
     @FXML
