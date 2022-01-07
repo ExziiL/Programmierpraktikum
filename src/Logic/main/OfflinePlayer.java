@@ -50,7 +50,7 @@ public class OfflinePlayer extends Player {
     public boolean shoot(int x, int y) {
         //wait shortly
         try {
-            Thread.sleep(500);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -96,9 +96,8 @@ public class OfflinePlayer extends Player {
         // Define random Point in Game
         do {
             hit = new Point(MyRandom.getRandomNumberInRange(0, game.getSize() - 1), MyRandom.getRandomNumberInRange(0, game.getSize() - 1));
-            tryAgain = isHitorMiss(hit.x, hit.y);
-            tryAgain = isSurroundingHitorMiss(hit.x, hit.y);
-        } while (tryAgain);
+
+        } while (isHitorMiss(hit.x, hit.y) || isSurroundingHit(hit.x, hit.y));
 
         isHit = shoot(hit.x, hit.y);
         // if a Ship is Hit then try in all Directions
@@ -183,33 +182,40 @@ public class OfflinePlayer extends Player {
         return false;
     }
 
-    private boolean isSurroundingHitorMiss(int x, int y) {
+    private boolean isHit(int x, int y) {
+        if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.HIT) {
+            return true;
+        }
+        return false;
+    }
 
-        if (game.inGameField(x + 1, y) && isHitorMiss(x + 1, y)) {
-            return true;
-        }
-        if (game.inGameField(x - 1, y) && isHitorMiss(x - 1, y)) {
-            return true;
-        }
-        if (game.inGameField(x, y + 1) && isHitorMiss(x, y + 1)) {
-            return true;
-        }
+    private boolean isSurroundingHit(int x, int y) {
 
-        if (game.inGameField(x, y - 1) && isHitorMiss(x, y - 1)) {
+        if (game.inGameField(x + 1, y) && isHit(x + 1, y)) {
             return true;
         }
-
-        if (game.inGameField(x + 1, y - 1) && isHitorMiss(x + 1, y - 1)) {
+        if (game.inGameField(x - 1, y) && isHit(x - 1, y)) {
             return true;
         }
-        if (game.inGameField(x + 1, y + 1) && isHitorMiss(x + 1, y + 1)) {
+        if (game.inGameField(x, y + 1) && isHit(x, y + 1)) {
             return true;
         }
 
-        if (game.inGameField(x - 1, y - 1) && isHitorMiss(x - 1, y - 1)) {
+        if (game.inGameField(x, y - 1) && isHit(x, y - 1)) {
             return true;
         }
-        if (game.inGameField(x - 1, y + 1) && isHitorMiss(x - 1, y + 1)) {
+
+        if (game.inGameField(x + 1, y - 1) && isHit(x + 1, y - 1)) {
+            return true;
+        }
+        if (game.inGameField(x + 1, y + 1) && isHit(x + 1, y + 1)) {
+            return true;
+        }
+
+        if (game.inGameField(x - 1, y - 1) && isHit(x - 1, y - 1)) {
+            return true;
+        }
+        if (game.inGameField(x - 1, y + 1) && isHit(x - 1, y + 1)) {
             return true;
         }
 
