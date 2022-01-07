@@ -90,12 +90,15 @@ public class OfflinePlayer extends Player {
 
     private boolean shootRandom() {
         Point hit;
+        boolean tryAgain = false;
         boolean isHit = false;
+
         // Define random Point in Game
         do {
             hit = new Point(MyRandom.getRandomNumberInRange(0, game.getSize() - 1), MyRandom.getRandomNumberInRange(0, game.getSize() - 1));
-        } while (game.getgameElementStatus(hit.x, hit.y) == LogicConstants.GameElementStatus.HIT
-                || game.getgameElementStatus(hit.x, hit.y) == LogicConstants.GameElementStatus.MISS);
+            tryAgain = isHitorMiss(hit.x, hit.y);
+            tryAgain = isSurroundingHitorMiss(hit.x, hit.y);
+        } while (tryAgain);
 
         isHit = shoot(hit.x, hit.y);
         // if a Ship is Hit then try in all Directions
@@ -177,6 +180,39 @@ public class OfflinePlayer extends Player {
                 game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.HIT) {
             return true;
         }
+        return false;
+    }
+
+    private boolean isSurroundingHitorMiss(int x, int y) {
+
+        if (game.inGameField(x + 1, y) && isHitorMiss(x + 1, y)) {
+            return true;
+        }
+        if (game.inGameField(x - 1, y) && isHitorMiss(x - 1, y)) {
+            return true;
+        }
+        if (game.inGameField(x, y + 1) && isHitorMiss(x, y + 1)) {
+            return true;
+        }
+
+        if (game.inGameField(x, y - 1) && isHitorMiss(x, y - 1)) {
+            return true;
+        }
+
+        if (game.inGameField(x + 1, y - 1) && isHitorMiss(x + 1, y - 1)) {
+            return true;
+        }
+        if (game.inGameField(x + 1, y + 1) && isHitorMiss(x + 1, y + 1)) {
+            return true;
+        }
+
+        if (game.inGameField(x - 1, y - 1) && isHitorMiss(x - 1, y - 1)) {
+            return true;
+        }
+        if (game.inGameField(x - 1, y + 1) && isHitorMiss(x - 1, y + 1)) {
+            return true;
+        }
+
         return false;
     }
 
