@@ -46,7 +46,11 @@ public class Game {
     }
 
     public int getSize() {
-        return size;
+        return this.size;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void setGameMode(GameMode m) {
@@ -397,7 +401,7 @@ public class Game {
         return false;
     }
 
-    public boolean allShipDestryed() {
+    public boolean allShipDestroyed() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 // if a Ship is found not all are destroyed

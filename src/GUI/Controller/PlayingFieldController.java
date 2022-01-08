@@ -21,6 +21,7 @@ public class PlayingFieldController implements Initializable {
 
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
+    private boolean cancel = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -35,7 +36,8 @@ public class PlayingFieldController implements Initializable {
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-        Game.showPlacingFieldWindow();
+
+        Game.showPopUpSaveGame();
     }
 
     public void handleSetOnMouseClicked(MouseEvent event, int index) {
@@ -68,9 +70,26 @@ public class PlayingFieldController implements Initializable {
 
     public void checkMyWin() {
 
+        if (Game.logicController.allEnemyShipsDestroyed()) {
+            try {
+                Game.logicController.setConcratulation(true);
+                Game.showEnd();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void checkEnemyWin() {
 
+        if (Game.logicController.allShipsDestroyed()) {
+            try {
+                Game.logicController.setConcratulation(false);
+                Game.showEnd();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
