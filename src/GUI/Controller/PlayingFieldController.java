@@ -65,6 +65,13 @@ public class PlayingFieldController implements Initializable {
             isEnemyTurn = Game.logicController.enemyTurn();
         } while (isEnemyTurn);
 
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    gridBuilder = new GridPaneBuilder(size);
+    tableEnemy = gridBuilder.createTableEnemy(tableEnemy);
+    tableGamer = gridBuilder.createTableGamer(tableGamer);
+  }
+
         gridBuilder.redrawGamerPanes();
     }
 
@@ -80,6 +87,7 @@ public class PlayingFieldController implements Initializable {
         }
 
     }
+
 
     public void checkEnemyWin() {
 
