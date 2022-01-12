@@ -108,7 +108,7 @@
       <Text fx:id="textLeftClick" layoutX="41.0" layoutY="547.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" />
       <Text fx:id="textRightClick" layoutX="41.0" layoutY="563.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" />
 
-      <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="563.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+      <ImageView fx:id="Next" fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="563.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
          <image>
             <Image url="@../../assets/Icons/right-arrow.png" />
          </image>

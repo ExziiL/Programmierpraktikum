@@ -4,18 +4,12 @@ import GUI.GUIConstants;
 import GUI.Game;
 import Utilities.HoverState;
 import javafx.collections.ObservableList;
-
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-
-import javafx.scene.input.MouseButton;
-
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 
 public class GridPaneBuilder {
     private int size;
@@ -43,39 +37,39 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
-           //if (i == 0) {
-           //    column++;
-           //    continue;
-           //}
-           //if (i % (size + 1) == 0) {
-           //    String b = Integer.toString(row - 1);
-           //    Label verticallLabel = new Label(b);
-           //    verticallLabel.setMinWidth(15);
-           //    verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-           //    if (size > 20) {
-           //        verticallLabel.setFont(Font.font(10));
-           //    } else if (size > 25) {
-           //        verticallLabel.setFont(Font.font(0.5));
-           //    }
-           //    tableEnemy.add(verticallLabel, column++, row);
-           //} else if (row == 0) {
-           //    String b = Integer.toString(column - 1);
-           //    Label horizonatlLabel = new Label(b);
-           //    horizonatlLabel.setPrefWidth(paneSize);
-           //    horizonatlLabel.setAlignment(Pos.CENTER);
-           //    if (size > 20) {
-           //        horizonatlLabel.setFont(Font.font(1));
-           //    } else if (size > 25) {
-           //        horizonatlLabel.setFont(Font.font(0.5));
-           //    }
-           //    tableEnemy.add(horizonatlLabel, column++, row);
-           //} else {
-                pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
-                pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
-                pane.setPrefWidth(paneSize);
-                pane.setPrefHeight(paneSize);
-                pane.setId("field" + row + column);
-                tableEnemy.add(pane, column++, row);
+            //if (i == 0) {
+            //    column++;
+            //    continue;
+            //}
+            //if (i % (size + 1) == 0) {
+            //    String b = Integer.toString(row - 1);
+            //    Label verticallLabel = new Label(b);
+            //    verticallLabel.setMinWidth(15);
+            //    verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+            //    if (size > 20) {
+            //        verticallLabel.setFont(Font.font(10));
+            //    } else if (size > 25) {
+            //        verticallLabel.setFont(Font.font(0.5));
+            //    }
+            //    tableEnemy.add(verticallLabel, column++, row);
+            //} else if (row == 0) {
+            //    String b = Integer.toString(column - 1);
+            //    Label horizonatlLabel = new Label(b);
+            //    horizonatlLabel.setPrefWidth(paneSize);
+            //    horizonatlLabel.setAlignment(Pos.CENTER);
+            //    if (size > 20) {
+            //        horizonatlLabel.setFont(Font.font(1));
+            //    } else if (size > 25) {
+            //        horizonatlLabel.setFont(Font.font(0.5));
+            //    }
+            //    tableEnemy.add(horizonatlLabel, column++, row);
+            //} else {
+            pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
+            pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
+            pane.setPrefWidth(paneSize);
+            pane.setPrefHeight(paneSize);
+            pane.setId("field" + row + column);
+            tableEnemy.add(pane, column++, row);
             //}
             // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
@@ -109,7 +103,7 @@ public class GridPaneBuilder {
         // Save Grid List
 
         shipPartsEnemyList = tableEnemy.getChildren().filtered(node -> node instanceof Pane);
-      
+
         redrawEnemyPanes();
         return tableEnemy;
     }
@@ -179,8 +173,7 @@ public class GridPaneBuilder {
         }
         // Save Grid List
         shipPartsGamerList = tableGamer.getChildren().filtered(node -> node instanceof Pane);
-        redrawPanesWithoutClose(shipPartsGamerList);
-      
+
         redrawGamerPanes();
 
 
