@@ -87,7 +87,7 @@ public class PlacingFieldController implements Initializable {
         });
 
         // Save Grid List
-        shipPartsList = table.getChildren();
+        shipPartsList = table.getChildren().filtered(node -> node instanceof Pane);
         // Build up Choosen Ships Properties
         setChoosenShipProperties();
 

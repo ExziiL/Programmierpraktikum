@@ -105,10 +105,12 @@ public class Game {
 
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
         ArrayList<HoverState> stateList = new ArrayList<>();
+
         Point p = matchIndex(index);
 
         int x = p.x;
         int y = p.y;
+
 
         GameElementStatus shipStatus;
         if (shipinGameField(p, ShipSize, isHorizontal)) {
@@ -281,13 +283,13 @@ public class Game {
         HoverState[] hoverStates = getHoverStateStatus(index, ShipSize, isHorizontal);
 
         // prüfen ob Shiff plazierbar ist
-        for (int i = 0; i < hoverStates.length; i++) {
+        for (int i = 1; i < (hoverStates.length); i++) {
             if (hoverStates[i] != null && hoverStates[i].getStatus() == GameElementStatus.ERROR) {
                 return false;
             }
         }
 
-        // Shiff aus Arreylist ermitteln
+        // Schiff aus Arraylist ermitteln
         for (int s = 0; s < ships.size(); s++) {
             if (ships.get(s).getSize() == ShipSize) {
                 ship = ships.get(s);
