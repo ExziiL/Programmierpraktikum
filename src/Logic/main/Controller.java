@@ -1,14 +1,18 @@
 package Logic.main;
 
-import Logic.Game.*;
+import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
-
-import static Logic.main.LogicConstants.*;
+import Logic.Game.MyGame;
 import Utilities.HoverState;
+
+import static Logic.main.LogicConstants.GameElementStatus;
+import static Logic.main.LogicConstants.GameMode;
 
 public class Controller {
     private MyGame myGame;
     private EnemyGame enemyGame;
+
+    private boolean concratulation;
 
     public Controller() {
         myGame = new MyGame();
@@ -50,6 +54,10 @@ public class Controller {
 
     public int getGameSize() {
         return myGame.getSize();
+    }
+
+    public String getName() {
+        return myGame.getName();
     }
 
     public int getCountTwoShip() {
@@ -104,6 +112,21 @@ public class Controller {
         return myGame.isShipHorizontal(index);
     }
 
+    public boolean isElementShip(int index) {
+        return myGame.getgameElementStatus(index) == GameElementStatus.SHIP;
+    }
+
+    public boolean allShipsDestroyed() {
+        return myGame.allShipDestroyed();
+    }
+
+    public void setConcratulation(boolean concratulation) {
+        this.concratulation = concratulation;
+    }
+
+    public boolean isConcratulation() {
+        return concratulation;
+    }
 
     // ---------------------------------------------------------------
     // Methods for Enemy Game
@@ -121,5 +144,9 @@ public class Controller {
 
     public boolean enemyTurn() {
         return myGame.enemyTurn();
+    }
+
+    public boolean allEnemyShipsDestroyed() {
+        return enemyGame.allShipDestroyed();
     }
 }

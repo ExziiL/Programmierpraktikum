@@ -19,4 +19,6 @@ public class GUIConstants {
     public static final String explTextEditLeft = "Mit der linken Maustaste können sie ein Schiff neu plazieren";
     public static final String explTextEditRight = "Mit der rechten Maustaste können sie ein Schiff löschen";
 
+    public static final String errorMessageNoIP = "Bitte geben Sie eine gültige IP-Adresse ein";
+
 }

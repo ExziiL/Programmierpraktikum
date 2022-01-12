@@ -4,13 +4,18 @@ import Logic.main.Controller;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,7 +23,9 @@ import java.io.IOException;
 public class Game extends Application {
     public static Controller logicController;
     private static BorderPane mainLayout;
-    private Stage primaryStage;
+    private static Stage primaryStage;
+    private static Popup PopupSaveGame;
+    private static final Stage dialogSaveGame = new Stage();
 
     public static void main(String[] args) {
         launch(args);
@@ -81,6 +88,19 @@ public class Game extends Application {
 
     }
 
+    public static void showEnd() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("End/End.fxml"));
+        AnchorPane playingField = loader.load();
+        mainLayout.setCenter(playingField);
+    }
+
+    public static void showPopUpSaveGame() {
+
+        dialogSaveGame.show();
+
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
@@ -88,7 +108,7 @@ public class Game extends Application {
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
-
+        buildPopUpSaveGame();
     }
 
     private void showAppWindow() throws IOException {
@@ -154,6 +174,61 @@ public class Game extends Application {
                 contentPane.setPrefHeight(Math.max(initHeight, newHeight));
             }
         }
+    }
+
+    private void buildPopUpSaveGame() {
+
+        dialogSaveGame.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(10);
+        Label text = new Label("Möchten Sie Speichern?");
+        text.setMinHeight(50);
+        text.setMinWidth(50);
+        HBox dialogHbox = new HBox(20);
+        Button yes = new Button("Ja");
+        Button no = new Button("Nein");
+        Button cancel = new Button("Abbrechen");
+        dialogVbox.getChildren().addAll(text, dialogHbox);
+        dialogHbox.getChildren().addAll(yes, no, cancel);
+        dialogHbox.setAlignment(Pos.CENTER);
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 100);
+
+        dialogSaveGame.initModality(Modality.APPLICATION_MODAL);
+        dialogSaveGame.setScene(dialogScene);
+
+
+        yes.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent event) {
+                // TODO Speichern
+                try {
+                    dialogSaveGame.hide();
+                    Game.showPlacingFieldWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        no.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dialogSaveGame.hide();
+                    Game.showPlacingFieldWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                dialogSaveGame.hide();
+            }
+        });
+
     }
 }
 

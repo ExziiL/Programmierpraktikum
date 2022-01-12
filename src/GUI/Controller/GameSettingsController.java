@@ -1,15 +1,21 @@
 package GUI.Controller;
 
+import GUI.Game;
 import Logic.main.LogicConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.fxml.FXML;
-import GUI.Game;
+import javafx.scene.layout.HBox;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
+import static GUI.GUIConstants.errorMessageNoIP;
 
 public class GameSettingsController {
     @FXML
@@ -26,6 +32,14 @@ public class GameSettingsController {
     private Label labelFour;
     @FXML
     private Label labelFive;
+    @FXML
+    private Label ErrorMessage;
+    @FXML
+    private HBox BoxOnline;
+    @FXML
+    private TextField Ip;
+    @FXML
+    private RadioButton Server, Client;
     @FXML
     private ComboBox<String> gameMode;
 
@@ -47,6 +61,40 @@ public class GameSettingsController {
         ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online", "???");
         gameMode.setItems(options);
         gameMode.setValue("Offline");
+
+        BoxOnline.setDisable(true);
+        Ip.setPromptText("IP-Adresse");
+
+        gameMode.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (gameMode.getValue().equals("Offline")) {
+                    BoxOnline.setDisable(true);
+                } else if (gameMode.getValue().equals("Online")) {
+                    BoxOnline.setDisable(false);
+                    if (Client.isSelected()) {
+                        selectClient();
+                    } else {
+                        selectServer();
+                    }
+                }
+            }
+        });
+
+        Client.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                selectClient();
+            }
+        });
+
+        Server.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                selectServer();
+            }
+        });
+
     }
 
     // ------------------------------- Zurück-Button ------------------------------
@@ -76,10 +124,15 @@ public class GameSettingsController {
 
     @FXML
     void handleNext(MouseEvent event) throws IOException {
-        Game.logicController.setName(name.getCharacters().toString());
-        Game.logicController.setGameSize(gameSize);
-        Game.logicController.setGameMode(determineGameMode());
-        Game.showPlacingFieldWindow();
+        if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
+            ErrorMessage.setText(errorMessageNoIP);
+        } else {
+            ErrorMessage.setText("");
+            Game.logicController.setName(name.getCharacters().toString());
+            Game.logicController.setGameSize(gameSize);
+            Game.logicController.setGameMode(determineGameMode());
+            Game.showPlacingFieldWindow();
+        }
     }
 
     private void setLabelTexts() {
@@ -95,5 +148,20 @@ public class GameSettingsController {
             return LogicConstants.GameMode.ONLINE;
         }
         return LogicConstants.GameMode.OFFLINE;
+    }
+
+    private void selectClient() {
+        Ip.setDisable(false);
+        Ip.setText("");
+    }
+
+    private void selectServer() {
+        try {
+            InetAddress realIP = InetAddress.getLocalHost();
+            Ip.setDisable(true);
+            Ip.setText(realIP.getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
     }
 }
