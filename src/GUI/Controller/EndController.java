@@ -36,7 +36,7 @@ public class EndController implements Initializable {
 
         } else {
             LabelEnd.setText("Du hast verloren LOOOSER " + Game.logicController.getName());
-            PictureEnd.setImage(new Image("@../../assets/End/Loser.png"));
+            //PictureEnd.setImage(new Image("@../../assets/End/Loser.png"));
         }
 
         NewGame.setOnAction(new EventHandler<ActionEvent>() {

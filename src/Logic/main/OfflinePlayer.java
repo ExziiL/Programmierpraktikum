@@ -13,7 +13,6 @@ public class OfflinePlayer extends Player {
     private class nextHits {
         Point p = null;
         LogicConstants.Direction direction = NONE;
-        LogicConstants.Direction lastdirection = NONE;
 
         public nextHits(int x, int y, LogicConstants.Direction dir) {
             this.p = new Point(x, y);
