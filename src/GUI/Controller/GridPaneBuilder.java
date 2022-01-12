@@ -4,9 +4,13 @@ import GUI.GUIConstants;
 import GUI.Game;
 import Utilities.HoverState;
 import javafx.collections.ObservableList;
+
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+
+import javafx.scene.input.MouseButton;
+
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -25,7 +29,7 @@ public class GridPaneBuilder {
         this.size = size;
     }
 
-    public GridPane createTableEnemy(GridPane tableEnemy) {
+    public GridPane createTableEnemy(GridPane tableEnemy, PlayingFieldController controller) {
 
         int column = 0;
         int row = 0;
@@ -85,9 +89,28 @@ public class GridPaneBuilder {
             //tableEnemy.setMinWidth(Region.USE_COMPUTED_SIZE);
             //tableEnemy.setMaxWidth(Region.USE_PREF_SIZE);
 
+            //Events
+            pane.setOnMouseEntered(event -> {
+                setColorPane(pane, GUIConstants.colorShotMarker);
+            });
+
+            pane.setOnMouseExited(event -> {
+                redrawEnemyPanes();
+            });
+
+            pane.setOnMouseClicked(event -> {
+
+                controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
+
+
+            });
+
         }
         // Save Grid List
+
         shipPartsEnemyList = tableEnemy.getChildren().filtered(node -> node instanceof Pane);
+      
+        redrawEnemyPanes();
         return tableEnemy;
     }
 
@@ -157,6 +180,9 @@ public class GridPaneBuilder {
         // Save Grid List
         shipPartsGamerList = tableGamer.getChildren().filtered(node -> node instanceof Pane);
         redrawPanesWithoutClose(shipPartsGamerList);
+      
+        redrawGamerPanes();
+
 
         return tableGamer;
     }
@@ -243,6 +269,45 @@ public class GridPaneBuilder {
         redrawPanes(shipPartsPlacingList);
     }
 
+    public void redrawGamerPanes() {
+        for (int j = 0; j < shipPartsGamerList.size(); j++) {
+            Pane pane = (Pane) shipPartsGamerList.get(j);
+
+            switch (Game.logicController.getGameElementStatus(j)) {
+                case SHIP:
+                    setColorPane(pane, GUIConstants.colorShip);
+                    break;
+                case HIT:
+                    setColorPane(pane, GUIConstants.colorHit);
+                    break;
+                case MISS:
+                    setColorPane(pane, GUIConstants.colorMiss);
+                    break;
+                default: // WATER
+                    setColorPane(pane, GUIConstants.colorGameField);
+                    break;
+            }
+        }
+    }
+
+    public void redrawEnemyPanes() {
+        for (int j = 0; j < shipPartsEnemyList.size(); j++) {
+            Pane pane = (Pane) shipPartsEnemyList.get(j);
+
+            switch (Game.logicController.getEnemyElementStatus(j)) {
+                case HIT:
+                    setColorPane(pane, GUIConstants.colorHit);
+                    break;
+                case MISS:
+                    setColorPane(pane, GUIConstants.colorMiss);
+                    break;
+                default: // WATER
+                    setColorPane(pane, GUIConstants.colorGameField);
+                    break;
+            }
+        }
+    }
+
     public boolean hoverShip(HoverState[] states) {
         Pane newPane = null;
         boolean noPlacingAllowed = false;
@@ -294,21 +359,6 @@ public class GridPaneBuilder {
                     break;
                 case CLOSE:
                     setColorPane(pane, GUIConstants.colorClose);
-                    break;
-                default: // WATER
-                    setColorPane(pane, GUIConstants.colorGameField);
-                    break;
-            }
-        }
-    }
-
-    private void redrawPanesWithoutClose(ObservableList list) {
-        for (int j = 0; j < list.size(); j++) {
-            Pane pane = (Pane) list.get(j);
-
-            switch (Game.logicController.getGameElementStatus(j)) {
-                case SHIP:
-                    setColorPane(pane, GUIConstants.colorShip);
                     break;
                 default: // WATER
                     setColorPane(pane, GUIConstants.colorGameField);

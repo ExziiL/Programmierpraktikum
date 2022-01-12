@@ -4,12 +4,11 @@ import Logic.Game.*;
 import Logic.Game.Exceptions.FalseFieldSize;
 
 import static Logic.main.LogicConstants.*;
-
-import Utilities.Exception.ShipOutofGame;
 import Utilities.HoverState;
 
 public class Controller {
     private MyGame myGame;
+    private EnemyGame enemyGame;
 
     public Controller() {
         myGame = new MyGame();
@@ -43,6 +42,10 @@ public class Controller {
         } catch (FalseFieldSize falseFieldSize) {
             System.out.println("Falsche Spielfeldgröße");
         }
+    }
+
+    public void setGameMode(GameMode m) {
+        myGame.setGameMode(m);
     }
 
     public int getGameSize() {
@@ -85,10 +88,6 @@ public class Controller {
         myGame.shuffleShips();
     }
 
-    public boolean checkPlaceForShip(Ship ship, int x, int y, boolean vertical) {
-        return myGame.checkPlaceForShip(ship, x, y, vertical);
-    }
-
     public void initializeGameField() {
         myGame.initializeGameField();
     }
@@ -103,5 +102,24 @@ public class Controller {
 
     public boolean isShipHorizontal(int index) {
         return myGame.isShipHorizontal(index);
+    }
+
+
+    // ---------------------------------------------------------------
+    // Methods for Enemy Game
+    public GameElementStatus getEnemyElementStatus(int index) {
+        return enemyGame.getgameElementStatus(index);
+    }
+
+    public void createEnemyGame() {
+        enemyGame = new EnemyGame(getGameSize());
+    }
+
+    public boolean shoot(int index) {
+        return enemyGame.shoot(index);
+    }
+
+    public boolean enemyTurn() {
+        return myGame.enemyTurn();
     }
 }
