@@ -130,21 +130,21 @@ public class Game {
 
 
                     // Zweier Schiff oben
-                    stateList = setShip(p.x, p.y, stateList, shipStatus);
+                    stateList = setShip(p.x, p.y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y, stateList);
 
                     // Zweier Shiff unten
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 1, stateList);
 
                 } else {
 
                     // Zweier Schiff links
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x, y, stateList);
 
                     // Zweier Shiff rechts
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 1, y, stateList);
                 }
                 break;
@@ -153,30 +153,30 @@ public class Game {
                 if (isHorizontal == false) {
 
                     // Dreier Schiff oben
-                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setShip(x, y - 1, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y - 1, stateList);
 
                     // Dreier Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y, stateList);
 
                     // Dreier Shiff unten
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 1, stateList);
 
                 } else {
 
                     // Dreier Schiff links
-                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setShip(x - 1, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x - 1, y, stateList);
 
 
                     // Dreier Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x, y, stateList);
 
                     // Dreier Shiff unten
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 1, y, stateList);
                 }
                 break;
@@ -185,39 +185,39 @@ public class Game {
                 if (isHorizontal == false) {
 
                     // Vierer Schiff oben
-                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setShip(x, y - 1, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y - 1, stateList);
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y, stateList);
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y + 1, stateList);
 
                     // Vierer Shiff unten
-                    stateList = setShip(x, y + 2, stateList, shipStatus);
+                    stateList = setShip(x, y + 2, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 2, stateList);
 
                 } else {
 
                     // Vierer Schiff links
-                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setShip(x - 1, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x - 1, y, stateList);
 
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x, y, stateList);
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x + 1, y, stateList);
 
 
                     // Vierer Shiff rechts + 2
-                    stateList = setShip(x + 2, y, stateList, shipStatus);
+                    stateList = setShip(x + 2, y, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 2, y, stateList);
                 }
                 break;
@@ -225,50 +225,49 @@ public class Game {
             case 5:
                 if (isHorizontal == false) {
 
-
                     // Fünfer Schiff oben + 2
-                    stateList = setShip(x, y - 2, stateList, shipStatus);
+                    stateList = setShip(x, y - 2, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y - 2, stateList);
 
                     // Fünfer Schiff oben + 1
-                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setShip(x, y - 1, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y - 1, stateList);
 
 
                     // Fünfer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y, stateList);
 
                     // Fünfer Shiff unten + 1
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y + 1, stateList);
 
                     // Fünfer Shiff unten + 2
-                    stateList = setShip(x, y + 2, stateList, shipStatus);
+                    stateList = setShip(x, y + 2, stateList, shipStatus, 5, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 2, stateList);
 
 
                 } else {
 
                     // Fünfer Schiff links + 2
-                    stateList = setShip(x - 2, y, stateList, shipStatus);
+                    stateList = setShip(x - 2, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x - 2, y, stateList);
 
                     // Fünfer Schiff links
-                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setShip(x - 1, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x - 1, y, stateList);
 
                     // Fünfer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x, y, stateList);
 
                     // Fünfer Shiff mitte
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x + 1, y, stateList);
 
 
                     // Vierer Shiff rechts + 2
-                    stateList = setShip(x + 2, y, stateList, shipStatus);
+                    stateList = setShip(x + 2, y, stateList, shipStatus, 5, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 2, y, stateList);
 
                 }
@@ -312,6 +311,7 @@ public class Game {
 
                 gameField[x][y].setStatus(hoverStates[i].getStatus());
                 gameField[x][y].setShip(ship);
+                gameField[x][y].setPart(hoverStates[i].getPart());
 
             }
         }
@@ -375,6 +375,12 @@ public class Game {
             return gameField[x][y].getShip().isHorizontal();
         }
         return false;
+    }
+
+    public int getPartofShip(int index) {
+        Point p = matchIndex(index);
+
+        return gameField[p.x][p.y].getPart();
     }
 
     public boolean isShipDestroyed(int x, int y) {
@@ -683,10 +689,10 @@ public class Game {
 
     }
 
-    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
+    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status, int part, int shipSize, boolean isHorizontal) {
 
         if (inGameField(x, y)) {
-            states.add(new HoverState(matchIndex(x, y), status));
+            states.add(new HoverState(matchIndex(x, y), status, part, shipSize, isHorizontal));
         }
         return states;
     }

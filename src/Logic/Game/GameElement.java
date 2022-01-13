@@ -10,7 +10,15 @@ public class GameElement {
     private GameElementStatus status;
     private ArrayList<Ship> closeShips = new ArrayList<>();
     private Ship ship = null;
+    private int part;
 
+    public int getPart() {
+        return part;
+    }
+
+    public void setPart(int part) {
+        this.part = part;
+    }
 
     public GameElement() {
         setStatus(GameElementStatus.WATER);

@@ -198,6 +198,10 @@ public class Controller {
         return myGame.isShipHorizontal(index);
     }
 
+    public int getPartofShip(int index){
+        return myGame.getPartofShip(index);
+    }
+
     /**
      * Checks if Pane is Part of a Ship
      * @param index of Pane
