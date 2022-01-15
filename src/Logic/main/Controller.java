@@ -1,5 +1,6 @@
 package Logic.main;
 
+import GUI.Game;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.Game.MyGame;
@@ -13,6 +14,7 @@ public class Controller {
     private MyGame myGame;
     private EnemyGame enemyGame;
     private boolean concratulation;
+    private String[] args;
     //endregion
 
     /**
@@ -44,6 +46,14 @@ public class Controller {
     }
 
     /**
+     * Set the Parameterarguments given in the Game.main funktion
+     * @param args Parameterarguments
+     */
+    public void setArgs(String[] args){
+        this.args = args;
+    }
+
+    /**
      * Sets the name of the player
      * @param n name of player
      */
@@ -58,6 +68,7 @@ public class Controller {
     public void setGameSize(int n) {
         try {
             myGame.setSize(n);
+
         } catch (FalseFieldSize falseFieldSize) {
             System.out.println("Falsche Spielfeldgröße");
         }
@@ -69,6 +80,14 @@ public class Controller {
      */
     public void setGameMode(GameMode m) {
         myGame.setGameMode(m);
+    }
+
+    /**
+     * Returns the Parameterargument of the Game.main
+     * @return Parameterarguments
+     */
+    public String[] getArgs(){
+        return this.args;
     }
 
     /**

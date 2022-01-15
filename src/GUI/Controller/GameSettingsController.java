@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import GUI.Game;
 import Logic.main.LogicConstants;
+import Network.Network;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -45,6 +46,8 @@ public class GameSettingsController {
 
 
     private int gameSize;
+    private Thread network = null;
+
 
     @FXML
     void initialize() {
@@ -73,11 +76,18 @@ public class GameSettingsController {
                 } else if (gameMode.getValue().equals("Online")) {
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
-                        selectClient();
+                       network = new Thread(() -> {
+                            Network.chooseConstructor(Game.logicController.getArgs(), false);
+                        });
+                        network.start();
                     } else {
-                        selectServer();
+                      network = new Thread(() -> {
+                            Network.chooseConstructor(Game.logicController.getArgs(), true);
+                        });
+                        network.start();
                     }
                 }
+
             }
         });
 
@@ -85,6 +95,13 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 selectClient();
+                if (network.isAlive()){
+                    network.stop();
+                }
+                network = new Thread(() -> {
+                    Network.chooseConstructor(Game.logicController.getArgs(), false);
+                });
+                network.start();
             }
         });
 
@@ -92,6 +109,13 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 selectServer();
+                if (network.isAlive()){
+                    network.stop();
+                }
+                network = new Thread(() -> {
+                    Network.chooseConstructor(Game.logicController.getArgs(), true);
+                });
+                network.start();
             }
         });
 
@@ -120,7 +144,7 @@ public class GameSettingsController {
 
     ;
 
-    // ------------------------------- Next-Button ---------------------------------
+// ------------------------------- Next-Button ---------------------------------
 
     @FXML
     void handleNext(MouseEvent event) throws IOException {

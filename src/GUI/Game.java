@@ -27,8 +27,10 @@ public class Game extends Application {
     private static Popup PopupSaveGame;
     private static final Stage dialogSaveGame = new Stage();
 
+
     public static void main(String[] args) {
         launch(args);
+        logicController.setArgs(args);
     }
 
     //     this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
