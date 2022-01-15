@@ -1,5 +1,5 @@
 package Network;
 
 public class Network {
-    final int port = 50000;
+    protected static final int port = 50000;
 }
