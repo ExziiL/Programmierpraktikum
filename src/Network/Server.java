@@ -6,10 +6,10 @@ import java.io.*;
 public class Server extends Network {
     private static BufferedReader inStream;
     private static Writer outStream;
-    private static ServerSocket server = null;
+    private static ServerSocket server;
     private static boolean connected;
 
-    public static void createServer() throws IOException {
+    public Server() throws IOException {
         if (server != null && server.isBound()) {
             server.close();
         }
@@ -24,27 +24,40 @@ public class Server extends Network {
         outStream = new OutputStreamWriter(socket.getOutputStream());
     }
 
-    public void sendResponse() {
-        if (connected) {
-
-
+    public void sendResponse(String message) {
+        try {
+            if (connected) {
+                outStream.write(message);
+            }
+            outStream.flush();
+        } catch (IOException io) {
+            io.printStackTrace();
         }
     }
 
-    public void receiveClientResponse() throws IOException {
-        if (connected) {
-            String line = inStream.readLine();
-            if (line.equals("done")) {
+    public boolean receiveResponse() {
+        try {
+            if (connected) {
+                String line = inStream.readLine();
+                if (line.equals("done")) {
 
-            } else if (line.equals("ready")) {
+                } else if (line.equals("ready")) {
 
-            } else if (line.startsWith("shot")) {
+                } else if (line.startsWith("shot")) {
 
-            } else if (line.startsWith("answer")) {
+                } else if (line.startsWith("answer")) {
 
-            } else if (line.equals("pass")) {
+                } else if (line.equals("pass")) {
 
+                }
+                return true;
+            } else {
+                return false;
             }
+        } catch (IOException io) {
+            io.printStackTrace();
+            return false;
         }
+
     }
 }

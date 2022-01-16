@@ -2,6 +2,8 @@ package GUI.Controller;
 
 import GUI.GUIConstants;
 import GUI.Game;
+import Network.Client;
+import Network.Server;
 import Utilities.HoverState;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -195,6 +197,10 @@ public class PlacingFieldController implements Initializable {
 
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
+        Thread networkThread = new Thread(() -> {
+
+        });
+        networkThread.start();
         Game.showPlayingFieldWindow();
     }
 

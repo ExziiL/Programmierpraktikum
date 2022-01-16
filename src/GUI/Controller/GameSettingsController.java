@@ -1,8 +1,8 @@
 package GUI.Controller;
 
 import GUI.Game;
+import Network.*;
 import Logic.main.LogicConstants;
-import Network.Network;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,7 +46,7 @@ public class GameSettingsController {
 
 
     private int gameSize;
-    private Thread network = null;
+    private Thread networkThread = null;
 
 
     @FXML
@@ -76,15 +76,15 @@ public class GameSettingsController {
                 } else if (gameMode.getValue().equals("Online")) {
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
-                       network = new Thread(() -> {
-                            Network.chooseConstructor(Game.logicController.getArgs(), false);
+                        networkThread = new Thread(() -> {
+                            Game.network.chooseConstructor(Game.logicController.getArgs(), false);
                         });
-                        network.start();
+                        networkThread.start();
                     } else {
-                      network = new Thread(() -> {
-                            Network.chooseConstructor(Game.logicController.getArgs(), true);
+                        networkThread = new Thread(() -> {
+                            Game.network.chooseConstructor(Game.logicController.getArgs(), true);
                         });
-                        network.start();
+                        networkThread.start();
                     }
                 }
 
@@ -95,13 +95,13 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 selectClient();
-                if (network.isAlive()){
-                    network.stop();
+                if (networkThread.isAlive()) {
+                    networkThread.stop();
                 }
-                network = new Thread(() -> {
-                    Network.chooseConstructor(Game.logicController.getArgs(), false);
+                networkThread = new Thread(() -> {
+                    Game.network.chooseConstructor(Game.logicController.getArgs(), false);
                 });
-                network.start();
+                networkThread.start();
             }
         });
 
@@ -109,13 +109,13 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 selectServer();
-                if (network.isAlive()){
-                    network.stop();
+                if (networkThread.isAlive()) {
+                    networkThread.stop();
                 }
-                network = new Thread(() -> {
-                    Network.chooseConstructor(Game.logicController.getArgs(), true);
+                networkThread = new Thread(() -> {
+                    Game.network.chooseConstructor(Game.logicController.getArgs(), true);
                 });
-                network.start();
+                networkThread.start();
             }
         });
 
@@ -151,6 +151,14 @@ public class GameSettingsController {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else {
+            networkThread = new Thread(() -> {
+                //if (Game.network instanceof Server) {
+                    //Game.network.sendResponse("size " + Game.logicController.getGameSize());
+                //} else if (Game.network instanceof Client) {
+                    //Game.network.receiveResponse();
+                //}
+            });
+            networkThread.start();
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.setGameSize(gameSize);
