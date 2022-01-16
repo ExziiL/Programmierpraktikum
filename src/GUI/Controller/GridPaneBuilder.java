@@ -238,8 +238,8 @@ public class GridPaneBuilder {
                 pane.setPrefSize(paneSize, paneSize);
                 pane.setId("field" + row + column);
                 ImageView image = new ImageView();
-                image.setFitHeight(paneSize - 5);
-                image.setFitWidth(paneSize - 5);
+                image.setFitHeight(paneSize);
+                image.setFitWidth(paneSize);
                 pane.getChildren().add(image);
                 tablePlacing.add(pane, column++, row);
             }
@@ -345,9 +345,9 @@ public class GridPaneBuilder {
     private double setPaneSize() {
         double height;
         if (size < 9) {
-            height = 93;
+            height = 85;
         } else if (size < 15) {
-            height = 47;
+            height = 40;
         } else if (size < 20) {
             height = 31;
         } else if (size < 25) {

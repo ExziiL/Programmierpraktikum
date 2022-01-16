@@ -358,9 +358,13 @@ public class Game {
     public int getShipSize(int index) {
         int x = index % size;
         int y = index / size;
-        Ship ship;
 
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
+        return getShipSize(x, y);
+    }
+
+    public int getShipSize(int x, int y) {
+
+        if (gameField[x][y].getShip() != null) {
             return gameField[x][y].getShip().getSize();
         }
         return 0;
@@ -420,7 +424,6 @@ public class Game {
         }
         return true;
     }
-
 
     public boolean deleteShip(int index) {
         int x = index % size;
