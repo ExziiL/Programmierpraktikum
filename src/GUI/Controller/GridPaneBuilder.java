@@ -14,22 +14,21 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class GridPaneBuilder {
-    private int size;
+    private final int size;
     private ObservableList shipPartsGamerList;
     private ObservableList shipPartsEnemyList;
     private ObservableList shipPartsPlacingList;
     private ObservableList<Node> numberLables;
     private ObservableList<Node> letterLables;
 
-    private Image error = new Image("assets/Schiffe/error.jpg");
-    private Image water = new Image("assets/Schiffe/water.jpg");
-    private Image close = new Image("assets/Schiffe/close.jpg");
+    private final Image error = new Image("assets/Schiffe/error.jpg");
+    private final Image water = new Image("assets/Schiffe/water.jpg");
+    private final Image close = new Image("assets/Schiffe/close.jpg");
 
-    private Image twoShipFirstHor = new Image("assets/Schiffe/2er_Schiff_oben_1_horizontal.jpg");
-    private Image twoShipSecondHor = new Image("assets/Schiffe/2er_Schiff_oben_2_horizontal.jpg");
-
-    private Image twoShipFirstVert = new Image("assets/Schiffe/2er_Schiff_oben_1_vertikal.jpg");
-    private Image twoShipSecondVert = new Image("assets/Schiffe/2er_Schiff_oben_2_vertikal.jpg");
+    private final Image twoShipFirstHor = new Image("assets/Schiffe/2er_Schiff_oben_1_horizontal.jpg");
+    private final Image twoShipSecondHor = new Image("assets/Schiffe/2er_Schiff_oben_2_horizontal.jpg");
+    private final Image twoShipFirstVert = new Image("assets/Schiffe/2er_Schiff_oben_1_vertikal.jpg");
+    private final Image twoShipSecondVert = new Image("assets/Schiffe/2er_Schiff_oben_2_vertikal.jpg");
 
     public GridPaneBuilder(int size) {
         this.size = size;
@@ -96,13 +95,9 @@ public class GridPaneBuilder {
             //tableEnemy.setMaxWidth(Region.USE_PREF_SIZE);
 
             //Events
-            pane.setOnMouseEntered(event -> {
-                setColorPane(pane, GUIConstants.colorShotMarker);
-            });
+            pane.setOnMouseEntered(event -> setColorPane(pane, GUIConstants.colorShotMarker));
 
-            pane.setOnMouseExited(event -> {
-                redrawEnemyPanes();
-            });
+            pane.setOnMouseExited(event -> redrawEnemyPanes());
 
             pane.setOnMouseClicked(event -> {
 
