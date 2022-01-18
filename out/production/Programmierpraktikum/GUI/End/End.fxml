@@ -7,24 +7,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.EndController">
-   <children>
-      <VBox alignment="CENTER" prefHeight="298.0" prefWidth="800.0">
-         <children>
-            <Label fx:id="LabelEnd" alignment="CENTER" prefHeight="153.0" prefWidth="788.0" text="Herzlichen Glückwunsch">
-               <font>
-                  <Font size="30.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="PictureEnd" fitHeight="311.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </VBox>
-      <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="417.0" prefHeight="181.0" prefWidth="800.0" spacing="100.0">
-         <children>
-            <Button fx:id="NewGame" mnemonicParsing="false" prefHeight="95.0" prefWidth="185.0" text="Neues Spiel" />
-            <Button fx:id="Exit" mnemonicParsing="false" prefHeight="93.0" prefWidth="170.0" text="Beenden" />
-         </children>
-      </HBox>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.Controller.EndController">
+    <children>
+        <VBox alignment="CENTER" prefHeight="298.0" prefWidth="800.0">
+            <children>
+                <Label fx:id="LabelEnd" alignment="CENTER" prefHeight="153.0" prefWidth="788.0"
+                       text="Herzlichen Glückwunsch">
+                    <font>
+                        <Font size="30.0"/>
+                    </font>
+                </Label>
+                <ImageView fx:id="PictureEnd" fitHeight="311.0" fitWidth="800.0" pickOnBounds="true"
+                           preserveRatio="true"/>
+            </children>
+        </VBox>
+        <HBox alignment="TOP_CENTER" layoutX="-1.0" layoutY="417.0" prefHeight="181.0" prefWidth="800.0"
+              spacing="100.0">
+            <children>
+                <Button fx:id="NewGame" mnemonicParsing="false" prefHeight="95.0" prefWidth="185.0" text="Neues Spiel"/>
+                <Button fx:id="Exit" mnemonicParsing="false" prefHeight="93.0" prefWidth="170.0" text="Beenden"/>
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

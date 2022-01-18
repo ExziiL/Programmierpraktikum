@@ -209,6 +209,16 @@ public class Controller {
     }
 
     /**
+     * Gets Ships Part (For Display)
+     *
+     * @param index of Pane
+     * @return the Part of the Ship( 1, 2, ... ,5)
+     */
+    public int getPartofShip(int index) {
+        return myGame.getPartofShip(index);
+    }
+
+    /**
      * Checks if Pane is Part of a Ship
      *
      * @param index of Pane
@@ -286,6 +296,16 @@ public class Controller {
     public boolean allEnemyShipsDestroyed() {
         return enemyGame.allShipDestroyed();
     }
+
+    /**
+     * Gets Count of Destroyed Ships
+     *
+     * @param size of Ship
+     * @return Count of Destroyed Ship of specific Size
+     */
+    public int getDestroyedShips(int size) {
+        return enemyGame.getDestroyedShips(size);
+    }
     //endregion
 
 
@@ -298,6 +318,9 @@ public class Controller {
     }
 
     public void save() {
+
+        writer.writeEnemyGameField(enemyGame.getGameField());
+        writer.writeMyGameField(myGame.getGameField());
         writer.save();
     }
 
@@ -326,7 +349,10 @@ public class Controller {
                     setGameSize(Integer.parseInt(split[1]));
                     break;
                 case "shipsDestroyed":
-
+                    enemyGame.setDestroyedFiveShips(Integer.parseInt(split[1]));
+                    enemyGame.setDestroyedFourShips(Integer.parseInt(split[2]));
+                    enemyGame.setDestroyedThreeShips(Integer.parseInt(split[3]));
+                    enemyGame.setDestroyedTwoShips(Integer.parseInt(split[4]));
                     break;
                 case "ships":
                     myGame.setAllFiveShips(Integer.parseInt(split[1]));
@@ -338,9 +364,7 @@ public class Controller {
 
                     x = Integer.parseInt(split[1]);
                     y = Integer.parseInt(split[2]);
-
                     status = interpretStatusByNumber(Integer.parseInt(split[1]));
-
                     myGame.setgameElementStatus(x, y, status);
 
                     break;

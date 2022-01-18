@@ -23,11 +23,15 @@ public class Game {
     protected int countFourShip;
     protected int countFiveShip;
 
-    private int allTwoShips = 0;
-    private int allThreeShips = 0;
-    private int allFourShips = 0;
-    private int allFiveShips = 0;
+    protected int allTwoShip;
+    protected int allThreeShip;
+    protected int allFourShip;
+    protected int allFiveShip;
 
+
+    public GameElement[][] getGameField() {
+        return gameField;
+    }
 
     public void setName(String n) {
         this.name = n;
@@ -48,11 +52,6 @@ public class Game {
         }
 
         determineNumberOfShips();
-        setAllTwoShips(getCountTwoShip());
-        setAllThreeShips(getCountThreeShip());
-        setAllFourShips(getCountFourShip());
-        setAllFiveShips(getCountFiveShip());
-
     }
 
     public int getSize() {
@@ -90,6 +89,19 @@ public class Game {
                 getCountFiveShip() == 0;
     }
 
+    /**
+     * Return the part of the ship
+     * 1, 2, 3, 4, 5
+     *
+     * @param index of Pane
+     * @return Part of the ship
+     */
+    public int getPartofShip(int index) {
+        Point p = matchIndex(index);
+
+        return gameField[p.x][p.y].getPart();
+    }
+
     public int getCountTwoShip() {
         return countTwoShip;
     }
@@ -106,37 +118,36 @@ public class Game {
         return countFiveShip;
     }
 
-
     public int getAllTwoShips() {
-        return allTwoShips;
+        return allTwoShip;
+    }
+
+    public void setAllTwoShips(int allTwoShip) {
+        this.allTwoShip = allTwoShip;
     }
 
     public int getAllThreeShips() {
-        return allThreeShips;
+        return allThreeShip;
+    }
+
+    public void setAllThreeShips(int allThreeShip) {
+        this.allThreeShip = allThreeShip;
     }
 
     public int getAllFourShips() {
-        return allFourShips;
+        return allFourShip;
+    }
+
+    public void setAllFourShips(int allFourShip) {
+        this.allFourShip = allFourShip;
     }
 
     public int getAllFiveShips() {
-        return allFiveShips;
+        return allFiveShip;
     }
 
-    public void setAllTwoShips(int allTwoShips) {
-        this.allTwoShips = allTwoShips;
-    }
-
-    public void setAllThreeShips(int allThreeShips) {
-        this.allThreeShips = allThreeShips;
-    }
-
-    public void setAllFourShips(int allFourShips) {
-        this.allFourShips = allFourShips;
-    }
-
-    public void setAllFiveShips(int allFiveShips) {
-        this.allFiveShips = allFiveShips;
+    public void setAllFiveShips(int allFiveShip) {
+        this.allFiveShip = allFiveShip;
     }
 
     public void initializeGameField() {
@@ -355,6 +366,7 @@ public class Game {
 
                 gameField[x][y].setStatus(hoverStates[i].getStatus());
                 gameField[x][y].setShip(ship);
+                gameField[x][y].setPart(hoverStates[i].getPart());
 
             }
         }
@@ -398,15 +410,23 @@ public class Game {
         }
     }
 
-    public int getShipSize(int index) {
-        int x = index % size;
-        int y = index / size;
+    public int getShipSize(int x, int y) {
         Ship ship;
 
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
+        if (gameField[x][y].getStatus() == GameElementStatus.SHIP
+                || gameField[x][y].getStatus() == GameElementStatus.HIT) {
             return gameField[x][y].getShip().getSize();
         }
         return 0;
+
+    }
+
+    public int getShipSize(int index) {
+        int x = index % size;
+        int y = index / size;
+
+        return getShipSize(x, y);
+
     }
 
     public boolean isShipHorizontal(int index) {

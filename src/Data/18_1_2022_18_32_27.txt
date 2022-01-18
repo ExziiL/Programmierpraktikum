@@ -1,3 +1,0 @@
-shot 1 2
-size 4
-ships 5 5 5 5 4 4 4 3 3 2

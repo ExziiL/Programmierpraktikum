@@ -47,7 +47,7 @@ public class LoadGameController implements Initializable {
                     Game.logicController.setWriter(new DocumentWriter(s));
                     Game.logicController.loadGame();
                     try {
-                        Game.showPlacingFieldWindow();
+                        Game.showPlayingFieldWindow();
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

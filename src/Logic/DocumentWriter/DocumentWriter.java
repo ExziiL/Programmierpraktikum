@@ -1,6 +1,7 @@
 package Logic.DocumentWriter;
 
 import Logic.Game.EnemyGame;
+import Logic.Game.GameElement;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -95,22 +96,22 @@ public class DocumentWriter {
         text.add(ships + "\n");
     }
 
-    public void writeMyGameField(EnemyGame[][] gameField) {
+    public void writeMyGameField(GameElement[][] gameField) {
         writeGameField("MyGame", gameField);
     }
 
-    public void writeEnemyGameField(EnemyGame[][] gameField) {
+    public void writeEnemyGameField(GameElement[][] gameField) {
         writeGameField("EnemyGame", gameField);
     }
 
-    private void writeGameField(String header, EnemyGame[][] gameField) {
+    private void writeGameField(String header, GameElement[][] gameField) {
         String position;
         for (int i = 0; i < gameField.length; i++) {
             for (int j = 0; i < gameField[0].length; i++) {
 
                 position = header + " " + i + " " + j;
 
-                switch (gameField[i][j].getgameElementStatus(i, j)) {
+                switch (gameField[i][j].getStatus()) {
 
                     case WATER:
                         position += " 0\n";
