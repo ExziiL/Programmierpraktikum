@@ -23,7 +23,6 @@ import java.io.IOException;
 
 public class Game extends Application {
     public static Controller logicController;
-    public static Network network;
     private static BorderPane mainLayout;
     private static Stage primaryStage;
     private static Popup PopupSaveGame;
@@ -32,7 +31,7 @@ public class Game extends Application {
 
     public static void main(String[] args) {
         launch(args);
-        logicController.setArgs(args);
+
     }
 
     //     this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
@@ -112,7 +111,6 @@ public class Game extends Application {
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
-        network = Network.getPlayer();
         buildPopUpSaveGame();
     }
 

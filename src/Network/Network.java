@@ -2,26 +2,18 @@ package Network;
 
 import java.io.IOException;
 
-public abstract class Network {
-    protected final int port = 50000;
-    protected static Network player;
+public class Network {
+    protected static int port = 50000;
 
-
-    public void chooseConstructor(String[] args, boolean typ) {
+    public static void chooseNetworkTyp(boolean server, String ip) {
         try {
-            if (typ) {
-                player = new Server();
+            if (server) {
+                Server.createServer();
             } else {
-                //System.out.println("not yet implemented");
-                player = new Client(args);
+                Client.createClient(ip);
             }
-        } catch (IOException io) {
-            System.out.println(io.getMessage());
-            io.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }
-
-    public static Network getPlayer() {
-        return player;
     }
 }

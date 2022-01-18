@@ -77,12 +77,12 @@ public class GameSettingsController {
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
                         networkThread = new Thread(() -> {
-                            Game.network.chooseConstructor(Game.logicController.getArgs(), false);
+                            Network.chooseNetworkTyp(false,"");
                         });
                         networkThread.start();
                     } else {
                         networkThread = new Thread(() -> {
-                            Game.network.chooseConstructor(Game.logicController.getArgs(), true);
+                            Network.chooseNetworkTyp(true, Ip.getText());
                         });
                         networkThread.start();
                     }
@@ -99,7 +99,7 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    Game.network.chooseConstructor(Game.logicController.getArgs(), false);
+                    Network.chooseNetworkTyp(false,"");
                 });
                 networkThread.start();
             }
@@ -113,7 +113,7 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    Game.network.chooseConstructor(Game.logicController.getArgs(), true);
+                    Network.chooseNetworkTyp(true, Ip.getText());
                 });
                 networkThread.start();
             }
@@ -152,11 +152,7 @@ public class GameSettingsController {
             ErrorMessage.setText(errorMessageNoIP);
         } else {
             networkThread = new Thread(() -> {
-                //if (Game.network instanceof Server) {
-                    //Game.network.sendResponse("size " + Game.logicController.getGameSize());
-                //} else if (Game.network instanceof Client) {
-                    //Game.network.receiveResponse();
-                //}
+
             });
             networkThread.start();
             ErrorMessage.setText("");
