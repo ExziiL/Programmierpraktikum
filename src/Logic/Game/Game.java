@@ -23,6 +23,11 @@ public class Game {
     protected int countFourShip;
     protected int countFiveShip;
 
+    private int allTwoShips = 0;
+    private int allThreeShips = 0;
+    private int allFourShips = 0;
+    private int allFiveShips = 0;
+
 
     public void setName(String n) {
         this.name = n;
@@ -43,6 +48,11 @@ public class Game {
         }
 
         determineNumberOfShips();
+        setAllTwoShips(getCountTwoShip());
+        setAllThreeShips(getCountThreeShip());
+        setAllFourShips(getCountFourShip());
+        setAllFiveShips(getCountFiveShip());
+
     }
 
     public int getSize() {
@@ -94,6 +104,39 @@ public class Game {
 
     public int getCountFiveShip() {
         return countFiveShip;
+    }
+
+
+    public int getAllTwoShips() {
+        return allTwoShips;
+    }
+
+    public int getAllThreeShips() {
+        return allThreeShips;
+    }
+
+    public int getAllFourShips() {
+        return allFourShips;
+    }
+
+    public int getAllFiveShips() {
+        return allFiveShips;
+    }
+
+    public void setAllTwoShips(int allTwoShips) {
+        this.allTwoShips = allTwoShips;
+    }
+
+    public void setAllThreeShips(int allThreeShips) {
+        this.allThreeShips = allThreeShips;
+    }
+
+    public void setAllFourShips(int allFourShips) {
+        this.allFourShips = allFourShips;
+    }
+
+    public void setAllFiveShips(int allFiveShips) {
+        this.allFiveShips = allFiveShips;
     }
 
     public void initializeGameField() {

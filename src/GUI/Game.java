@@ -214,6 +214,7 @@ public class Game extends Application {
                 try {
                     dialogSaveGame.hide();
                     Game.showPlacingFieldWindow();
+                    Game.logicController.save();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

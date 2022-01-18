@@ -8,6 +8,7 @@ import Utilities.HoverState;
 
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.ArrayList;
 
 import static Logic.main.LogicConstants.GameElementStatus;
 import static Logic.main.LogicConstants.GameMode;
@@ -290,12 +291,93 @@ public class Controller {
 
     //region Methods for Save Game / Online Game
 
-    public void initDocument(){
+    public void initDocument() {
 
         writer.writeSize(getGameSize());
-
+        writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(), myGame.getAllFiveShips());
     }
 
+    public void save() {
+        writer.save();
+    }
+
+    public ArrayList<String> getAllSaveFiles() {
+
+        return writer.getAllSaveFiles();
+    }
+
+    public void setWriter(DocumentWriter writer) {
+
+        this.writer = writer;
+    }
+
+    public void loadGame() {
+        int x;
+        int y;
+        GameElementStatus status;
+
+        ArrayList<String> input = writer.load();
+
+        for (String s : input) {
+            String[] split = s.split(" ");
+
+            switch (split[0]) {
+                case "size":
+                    setGameSize(Integer.parseInt(split[1]));
+                    break;
+                case "shipsDestroyed":
+
+                    break;
+                case "ships":
+                    myGame.setAllFiveShips(Integer.parseInt(split[1]));
+                    myGame.setAllFourShips(Integer.parseInt(split[2]));
+                    myGame.setAllThreeShips(Integer.parseInt(split[3]));
+                    myGame.setAllTwoShips(Integer.parseInt(split[4]));
+                    break;
+                case "MyGame":
+
+                    x = Integer.parseInt(split[1]);
+                    y = Integer.parseInt(split[2]);
+
+                    status = interpretStatusByNumber(Integer.parseInt(split[1]));
+
+                    myGame.setgameElementStatus(x, y, status);
+
+                    break;
+                case "EnemyGame":
+                    x = Integer.parseInt(split[1]);
+                    y = Integer.parseInt(split[2]);
+
+                    status = interpretStatusByNumber(Integer.parseInt(split[1]));
+
+                    enemyGame.setgameElementStatus(x, y, status);
+
+                    break;
+            }
+
+        }
+    }
+
+
+    private GameElementStatus interpretStatusByNumber(int s) {
+
+        switch (s) {
+            case 0:
+                return GameElementStatus.WATER;
+            case 1:
+                return GameElementStatus.SHIP;
+            case 2:
+                return GameElementStatus.MISS;
+            case 3:
+                return GameElementStatus.CLOSE;
+            case 4:
+                return GameElementStatus.ERROR;
+            case 5:
+                return GameElementStatus.HIT;
+            default:
+                return GameElementStatus.WATER;
+        }
+    }
 
     //endregion
 }

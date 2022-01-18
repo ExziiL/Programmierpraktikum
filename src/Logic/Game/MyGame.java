@@ -1,10 +1,10 @@
 package Logic.Game;
 
 
-import static Logic.main.LogicConstants.*;
+import static Logic.main.LogicConstants.GameMode;
+import static Logic.main.LogicConstants.PlayerType;
 
 public class MyGame extends Game {
-
 
     public MyGame() {
         super();
