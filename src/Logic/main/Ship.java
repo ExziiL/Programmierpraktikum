@@ -22,6 +22,6 @@ public class Ship {
 
     @Override
     public String toString() {
-        return "Ship{" + "groesse=" + size +'}';
+        return "Ship{" + "groesse=" + size + '}';
     }
 }

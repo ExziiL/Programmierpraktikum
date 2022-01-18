@@ -23,11 +23,20 @@ public class Game {
     protected int countFourShip;
     protected int countFiveShip;
 
-
+    /**
+     * Sets the Name of the Player
+     *
+     * @param n Name of Player
+     */
     public void setName(String n) {
         this.name = n;
     }
 
+    /**
+     * Sets the Size of the Game Field
+     *
+     * @param s Game Field Size
+     */
     public void setSize(int s) throws FalseFieldSize {
         this.size = s;
         if (size < 5 || size > 30) {
@@ -45,34 +54,74 @@ public class Game {
         determineNumberOfShips();
     }
 
+    /**
+     * Get the Size of the Game Field
+     *
+     * @return Game Field Size
+     */
     public int getSize() {
         return this.size;
     }
 
+    /**
+     * Get the Name of the Player
+     *
+     * @return Name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the Mode of the  (Online/Offline)
+     *
+     * @param m Game Mode
+     */
     public void setGameMode(GameMode m) {
         this.gameMode = m;
     }
 
-    public GameElementStatus getgameElementStatus(int element) {
-        int x = element % size;
-        int y = element / size;
+    /**
+     * Return Status of Game Element
+     *
+     * @param index of the Panel
+     * @return Game Element Status
+     */
+    public GameElementStatus getgameElementStatus(int index) {
+        int x = index % size;
+        int y = index / size;
 
         return gameField[x][y].getStatus();
     }
 
+    /**
+     * Return Status of Game Element
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return Game Element Status
+     */
     public GameElementStatus getgameElementStatus(int x, int y) {
 
         return gameField[x][y].getStatus();
     }
 
+    /**
+     * Set Status of Game Element
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param status new Status
+     */
     public void setgameElementStatus(int x, int y, GameElementStatus status) {
         gameField[x][y].setStatus(status);
     }
 
+    /**
+     * Check if all Ships are placed
+     *
+     * @return true if all ships are placed
+     */
     public boolean allShipPlaced() {
         return getCountTwoShip() == 0 &&
                 getCountThreeShip() == 0 &&
@@ -80,22 +129,46 @@ public class Game {
                 getCountFiveShip() == 0;
     }
 
+    /**
+     * Gets Number of Two sized Ships, which aren't placed
+     *
+     * @return Number of Two sized Ships
+     */
     public int getCountTwoShip() {
         return countTwoShip;
     }
 
+    /**
+     * Gets Number of Three sized Ships, which aren't placed
+     *
+     * @return Number of Three sized Ships
+     */
     public int getCountThreeShip() {
         return countThreeShip;
     }
 
+    /**
+     * Gets Number of Four sized Ships, which aren't placed
+     *
+     * @return Number of Four sized Ships
+     */
     public int getCountFourShip() {
         return countFourShip;
     }
 
+    /**
+     * Gets Number of Five sized Ships, which aren't placed
+     *
+     * @return Number of Five sized Ships
+     */
     public int getCountFiveShip() {
         return countFiveShip;
     }
 
+    /**
+     * Initialize Game Field. Un place all Ships.
+     * Determine Number of Ships
+     */
     public void initializeGameField() {
 
         for (int i = 0; i < size; i++) {
@@ -107,6 +180,15 @@ public class Game {
         determineNumberOfShips();
     }
 
+    /**
+     * Return a List of States, with Index, where the ship is and where the Edges are
+     * And the list contains Error States, when placed near other ships
+     *
+     * @param index        of the middle Part of the ship
+     * @param isHorizontal Orientation of the ship
+     * @param ShipSize     Size of Ship
+     * @return List of States, with Index
+     */
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
         ArrayList<HoverState> stateList = new ArrayList<>();
 
@@ -130,21 +212,21 @@ public class Game {
 
 
                     // Zweier Schiff oben
-                    stateList = setShip(p.x, p.y, stateList, shipStatus);
+                    stateList = setShip(p.x, p.y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y, stateList);
 
                     // Zweier Shiff unten
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 1, stateList);
 
                 } else {
 
                     // Zweier Schiff links
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x, y, stateList);
 
                     // Zweier Shiff rechts
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 1, y, stateList);
                 }
                 break;
@@ -153,30 +235,30 @@ public class Game {
                 if (isHorizontal == false) {
 
                     // Dreier Schiff oben
-                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setShip(x, y - 1, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y - 1, stateList);
 
                     // Dreier Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y, stateList);
 
                     // Dreier Shiff unten
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 1, stateList);
 
                 } else {
 
                     // Dreier Schiff links
-                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setShip(x - 1, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x - 1, y, stateList);
 
 
                     // Dreier Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x, y, stateList);
 
                     // Dreier Shiff unten
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 1, y, stateList);
                 }
                 break;
@@ -185,39 +267,39 @@ public class Game {
                 if (isHorizontal == false) {
 
                     // Vierer Schiff oben
-                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setShip(x, y - 1, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y - 1, stateList);
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y, stateList);
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y + 1, stateList);
 
                     // Vierer Shiff unten
-                    stateList = setShip(x, y + 2, stateList, shipStatus);
+                    stateList = setShip(x, y + 2, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 2, stateList);
 
                 } else {
 
                     // Vierer Schiff links
-                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setShip(x - 1, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x - 1, y, stateList);
 
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x, y, stateList);
 
                     // Vierer Shiff mitte
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x + 1, y, stateList);
 
 
                     // Vierer Shiff rechts + 2
-                    stateList = setShip(x + 2, y, stateList, shipStatus);
+                    stateList = setShip(x + 2, y, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 2, y, stateList);
                 }
                 break;
@@ -225,50 +307,49 @@ public class Game {
             case 5:
                 if (isHorizontal == false) {
 
-
                     // Fünfer Schiff oben + 2
-                    stateList = setShip(x, y - 2, stateList, shipStatus);
+                    stateList = setShip(x, y - 2, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesTop(x, y - 2, stateList);
 
                     // Fünfer Schiff oben + 1
-                    stateList = setShip(x, y - 1, stateList, shipStatus);
+                    stateList = setShip(x, y - 1, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y - 1, stateList);
 
 
                     // Fünfer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y, stateList);
 
                     // Fünfer Shiff unten + 1
-                    stateList = setShip(x, y + 1, stateList, shipStatus);
+                    stateList = setShip(x, y + 1, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesLeftRight(x, y + 1, stateList);
 
                     // Fünfer Shiff unten + 2
-                    stateList = setShip(x, y + 2, stateList, shipStatus);
+                    stateList = setShip(x, y + 2, stateList, shipStatus, 5, ShipSize, isHorizontal);
                     stateList = setEdgesButton(x, y + 2, stateList);
 
 
                 } else {
 
                     // Fünfer Schiff links + 2
-                    stateList = setShip(x - 2, y, stateList, shipStatus);
+                    stateList = setShip(x - 2, y, stateList, shipStatus, 1, ShipSize, isHorizontal);
                     stateList = setEdgesLeft(x - 2, y, stateList);
 
                     // Fünfer Schiff links
-                    stateList = setShip(x - 1, y, stateList, shipStatus);
+                    stateList = setShip(x - 1, y, stateList, shipStatus, 2, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x - 1, y, stateList);
 
                     // Fünfer Shiff mitte
-                    stateList = setShip(x, y, stateList, shipStatus);
+                    stateList = setShip(x, y, stateList, shipStatus, 3, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x, y, stateList);
 
                     // Fünfer Shiff mitte
-                    stateList = setShip(x + 1, y, stateList, shipStatus);
+                    stateList = setShip(x + 1, y, stateList, shipStatus, 4, ShipSize, isHorizontal);
                     stateList = setEdgesUpDown(x + 1, y, stateList);
 
 
                     // Vierer Shiff rechts + 2
-                    stateList = setShip(x + 2, y, stateList, shipStatus);
+                    stateList = setShip(x + 2, y, stateList, shipStatus, 5, ShipSize, isHorizontal);
                     stateList = setEdgesRight(x + 2, y, stateList);
 
                 }
@@ -279,6 +360,14 @@ public class Game {
         return stateList.toArray(new HoverState[stateList.size()]);
     }
 
+    /**
+     * Places a ship in the Game Element Array
+     *
+     * @param index        of the middle Part of the ship
+     * @param isHorizontal Orientation of the ship
+     * @param ShipSize     Size of Ship
+     * @return true if ship is placed - false when not possible
+     */
     public boolean placeShip(int index, int ShipSize, boolean isHorizontal) {
         int x = 0;
         int y = 0;
@@ -312,13 +401,16 @@ public class Game {
 
                 gameField[x][y].setStatus(hoverStates[i].getStatus());
                 gameField[x][y].setShip(ship);
+                gameField[x][y].setPart(hoverStates[i].getPart());
 
             }
         }
         return true;
     }
 
-
+    /**
+     * Randomize Placing of all Ships
+     */
     public void shuffleShips() {
         int x = 0;
         int y = 0;
@@ -355,17 +447,40 @@ public class Game {
         }
     }
 
+    /**
+     * Gets the Size of chosen Ship
+     *
+     * @param index of Pane
+     * @return Size of Ship
+     */
     public int getShipSize(int index) {
         int x = index % size;
         int y = index / size;
-        Ship ship;
 
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP) {
+        return getShipSize(x, y);
+    }
+
+    /**
+     * Gets the Size of chosen Ship
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return Size of Ship
+     */
+    public int getShipSize(int x, int y) {
+
+        if (gameField[x][y].getShip() != null) {
             return gameField[x][y].getShip().getSize();
         }
         return 0;
     }
 
+    /**
+     * Gets Ships Rotation
+     *
+     * @param index of Pane
+     * @return true if Ship is horizontal
+     */
     public boolean isShipHorizontal(int index) {
         int x = index % size;
         int y = index / size;
@@ -377,6 +492,26 @@ public class Game {
         return false;
     }
 
+    /**
+     * Return the part of the ship
+     * 1, 2, 3, 4, 5
+     *
+     * @param index of Pane
+     * @return Part of the ship
+     */
+    public int getPartofShip(int index) {
+        Point p = matchIndex(index);
+
+        return gameField[p.x][p.y].getPart();
+    }
+
+    /**
+     * Return if ship is destoryed
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return true if Ship is destroyed
+     */
     public boolean isShipDestroyed(int x, int y) {
         int countTrys = 0;
 
@@ -403,6 +538,11 @@ public class Game {
         return false;
     }
 
+    /**
+     * Return if all ship are destroyed
+     *
+     * @return true if all Ship are destroyed
+     */
     public boolean allShipDestroyed() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -415,7 +555,12 @@ public class Game {
         return true;
     }
 
-
+    /**
+     * Delete a ship in the Array
+     *
+     * @param index of Pane
+     * @return true if Ship was deleted
+     */
     public boolean deleteShip(int index) {
         int x = index % size;
         int y = index / size;
@@ -443,6 +588,13 @@ public class Game {
         return false;
     }
 
+    /**
+     * Return if a Coordinate is in the Array
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return true if Coordinate is in the Array
+     */
     public boolean inGameField(int x, int y) {
 
         if (x >= 0 && x < size &&
@@ -453,15 +605,34 @@ public class Game {
         }
     }
 
+    /**
+     * Matches x y Coordinates to an Index of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return Index of the Pane
+     */
     protected int matchIndex(int x, int y) {
 
         return y * (size) + x;
     }
 
+    /**
+     * Matches Index to x y Coordinates of the Pane
+     *
+     * @param index of Pane
+     * @return Point of Pane
+     */
     protected Point matchIndex(int index) {
         return new Point(index % size, index / size);
     }
 
+    /**
+     * Matches Index to x y Coordinates of the Pane
+     *
+     * @param size   of ship
+     * @param number of ship inserted
+     */
     protected void addShip(int size, int number) {
         for (int i = 0; i < number; i++) {
 
@@ -484,6 +655,13 @@ public class Game {
         }
     }
 
+    /**
+     * Return if ship is in Game Field
+     *
+     * @param p            x y Coordinate of the middle of the ship
+     * @param ShipSize
+     * @param isHorizontal Orientation of the ship
+     */
     protected boolean shipinGameField(Point p, int ShipSize, boolean isHorizontal) {
         int x = p.x;
         int y = p.y;
@@ -545,6 +723,11 @@ public class Game {
         return false;
     }
 
+    /**
+     * Remove Ship from ship Array List
+     *
+     * @param index of Array List Index
+     */
     protected void removeShip(int index) {
 
         switch (ships.get(index).getSize()) {
@@ -565,6 +748,12 @@ public class Game {
         ships.remove(index);
     }
 
+    /**
+     * Create an Instance of a Player (Online / Offline / Self)
+     *
+     * @param t Player Type
+     * @return Instance of Player
+     */
     protected Player createPlayer(PlayerType t) {
         // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
         switch (t) {
@@ -579,6 +768,9 @@ public class Game {
         }
     }
 
+    /**
+     * Determine Number of Ships dependent on Game Field Size
+     */
     protected void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
@@ -683,14 +875,33 @@ public class Game {
 
     }
 
-    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
+    /**
+     * Add a new Ship to the Hover State List to an existing list
+     *
+     * @param x            Coordinate of the Panel
+     * @param y            Coordinate of the Panel
+     * @param isHorizontal Orientation of the ship
+     * @param status       of the ship (SHIP or ERROR)
+     * @param part         of the ship
+     * @param shipSize     of the Ship
+     * @param states       List of old States (ship will be added)
+     * @return New List of Hover States
+     */
+    private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status, int part, int shipSize, boolean isHorizontal) {
 
         if (inGameField(x, y)) {
-            states.add(new HoverState(matchIndex(x, y), status));
+            states.add(new HoverState(matchIndex(x, y), status, part, shipSize, isHorizontal));
         }
         return states;
     }
 
+
+    /**
+     * Sets Close State to a Game Element
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     */
     private HoverState setEdge(int x, int y) {
         if (inGameField(x, y)) {
             // Ecke kann einach eingefügt werden
@@ -706,6 +917,15 @@ public class Game {
 
 
     // ___________________________________________Ränder der Shiffe setzen__________________________________
+
+    /**
+     * Add Edges to the Top of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesTop(int x, int y, ArrayList<HoverState> states) {
 
         // Rand oben
@@ -726,6 +946,14 @@ public class Game {
         return states;
     }
 
+    /**
+     * Add Edges to the Button of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesButton(int x, int y, ArrayList<HoverState> states) {
         //states.add(new HoverState(index, GameElementStatus.SHIP));
 
@@ -748,6 +976,14 @@ public class Game {
         return states;
     }
 
+    /**
+     * Add Edges to the Left of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesLeft(int x, int y, ArrayList<HoverState> states) {
 
         // Rand unten
@@ -769,6 +1005,14 @@ public class Game {
         return states;
     }
 
+    /**
+     * Add Edges to the Right of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesRight(int x, int y, ArrayList<HoverState> states) {
 
         // Rand unten
@@ -790,6 +1034,14 @@ public class Game {
         return states;
     }
 
+    /**
+     * Add Edges to the Left and Right of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesLeftRight(int x, int y, ArrayList<HoverState> states) {
         //Rand links
         states.add(setEdge(x - 1, y));
@@ -800,6 +1052,14 @@ public class Game {
         return states;
     }
 
+    /**
+     * Add Edges to the Up and Button of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesUpDown(int x, int y, ArrayList<HoverState> states) {
         // Rand unten
         states.add(setEdge(x, y + 1));
