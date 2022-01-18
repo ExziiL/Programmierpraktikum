@@ -31,30 +31,32 @@ public class Game extends Application {
         launch(args);
     }
 
-    //     this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
-    //         @Override
-    //         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-    //             Thread t = new Thread(() -> {
-    //                 ObservableList<Node> child = mainLayout.getChildren();
-    //                 Platform.runLater(() -> {
-    //                     //handleNodeSize(child, mainLayout, oldValue, newValue);
-    //                 });
-    //             });
-    //             t.start();
-    //         }
-    //     });
-    //     this.primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
-    //         @Override
-    //         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-    //             Thread t = new Thread(() -> {
-    //                 ObservableList<Node> child = mainLayout.getChildren();
-    //                 Platform.runLater(() -> {
-    //                     //handleNodeSize(child, mainLayout, oldValue, newValue);
-    //                 });
-    //             });
-    //             t.start();
-    //         }
-    //     });
+    // this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
+    // @Override
+    // public void changed(ObservableValue<? extends Number> observable, Number
+    // oldValue, Number newValue) {
+    // Thread t = new Thread(() -> {
+    // ObservableList<Node> child = mainLayout.getChildren();
+    // Platform.runLater(() -> {
+    // //handleNodeSize(child, mainLayout, oldValue, newValue);
+    // });
+    // });
+    // t.start();
+    // }
+    // });
+    // this.primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
+    // @Override
+    // public void changed(ObservableValue<? extends Number> observable, Number
+    // oldValue, Number newValue) {
+    // Thread t = new Thread(() -> {
+    // ObservableList<Node> child = mainLayout.getChildren();
+    // Platform.runLater(() -> {
+    // //handleNodeSize(child, mainLayout, oldValue, newValue);
+    // });
+    // });
+    // t.start();
+    // }
+    // });
     // }
 
     public static void showStartGameWindow() throws IOException {
@@ -124,17 +126,16 @@ public class Game extends Application {
         letterbox(scene, mainLayout);
     }
 
-
     private void letterbox(final Scene scene, final Pane contentPane) {
         final double initWidth = scene.getWidth();
         final double initHeight = scene.getHeight();
         final double ratio = initWidth / initHeight;
 
-        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth,
+                contentPane);
         scene.widthProperty().addListener(sizeListener);
         scene.heightProperty().addListener(sizeListener);
     }
-
 
     private static class SceneSizeChangeListener implements ChangeListener<Number> {
         private final Scene scene;
@@ -143,7 +144,8 @@ public class Game extends Application {
         private final double initWidth;
         private final Pane contentPane;
 
-        public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
+        public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -156,10 +158,9 @@ public class Game extends Application {
             final double newWidth = scene.getWidth();
             final double newHeight = scene.getHeight();
 
-            double scaleFactor =
-                    newWidth / newHeight > ratio
-                            ? newHeight / initHeight
-                            : newWidth / initWidth;
+            double scaleFactor = newWidth / newHeight > ratio
+                    ? newHeight / initHeight
+                    : newWidth / initWidth;
 
             if (scaleFactor >= 1) {
                 Scale scale = new Scale(scaleFactor, scaleFactor);
@@ -196,7 +197,6 @@ public class Game extends Application {
         dialogSaveGame.initModality(Modality.APPLICATION_MODAL);
         dialogSaveGame.setScene(dialogScene);
 
-
         yes.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
@@ -231,6 +231,3 @@ public class Game extends Application {
 
     }
 }
-
-
-
