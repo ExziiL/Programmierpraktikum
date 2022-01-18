@@ -21,14 +21,14 @@ public class GridPaneBuilder {
     private ObservableList<Node> numberLables;
     private ObservableList<Node> letterLables;
 
-    private final Image error = new Image("assets/Schiffe/error.jpg");
+    private final Image error = new Image("assets/neueSchiffe/error2.png");
     private final Image water = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
-    private final Image close = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
+    private final Image close = new Image("assets/neueSchiffe/schiff_border.png");
 
-    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/2er_oben_horizontal.png");
-    private final Image twoShipSecondHor = new Image("assets/neueSchiffe/2er_unten_horizontal.png");
-    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
-    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/2er_unten_vertikal.png");
+    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private final Image twoShipSecondHor = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/schiff_schwarz.png");
 
     public GridPaneBuilder(int size) {
         this.size = size;

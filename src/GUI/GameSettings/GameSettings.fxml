@@ -17,8 +17,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@GameSettings.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
     <children>
-      <Label fx:id="ErrorMessage" layoutX="408.0" layoutY="664.0" prefHeight="17.0" prefWidth="84.0" textFill="#f70404" />
-      <Pane layoutX="40.0" layoutY="155.0" prefHeight="65.0" prefWidth="545.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="155.0">
+      <Label fx:id="ErrorMessage" layoutX="294.0" layoutY="664.0" prefHeight="17.0" prefWidth="313.0" textFill="#f70404" />
+      <Pane layoutX="99.0" layoutY="155.0" prefHeight="65.0" prefWidth="545.0" AnchorPane.leftAnchor="99.0" AnchorPane.topAnchor="155.0">
          <children>
                   <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
                <font>
@@ -129,7 +129,7 @@
               </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="BoxOnline" layoutX="166.0" layoutY="293.0" prefHeight="128.0" prefWidth="157.0">
+      <Pane fx:id="BoxOnline" layoutX="225.0" layoutY="293.0" prefHeight="128.0" prefWidth="157.0">
          <children>
                   <TextField fx:id="Ip" layoutY="98.0" />
                   <RadioButton fx:id="Server" layoutY="14.0" mnemonicParsing="false" selected="true" text="Spiel erstellen">
@@ -141,7 +141,7 @@
                   <Text layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP Adresse" />
          </children>
       </Pane>
-      <Pane layoutX="70.0" layoutY="252.0" prefHeight="30.0" prefWidth="271.0" AnchorPane.leftAnchor="70.0">
+      <Pane layoutX="129.0" layoutY="252.0" prefHeight="30.0" prefWidth="271.0" AnchorPane.leftAnchor="129.0">
          <children>
                   <Text layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielmodus">
                <font>
@@ -151,7 +151,7 @@
                   <ComboBox fx:id="gameMode" layoutX="96.0" layoutY="2.0" prefHeight="25.0" prefWidth="150.0" />
          </children>
       </Pane>
-      <Pane layoutX="51.0" layoutY="67.0" prefHeight="46.0" prefWidth="327.0" AnchorPane.leftAnchor="51.0">
+      <Pane layoutX="110.0" layoutY="67.0" prefHeight="46.0" prefWidth="327.0" AnchorPane.leftAnchor="110.0">
          <children>
                   <Text layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name eingeben">
                <font>
