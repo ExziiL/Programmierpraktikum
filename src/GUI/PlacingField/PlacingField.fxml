@@ -8,13 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="placingField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@PlacingField.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlacingFieldController">
+<AnchorPane fx:id="placingField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@PlacingField.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlacingFieldController">
     <children>
-        <VBox layoutX="579.0" layoutY="62.0" prefHeight="400.0" prefWidth="182.0">
+        <VBox layoutX="698.0" layoutY="112.0" prefHeight="400.0" prefWidth="182.0">
             <children>
                 <HBox fx:id="BoxTwo" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                     <children>
@@ -95,13 +96,13 @@
             </children>
         </VBox>
 
-        <HBox fx:id="placingBox" layoutX="41.0" layoutY="62.0" prefHeight="465.0" prefWidth="465.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="50.0">
+        <HBox fx:id="placingBox" layoutX="71.0" layoutY="79.0" prefHeight="465.0" prefWidth="465.0" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="79.0">
             <children>
                 <GridPane fx:id="table" prefHeight="465.0" prefWidth="465.0">
                 </GridPane>
             </children>
         </HBox>
-      <HBox alignment="CENTER" layoutX="2.0" layoutY="508.0" prefHeight="66.0" prefWidth="784.0">
+      <HBox alignment="CENTER" layoutX="58.0" layoutY="574.0" prefHeight="81.0" prefWidth="784.0">
          <children>
             <VBox prefHeight="66.0" prefWidth="541.0">
                <children>
@@ -112,26 +113,34 @@
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="Random" layoutX="498.0" layoutY="398.0" mnemonicParsing="false" text="Random" />
-      <Button fx:id="Clear" layoutX="498.0" layoutY="360.0" mnemonicParsing="false" text="Clear" />
-      <Text layoutX="264.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="272.00390625">
+      <Button fx:id="Random" layoutX="557.0" layoutY="457.0" mnemonicParsing="false" text="Random" />
+      <Button fx:id="Clear" layoutX="557.0" layoutY="419.0" mnemonicParsing="false" text="Clear" />
+      <Text layoutX="314.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="272.00390625">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
 
-      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="498.0" layoutY="437.0" mnemonicParsing="false" text="Bearbeiten" />
-
-      <ImageView fx:id="Next" fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="563.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
-         <image>
-            <Image url="@../../assets/Icons/right-arrow.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="14.0" layoutY="563.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
-         <image>
-            <Image url="@../../assets/Icons/left-arrow.png" />
-         </image>
-      </ImageView>
+      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="557.0" layoutY="496.0" mnemonicParsing="false" text="Bearbeiten" />
+      <Pane layoutX="756.0" layoutY="567.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
+         <children>
+      
+                        <ImageView fx:id="Next" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+               <image>
+                  <Image url="@../../assets/Icons/right-arrow.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="1.0" layoutY="557.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+         <children>
+            <ImageView id="arrowIconPlacing" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+               <image>
+                  <Image url="@../../assets/Icons/left-arrow.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
 
     </children>
 </AnchorPane>

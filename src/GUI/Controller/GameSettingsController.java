@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -38,14 +39,13 @@ public class GameSettingsController {
     @FXML
     private Label ErrorMessage;
     @FXML
-    private HBox BoxOnline;
+    private Pane BoxOnline;
     @FXML
     private TextField Ip;
     @FXML
     private RadioButton Server, Client;
     @FXML
     private ComboBox<String> gameMode;
-
 
     private int gameSize;
 
@@ -59,7 +59,6 @@ public class GameSettingsController {
         setGameSize();
 
         setLabelTexts();
-
 
         ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online", "???");
         gameMode.setItems(options);
@@ -115,7 +114,6 @@ public class GameSettingsController {
     @FXML
     void handleInputName(ActionEvent event) throws IOException {
     }
-
 
     // ------------------------------- Next-Button ---------------------------------
 
