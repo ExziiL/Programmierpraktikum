@@ -22,13 +22,13 @@ public class GridPaneBuilder {
     private ObservableList<Node> letterLables;
 
     private final Image error = new Image("assets/Schiffe/error.jpg");
-    private final Image water = new Image("assets/Schiffe/water.jpg");
-    private final Image close = new Image("assets/Schiffe/close.jpg");
+    private final Image water = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
+    private final Image close = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
 
-    private final Image twoShipFirstHor = new Image("assets/Schiffe/2er_Schiff_oben_1_horizontal.jpg");
-    private final Image twoShipSecondHor = new Image("assets/Schiffe/2er_Schiff_oben_2_horizontal.jpg");
-    private final Image twoShipFirstVert = new Image("assets/Schiffe/2er_Schiff_oben_1_vertikal.jpg");
-    private final Image twoShipSecondVert = new Image("assets/Schiffe/2er_Schiff_oben_2_vertikal.jpg");
+    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/2er_oben_horizontal.png");
+    private final Image twoShipSecondHor = new Image("assets/neueSchiffe/2er_unten_horizontal.png");
+    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
+    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/2er_unten_vertikal.png");
 
     public GridPaneBuilder(int size) {
         this.size = size;
@@ -381,9 +381,7 @@ public class GridPaneBuilder {
 
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-
             if (isHorizontal) {
-
                 switch (shipSize) {
                     case 2:
                         switch (part) {
@@ -395,11 +393,8 @@ public class GridPaneBuilder {
                                 break;
                         }
                         break;
-
                 }
-
             } else {
-
                 switch (shipSize) {
                     case 2:
                         switch (part) {
@@ -409,12 +404,9 @@ public class GridPaneBuilder {
                             case 2:
                                 image.setImage(twoShipSecondVert);
                                 break;
-
                         }
                         break;
-
                 }
-
             }
         }
 
