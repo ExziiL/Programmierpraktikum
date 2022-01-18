@@ -37,53 +37,53 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
-            //if (i == 0) {
-            //    column++;
-            //    continue;
-            //}
-            //if (i % (size + 1) == 0) {
-            //    String b = Integer.toString(row - 1);
-            //    Label verticallLabel = new Label(b);
-            //    verticallLabel.setMinWidth(15);
-            //    verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-            //    if (size > 20) {
-            //        verticallLabel.setFont(Font.font(10));
-            //    } else if (size > 25) {
-            //        verticallLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableEnemy.add(verticallLabel, column++, row);
-            //} else if (row == 0) {
-            //    String b = Integer.toString(column - 1);
-            //    Label horizonatlLabel = new Label(b);
-            //    horizonatlLabel.setPrefWidth(paneSize);
-            //    horizonatlLabel.setAlignment(Pos.CENTER);
-            //    if (size > 20) {
-            //        horizonatlLabel.setFont(Font.font(1));
-            //    } else if (size > 25) {
-            //        horizonatlLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableEnemy.add(horizonatlLabel, column++, row);
-            //} else {
+            // if (i == 0) {
+            // column++;
+            // continue;
+            // }
+            // if (i % (size + 1) == 0) {
+            // String b = Integer.toString(row - 1);
+            // Label verticallLabel = new Label(b);
+            // verticallLabel.setMinWidth(15);
+            // verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+            // if (size > 20) {
+            // verticallLabel.setFont(Font.font(10));
+            // } else if (size > 25) {
+            // verticallLabel.setFont(Font.font(0.5));
+            // }
+            // tableEnemy.add(verticallLabel, column++, row);
+            // } else if (row == 0) {
+            // String b = Integer.toString(column - 1);
+            // Label horizonatlLabel = new Label(b);
+            // horizonatlLabel.setPrefWidth(paneSize);
+            // horizonatlLabel.setAlignment(Pos.CENTER);
+            // if (size > 20) {
+            // horizonatlLabel.setFont(Font.font(1));
+            // } else if (size > 25) {
+            // horizonatlLabel.setFont(Font.font(0.5));
+            // }
+            // tableEnemy.add(horizonatlLabel, column++, row);
+            // } else {
             pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
             pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
             pane.setPrefWidth(paneSize);
             pane.setPrefHeight(paneSize);
             pane.setId("field" + row + column);
             tableEnemy.add(pane, column++, row);
-            //}
+            // }
             // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
-            //tableEnemy.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMinHeight(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMaxHeight(Region.USE_PREF_SIZE);
+            // tableEnemy.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            // tableEnemy.setMinHeight(Region.USE_COMPUTED_SIZE);
+            // tableEnemy.setMaxHeight(Region.USE_PREF_SIZE);
 
             // set Gridpane Widths
-            //tableEnemy.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMinWidth(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMaxWidth(Region.USE_PREF_SIZE);
+            // tableEnemy.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            // tableEnemy.setMinWidth(Region.USE_COMPUTED_SIZE);
+            // tableEnemy.setMaxWidth(Region.USE_PREF_SIZE);
 
-            //Events
+            // Events
             pane.setOnMouseEntered(event -> {
                 setColorPane(pane, GUIConstants.colorShotMarker);
             });
@@ -95,7 +95,6 @@ public class GridPaneBuilder {
             pane.setOnMouseClicked(event -> {
 
                 controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
-
 
             });
 
@@ -122,34 +121,35 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
-            //if (i == 0) {
-            //    column++;
-            //    continue;
-            //}
-            //if (i % (size + 1) == 0) {
-            //    String b = Integer.toString(row - 1);
-            //    Label verticallLabel = new Label(b);
-            //    verticallLabel.setMinWidth(15);
-            //    verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-            //    if (size > 20) {
-            //        verticallLabel.setFont(Font.font(10));
-            //    } else if (size > 25) {
-            //        verticallLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableGamer.add(verticallLabel, column++, row);
-            //} else if (row == 0) {
-            //    String b = Integer.toString(column - 1);
-            //    Label horizonatlLabel = new Label(b);
-            //    horizonatlLabel.setPrefWidth(paneSize);
-            //    horizonatlLabel.setAlignment(Pos.CENTER);
+            // if (i == 0) {
+            // column++;
+            // continue;
+            // }
+            // if (i % (size + 1) == 0) {
+            // String b = Integer.toString(row - 1);
+            // Label verticallLabel = new Label(b);
+            // verticallLabel.setMinWidth(15);
+            // verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+            // if (size > 20) {
+            // verticallLabel.setFont(Font.font(10));
+            // } else if (size > 25) {
+            // verticallLabel.setFont(Font.font(0.5));
+            // }
+            // tableGamer.add(verticallLabel, column++, row);
+            // } else if (row == 0) {
+            // String b = Integer.toString(column - 1);
+            // Label horizonatlLabel = new Label(b);
+            // horizonatlLabel.setPrefWidth(paneSize);
+            // horizonatlLabel.setAlignment(Pos.CENTER);
 
-            //    if (size > 20) {
-            //        horizonatlLabel.setFont(Font.font(1));
-            //    } else if (size > 25) {
-            //        horizonatlLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableGamer.add(horizonatlLabel, column++, row);
-            //} else {
+            // if (size > 20) {
+            // horizonatlLabel.setFont(Font.font(1));
+            // } else if (size > 25) {
+            // horizonatlLabel.setFont(Font.font(0.5));
+            // }
+            // tableGamer.add(horizonatlLabel, column++, row);
+            // } else {
+
             pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
             pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
             pane.setPrefWidth(paneSize);
@@ -161,21 +161,20 @@ public class GridPaneBuilder {
             // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
 
             // set Gridpane Hights
-            //tableGamer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMinHeight(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMaxHeight(Region.USE_PREF_SIZE);
+            // tableGamer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+            // tableGamer.setMinHeight(Region.USE_COMPUTED_SIZE);
+            // tableGamer.setMaxHeight(Region.USE_PREF_SIZE);
 
             // set Gridpane Widths
-            //tableGamer.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMinWidth(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMaxWidth(Region.USE_PREF_SIZE);
+            // tableGamer.setPrefWidth(Region.USE_COMPUTED_SIZE);
+            // tableGamer.setMinWidth(Region.USE_COMPUTED_SIZE);
+            // tableGamer.setMaxWidth(Region.USE_PREF_SIZE);
 
         }
         // Save Grid List
         shipPartsGamerList = tableGamer.getChildren().filtered(node -> node instanceof Pane);
 
         redrawGamerPanes();
-
 
         return tableGamer;
     }
@@ -361,7 +360,8 @@ public class GridPaneBuilder {
     }
 
     private void setColorPane(Pane pane, String color) {
-        pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
+        pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: " + GUIConstants.colorGameFieldBorder
+                + ";");
     }
 
 }
