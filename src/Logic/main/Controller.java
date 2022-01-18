@@ -1,9 +1,13 @@
 package Logic.main;
 
+import Logic.DocumentWriter.DocumentWriter;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.Game.MyGame;
 import Utilities.HoverState;
+
+import java.sql.Timestamp;
+import java.time.Instant;
 
 import static Logic.main.LogicConstants.GameElementStatus;
 import static Logic.main.LogicConstants.GameMode;
@@ -13,6 +17,7 @@ public class Controller {
     private MyGame myGame;
     private EnemyGame enemyGame;
     private boolean concratulation;
+    private DocumentWriter writer;
     //endregion
 
     /**
@@ -20,20 +25,8 @@ public class Controller {
      */
     public Controller() {
         myGame = new MyGame();
-    }
-
-    public void loadGame() {
-
-    }
-
-    public void startGame() {
-
-    }
-
-    public void saveGame() {
-    }
-
-    public void settings() {
+        Timestamp instant = Timestamp.from(Instant.now());
+        writer = new DocumentWriter(instant);
     }
 
     /**
@@ -45,6 +38,7 @@ public class Controller {
 
     /**
      * Sets the name of the player
+     *
      * @param n name of player
      */
     public void setName(String n) {
@@ -53,6 +47,7 @@ public class Controller {
 
     /**
      * Sets the wanted Size of the Playingfield. If something goes wrong a FalseFieldSize Exception will be thrown
+     *
      * @param n Playingfield-Size
      */
     public void setGameSize(int n) {
@@ -65,6 +60,7 @@ public class Controller {
 
     /**
      * Sets the Mode in which the Game is executed
+     *
      * @param m Gamemode: Offline/Online
      */
     public void setGameMode(GameMode m) {
@@ -73,6 +69,7 @@ public class Controller {
 
     /**
      * Gets the Playingfield-Size
+     *
      * @return Playingfield-Size
      */
     public int getGameSize() {
@@ -81,6 +78,7 @@ public class Controller {
 
     /**
      * Gets the Players Name
+     *
      * @return Name of Player
      */
     public String getName() {
@@ -89,6 +87,7 @@ public class Controller {
 
     /**
      * Gets the amount of Size 2 Ships
+     *
      * @return count of ships of Size 2
      */
     public int getCountTwoShip() {
@@ -97,6 +96,7 @@ public class Controller {
 
     /**
      * Gets the amount of Size 3 Ships
+     *
      * @return count of ships of Size 3
      */
     public int getCountThreeShip() {
@@ -105,6 +105,7 @@ public class Controller {
 
     /**
      * Gets the amount of Size 4 Ships
+     *
      * @return count of ships of Size 4
      */
     public int getCountFourShip() {
@@ -112,7 +113,8 @@ public class Controller {
     }
 
     /**
-     *Gets the amount of Size 5 Ships
+     * Gets the amount of Size 5 Ships
+     *
      * @return count of ships of Size 5
      */
     public int getCountFiveShip() {
@@ -121,6 +123,7 @@ public class Controller {
 
     /**
      * Gets the Status of the Pane with index
+     *
      * @param index of a pane
      * @return Status of the index-pane
      */
@@ -130,8 +133,9 @@ public class Controller {
 
     /**
      * Gets a List of Hover-States of the Ship
-     * @param index of Pane
-     * @param size of selected Ship
+     *
+     * @param index        of Pane
+     * @param size         of selected Ship
      * @param isHorizontal Orientation of the Ship
      * @return HoverState[]: list of Indexes and States
      */
@@ -141,8 +145,9 @@ public class Controller {
 
     /**
      * Placing a Ship in Playing- and Placing-Field
-     * @param index of Pane where the Midpoint of Ship should be placed
-     * @param size of the Ship
+     *
+     * @param index        of Pane where the Midpoint of Ship should be placed
+     * @param size         of the Ship
      * @param isHorizontal Orientation of Ship
      */
     public void placeShip(int index, int size, boolean isHorizontal) {
@@ -151,6 +156,7 @@ public class Controller {
 
     /**
      * Are all Ship placed ?
+     *
      * @return true if all Ships are placed - false if not
      */
     public boolean allShipPlaced() {
@@ -173,6 +179,7 @@ public class Controller {
 
     /**
      * Deletes the Ship
+     *
      * @param index of Pane
      * @return true if Ship successfully deleted
      */
@@ -182,6 +189,7 @@ public class Controller {
 
     /**
      * Gets the Size of chosen Ship
+     *
      * @param index of Pane
      * @return Size of Ship
      */
@@ -191,6 +199,7 @@ public class Controller {
 
     /**
      * Gets Ships Rotation
+     *
      * @param index of Pane
      * @return true if Ship is horizontal
      */
@@ -200,6 +209,7 @@ public class Controller {
 
     /**
      * Checks if Pane is Part of a Ship
+     *
      * @param index of Pane
      * @return true if Status of Pane is SHIP
      */
@@ -209,6 +219,7 @@ public class Controller {
 
     /**
      * Checks if all Ships are destroyed
+     *
      * @return true if every Ship is destroyed
      */
     public boolean allShipsDestroyed() {
@@ -217,6 +228,7 @@ public class Controller {
 
     /**
      * Sets if Player has won
+     *
      * @param concratulation
      */
     public void setConcratulation(boolean concratulation) {
@@ -231,6 +243,7 @@ public class Controller {
 
     /**
      * Gets the States of Panes in the Enemy-Playingfield
+     *
      * @param index of Pane
      * @return Status of Pane
      */
@@ -247,6 +260,7 @@ public class Controller {
 
     /**
      * Checks if a Ship of the Enemy is hit
+     *
      * @param index of Pane
      * @return true if EnemyShip is hit
      */
@@ -256,6 +270,7 @@ public class Controller {
 
     /**
      * Checks if Enemy hit a Ship
+     *
      * @return true if enemy hits a Ship
      */
     public boolean enemyTurn() {
@@ -264,10 +279,23 @@ public class Controller {
 
     /**
      * Checks if Enemy has lost
+     *
      * @return true if all EnemyShip are destroyed
      */
     public boolean allEnemyShipsDestroyed() {
         return enemyGame.allShipDestroyed();
     }
+    //endregion
+
+
+    //region Methods for Save Game / Online Game
+
+    public void initDocument(){
+
+        writer.writeSize(getGameSize());
+
+    }
+
+
     //endregion
 }

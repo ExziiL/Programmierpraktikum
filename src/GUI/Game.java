@@ -95,11 +95,21 @@ public class Game extends Application {
         mainLayout.setCenter(playingField);
     }
 
+
+    public static void showLoadGameWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("LoadGame/LoadGame.fxml"));
+        AnchorPane placingField = loader.load();
+        mainLayout.setCenter(placingField);
+    }
+
     public static void showPopUpSaveGame() {
 
         dialogSaveGame.show();
 
     }
+
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {

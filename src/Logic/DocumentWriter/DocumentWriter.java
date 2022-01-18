@@ -3,16 +3,25 @@ package Logic.DocumentWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DocumentWriter {
-    FileWriter myWriter;
-    File myObj;
-    ArrayList<String> text = new ArrayList<>();
+    private static FileWriter myWriter;
+    private static File myObj;
+    private static ArrayList<String> text = new ArrayList<>();
+    private static String id;
 
-    public DocumentWriter(String name) {
-        //  String path = "C:\\Users\\Daniel\\OneDrive - bwedu\\Desktop\\Dateien" + name + ".txt";
-        String path = name + ".txt";
+    public DocumentWriter(Timestamp t) {
+       LocalDateTime time =  t.toLocalDateTime();
+
+       id = time.getDayOfMonth() + "_" + time.getMonthValue() + "_" + time.getYear() + "_" + time.getHour() + "_" + time.getMinute() +"_"+ time.getSecond();
+
+        String fs = System.getProperty("file.separator");
+        String path = "src" + fs + "Data" + fs + id + ".txt" + fs;
 
         try {
             myObj = new File(path);
@@ -28,12 +37,24 @@ public class DocumentWriter {
 
     }
 
-    public void writeShot(int x, int y) {
-        text.add("(" + x + "," + y + ")");
+    public static void writeShot(int x, int y) {
+        text.add("shot " + x + " " + y + "\n");
+    }
+
+    public static void writeDone() {
+        text.add("done\n");
+    }
+
+    public static void writeAnswer(int a) {
+        text.add("answer " + a + "\n");
+    }
+
+    public static void writeReady() {
+        text.add("ready" + "\n");
     }
 
     public void writeSize(int size) {
-        text.add("size " + size);
+        text.add("size " + size + "\n");
     }
 
     public void writeShips(int two, int three, int four, int five) {
@@ -53,10 +74,21 @@ public class DocumentWriter {
             ships += " 2";
         }
 
-        text.add(ships);
+        text.add(ships + "\n");
     }
 
-    public void close() {
+
+    public static void save() {
+        for (int i = 0; i < text.size(); i++) {
+            try {
+                myWriter.write(text.get(i));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void close() {
         try {
             myWriter.close();
         } catch (IOException e) {

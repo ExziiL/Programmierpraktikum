@@ -195,6 +195,7 @@ public class PlacingFieldController implements Initializable {
 
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
+        Game.logicController.initDocument();
         Game.showPlayingFieldWindow();
     }
 

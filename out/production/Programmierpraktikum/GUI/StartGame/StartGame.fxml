@@ -60,7 +60,7 @@
             </Pane>
             <Pane prefHeight="206.0" prefWidth="295.0" GridPane.columnIndex="1">
                <children>
-                  <VBox id="paneBox" alignment="CENTER" prefHeight="136.0" prefWidth="201.0" spacing="5.0">
+                  <VBox id="paneBox" onMouseClicked="#handleLoadGame" alignment="CENTER" prefHeight="136.0" prefWidth="201.0" spacing="5.0">
                      <children>
                         <ImageView fx:id="startGameIcon1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
