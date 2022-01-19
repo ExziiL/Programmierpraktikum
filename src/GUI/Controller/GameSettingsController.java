@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -22,8 +23,8 @@ import static GUI.GUIConstants.errorMessageNoIP;
 public class GameSettingsController {
     @FXML
     private Slider slider;
-    @FXML
-    private Button next;
+    //@FXML
+    //private Button next;
     @FXML
     private Button connect;
     @FXML
@@ -50,7 +51,7 @@ public class GameSettingsController {
 
     private int gameSize;
     private Thread networkThread = null;
-    Network player;
+    Network player = null;
 
 
     @FXML
@@ -78,13 +79,12 @@ public class GameSettingsController {
                 if (gameMode.getValue().equals("Offline")) {
                     BoxOnline.setDisable(true);
                 } else if (gameMode.getValue().equals("Online")) {
+
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
 
                         networkThread = new Thread(() -> {
                             player = Network.chooseNetworkTyp(false);
-                            if (!(player instanceof Client)) selectClient();
-                            ((Client) player).createClient(Ip.getText());
                         });
                         networkThread.start();
                     } else {
@@ -95,7 +95,6 @@ public class GameSettingsController {
                             Platform.runLater(() -> {
                                 Ip.setText(((Server) player).getIp());
                             });
-                            ((Server) player).createServer();
                         });
                         networkThread.start();
                     }
@@ -114,7 +113,6 @@ public class GameSettingsController {
                 networkThread = new Thread(() -> {
                     player = Network.chooseNetworkTyp(false);
                     if (!(player instanceof Client)) selectClient();
-                    ((Client) player).createClient(Ip.getText());
                 });
                 networkThread.start();
             }
@@ -133,7 +131,6 @@ public class GameSettingsController {
                     Platform.runLater(() -> {
                         Ip.setText(((Server) player).getIp());
                     });
-                    ((Server) player).createServer();
                 });
                 networkThread.start();
             }
@@ -142,7 +139,12 @@ public class GameSettingsController {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                if (player instanceof Server){
+                    ((Server) player).createServer();
+                }
+                else if (player instanceof Client){
+                    ((Client) player).createClient(Ip.getText());
+                }
             }
         });
 
@@ -178,9 +180,6 @@ public class GameSettingsController {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else {
-            networkThread = new Thread(() -> {
-
-            });
             networkThread.start();
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());

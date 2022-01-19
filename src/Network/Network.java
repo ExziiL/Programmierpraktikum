@@ -8,10 +8,9 @@ import java.net.Socket;
 public abstract class Network {
     protected static int port = 50000;
     protected static boolean connected;
-    private static Network player;
+    protected static Network player;
 
     public static Network chooseNetworkTyp(boolean server) {
-        closeNetwork(player);
         if (server) {
             player = new Server();
         } else {
@@ -20,6 +19,16 @@ public abstract class Network {
         return player;
     }
 
+  /*  public static Network chooseNetworkTyp(boolean server, Network player) {
+        if (player != null) closeNetwork(player);
+        if (server) {
+            player = new Server();
+        } else {
+            player = new Client();
+        }
+        return player;
+    }
+*/
 
     private static void closeNetwork(Network player){
         try {
