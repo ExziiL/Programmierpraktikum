@@ -40,7 +40,7 @@ public class GridPaneBuilder {
 
         int column = 0;
         int row = 0;
-        double paneSize = setPaneSize();
+        double paneSize = tableEnemy.getPrefHeight()/Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < size * size; i++) {
@@ -108,7 +108,7 @@ public class GridPaneBuilder {
 
         int column = 0;
         int row = 0;
-        double paneSize = setPaneSize();
+        double paneSize = tableGamer.getPrefHeight()/Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size) * (size); i++) {
@@ -166,7 +166,7 @@ public class GridPaneBuilder {
     public GridPane createTablePlacingField(GridPane tablePlacing, PlacingFieldController controller) {
         int column = 0;
         int row = 0;
-        double paneSize = setPaneSize();
+        double paneSize = tablePlacing.getPrefHeight()/Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size + 1) * (size + 1); i++) {
