@@ -9,7 +9,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -33,16 +34,17 @@ public class GameSettingsController {
     @FXML
     private Label labelFive;
     @FXML
+    private Text labelGameFieldSize;
+    @FXML
     private Label ErrorMessage;
     @FXML
-    private HBox BoxOnline;
+    private Pane BoxOnline;
     @FXML
     private TextField Ip;
     @FXML
     private RadioButton Server, Client;
     @FXML
     private ComboBox<String> gameMode;
-
 
     private int gameSize;
 
@@ -53,12 +55,11 @@ public class GameSettingsController {
         } else {
             gameSize = 5;
         }
-        Game.logicController.setGameSize(gameSize);
-        slider.setValue(gameSize);
+        setGameSize();
+
         setLabelTexts();
 
-
-        ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online", "???");
+        ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online");
         gameMode.setItems(options);
         gameMode.setValue("Offline");
 
@@ -94,6 +95,11 @@ public class GameSettingsController {
                 selectServer();
             }
         });
+        // ------------------------------- Slider ---------------------------------
+        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            gameSize = newValue.intValue();
+            setGameSize();
+        });
 
     }
 
@@ -107,18 +113,6 @@ public class GameSettingsController {
     @FXML
     void handleInputName(ActionEvent event) throws IOException {
     }
-
-    // ------------------------------- Slider ---------------------------------
-    @FXML
-    void handleSliderChange() throws IOException {
-        slider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            gameSize = newValue.intValue();
-            Game.logicController.setGameSize(gameSize);
-            setLabelTexts();
-        });
-    }
-
-    ;
 
     // ------------------------------- Next-Button ---------------------------------
 
@@ -163,5 +157,12 @@ public class GameSettingsController {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setGameSize() {
+        Game.logicController.setGameSize(gameSize);
+        setLabelTexts();
+        slider.setValue(gameSize);
+        labelGameFieldSize.setText("" + gameSize);
     }
 }

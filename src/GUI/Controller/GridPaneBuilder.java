@@ -7,17 +7,30 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
 public class GridPaneBuilder {
-    private int size;
-    private ObservableList shipPartsGamerList;
-    private ObservableList shipPartsEnemyList;
-    private ObservableList shipPartsPlacingList;
+    private final int size;
+    private ObservableList<Node> shipPartsGamerList;
+    private ObservableList<Node> shipPartsEnemyList;
+    private ObservableList<Node> shipPartsPlacingList;
     private ObservableList<Node> numberLables;
     private ObservableList<Node> letterLables;
+
+    private final Image error = new Image("assets/neueSchiffe/error2.png");
+    private final Image water = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
+    private final Image close = new Image("assets/neueSchiffe/schiff_border.png");
+
+    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
+    private final Image twoShipSecondHor = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
+    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/2er_unten_vertikal.png");
+
+    private final Image shipBlack = new Image("assets/neueSchiffe/schiff_schwarz.png");
 
     public GridPaneBuilder(int size) {
         this.size = size;
@@ -37,33 +50,33 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
-            //if (i == 0) {
-            //    column++;
-            //    continue;
-            //}
-            //if (i % (size + 1) == 0) {
-            //    String b = Integer.toString(row - 1);
-            //    Label verticallLabel = new Label(b);
-            //    verticallLabel.setMinWidth(15);
-            //    verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-            //    if (size > 20) {
-            //        verticallLabel.setFont(Font.font(10));
-            //    } else if (size > 25) {
-            //        verticallLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableEnemy.add(verticallLabel, column++, row);
-            //} else if (row == 0) {
-            //    String b = Integer.toString(column - 1);
-            //    Label horizonatlLabel = new Label(b);
-            //    horizonatlLabel.setPrefWidth(paneSize);
-            //    horizonatlLabel.setAlignment(Pos.CENTER);
-            //    if (size > 20) {
-            //        horizonatlLabel.setFont(Font.font(1));
-            //    } else if (size > 25) {
-            //        horizonatlLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableEnemy.add(horizonatlLabel, column++, row);
-            //} else {
+            // if (i == 0) {
+            // column++;
+            // continue;
+            // }
+            // if (i % (size + 1) == 0) {
+            // String b = Integer.toString(row - 1);
+            // Label verticallLabel = new Label(b);
+            // verticallLabel.setMinWidth(15);
+            // verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+            // if (size > 20) {
+            // verticallLabel.setFont(Font.font(10));
+            // } else if (size > 25) {
+            // verticallLabel.setFont(Font.font(0.5));
+            // }
+            // tableEnemy.add(verticallLabel, column++, row);
+            // } else if (row == 0) {
+            // String b = Integer.toString(column - 1);
+            // Label horizonatlLabel = new Label(b);
+            // horizonatlLabel.setPrefWidth(paneSize);
+            // horizonatlLabel.setAlignment(Pos.CENTER);
+            // if (size > 20) {
+            // horizonatlLabel.setFont(Font.font(1));
+            // } else if (size > 25) {
+            // horizonatlLabel.setFont(Font.font(0.5));
+            // }
+            // tableEnemy.add(horizonatlLabel, column++, row);
+            // } else {
             pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
             pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
             pane.setPrefWidth(paneSize);
@@ -71,31 +84,14 @@ public class GridPaneBuilder {
             pane.setId("field" + row + column);
             tableEnemy.add(pane, column++, row);
             //}
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
+            // Events
+            pane.setOnMouseEntered(event -> setColorPane(pane, GUIConstants.colorShotMarker));
 
-            // set Gridpane Hights
-            //tableEnemy.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMinHeight(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            //tableEnemy.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMinWidth(Region.USE_COMPUTED_SIZE);
-            //tableEnemy.setMaxWidth(Region.USE_PREF_SIZE);
-
-            //Events
-            pane.setOnMouseEntered(event -> {
-                setColorPane(pane, GUIConstants.colorShotMarker);
-            });
-
-            pane.setOnMouseExited(event -> {
-                redrawEnemyPanes();
-            });
+            pane.setOnMouseExited(event -> redrawEnemyPanes());
 
             pane.setOnMouseClicked(event -> {
 
                 controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
-
 
             });
 
@@ -122,34 +118,35 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
-            //if (i == 0) {
-            //    column++;
-            //    continue;
-            //}
-            //if (i % (size + 1) == 0) {
-            //    String b = Integer.toString(row - 1);
-            //    Label verticallLabel = new Label(b);
-            //    verticallLabel.setMinWidth(15);
-            //    verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-            //    if (size > 20) {
-            //        verticallLabel.setFont(Font.font(10));
-            //    } else if (size > 25) {
-            //        verticallLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableGamer.add(verticallLabel, column++, row);
-            //} else if (row == 0) {
-            //    String b = Integer.toString(column - 1);
-            //    Label horizonatlLabel = new Label(b);
-            //    horizonatlLabel.setPrefWidth(paneSize);
-            //    horizonatlLabel.setAlignment(Pos.CENTER);
+            // if (i == 0) {
+            // column++;
+            // continue;
+            // }
+            // if (i % (size + 1) == 0) {
+            // String b = Integer.toString(row - 1);
+            // Label verticallLabel = new Label(b);
+            // verticallLabel.setMinWidth(15);
+            // verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+            // if (size > 20) {
+            // verticallLabel.setFont(Font.font(10));
+            // } else if (size > 25) {
+            // verticallLabel.setFont(Font.font(0.5));
+            // }
+            // tableGamer.add(verticallLabel, column++, row);
+            // } else if (row == 0) {
+            // String b = Integer.toString(column - 1);
+            // Label horizonatlLabel = new Label(b);
+            // horizonatlLabel.setPrefWidth(paneSize);
+            // horizonatlLabel.setAlignment(Pos.CENTER);
 
-            //    if (size > 20) {
-            //        horizonatlLabel.setFont(Font.font(1));
-            //    } else if (size > 25) {
-            //        horizonatlLabel.setFont(Font.font(0.5));
-            //    }
-            //    tableGamer.add(horizonatlLabel, column++, row);
-            //} else {
+            // if (size > 20) {
+            // horizonatlLabel.setFont(Font.font(1));
+            // } else if (size > 25) {
+            // horizonatlLabel.setFont(Font.font(0.5));
+            // }
+            // tableGamer.add(horizonatlLabel, column++, row);
+            // } else {
+
             pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
             pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
             pane.setPrefWidth(paneSize);
@@ -157,25 +154,11 @@ public class GridPaneBuilder {
             pane.setId("field" + row + column);
             tableGamer.add(pane, column++, row);
             // }
-
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
-
-            // set Gridpane Hights
-            //tableGamer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMinHeight(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            //tableGamer.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMinWidth(Region.USE_COMPUTED_SIZE);
-            //tableGamer.setMaxWidth(Region.USE_PREF_SIZE);
-
         }
         // Save Grid List
         shipPartsGamerList = tableGamer.getChildren().filtered(node -> node instanceof Pane);
 
         redrawGamerPanes();
-
 
         return tableGamer;
     }
@@ -221,24 +204,14 @@ public class GridPaneBuilder {
                 }
                 tablePlacing.add(horizonatlLabel, column++, row);
             } else {
-                pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
-                pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
                 pane.setPrefSize(paneSize, paneSize);
                 pane.setId("field" + row + column);
+                ImageView image = new ImageView();
+                image.setFitHeight(paneSize);
+                image.setFitWidth(paneSize);
+                pane.getChildren().add(image);
                 tablePlacing.add(pane, column++, row);
             }
-
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
-
-            // set Gridpane Hights
-            // tablePlacing.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMinHeight(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            // tablePlacing.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMinWidth(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMaxWidth(Region.USE_PREF_SIZE);
 
             pane.setOnMouseEntered(event -> {
                 controller.handlePaneOnMouseEntered(pane);
@@ -302,23 +275,25 @@ public class GridPaneBuilder {
     }
 
     public boolean hoverShip(HoverState[] states) {
-        Pane newPane = null;
+        Pane pane = null;
         boolean noPlacingAllowed = false;
 
         for (int i = 0; i < states.length; i++) {
             if (states[i] != null) {
-                newPane = (Pane) shipPartsPlacingList.get(states[i].getIndex());
+                pane = (Pane) shipPartsPlacingList.get(states[i].getIndex());
 
                 switch (states[i].getStatus()) {
                     case SHIP:
-                        setColorPane(newPane, GUIConstants.colorShip);
+                        setPictureofShip(pane, states[i].getShipSize(), states[i].getPart(), states[i].isHorizontal());
                         break;
                     case ERROR:
-                        setColorPane(newPane, GUIConstants.colorError);
+                        setPictureError(pane);
                         noPlacingAllowed = true;
                         break;
                     case CLOSE:
-                        setColorPane(newPane, GUIConstants.colorClose);
+                        setPictureClose(pane);
+                        break;
+                    default:
                         break;
                 }
             }
@@ -329,15 +304,15 @@ public class GridPaneBuilder {
     private double setPaneSize() {
         double height;
         if (size < 9) {
-            height = 93;
+            height = 85;
         } else if (size < 15) {
-            height = 31;
+            height = 40;
         } else if (size < 20) {
-            height = 24;
+            height = 31;
         } else if (size < 25) {
-            height = 19;
+            height = 24;
         } else {
-            height = 15;
+            height = 19;
         }
         return height;
     }
@@ -348,20 +323,90 @@ public class GridPaneBuilder {
 
             switch (Game.logicController.getGameElementStatus(j)) {
                 case SHIP:
-                    setColorPane(pane, GUIConstants.colorShip);
+                    setPictureofShip(pane, Game.logicController.getShipSize(j), Game.logicController.getPartofShip(j),
+                            Game.logicController.isShipHorizontal(j));
                     break;
                 case CLOSE:
-                    setColorPane(pane, GUIConstants.colorClose);
+                    setPictureClose(pane);
                     break;
                 default: // WATER
-                    setColorPane(pane, GUIConstants.colorGameField);
+                    setPictureWater(pane);
                     break;
             }
         }
     }
 
     private void setColorPane(Pane pane, String color) {
-        pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
+        pane.setStyle("-fx-background-color: " + color + ";" + " -fx-border-color: " + GUIConstants.colorGameFieldBorder
+                + ";");
+    }
+
+    private void setPictureofShip(Pane pane, int shipSize, int part, boolean isHorizontal) {
+
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(shipBlack);
+            //  if (isHorizontal) {
+            //      switch (shipSize) {
+            //          case 2:
+            //              switch (part) {
+            //                  case 1:
+            //                      image.setImage(twoShipFirstHor);
+            //                      break;
+            //                  case 2:
+            //                      image.setImage(twoShipSecondHor);
+            //                      break;
+            //              }
+            //              break;
+            //      }
+            //  } else {
+            //      switch (shipSize) {
+            //          case 2:
+            //              switch (part) {
+            //                  case 1:
+            //                      image.setImage(twoShipFirstVert);
+            //                      break;
+            //                  case 2:
+            //                      image.setImage(twoShipSecondVert);
+            //                      break;
+            //              }
+            //              break;
+            //      }
+            //  }
+        }
+
+    }
+
+    private void setPictureError(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(error);
+        }
+    }
+
+    private void setPictureClose(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(close);
+        }
+    }
+
+    private void setPictureWater(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(water);
+        }
+    }
+
+    private ImageView getImageViewOfPane(Pane pane) {
+        ObservableList<Node> children = pane.getChildren();
+        ImageView pictureOfShip = null;
+        for (Node e : children) {
+            if (e.getClass() == ImageView.class) {
+                return (ImageView) e;
+            }
+        }
+        return null;
     }
 
 }

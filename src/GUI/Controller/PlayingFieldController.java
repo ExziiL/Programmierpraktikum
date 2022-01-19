@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +20,20 @@ public class PlayingFieldController implements Initializable {
     @FXML
     private GridPane tableGamer;
 
+    @FXML
+    private Text labelTwo;
+    @FXML
+    private Text labelThree;
+    @FXML
+    private Text labelFour;
+    @FXML
+    private Text labelFive;
+
+    private int maxCountTwoShips = 0;
+    private int maxCountThreeShips = 0;
+    private int maxCountFourShips = 0;
+    private int maxCountFiveShips = 0;
+
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
@@ -29,8 +44,15 @@ public class PlayingFieldController implements Initializable {
 
         Game.logicController.createEnemyGame();
 
+        maxCountTwoShips = Game.logicController.getAllTwoShips();
+        maxCountThreeShips = Game.logicController.getAllThreeShips();
+        maxCountFourShips = Game.logicController.getAllFourShips();
+        maxCountFiveShips = Game.logicController.getAllFiveShips();
+
         tableEnemy = gridBuilder.createTableEnemy(tableEnemy, this);
         tableGamer = gridBuilder.createTableGamer(tableGamer);
+
+        setLabelsShipDestroyed();
 
     }
 
@@ -45,6 +67,7 @@ public class PlayingFieldController implements Initializable {
 
         if (event.getButton() == MouseButton.PRIMARY) {
             yourTurn(index);
+            setLabelsShipDestroyed();
         }
     }
 
@@ -68,7 +91,6 @@ public class PlayingFieldController implements Initializable {
 
         gridBuilder.redrawGamerPanes();
     }
-
 
 
     public void checkMyWin() {
@@ -95,5 +117,18 @@ public class PlayingFieldController implements Initializable {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void setLabelsShipDestroyed() {
+
+        int currentTwoShip = Game.logicController.getDestroyedShips(2);
+        int currentThreeShip = Game.logicController.getDestroyedShips(3);
+        int currentFourShip = Game.logicController.getDestroyedShips(4);
+        int currentFiveShip = Game.logicController.getDestroyedShips(5);
+
+        labelTwo.setText(currentTwoShip + " / " + maxCountTwoShips);
+        labelThree.setText(currentThreeShip + " / " + maxCountThreeShips);
+        labelFour.setText(currentFourShip + " / " + maxCountFourShips);
+        labelFive.setText(currentFiveShip + " / " + maxCountFiveShips);
     }
 }

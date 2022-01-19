@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,9 +55,11 @@ public class PlacingFieldController implements Initializable {
     private Text textRightClick;
     @FXML
     private ImageView Next;
+    @FXML
+    private ImageView imageView;
 
     private GridPaneBuilder gridBuilder;
-    private int size = Game.logicController.getGameSize();
+    private final int size = Game.logicController.getGameSize();
     private boolean isHorizontal = false;
     private boolean noPlacingAllowed = false;
     private boolean editMode = false;
@@ -63,6 +67,9 @@ public class PlacingFieldController implements Initializable {
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
+
+    private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
+    private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,7 +96,7 @@ public class PlacingFieldController implements Initializable {
 
         // Save Grid List
         shipPartsList = table.getChildren().filtered(node -> node instanceof Pane);
-        // Build up Choosen Ships Properties
+        // Build up chosen Ships Properties
         setChoosenShipProperties();
 
         if (currentShip != 0) {
@@ -107,16 +114,6 @@ public class PlacingFieldController implements Initializable {
             setNextActive(false);
         }
 
-        // Next.setOnAction(event -> {
-        // // Screen wechseln
-        // try {
-        // Game.showPlayingFieldWindow();
-        // } catch (IOException e) {
-        // // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-        // });
-
         EditShips.setOnAction(event -> {
             if (editMode) {
                 setEditMode(false);
@@ -132,7 +129,7 @@ public class PlacingFieldController implements Initializable {
             gridBuilder.redrawPlacingField();
 
             setChoosenShipProperties();
-            Next.setVisible(true);
+            setNextActive(true);
             chooseShip(0);
             setEditMode(true);
         });
@@ -141,6 +138,7 @@ public class PlacingFieldController implements Initializable {
             Game.logicController.initializeGameField();
             gridBuilder.redrawPlacingField();
             setChoosenShipProperties();
+            setNextActive(false);
         });
 
         textLeftClick.setText(GUIConstants.explTextPlacingLeft);
@@ -181,7 +179,7 @@ public class PlacingFieldController implements Initializable {
             if (editMode && !replaceShipMode) {
                 deleteShip(pane);
                 gridBuilder.redrawPlacingField();
-            } else if (!editMode || replaceShipMode) {
+            } else {
                 rotateShip();
             }
         }
@@ -189,12 +187,13 @@ public class PlacingFieldController implements Initializable {
     }
 
     @FXML
-    public void handleBack(MouseEvent event) throws IOException {
+    public void handleBack() throws IOException {
         Game.showGameSettingsWindow();
     }
 
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
+        Game.logicController.initDocument();
         Game.showPlayingFieldWindow();
     }
 
@@ -271,14 +270,11 @@ public class PlacingFieldController implements Initializable {
 
     private void hoverShip(Pane pane) {
         try {
-            Thread t = new Thread(() -> {
-                Platform.runLater(() -> {
-                    HoverState[] states = Game.logicController.getHoverStateStatus(getIndexofPane(pane), currentShip,
-                            isHorizontal);
-                    noPlacingAllowed = gridBuilder.hoverShip(states);
-                });
-
-            });
+            Thread t = new Thread(() -> Platform.runLater(() -> {
+                HoverState[] states = Game.logicController.getHoverStateStatus(getIndexofPane(pane), currentShip,
+                        isHorizontal);
+                noPlacingAllowed = gridBuilder.hoverShip(states);
+            }));
             t.start();
             t.join();
         } catch (InterruptedException e) {
@@ -288,14 +284,13 @@ public class PlacingFieldController implements Initializable {
 
     private void placeShip(Pane pane) {
         try {
-            if (noPlacingAllowed == false) {
-                Thread t = new Thread(() -> {
-                    Game.logicController.placeShip(getIndexofPane(pane), currentShip, isHorizontal);
-                });
+            if (!noPlacingAllowed) {
+                Thread t = new Thread(
+                        () -> Game.logicController.placeShip(getIndexofPane(pane), currentShip, isHorizontal));
                 t.start();
                 t.join();
             }
-            if (Game.logicController.allShipPlaced() == true) {
+            if (Game.logicController.allShipPlaced()) {
                 setNextActive(true);
                 chooseShip(0);
             }
@@ -329,11 +324,7 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void rotateShip() {
-        if (isHorizontal) {
-            isHorizontal = false;
-        } else {
-            isHorizontal = true;
-        }
+        isHorizontal = !isHorizontal;
         gridBuilder.redrawPlacingField();
         hoverShip(currentPane);
 
@@ -343,18 +334,20 @@ public class PlacingFieldController implements Initializable {
         HBox box = getBoxShip(currentShip);
         if (box != null) {
             box.setStyle("-fx-border-color: none ;");
+
+            // imageView.setImage(null);
+            // imageView.setImage(new Image("@../../assets/Schiffe/2er_seite_grau.jpg"));
         }
     }
 
     private void chooseShip(int ship) {
-
         unchooseActualShip();
         currentShip = ship;
         HBox box = getBoxShip(ship);
         if (box != null) {
-            box.setStyle( // TODO: hier statt setStyle das jeweilige Bild einsetzen (gemeinsam mit der
-                    // TODO: unchooseActualShip (Z. 218))
-                    "-fx-border-color: black ; -fx-border-radius: 7px;");
+            box.setStyle("-fx-border-color: black ; -fx-border-radius: 7px;");
+            // imageView.setImage(null);
+            // imageView.setImage(new Image("@../../assets/Schiffe/2er_seite_grau.jpg"));
         }
     }
 
@@ -395,7 +388,13 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void setNextActive(boolean active) {
-        Next.setVisible(active);
+        if (active) {
+            Next.setImage(rightArrow);
+            Next.setDisable(false);
+        } else {
+            Next.setImage(rightArrowDisabled);
+            Next.setDisable(true);
+        }
     }
 
     private int getIndexofPane(Pane pane) {

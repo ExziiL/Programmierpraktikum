@@ -12,3 +12,7 @@
 #bearbeiten:selected {
 	-fx-background-color: grey;
 }
+
+.arrowIcon:hover {
+	-fx-cursor: hand;
+}

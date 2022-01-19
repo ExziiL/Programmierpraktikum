@@ -10,151 +10,156 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@GameSettings.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
     <children>
-        <VBox alignment="CENTER_RIGHT" layoutX="87.0" layoutY="74.0" prefHeight="292.0" prefWidth="641.0" spacing="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-            <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="34.0" prefWidth="263.0">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name eingeben">
-                            <HBox.margin>
-                                <Insets right="75.0" />
-                            </HBox.margin>
-                        </Text>
-                        <TextField fx:id="name" onAction="#handleInputName" prefHeight="30.0" />
-                    </children>
-                </HBox>
-                <HBox prefHeight="19.0" prefWidth="539.0">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
-                            <HBox.margin>
-                                <Insets right="83.0" />
-                            </HBox.margin>
-                        </Text>
-                        <Slider fx:id="slider" blockIncrement="1.0" max="30.0" min="5.0" onDragDetected="#handleSliderChange" onMouseClicked="#handleSliderChange" prefHeight="14.0" prefWidth="431.0" showTickLabels="true" showTickMarks="true" value="5.0" />
-                    </children>
-                </HBox>
-                <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="539.0">
-                    <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielmodus">
-                            <HBox.margin>
-                                <Insets right="100.0" />
-                            </HBox.margin>
-                        </Text>
-                        <ComboBox fx:id="gameMode" prefHeight="35.0" prefWidth="150.0" />
-                    </children>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </HBox>
-                <HBox fx:id="BoxOnline" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
-                    <children>
-                        <RadioButton fx:id="Server" mnemonicParsing="false" selected="true" text="Server">
-                            <toggleGroup>
-                                <ToggleGroup fx:id="Server_Client" />
-                            </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="Client" mnemonicParsing="false" text="Client" toggleGroup="$Server_Client" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IP Adresse" />
-                        <TextField fx:id="Ip" />
-                    </children>
-                </HBox>
-            </children>
-            <padding>
-                <Insets right="25.0" />
-            </padding>
-        </VBox>
-        <HBox alignment="CENTER" layoutX="39.0" layoutY="366.0" prefHeight="150.0" prefWidth="200.0" spacing="50.0" AnchorPane.bottomAnchor="84.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
-            <children>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="labelTwo" text="0x">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="61.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
-                            </image>
-                        </ImageView>
-                        <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
-                    </children>
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                </VBox>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="labelThree" alignment="TOP_CENTER" text="0x" textAlignment="JUSTIFY">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets left="10.0" right="10.0" />
-                            </VBox.margin>
-                        </Label>
-                        <ImageView fitHeight="60.0" fitWidth="133.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
-                            </image>
-                        </ImageView>
-                        <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="labelFour" text="0x">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Label>
-                        <ImageView fitHeight="60.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
-                            </image>
-                        </ImageView>
-                        <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
-                    </children>
-                </VBox>
-                <VBox alignment="CENTER">
-                    <children>
-                        <Label fx:id="labelFive" text="0x">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                            <VBox.margin>
-                                <Insets top="-5.0" />
-                            </VBox.margin>
-                        </Label>
-                        <ImageView fitHeight="60.0" fitWidth="139.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
-                            </image>
-                            <VBox.margin>
-                                <Insets top="15.0" />
-                            </VBox.margin>
-                        </ImageView>
-                        <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="5er Schiff" />
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
-        <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="14.0" layoutY="556.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0">
-            <image>
-                <Image url="@../../assets/Icons/left-arrow.png" />
-            </image>
-        </ImageView>
-      <Label fx:id="ErrorMessage" layoutX="386.0" layoutY="566.0" textFill="#f70404" />
-        <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="556.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0">
-            <image>
-                <Image url="@../../assets/Icons/right-arrow.png" />
-            </image>
-        </ImageView>
+      <Label fx:id="ErrorMessage" layoutX="294.0" layoutY="664.0" prefHeight="17.0" prefWidth="313.0" textFill="#f70404" />
+      <Pane layoutX="99.0" layoutY="155.0" prefHeight="65.0" prefWidth="545.0" AnchorPane.leftAnchor="99.0" AnchorPane.topAnchor="155.0">
+         <children>
+                  <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
+               <font>
+                  <Font size="14.0" />
+               </font>
+                  </Text>
+                  <Slider fx:id="slider" blockIncrement="1.0" layoutX="126.0" layoutY="4.0" max="30.0" min="5.0" prefHeight="38.0" prefWidth="407.0" showTickLabels="true" showTickMarks="true" value="5.0" />
+            <Pane layoutX="188.0" layoutY="33.0" prefHeight="19.0" prefWidth="284.0">
+               <children>
+                  <Text layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Die aktuelle Spielfeldgröße beträgt: " textAlignment="CENTER" wrappingWidth="238.0">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="labelGameFieldSize" layoutX="238.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="30 " textAlignment="CENTER" wrappingWidth="27.041015625">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+          <VBox alignment="CENTER" layoutX="155.0" layoutY="486.0" prefHeight="112.0" prefWidth="119.0">
+              <children>
+                  <Label fx:id="labelTwo" text="0x">
+                      <font>
+                          <Font size="24.0" />
+                      </font>
+                  </Label>
+                  <ImageView fitHeight="65.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
+                      </image>
+                  </ImageView>
+                  <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
+              </children>
+          </VBox>
+          <VBox alignment="CENTER" layoutX="313.0" layoutY="490.0">
+              <children>
+                  <Label fx:id="labelThree" alignment="TOP_CENTER" text="0x" textAlignment="JUSTIFY">
+                      <font>
+                          <Font size="24.0" />
+                      </font>
+                      <VBox.margin>
+                          <Insets left="10.0" right="10.0" />
+                      </VBox.margin>
+                  </Label>
+                  <ImageView fitHeight="60.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
+                      </image>
+                  </ImageView>
+                  <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
+              </children>
+          </VBox>
+          <VBox alignment="CENTER" layoutX="474.0" layoutY="490.0">
+              <children>
+                  <Label fx:id="labelFour" text="0x">
+                      <font>
+                          <Font size="24.0" />
+                      </font>
+                  </Label>
+                  <ImageView fitHeight="60.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
+                      </image>
+                  </ImageView>
+                  <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
+              </children>
+          </VBox>
+          <VBox alignment="CENTER" layoutX="636.0" layoutY="489.0" prefHeight="97.0" prefWidth="119.0">
+              <children>
+                  <Label fx:id="labelFive" text="0x">
+                      <font>
+                          <Font size="24.0" />
+                      </font>
+                      <VBox.margin>
+                          <Insets />
+                      </VBox.margin>
+                  </Label>
+                  <ImageView fitHeight="60.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
+                      </image>
+                      <VBox.margin>
+                          <Insets />
+                      </VBox.margin>
+                  </ImageView>
+                  <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="5er Schiff" />
+              </children>
+          </VBox>
+      <Pane layoutX="834.0" layoutY="556.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
+         <children>
+              <ImageView fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+                  <image>
+                      <Image url="@../../assets/Icons/right-arrow.png" />
+                  </image>
+              </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="556.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+         <children>
+              <ImageView fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+                  <image>
+                      <Image url="@../../assets/Icons/left-arrow.png" />
+                  </image>
+              </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="BoxOnline" layoutX="225.0" layoutY="293.0" prefHeight="128.0" prefWidth="157.0">
+         <children>
+                  <TextField fx:id="Ip" layoutY="98.0" />
+                  <RadioButton fx:id="Server" layoutY="14.0" mnemonicParsing="false" selected="true" text="Spiel erstellen">
+               <toggleGroup>
+                          <ToggleGroup fx:id="Server_Client" />
+               </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="Client" layoutY="40.0" mnemonicParsing="false" text="Spiel beitreten" toggleGroup="$Server_Client" />
+                  <Text layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IP Adresse" />
+         </children>
+      </Pane>
+      <Pane layoutX="129.0" layoutY="252.0" prefHeight="30.0" prefWidth="271.0" AnchorPane.leftAnchor="129.0">
+         <children>
+                  <Text layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielmodus">
+               <font>
+                  <Font size="14.0" />
+               </font>
+                  </Text>
+                  <ComboBox fx:id="gameMode" layoutX="96.0" layoutY="2.0" prefHeight="25.0" prefWidth="150.0" />
+         </children>
+      </Pane>
+      <Pane layoutX="110.0" layoutY="67.0" prefHeight="46.0" prefWidth="327.0" AnchorPane.leftAnchor="110.0">
+         <children>
+                  <Text layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name eingeben">
+               <font>
+                  <Font size="14.0" />
+               </font>
+                  </Text>
+                  <TextField fx:id="name" layoutX="118.0" layoutY="8.0" onAction="#handleInputName" prefHeight="30.0" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

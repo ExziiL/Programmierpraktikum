@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" stylesheets="@StartGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.StartGameController">
+<BorderPane prefHeight="700.0" prefWidth="900.0" stylesheets="@StartGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.StartGameController">
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Battleships" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
@@ -60,7 +60,7 @@
             </Pane>
             <Pane prefHeight="206.0" prefWidth="295.0" GridPane.columnIndex="1">
                <children>
-                  <VBox id="paneBox" alignment="CENTER" prefHeight="136.0" prefWidth="201.0" spacing="5.0">
+                  <VBox id="paneBox" onMouseClicked="#handleLoadGame" alignment="CENTER" prefHeight="136.0" prefWidth="201.0" spacing="5.0">
                      <children>
                         <ImageView fx:id="startGameIcon1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
