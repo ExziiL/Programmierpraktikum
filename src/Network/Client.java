@@ -8,15 +8,27 @@ import java.net.*;
 public class Client extends Network {
     private static BufferedReader inStream;
     private static Writer outStream;
+    private static Socket client;
 
-    public Client(String ip) throws IOException {
-        socket = new Socket(ip, port);
-        System.out.println("Connection established");
-        connected = socket.isConnected();
+    public void createClient(String ip){
+        try {
 
-        inStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        outStream = new OutputStreamWriter(socket.getOutputStream());
+            client = new Socket(ip, port);
+            System.out.println("Connection established");
 
-        outStream.write(String.format("Hallo Server bin da!"));
+
+            inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            outStream = new OutputStreamWriter(client.getOutputStream());
+
+            outStream.write(String.format("Hallo Server bin da!"));
+        } catch (IOException e) {
+            System.out.println("Connection failed");
+            e.printStackTrace();
+        }
+
+    }
+
+    protected Socket getClient(){
+        return client;
     }
 }

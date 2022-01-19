@@ -80,17 +80,20 @@ public class GameSettingsController {
                     if (Client.isSelected()) {
 
                         networkThread = new Thread(() -> {
-                            player = Network.chooseNetworkTyp(false, Ip.getText());
+                            player = Network.chooseNetworkTyp(false);
+                            if (!(player instanceof Client)) selectClient();
+                            ((Client) player).createClient(Ip.getText());
                         });
                         networkThread.start();
                     } else {
+
                         networkThread = new Thread(() -> {
+                            player = Network.chooseNetworkTyp(true);
+                            if (!(player instanceof Server)) selectServer();
                             Platform.runLater(() -> {
-                                if (player instanceof Server) {
-                                    Ip.setText(((Server) player).getIp());
-                                }
+                                Ip.setText(((Server) player).getIp());
                             });
-                            player = Network.chooseNetworkTyp(true, "");
+                            ((Server) player).createServer();
                         });
                         networkThread.start();
                     }
@@ -107,7 +110,9 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    player = Network.chooseNetworkTyp(false, "");
+                    player = Network.chooseNetworkTyp(false);
+                    if (!(player instanceof Client)) selectClient();
+                    ((Client) player).createClient(Ip.getText());
                 });
                 networkThread.start();
             }
@@ -121,7 +126,12 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    player = Network.chooseNetworkTyp(true, Ip.getText());
+                    player = Network.chooseNetworkTyp(true);
+                    if (!(player instanceof Server)) selectServer();
+                    Platform.runLater(() -> {
+                        Ip.setText(((Server) player).getIp());
+                    });
+                    ((Server) player).createServer();
                 });
                 networkThread.start();
             }
