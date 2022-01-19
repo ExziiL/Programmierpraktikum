@@ -78,6 +78,7 @@ public class GameSettingsController {
                 } else if (gameMode.getValue().equals("Online")) {
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
+
                         networkThread = new Thread(() -> {
                             player = Network.chooseNetworkTyp(false, Ip.getText());
                         });

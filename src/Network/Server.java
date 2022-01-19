@@ -8,15 +8,17 @@ public class Server extends Network {
     private static BufferedReader inStream;
     private static Writer outStream;
     private static ServerSocket serverSocket;
-    private static boolean connected;
 
     //public Server createServer() throws IOException {
     public Server() throws IOException {
-
+        if (connected) {
+            socket.close();
+        }
         serverSocket = new ServerSocket(port);
         System.out.println("Waiting for Connection ...");
-        Socket socket = serverSocket.accept();
+        socket = serverSocket.accept();
         System.out.println("Connection established");
+        connected = socket.isConnected();
 
         inStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         outStream = new OutputStreamWriter(socket.getOutputStream());
