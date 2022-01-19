@@ -94,7 +94,7 @@
       </VBox>
       <HBox layoutX="415.0" layoutY="121.0" prefHeight="450.0" prefWidth="450.0" style="-fx-border-color: black;" AnchorPane.rightAnchor="50.0">
          <children>
-            <GridPane fx:id="tableEnemy">
+            <GridPane fx:id="tableEnemy" prefHeight="450.0" prefWidth="450.0">
 
             </GridPane>
          </children>
@@ -114,5 +114,6 @@
             </ImageView>
          </children>
       </Pane>
+      <Text fill="#00000080" layoutX="87.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="übriggebliebene Schiffe" />
    </children>
 </AnchorPane>

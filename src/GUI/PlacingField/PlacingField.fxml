@@ -96,9 +96,9 @@
             </children>
         </VBox>
 
-        <HBox fx:id="placingBox" layoutX="71.0" layoutY="79.0" prefHeight="465.0" prefWidth="465.0" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="79.0">
+        <HBox fx:id="placingBox" layoutX="71.0" layoutY="79.0" prefHeight="450.0" prefWidth="450.0" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="79.0">
             <children>
-                <GridPane fx:id="table" prefHeight="465.0" prefWidth="465.0">
+                <GridPane fx:id="table" prefHeight="450.0" prefWidth="450.0">
                 </GridPane>
             </children>
         </HBox>

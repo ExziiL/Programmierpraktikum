@@ -15,9 +15,9 @@ import javafx.scene.text.Font;
 
 public class GridPaneBuilder {
     private final int size;
-    private ObservableList shipPartsGamerList;
-    private ObservableList shipPartsEnemyList;
-    private ObservableList shipPartsPlacingList;
+    private ObservableList<Node> shipPartsGamerList;
+    private ObservableList<Node> shipPartsEnemyList;
+    private ObservableList<Node> shipPartsPlacingList;
     private ObservableList<Node> numberLables;
     private ObservableList<Node> letterLables;
 
@@ -25,10 +25,10 @@ public class GridPaneBuilder {
     private final Image water = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
     private final Image close = new Image("assets/neueSchiffe/schiff_border.png");
 
-    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
     private final Image twoShipSecondHor = new Image("assets/neueSchiffe/schiff_schwarz.png");
-    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/schiff_schwarz.png");
-    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
+    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/2er_unten_vertikal.png");
 
     public GridPaneBuilder(int size) {
         this.size = size;

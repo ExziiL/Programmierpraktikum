@@ -120,8 +120,8 @@ public class Game extends Application {
 
         mainLayout = loader.load();
         Scene scene = new Scene(new Group(mainLayout));
-        this.primaryStage.setScene(scene);
-        this.primaryStage.show();
+        Game.primaryStage.setScene(scene);
+        Game.primaryStage.show();
 
         letterbox(scene, mainLayout);
     }
