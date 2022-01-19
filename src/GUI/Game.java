@@ -31,34 +31,6 @@ public class Game extends Application {
         launch(args);
     }
 
-    // this.primaryStage.widthProperty().addListener(new ChangeListener<Number>() {
-    // @Override
-    // public void changed(ObservableValue<? extends Number> observable, Number
-    // oldValue, Number newValue) {
-    // Thread t = new Thread(() -> {
-    // ObservableList<Node> child = mainLayout.getChildren();
-    // Platform.runLater(() -> {
-    // //handleNodeSize(child, mainLayout, oldValue, newValue);
-    // });
-    // });
-    // t.start();
-    // }
-    // });
-    // this.primaryStage.heightProperty().addListener(new ChangeListener<Number>() {
-    // @Override
-    // public void changed(ObservableValue<? extends Number> observable, Number
-    // oldValue, Number newValue) {
-    // Thread t = new Thread(() -> {
-    // ObservableList<Node> child = mainLayout.getChildren();
-    // Platform.runLater(() -> {
-    // //handleNodeSize(child, mainLayout, oldValue, newValue);
-    // });
-    // });
-    // t.start();
-    // }
-    // });
-    // }
-
     public static void showStartGameWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Game.class.getResource("StartGame/StartGame.fxml"));

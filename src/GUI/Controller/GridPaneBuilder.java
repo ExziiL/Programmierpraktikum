@@ -30,6 +30,8 @@ public class GridPaneBuilder {
     private final Image twoShipFirstVert = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
     private final Image twoShipSecondVert = new Image("assets/neueSchiffe/2er_unten_vertikal.png");
 
+    private final Image shipBlack = new Image("assets/neueSchiffe/schiff_schwarz.png");
+
     public GridPaneBuilder(int size) {
         this.size = size;
     }
@@ -81,19 +83,7 @@ public class GridPaneBuilder {
             pane.setPrefHeight(paneSize);
             pane.setId("field" + row + column);
             tableEnemy.add(pane, column++, row);
-            // }
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
-
-            // set Gridpane Hights
-            // tableEnemy.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            // tableEnemy.setMinHeight(Region.USE_COMPUTED_SIZE);
-            // tableEnemy.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            // tableEnemy.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            // tableEnemy.setMinWidth(Region.USE_COMPUTED_SIZE);
-            // tableEnemy.setMaxWidth(Region.USE_PREF_SIZE);
-
+            //}
             // Events
             pane.setOnMouseEntered(event -> setColorPane(pane, GUIConstants.colorShotMarker));
 
@@ -164,19 +154,6 @@ public class GridPaneBuilder {
             pane.setId("field" + row + column);
             tableGamer.add(pane, column++, row);
             // }
-
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
-
-            // set Gridpane Hights
-            // tableGamer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            // tableGamer.setMinHeight(Region.USE_COMPUTED_SIZE);
-            // tableGamer.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            // tableGamer.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            // tableGamer.setMinWidth(Region.USE_COMPUTED_SIZE);
-            // tableGamer.setMaxWidth(Region.USE_PREF_SIZE);
-
         }
         // Save Grid List
         shipPartsGamerList = tableGamer.getChildren().filtered(node -> node instanceof Pane);
@@ -227,9 +204,6 @@ public class GridPaneBuilder {
                 }
                 tablePlacing.add(horizonatlLabel, column++, row);
             } else {
-                // pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
-                // pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder +
-                // ";");
                 pane.setPrefSize(paneSize, paneSize);
                 pane.setId("field" + row + column);
                 ImageView image = new ImageView();
@@ -238,18 +212,6 @@ public class GridPaneBuilder {
                 pane.getChildren().add(image);
                 tablePlacing.add(pane, column++, row);
             }
-
-            // GridPane.setMargin(pane, new Insets(0.5, 0.5, 0.5, 0.5));
-
-            // set Gridpane Hights
-            // tablePlacing.setPrefHeight(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMinHeight(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMaxHeight(Region.USE_PREF_SIZE);
-
-            // set Gridpane Widths
-            // tablePlacing.setPrefWidth(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMinWidth(Region.USE_COMPUTED_SIZE);
-            // tablePlacing.setMaxWidth(Region.USE_PREF_SIZE);
 
             pane.setOnMouseEntered(event -> {
                 controller.handlePaneOnMouseEntered(pane);
@@ -383,33 +345,34 @@ public class GridPaneBuilder {
 
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            if (isHorizontal) {
-                switch (shipSize) {
-                    case 2:
-                        switch (part) {
-                            case 1:
-                                image.setImage(twoShipFirstHor);
-                                break;
-                            case 2:
-                                image.setImage(twoShipSecondHor);
-                                break;
-                        }
-                        break;
-                }
-            } else {
-                switch (shipSize) {
-                    case 2:
-                        switch (part) {
-                            case 1:
-                                image.setImage(twoShipFirstVert);
-                                break;
-                            case 2:
-                                image.setImage(twoShipSecondVert);
-                                break;
-                        }
-                        break;
-                }
-            }
+            image.setImage(shipBlack);
+            //  if (isHorizontal) {
+            //      switch (shipSize) {
+            //          case 2:
+            //              switch (part) {
+            //                  case 1:
+            //                      image.setImage(twoShipFirstHor);
+            //                      break;
+            //                  case 2:
+            //                      image.setImage(twoShipSecondHor);
+            //                      break;
+            //              }
+            //              break;
+            //      }
+            //  } else {
+            //      switch (shipSize) {
+            //          case 2:
+            //              switch (part) {
+            //                  case 1:
+            //                      image.setImage(twoShipFirstVert);
+            //                      break;
+            //                  case 2:
+            //                      image.setImage(twoShipSecondVert);
+            //                      break;
+            //              }
+            //              break;
+            //      }
+            //  }
         }
 
     }
