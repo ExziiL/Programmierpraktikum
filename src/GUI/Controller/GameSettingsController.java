@@ -3,6 +3,7 @@ package GUI.Controller;
 import GUI.Game;
 import Network.*;
 import Logic.main.LogicConstants;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -47,6 +48,7 @@ public class GameSettingsController {
 
     private int gameSize;
     private Thread networkThread = null;
+    Network player;
 
 
     @FXML
@@ -77,12 +79,17 @@ public class GameSettingsController {
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
                         networkThread = new Thread(() -> {
-                            Network.chooseNetworkTyp(false,"");
+                            player = Network.chooseNetworkTyp(false, Ip.getText());
                         });
                         networkThread.start();
                     } else {
                         networkThread = new Thread(() -> {
-                            Network.chooseNetworkTyp(true, Ip.getText());
+                            player = Network.chooseNetworkTyp(true, "");
+                            Platform.runLater(() -> {
+                                if (player instanceof Server) {
+                                    Ip.setText(((Server) player).getIp());
+                                }
+                            });
                         });
                         networkThread.start();
                     }
@@ -99,7 +106,7 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    Network.chooseNetworkTyp(false,"");
+                    player = Network.chooseNetworkTyp(false, "");
                 });
                 networkThread.start();
             }
@@ -113,7 +120,7 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    Network.chooseNetworkTyp(true, Ip.getText());
+                    player = Network.chooseNetworkTyp(true, Ip.getText());
                 });
                 networkThread.start();
             }

@@ -7,12 +7,13 @@ import java.util.Enumeration;
 public class Server extends Network {
     private static BufferedReader inStream;
     private static Writer outStream;
+    private static ServerSocket serverSocket;
     private static boolean connected;
 
     //public Server createServer() throws IOException {
-    public static void createServer() throws IOException {
+    public Server() throws IOException {
 
-        ServerSocket serverSocket = new ServerSocket(port);
+        serverSocket = new ServerSocket(port);
         System.out.println("Waiting for Connection ...");
         Socket socket = serverSocket.accept();
         System.out.println("Connection established");
@@ -20,6 +21,9 @@ public class Server extends Network {
         inStream = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         outStream = new OutputStreamWriter(socket.getOutputStream());
 
+    }
 
+    public String getIp() {
+        return serverSocket.getInetAddress().getHostAddress();
     }
 }

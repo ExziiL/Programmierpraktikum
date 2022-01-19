@@ -1,19 +1,26 @@
 package Network;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.IOException;
 
-public class Network {
+public abstract class Network {
     protected static int port = 50000;
 
-    public static void chooseNetworkTyp(boolean server, String ip) {
+    public static Network chooseNetworkTyp(boolean server, String ip) {
+        Network player = null;
         try {
             if (server) {
-                Server.createServer();
+                player = new Server();
             } else {
-                Client.createClient(ip);
+                player = new Client(ip);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return player;
     }
+
+    //public abstract String getIp();
 }

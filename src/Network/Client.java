@@ -10,12 +10,11 @@ public class Client extends Network {
     private static Writer outStream;
     private boolean connected;
 
-    public static void createClient(String ip) throws IOException{
+    public Client(String ip) throws IOException{
         Socket client = new Socket(ip, port);
         System.out.println("Connection established");
 
         inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
         outStream = new OutputStreamWriter(client.getOutputStream());
-
     }
 }
