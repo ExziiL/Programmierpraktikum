@@ -52,6 +52,11 @@ public class Game {
         }
 
         determineNumberOfShips();
+
+        setAllTwoShips(countTwoShip);
+        setAllThreeShips(countThreeShip);
+        setAllFourShips(countFourShip);
+        setAllFiveShips(countFiveShip);
     }
 
     public int getSize() {

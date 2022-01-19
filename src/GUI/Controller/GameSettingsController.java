@@ -61,7 +61,7 @@ public class GameSettingsController {
         setLabelTexts();
 
 
-        ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online", "???");
+        ObservableList<String> options = FXCollections.observableArrayList("Offline", "Online");
         gameMode.setItems(options);
         gameMode.setValue("Offline");
 

@@ -44,10 +44,10 @@ public class PlayingFieldController implements Initializable {
 
         Game.logicController.createEnemyGame();
 
-        maxCountTwoShips = Game.logicController.getDestroyedShips(2);
-        maxCountThreeShips = Game.logicController.getDestroyedShips(3);
-        maxCountFourShips = Game.logicController.getDestroyedShips(4);
-        maxCountFiveShips = Game.logicController.getDestroyedShips(5);
+        maxCountTwoShips = Game.logicController.getAllTwoShips();
+        maxCountThreeShips = Game.logicController.getAllThreeShips();
+        maxCountFourShips = Game.logicController.getAllFourShips();
+        maxCountFiveShips = Game.logicController.getAllFiveShips();
 
         tableEnemy = gridBuilder.createTableEnemy(tableEnemy, this);
         tableGamer = gridBuilder.createTableGamer(tableGamer);

@@ -110,7 +110,6 @@ public class Game extends Application {
     }
 
 
-
     @Override
     public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
@@ -213,8 +212,9 @@ public class Game extends Application {
                 // TODO Speichern
                 try {
                     dialogSaveGame.hide();
-                    Game.showPlacingFieldWindow();
                     Game.logicController.save();
+                    Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -226,7 +226,8 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogSaveGame.hide();
-                    Game.showPlacingFieldWindow();
+                    Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

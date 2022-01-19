@@ -1,6 +1,5 @@
 package Logic.DocumentWriter;
 
-import Logic.Game.EnemyGame;
 import Logic.Game.GameElement;
 
 import java.io.File;
@@ -33,7 +32,7 @@ public class DocumentWriter {
 
         id = s;
         String fs = System.getProperty("file.separator");
-        path = "src" + fs + "Data" + fs + id + ".txt" + fs;
+        path = "src" + fs + "Data" + fs + id + fs;
     }
 
     public void writeShot(int x, int y) {

@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -63,6 +64,9 @@ public class PlacingFieldController implements Initializable {
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
+
+    private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
+    private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -132,7 +136,7 @@ public class PlacingFieldController implements Initializable {
             gridBuilder.redrawPlacingField();
 
             setChoosenShipProperties();
-            Next.setVisible(true);
+            setNextActive(true);
             chooseShip(0);
             setEditMode(true);
         });
@@ -141,6 +145,7 @@ public class PlacingFieldController implements Initializable {
             Game.logicController.initializeGameField();
             gridBuilder.redrawPlacingField();
             setChoosenShipProperties();
+            setNextActive(false);
         });
 
         textLeftClick.setText(GUIConstants.explTextPlacingLeft);
@@ -396,7 +401,13 @@ public class PlacingFieldController implements Initializable {
     }
 
     private void setNextActive(boolean active) {
-        Next.setVisible(active);
+        if (active) {
+            Next.setImage(rightArrow);
+            Next.setDisable(false);
+        } else {
+            Next.setImage(rightArrowDisabled);
+            Next.setDisable(true);
+        }
     }
 
     private int getIndexofPane(Pane pane) {

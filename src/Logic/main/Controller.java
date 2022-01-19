@@ -122,6 +122,21 @@ public class Controller {
         return myGame.getCountFiveShip();
     }
 
+    public int getAllTwoShips() {
+        return myGame.getAllTwoShips();
+    }
+
+    public int getAllThreeShips() { return myGame.getAllThreeShips();
+    }
+
+    public int getAllFourShips() {
+        return myGame.getAllFourShips();
+    }
+
+    public int getAllFiveShips() {
+        return myGame.getAllFiveShips();
+    }
+
     /**
      * Gets the Status of the Pane with index
      *
@@ -322,6 +337,7 @@ public class Controller {
         writer.writeEnemyGameField(enemyGame.getGameField());
         writer.writeMyGameField(myGame.getGameField());
         writer.save();
+        writer.close();
     }
 
     public ArrayList<String> getAllSaveFiles() {
@@ -354,12 +370,12 @@ public class Controller {
                     enemyGame.setDestroyedThreeShips(Integer.parseInt(split[3]));
                     enemyGame.setDestroyedTwoShips(Integer.parseInt(split[4]));
                     break;
-                case "ships":
-                    myGame.setAllFiveShips(Integer.parseInt(split[1]));
-                    myGame.setAllFourShips(Integer.parseInt(split[2]));
-                    myGame.setAllThreeShips(Integer.parseInt(split[3]));
-                    myGame.setAllTwoShips(Integer.parseInt(split[4]));
-                    break;
+               case "ships":
+                   myGame.setAllFiveShips(Integer.parseInt(split[1]));
+                   myGame.setAllFourShips(Integer.parseInt(split[2]));
+                   myGame.setAllThreeShips(Integer.parseInt(split[3]));
+                   myGame.setAllTwoShips(Integer.parseInt(split[4]));
+                   break;
                 case "MyGame":
 
                     x = Integer.parseInt(split[1]);
