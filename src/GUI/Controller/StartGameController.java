@@ -1,8 +1,8 @@
 package GUI.Controller;
 
 import GUI.Game;
-import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
@@ -20,6 +20,11 @@ public class StartGameController {
     @FXML
     void handleOpenSettings(MouseEvent event) throws IOException {
         Game.showGameSettingsWindow();
+    }
+
+    @FXML
+    void handleLoadGame(MouseEvent event) throws IOException {
+        Game.showLoadGameWindow();
     }
 
 }

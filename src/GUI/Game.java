@@ -97,11 +97,20 @@ public class Game extends Application {
         mainLayout.setCenter(playingField);
     }
 
+
+    public static void showLoadGameWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(Game.class.getResource("LoadGame/LoadGame.fxml"));
+        AnchorPane placingField = loader.load();
+        mainLayout.setCenter(placingField);
+    }
+
     public static void showPopUpSaveGame() {
 
         dialogSaveGame.show();
 
     }
+
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -203,7 +212,9 @@ public class Game extends Application {
                 // TODO Speichern
                 try {
                     dialogSaveGame.hide();
-                    Game.showPlacingFieldWindow();
+                    Game.logicController.save();
+                    Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -215,7 +226,8 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogSaveGame.hide();
-                    Game.showPlacingFieldWindow();
+                    Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

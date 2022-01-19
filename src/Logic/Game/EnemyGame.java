@@ -77,4 +77,20 @@ public class EnemyGame extends Game {
         destroyedFourShips = countFourShip;
         destroyedFiveShips = countFiveShip;
     }
+
+    public void setDestroyedTwoShips(int destroyedTwoShips) {
+        this.destroyedTwoShips = destroyedTwoShips;
+    }
+
+    public void setDestroyedThreeShips(int destroyedThreeShips) {
+        this.destroyedThreeShips = destroyedThreeShips;
+    }
+
+    public void setDestroyedFourShips(int destroyedFourShips) {
+        this.destroyedFourShips = destroyedFourShips;
+    }
+
+    public void setDestroyedFiveShips(int destroyedFiveShips) {
+        this.destroyedFiveShips = destroyedFiveShips;
+    }
 }

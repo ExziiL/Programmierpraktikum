@@ -331,6 +331,8 @@ public class GridPaneBuilder {
                     case CLOSE:
                         setPictureClose(pane);
                         break;
+                    default:
+                        break;
                 }
             }
         }
