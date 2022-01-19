@@ -21,7 +21,7 @@ public class DocumentWriter {
     public DocumentWriter(Timestamp t) {
         LocalDateTime time = t.toLocalDateTime();
 
-        id = time.getDayOfMonth() + "_" + time.getMonthValue() + "_" + time.getYear() + "_" + time.getHour() + "_" + time.getMinute() + "_" + time.getSecond();
+        id = time.getDayOfMonth() + "_" + time.getMonthValue() + "_" + time.getYear() + "-" + time.getHour() + "_" + time.getMinute() + "_" + time.getSecond();
 
         String fs = System.getProperty("file.separator");
         path = "src" + fs + "Data" + fs + id + ".txt" + fs;
@@ -106,7 +106,7 @@ public class DocumentWriter {
     private void writeGameField(String header, GameElement[][] gameField) {
         String position;
         for (int i = 0; i < gameField.length; i++) {
-            for (int j = 0; i < gameField[0].length; i++) {
+            for (int j = 0; j < gameField[0].length; j++) {
 
                 position = header + " " + i + " " + j;
 
@@ -140,20 +140,29 @@ public class DocumentWriter {
 
         ArrayList<String> output = new ArrayList<>();
 
-        if (myObj == null && myWriter == null) {
-            createInstance();
+        if (myScanner == null) {
+            try {
+                myObj = new File(path);
+                myScanner = new Scanner(myObj);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         while (myScanner.hasNextLine()) {
             output.add(myScanner.nextLine());
-
         }
         return output;
     }
 
     public void save() {
         if (myObj == null && myWriter == null) {
-            createInstance();
+            try {
+                myObj = new File(path);
+                myWriter = new FileWriter(myObj);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         for (int i = 0; i < text.size(); i++) {
@@ -167,8 +176,13 @@ public class DocumentWriter {
 
     public void close() {
         try {
-            myWriter.close();
-            myScanner.close();
+            if (myWriter != null) {
+                myWriter.close();
+            }
+            if (myScanner != null) {
+                myScanner.close();
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -186,15 +200,5 @@ public class DocumentWriter {
         return files;
     }
 
-    private void createInstance() {
-        try {
-            myObj = new File(path);
-            myWriter = new FileWriter(myObj);
-            myScanner = new Scanner(myObj);
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
 
-    }
 }

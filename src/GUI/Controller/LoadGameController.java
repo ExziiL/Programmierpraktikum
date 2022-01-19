@@ -45,6 +45,7 @@ public class LoadGameController implements Initializable {
                     String s = selectedGame.get(0);
 
                     Game.logicController.setWriter(new DocumentWriter(s));
+
                     Game.logicController.loadGame();
                     try {
                         Game.showPlayingFieldWindow();
