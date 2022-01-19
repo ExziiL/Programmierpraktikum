@@ -25,5 +25,4 @@ public abstract class Network {
         return player;
     }
 
-    //public abstract String getIp();
 }

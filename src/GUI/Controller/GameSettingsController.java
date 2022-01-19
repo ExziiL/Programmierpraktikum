@@ -85,12 +85,12 @@ public class GameSettingsController {
                         networkThread.start();
                     } else {
                         networkThread = new Thread(() -> {
-                            player = Network.chooseNetworkTyp(true, "");
                             Platform.runLater(() -> {
                                 if (player instanceof Server) {
                                     Ip.setText(((Server) player).getIp());
                                 }
                             });
+                            player = Network.chooseNetworkTyp(true, "");
                         });
                         networkThread.start();
                     }

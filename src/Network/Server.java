@@ -14,6 +14,7 @@ public class Server extends Network {
         if (connected) {
             socket.close();
         }
+
         serverSocket = new ServerSocket(port);
         System.out.println("Waiting for Connection ...");
         socket = serverSocket.accept();
@@ -26,6 +27,12 @@ public class Server extends Network {
     }
 
     public String getIp() {
-        return serverSocket.getInetAddress().getHostAddress();
+        String ip = null;
+        try {
+            ip = InetAddress.getLocalHost().getHostAddress();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return ip;
     }
 }
