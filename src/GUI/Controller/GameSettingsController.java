@@ -25,6 +25,8 @@ public class GameSettingsController {
     @FXML
     private Button next;
     @FXML
+    private Button connect;
+    @FXML
     private TextField name;
     @FXML
     private Label labelTwo;
@@ -134,6 +136,13 @@ public class GameSettingsController {
                     ((Server) player).createServer();
                 });
                 networkThread.start();
+            }
+        });
+
+        connect.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
             }
         });
 
