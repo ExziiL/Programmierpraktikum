@@ -34,7 +34,8 @@ public class Server extends Network {
         return serverSocket;
     }
 
-    public void sendInitialisation(int size, int[] ships) {
+    public void sendInitialisation(int size, int[] ships) throws IOException {
+
         String stringships = "";
 
         outStream.write("size" + size);

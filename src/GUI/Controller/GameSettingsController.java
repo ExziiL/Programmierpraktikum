@@ -192,7 +192,7 @@ public class GameSettingsController {
         } else {
             networkThread = new Thread(()->{
                 int[] i  ={2,2,2,3,3,4};
-                if (player instanceof Server) ((Server) player).sendInitialisation(Game.logicController.getGameSize() , i);
+                //if (player instanceof Server) ((Server) player).sendInitialisation(Game.logicController.getGameSize() , i);
             });
             networkThread.start();
             ErrorMessage.setText("");
