@@ -139,11 +139,21 @@ public class GameSettingsController {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (player instanceof Server){
-                    ((Server) player).createServer();
-                }
-                else if (player instanceof Client){
-                    ((Client) player).createClient(Ip.getText());
+                try {
+                    if (player instanceof Server){
+                        ((Server) player).createServer();
+                        ErrorMessage.setText("Connected");
+                        ErrorMessage.setStyle("-fx-text-fill: green");
+
+                    }
+                    else if (player instanceof Client){
+                        ((Client) player).createClient(Ip.getText());
+                        ErrorMessage.setText("Connected");
+                        ErrorMessage.setStyle("-fx-text-fill: green");
+                    }
+                } catch (IOException e){
+                    ErrorMessage.setText("Connection failed!");
+                    ErrorMessage.setStyle("-fx-text-fill: red");
                 }
             }
         });
@@ -180,6 +190,10 @@ public class GameSettingsController {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else {
+            networkThread = new Thread(()->{
+                int[] i  ={2,2,2,3,3,4};
+                if (player instanceof Server) ((Server) player).sendInitialisation(Game.logicController.getGameSize() , i);
+            });
             networkThread.start();
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());

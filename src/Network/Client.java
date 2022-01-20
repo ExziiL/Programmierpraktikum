@@ -10,25 +10,17 @@ public class Client extends Network {
     private static Writer outStream;
     private static Socket client;
 
-    public void createClient(String ip){
-        try {
+    public void createClient(String ip) throws IOException {
 
-            client = new Socket(ip, port);
-            System.out.println("Connection established");
+        client = new Socket(ip, port);
 
+        inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
+        outStream = new OutputStreamWriter(client.getOutputStream());
 
-            inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
-            outStream = new OutputStreamWriter(client.getOutputStream());
-
-            outStream.write(String.format("Hallo Server bin da!"));
-        } catch (IOException e) {
-            System.out.println("Connection failed");
-            e.printStackTrace();
-        }
-
+        outStream.write(String.format("Hallo Server bin da!"));
     }
 
-    protected Socket getClient(){
+    protected Socket getClient() {
         return client;
     }
 }

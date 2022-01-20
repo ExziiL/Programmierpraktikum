@@ -11,19 +11,13 @@ public class Server extends Network {
     private static Socket server;
 
     //public Server createServer() throws IOException {
-    public void createServer() {
-        try {
-            serverSocket = new ServerSocket(port);
-            System.out.println("Waiting for Connection ...");
-            server = serverSocket.accept();
-            System.out.println("Connection established");
+    public void createServer() throws IOException {
 
-            inStream = new BufferedReader(new InputStreamReader(server.getInputStream()));
-            outStream = new OutputStreamWriter(server.getOutputStream());
-        } catch (IOException e) {
-            System.out.println("Connection failed");
-            e.printStackTrace();
-        }
+        serverSocket = new ServerSocket(port);
+        server = serverSocket.accept();
+
+        inStream = new BufferedReader(new InputStreamReader(server.getInputStream()));
+        outStream = new OutputStreamWriter(server.getOutputStream());
     }
 
     public String getIp() {
@@ -36,7 +30,21 @@ public class Server extends Network {
         return ip;
     }
 
-    protected ServerSocket getServerSocket(){
+    protected ServerSocket getServerSocket() {
         return serverSocket;
+    }
+
+    public void sendInitialisation(int size, int[] ships) {
+        String stringships = "";
+
+        outStream.write("size" + size);
+        outStream.flush();
+        if (!(inStream.readLine().equals("done"))) sendInitialisation(size, ships);
+        for (int ship: ships) {
+            stringships = stringships + ship;
+        }
+        outStream.write("ships" + stringships);
+        if (!(inStream.readLine().equals("done"))) sendInitialisation(size, ships);
+
     }
 }
