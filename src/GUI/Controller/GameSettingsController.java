@@ -2,6 +2,10 @@ package GUI.Controller;
 
 import GUI.Game;
 import Logic.main.LogicConstants;
+import Network.Client;
+import Network.Network;
+import Network.Server;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -80,13 +84,13 @@ public class GameSettingsController {
 
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
-
+                        selectClient();
                         networkThread = new Thread(() -> {
                             player = Network.chooseNetworkTyp(false);
                         });
                         networkThread.start();
                     } else {
-
+                        selectServer();
                         networkThread = new Thread(() -> {
                             player = Network.chooseNetworkTyp(true);
                             if (!(player instanceof Server)) selectServer();
@@ -218,14 +222,14 @@ public class GameSettingsController {
     }
 
     private void selectClient() {
-        Ip.setDisable(false);
+        Ip.setEditable(true);
         Ip.setText("");
     }
 
     private void selectServer() {
         try {
             InetAddress realIP = InetAddress.getLocalHost();
-            Ip.setDisable(true);
+            Ip.setEditable(false);
             Ip.setText(realIP.getHostAddress());
         } catch (UnknownHostException e) {
             e.printStackTrace();

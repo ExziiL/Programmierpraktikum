@@ -84,6 +84,14 @@ public class Controller {
     }
 
     /**
+     * Gets the Game Mode
+     * @return Game Mode
+     */
+    public GameMode getGameMode(){
+        return myGame.getGameMode();
+    }
+
+    /**
      * Gets the Players Name
      * @return Name of Player
      */
@@ -380,7 +388,6 @@ public class Controller {
                     x = Integer.parseInt(split[1]);
                     y = Integer.parseInt(split[2]);
                     status = interpretStatusByNumber(Integer.parseInt(split[3]));
-
                     myGame.setgameElementStatus(x, y, status);
 
                     if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {

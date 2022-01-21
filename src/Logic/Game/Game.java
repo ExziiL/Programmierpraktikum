@@ -96,7 +96,9 @@ public class Game {
             }
         }
         if (newShip == null) {
-            new Ship(size, isHorizontal);
+            newShip = new Ship(size, isHorizontal);
+            newShip.setHash(hash);
+            ships.add(newShip);
         }
 
         gameField[x][y].setShip(newShip);

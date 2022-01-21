@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import GUI.GUIConstants;
 import GUI.Game;
+import Logic.main.LogicConstants;
 import Network.Client;
 import Network.Network;
 import Network.Server;
@@ -22,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -199,24 +199,26 @@ public class PlacingFieldController implements Initializable {
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
         Game.logicController.initDocument();
-        networkThread = new Thread(() -> {
-            if (player instanceof Server) {
-                ((Server) player).sendREADY();
-            }
-            if (player instanceof Client) {
-                ((Client) player).receiveMessage();
-            }
-            Platform.runLater(()->{
-                try {
-                    Game.showPlayingFieldWindow();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+            networkThread = new Thread(() -> {
+                if (player instanceof Server) {
+                    ((Server) player).sendREADY();
                 }
+                if (player instanceof Client) {
+                    ((Client) player).receiveMessage();
+                }
+                Platform.runLater(() -> {
+                    try {
+                        Game.showPlayingFieldWindow();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             });
-        });
-        networkThread.start();
-
-        // TODO Offline wieder hinzufügen
+            networkThread.start();
+        } else {
+            Game.showPlayingFieldWindow();
+        }
     }
 
     private void setChoosenShipProperties() {
