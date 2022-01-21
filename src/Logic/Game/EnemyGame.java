@@ -1,6 +1,7 @@
 package Logic.Game;
 
 import Logic.Game.Exceptions.FalseFieldSize;
+import Logic.main.LogicConstants;
 import Logic.main.MyPlayer;
 
 public class EnemyGame extends Game {
@@ -29,26 +30,34 @@ public class EnemyGame extends Game {
     public boolean shoot(int index) {
         int x = index % size;
         int y = index / size;
+        boolean hit = false;
 
-        boolean hit = player.shoot(x, y);
+        if (gameMode == LogicConstants.GameMode.OFFLINE) {
 
-        if (hit && isShipDestroyed(x, y)) {
+            hit = player.shoot(x, y);
 
-            switch (getShipSize(x, y)) {
-                case 2:
-                    destroyedTwoShips--;
-                    break;
-                case 3:
-                    destroyedThreeShips--;
-                    break;
-                case 4:
-                    destroyedFourShips--;
-                    break;
-                case 5:
-                    destroyedFiveShips--;
-                    break;
+            if (hit && isShipDestroyed(x, y)) {
+
+                switch (getShipSize(x, y)) {
+                    case 2:
+                        destroyedTwoShips--;
+                        break;
+                    case 3:
+                        destroyedThreeShips--;
+                        break;
+                    case 4:
+                        destroyedFourShips--;
+                        break;
+                    case 5:
+                        destroyedFiveShips--;
+                        break;
+                }
             }
+        }else{
+
+            // TODO auf Feld des Gegners schießen
         }
+
         return hit;
     }
 

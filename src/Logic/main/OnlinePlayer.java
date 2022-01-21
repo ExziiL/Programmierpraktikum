@@ -10,6 +10,8 @@ public class OnlinePlayer extends Player {
 
     @Override
     public boolean takeTurn() {
+
+        //TODO Warten auf Antwort des Gegners
         return false;
     }
 
