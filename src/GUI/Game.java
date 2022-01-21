@@ -59,7 +59,6 @@ public class Game extends Application {
         loader.setLocation(Game.class.getResource("PlayingField/PlayingField.fxml"));
         AnchorPane playingField = loader.load();
         mainLayout.setCenter(playingField);
-
     }
 
     public static void showEnd() throws IOException {
@@ -68,7 +67,6 @@ public class Game extends Application {
         AnchorPane playingField = loader.load();
         mainLayout.setCenter(playingField);
     }
-
 
     public static void showLoadGameWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -82,7 +80,6 @@ public class Game extends Application {
         dialogSaveGame.show();
 
     }
-
 
     @Override
     public void start(Stage primaryStage) throws IOException {
