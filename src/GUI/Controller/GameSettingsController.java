@@ -13,7 +13,6 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -23,8 +22,6 @@ import static GUI.GUIConstants.errorMessageNoIP;
 public class GameSettingsController {
     @FXML
     private Slider slider;
-    //@FXML
-    //private Button next;
     @FXML
     private Button connect;
     @FXML
@@ -51,7 +48,8 @@ public class GameSettingsController {
 
     private int gameSize;
     private Thread networkThread = null;
-    Network player = null;
+    private Network player = null;
+    private boolean connected;
 
 
     @FXML
@@ -139,25 +137,25 @@ public class GameSettingsController {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                try {
-                    if (player instanceof Server){
-                        ((Server) player).createServer();
-                        ErrorMessage.setText("Connected");
-                        ErrorMessage.setStyle("-fx-text-fill: green");
-
+                networkThread = new Thread(() -> {
+                    if (player instanceof Server) {
+                        connected = ((Server) player).createServer();
+                    } else if (player instanceof Client) {
+                        connected = ((Client) player).createClient(Ip.getText());
                     }
-                    else if (player instanceof Client){
-                        ((Client) player).createClient(Ip.getText());
-                        ErrorMessage.setText("Connected");
-                        ErrorMessage.setStyle("-fx-text-fill: green");
-                    }
-                } catch (IOException e){
-                    ErrorMessage.setText("Connection failed!");
-                    ErrorMessage.setStyle("-fx-text-fill: red");
-                }
+                    Platform.runLater(() -> {
+                        if (connected) {
+                            ErrorMessage.setText("Connected");
+                            ErrorMessage.setStyle("-fx-text-fill: green");
+                        } else {
+                            ErrorMessage.setText("Connection failed!");
+                            ErrorMessage.setStyle("-fx-text-fill: red");
+                        }
+                    });
+                });
+                networkThread.start();
             }
         });
-
     }
 
     // ------------------------------- Zurück-Button ------------------------------
@@ -181,20 +179,25 @@ public class GameSettingsController {
         });
     }
 
-    ;
-
 // ------------------------------- Next-Button ---------------------------------
 
     @FXML
-    void handleNext(MouseEvent event) throws IOException {
+    void handleNext(MouseEvent event) throws IOException, InterruptedException {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
-        } else {
-            networkThread = new Thread(()->{
-                int[] i  ={2,2,2,3,3,4};
-                //if (player instanceof Server) ((Server) player).sendInitialisation(Game.logicController.getGameSize() , i);
+        } else if (gameMode.getValue().equals("Online")) {
+            networkThread = new Thread(() -> {
+                int[] i = {2, 2, 2, 3, 3, 4};
+                if (player instanceof Server) {
+                    ((Server) player).sendInitialisation(Game.logicController.getGameSize(), i);
+                }
+                if (player instanceof Client) {
+                    ((Client) player).receiveMessage();
+                }
             });
             networkThread.start();
+            Game.showPlacingFieldWindow();
+        } else {
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.setGameSize(gameSize);
@@ -233,3 +236,4 @@ public class GameSettingsController {
         }
     }
 }
+

@@ -41,8 +41,7 @@ public class Game {
                 gameField[i][j] = new GameElement();
             }
         }
-
-        determineNumberOfShips();
+        determineNumberOfShips(); //TODO
     }
 
     public int getSize() {
@@ -104,7 +103,7 @@ public class Game {
             }
         }
         ships = new ArrayList<>();
-        determineNumberOfShips();
+        determineNumberOfShips(); //TODO
     }
 
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
@@ -579,7 +578,7 @@ public class Game {
         }
     }
 
-    protected void determineNumberOfShips() {
+    public void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
         int placesForShip = 0;

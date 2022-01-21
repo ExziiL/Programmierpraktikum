@@ -153,7 +153,7 @@
             </image>
         </ImageView>
       <Label fx:id="ErrorMessage" layoutX="386.0" layoutY="566.0" textFill="#f70404" />
-        <ImageView fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="556.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0">
+        <ImageView fx:id="nextPage" fitHeight="37.0" fitWidth="62.0" layoutX="749.0" layoutY="556.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0">
             <image>
                 <Image url="@../../assets/Icons/right-arrow.png" />
             </image>

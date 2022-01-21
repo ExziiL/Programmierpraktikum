@@ -1,5 +1,7 @@
 package Network;
 
+import GUI.Game;
+
 import java.net.*;
 import java.io.*;
 import java.util.Enumeration;
@@ -11,13 +13,24 @@ public class Server extends Network {
     private static Socket server;
 
     //public Server createServer() throws IOException {
-    public void createServer() throws IOException {
+    public boolean createServer() {
+        try {
+            serverSocket = new ServerSocket(port);
+            System.out.println("Waiting");
+            server = serverSocket.accept();
+            System.out.println("Connected");
 
-        serverSocket = new ServerSocket(port);
-        server = serverSocket.accept();
+            inStream = new BufferedReader(new InputStreamReader(server.getInputStream()));
+            outStream = new OutputStreamWriter(server.getOutputStream());
 
-        inStream = new BufferedReader(new InputStreamReader(server.getInputStream()));
-        outStream = new OutputStreamWriter(server.getOutputStream());
+            String line = inStream.readLine();
+            System.out.println(line);
+            return true;
+        } catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     public String getIp() {
@@ -34,18 +47,29 @@ public class Server extends Network {
         return serverSocket;
     }
 
-    public void sendInitialisation(int size, int[] ships) throws IOException {
+    public void sendInitialisation(int size, int[] ships) {
+        try {
+            String stringships = "";
+            String get_Message;
 
-        String stringships = "";
+            outStream.write(String.format("%s%n","size " + size));
+            outStream.flush();
+            System.out.println("size " + size );
+            get_Message = inStream.readLine();
+            System.out.println(get_Message);
+            if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
+            for (int ship : ships) {
+                stringships = stringships + ship;
+            }
+            outStream.write(String.format("%s%n","ships " + stringships));
+            outStream.flush();
+            get_Message = inStream.readLine();
+            System.out.println(get_Message);
+            if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
 
-        outStream.write("size" + size);
-        outStream.flush();
-        if (!(inStream.readLine().equals("done"))) sendInitialisation(size, ships);
-        for (int ship: ships) {
-            stringships = stringships + ship;
+        } catch (IOException e){
+            e.printStackTrace();
         }
-        outStream.write("ships" + stringships);
-        if (!(inStream.readLine().equals("done"))) sendInitialisation(size, ships);
 
     }
 }
