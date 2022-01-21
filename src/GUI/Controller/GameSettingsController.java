@@ -48,7 +48,7 @@ public class GameSettingsController {
 
     private int gameSize;
     private Thread networkThread = null;
-    private Network player = null;
+    protected Network player;
     private boolean connected;
 
 

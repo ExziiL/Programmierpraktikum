@@ -4,7 +4,7 @@ package Logic.main;
 
 import Logic.Game.Game;
 
-public abstract class Player {
+public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob determineNumberofShips ausgeführt wird oder nicht
 
     protected Game game;
 

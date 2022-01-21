@@ -11,6 +11,7 @@ public class Server extends Network {
     private static Writer outStream;
     private static ServerSocket serverSocket;
     private static Socket server;
+    private String get_Message;
 
     //public Server createServer() throws IOException {
     public boolean createServer() {
@@ -50,26 +51,35 @@ public class Server extends Network {
     public void sendInitialisation(int size, int[] ships) {
         try {
             String stringships = "";
-            String get_Message;
 
             outStream.write(String.format("%s%n","size " + size));
             outStream.flush();
-            System.out.println("size " + size );
             get_Message = inStream.readLine();
-            System.out.println(get_Message);
             if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
+
             for (int ship : ships) {
                 stringships = stringships + ship;
             }
             outStream.write(String.format("%s%n","ships " + stringships));
             outStream.flush();
             get_Message = inStream.readLine();
-            System.out.println(get_Message);
             if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
 
         } catch (IOException e){
             e.printStackTrace();
         }
 
+    }
+
+    public void sendREADY(){
+        try {
+            outStream.write(String.format("%s%n","ready"));
+            outStream.flush();
+
+            get_Message = inStream.readLine();
+            if (!(get_Message.equals("ready"))) sendREADY();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }

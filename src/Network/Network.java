@@ -44,4 +44,7 @@ public abstract class Network {
 
     }
 
+    public static Network getPlayer() {
+        return player;
+    }
 }
