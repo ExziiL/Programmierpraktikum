@@ -148,15 +148,16 @@ public class DocumentWriter {
     }
 
     public void save() {
-        if (myObj == null && myWriter == null) {
-            try {
+        try {
+            if (myObj == null && myWriter == null) {
                 myObj = new File(path);
-                myWriter = new FileWriter(myObj);
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            if (myWriter == null) {
+                myWriter = new FileWriter(myObj);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         for (int i = 0; i < text.size(); i++) {
             try {
                 myWriter.write(text.get(i));

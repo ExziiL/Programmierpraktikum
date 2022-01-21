@@ -402,7 +402,7 @@ public class Controller {
                     enemyGame.setgameElementStatus(x, y, status);
 
                     if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
-                        enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]),Integer.parseInt(split[6]));
+                        enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]), Integer.parseInt(split[6]));
                     }
                     break;
             }

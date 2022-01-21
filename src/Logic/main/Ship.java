@@ -26,9 +26,9 @@ public class Ship {
         return size;
     }
 
-    public int getHash() {
-        return hash;
-    }
+   public int getHash() {
+       return hash;
+   }
 
     public void setHash(int hash) {
         this.hash = hash;

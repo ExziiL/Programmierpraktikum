@@ -101,7 +101,10 @@ public class Game {
             ships.add(newShip);
         }
 
-        gameField[x][y].setShip(newShip);
+        if (newShip != null) {
+            gameField[x][y].setShip(newShip);
+        }
+
     }
 
     public boolean allShipPlaced() {
