@@ -1,6 +1,7 @@
 package Logic.main;
 
 import Logic.DocumentWriter.DocumentWriter;
+import GUI.Game;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.Game.MyGame;
@@ -76,7 +77,6 @@ public class Controller {
 
     /**
      * Gets the Playingfield-Size
-     *
      * @return Playingfield-Size
      */
     public int getGameSize() {
@@ -85,7 +85,6 @@ public class Controller {
 
     /**
      * Gets the Players Name
-     *
      * @return Name of Player
      */
     public String getName() {
@@ -94,7 +93,6 @@ public class Controller {
 
     /**
      * Gets the amount of Size 2 Ships
-     *
      * @return count of ships of Size 2
      */
     public int getCountTwoShip() {
@@ -103,7 +101,6 @@ public class Controller {
 
     /**
      * Gets the amount of Size 3 Ships
-     *
      * @return count of ships of Size 3
      */
     public int getCountThreeShip() {
@@ -112,7 +109,6 @@ public class Controller {
 
     /**
      * Gets the amount of Size 4 Ships
-     *
      * @return count of ships of Size 4
      */
     public int getCountFourShip() {
@@ -120,8 +116,7 @@ public class Controller {
     }
 
     /**
-     * Gets the amount of Size 5 Ships
-     *
+     *Gets the amount of Size 5 Ships
      * @return count of ships of Size 5
      */
     public int getCountFiveShip() {
@@ -156,9 +151,8 @@ public class Controller {
 
     /**
      * Gets a List of Hover-States of the Ship
-     *
-     * @param index        of Pane
-     * @param size         of selected Ship
+     * @param index of Pane
+     * @param size of selected Ship
      * @param isHorizontal Orientation of the Ship
      * @return HoverState[]: list of Indexes and States
      */
@@ -168,9 +162,8 @@ public class Controller {
 
     /**
      * Placing a Ship in Playing- and Placing-Field
-     *
-     * @param index        of Pane where the Midpoint of Ship should be placed
-     * @param size         of the Ship
+     * @param index of Pane where the Midpoint of Ship should be placed
+     * @param size of the Ship
      * @param isHorizontal Orientation of Ship
      */
     public void placeShip(int index, int size, boolean isHorizontal) {
@@ -179,7 +172,6 @@ public class Controller {
 
     /**
      * Are all Ship placed ?
-     *
      * @return true if all Ships are placed - false if not
      */
     public boolean allShipPlaced() {
@@ -202,7 +194,6 @@ public class Controller {
 
     /**
      * Deletes the Ship
-     *
      * @param index of Pane
      * @return true if Ship successfully deleted
      */
@@ -212,7 +203,6 @@ public class Controller {
 
     /**
      * Gets the Size of chosen Ship
-     *
      * @param index of Pane
      * @return Size of Ship
      */
@@ -222,7 +212,6 @@ public class Controller {
 
     /**
      * Gets Ships Rotation
-     *
      * @param index of Pane
      * @return true if Ship is horizontal
      */
@@ -239,10 +228,8 @@ public class Controller {
     public int getPartofShip(int index) {
         return myGame.getPartofShip(index);
     }
-
     /**
      * Checks if Pane is Part of a Ship
-     *
      * @param index of Pane
      * @return true if Status of Pane is SHIP
      */
@@ -252,7 +239,6 @@ public class Controller {
 
     /**
      * Checks if all Ships are destroyed
-     *
      * @return true if every Ship is destroyed
      */
     public boolean allShipsDestroyed() {
@@ -261,7 +247,6 @@ public class Controller {
 
     /**
      * Sets if Player has won
-     *
      * @param concratulation
      */
     public void setConcratulation(boolean concratulation) {
@@ -276,7 +261,6 @@ public class Controller {
 
     /**
      * Gets the States of Panes in the Enemy-Playingfield
-     *
      * @param index of Pane
      * @return Status of Pane
      */
@@ -293,7 +277,6 @@ public class Controller {
 
     /**
      * Checks if a Ship of the Enemy is hit
-     *
      * @param index of Pane
      * @return true if EnemyShip is hit
      */
@@ -303,7 +286,6 @@ public class Controller {
 
     /**
      * Checks if Enemy hit a Ship
-     *
      * @return true if enemy hits a Ship
      */
     public boolean enemyTurn() {
@@ -312,7 +294,6 @@ public class Controller {
 
     /**
      * Checks if Enemy has lost
-     *
      * @return true if all EnemyShip are destroyed
      */
     public boolean allEnemyShipsDestroyed() {

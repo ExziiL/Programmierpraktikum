@@ -93,6 +93,7 @@ public class GridPaneBuilder {
 
                 controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
 
+
             });
 
         }

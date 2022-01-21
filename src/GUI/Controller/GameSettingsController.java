@@ -22,7 +22,7 @@ public class GameSettingsController {
     @FXML
     private Slider slider;
     @FXML
-    private Button next;
+    private Button connect;
     @FXML
     private TextField name;
     @FXML
@@ -46,7 +46,12 @@ public class GameSettingsController {
     @FXML
     private ComboBox<String> gameMode;
 
+
     private int gameSize;
+    private Thread networkThread = null;
+    protected Network player;
+    private boolean connected;
+
 
     @FXML
     void initialize() {
@@ -72,13 +77,27 @@ public class GameSettingsController {
                 if (gameMode.getValue().equals("Offline")) {
                     BoxOnline.setDisable(true);
                 } else if (gameMode.getValue().equals("Online")) {
+
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
-                        selectClient();
+
+                        networkThread = new Thread(() -> {
+                            player = Network.chooseNetworkTyp(false);
+                        });
+                        networkThread.start();
                     } else {
-                        selectServer();
+
+                        networkThread = new Thread(() -> {
+                            player = Network.chooseNetworkTyp(true);
+                            if (!(player instanceof Server)) selectServer();
+                            Platform.runLater(() -> {
+                                Ip.setText(((Server) player).getIp());
+                            });
+                        });
+                        networkThread.start();
                     }
                 }
+
             }
         });
 
@@ -86,6 +105,14 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 selectClient();
+                if (networkThread.isAlive()) {
+                    networkThread.stop();
+                }
+                networkThread = new Thread(() -> {
+                    player = Network.chooseNetworkTyp(false);
+                    if (!(player instanceof Client)) selectClient();
+                });
+                networkThread.start();
             }
         });
 
@@ -93,6 +120,17 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 selectServer();
+                if (networkThread.isAlive()) {
+                    networkThread.stop();
+                }
+                networkThread = new Thread(() -> {
+                    player = Network.chooseNetworkTyp(true);
+                    if (!(player instanceof Server)) selectServer();
+                    Platform.runLater(() -> {
+                        Ip.setText(((Server) player).getIp());
+                    });
+                });
+                networkThread.start();
             }
         });
         // ------------------------------- Slider ---------------------------------
@@ -101,6 +139,28 @@ public class GameSettingsController {
             setGameSize();
         });
 
+        connect.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                networkThread = new Thread(() -> {
+                    if (player instanceof Server) {
+                        connected = ((Server) player).createServer();
+                    } else if (player instanceof Client) {
+                        connected = ((Client) player).createClient(Ip.getText());
+                    }
+                    Platform.runLater(() -> {
+                        if (connected) {
+                            ErrorMessage.setText("Connected");
+                            ErrorMessage.setStyle("-fx-text-fill: green");
+                        } else {
+                            ErrorMessage.setText("Connection failed!");
+                            ErrorMessage.setStyle("-fx-text-fill: red");
+                        }
+                    });
+                });
+                networkThread.start();
+            }
+        });
     }
 
     // ------------------------------- Zurück-Button ------------------------------
@@ -117,9 +177,21 @@ public class GameSettingsController {
     // ------------------------------- Next-Button ---------------------------------
 
     @FXML
-    void handleNext(MouseEvent event) throws IOException {
+    void handleNext(MouseEvent event) throws IOException, InterruptedException {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
+        } else if (gameMode.getValue().equals("Online")) {
+            networkThread = new Thread(() -> {
+                int[] i = {2, 2, 2, 3, 3, 4};
+                if (player instanceof Server) {
+                    ((Server) player).sendInitialisation(Game.logicController.getGameSize(), i);
+                }
+                if (player instanceof Client) {
+                    ((Client) player).receiveMessage();
+                }
+            });
+            networkThread.start();
+            Game.showPlacingFieldWindow();
         } else {
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());
@@ -168,3 +240,4 @@ public class GameSettingsController {
         labelGameFieldSize.setText("" + gameSize);
     }
 }
+

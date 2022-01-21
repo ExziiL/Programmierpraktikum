@@ -51,13 +51,7 @@ public class Game {
             }
         }
 
-        //  if(gameMode == GameMode.OFFLINE){
-        // determineNumberOfShips();
-        // setAllTwoShips(countTwoShip);
-        // setAllThreeShips(countThreeShip);
-        // setAllFourShips(countFourShip);
-        // setAllFiveShips(countFiveShip);
-        //   }
+        determineNumberOfShips();
     }
 
     public int getSize() {
@@ -396,7 +390,6 @@ public class Game {
 
                 gameField[x][y].setStatus(hoverStates[i].getStatus());
                 gameField[x][y].setShip(ship);
-                gameField[x][y].setPart(hoverStates[i].getPart());
 
             }
         }

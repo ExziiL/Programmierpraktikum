@@ -2,6 +2,9 @@ package GUI.Controller;
 
 import GUI.GUIConstants;
 import GUI.Game;
+import Network.Client;
+import Network.Network;
+import Network.Server;
 import Utilities.HoverState;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -67,6 +70,8 @@ public class PlacingFieldController implements Initializable {
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
+    private Thread networkThread;
+    private Network player = Network.getPlayer();
 
     private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
     private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
@@ -194,7 +199,24 @@ public class PlacingFieldController implements Initializable {
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
         Game.logicController.initDocument();
-        Game.showPlayingFieldWindow();
+        networkThread = new Thread(() -> {
+            if (player instanceof Server) {
+                ((Server) player).sendREADY();
+            }
+            if (player instanceof Client) {
+                ((Client) player).receiveMessage();
+            }
+            Platform.runLater(()->{
+                try {
+                    Game.showPlayingFieldWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+        });
+        networkThread.start();
+
+        // TODO Offline wieder hinzufügen
     }
 
     private void setChoosenShipProperties() {

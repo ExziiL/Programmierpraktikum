@@ -1,6 +1,7 @@
 package GUI;
 
 import Logic.main.Controller;
+import Network.Network;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,8 +28,10 @@ public class Game extends Application {
     private static Popup PopupSaveGame;
     private static final Stage dialogSaveGame = new Stage();
 
+
     public static void main(String[] args) {
         launch(args);
+
     }
 
     public static void showStartGameWindow() throws IOException {
