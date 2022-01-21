@@ -20,10 +20,9 @@ public class EnemyGame extends Game {
         }
 
         player = new MyPlayer(this, name);
+
         determineNumberOfShips();
-
         setDestroyedShips();
-
         shuffleShips();
     }
 
@@ -92,5 +91,10 @@ public class EnemyGame extends Game {
 
     public void setDestroyedFiveShips(int destroyedFiveShips) {
         this.destroyedFiveShips = destroyedFiveShips;
+    }
+
+    @Override
+    public boolean allShipDestroyed() {
+        return (destroyedTwoShips == 0 && destroyedThreeShips == 0 && destroyedFourShips == 0 && destroyedFiveShips == 0);
     }
 }

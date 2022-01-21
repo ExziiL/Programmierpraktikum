@@ -2,22 +2,34 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoadGameController">
-   <children>
-      <ListView fx:id="saveGames" layoutY="113.0" prefHeight="485.0" prefWidth="800.0" />
-      <HBox alignment="CENTER" layoutY="3.0" prefHeight="110.0" prefWidth="800.0">
-         <children>
-            <Label text="Spielstände">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.Controller.LoadGameController" stylesheets="@LoadGame.css">
+    <children>
+        <ListView fx:id="saveGames" layoutY="113.0" prefHeight="383.0" prefWidth="800.0"/>
+        <HBox alignment="CENTER" layoutY="3.0" prefHeight="110.0" prefWidth="800.0">
+            <children>
+                <Label text="Wähle einen Spielstand">
+                    <font>
+                        <Font size="20.0"/>
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <Pane layoutX="1.0" layoutY="557.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon"
+              AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+            <children>
+                <ImageView id="arrowIconPlacing" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack"
+                           pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+                    <image>
+                        <Image url="@../../assets/Icons/left-arrow.png"/>
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

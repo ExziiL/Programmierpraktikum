@@ -42,8 +42,6 @@ public class PlayingFieldController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         gridBuilder = new GridPaneBuilder(size);
 
-        Game.logicController.createEnemyGame();
-
         maxCountTwoShips = Game.logicController.getAllTwoShips();
         maxCountThreeShips = Game.logicController.getAllThreeShips();
         maxCountFourShips = Game.logicController.getAllFourShips();
@@ -54,6 +52,8 @@ public class PlayingFieldController implements Initializable {
 
         setLabelsShipDestroyed();
 
+        gridBuilder.redrawGamerPanes();
+        gridBuilder.redrawEnemyPanes();
     }
 
 

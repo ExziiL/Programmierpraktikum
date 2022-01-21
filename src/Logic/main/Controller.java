@@ -54,10 +54,16 @@ public class Controller {
     public void setGameSize(int n) {
         try {
             myGame.setSize(n);
+            createEnemyGame();
         } catch (FalseFieldSize falseFieldSize) {
             System.out.println("Falsche Spielfeldgröße");
         }
     }
+
+    public void determineNumberOfShips(){
+        myGame.determineNumberOfShips();
+    }
+
 
     /**
      * Sets the Mode in which the Game is executed
@@ -126,7 +132,8 @@ public class Controller {
         return myGame.getAllTwoShips();
     }
 
-    public int getAllThreeShips() { return myGame.getAllThreeShips();
+    public int getAllThreeShips() {
+        return myGame.getAllThreeShips();
     }
 
     public int getAllFourShips() {
@@ -330,10 +337,13 @@ public class Controller {
 
         writer.writeSize(getGameSize());
         writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(), myGame.getAllFiveShips());
+
     }
 
     public void save() {
 
+        writer.writeGameMode(myGame.getGameMode());
+        writer.writeShipsDestroyed(enemyGame.getDestroyedShips(2),enemyGame.getDestroyedShips(3),enemyGame.getDestroyedShips(4),enemyGame.getDestroyedShips(5));
         writer.writeEnemyGameField(enemyGame.getGameField());
         writer.writeMyGameField(myGame.getGameField());
         writer.save();
@@ -343,6 +353,10 @@ public class Controller {
     public ArrayList<String> getAllSaveFiles() {
 
         return writer.getAllSaveFiles();
+    }
+
+    public boolean deleteFile(String s){
+        return DocumentWriter.deleteFile(s);
     }
 
     public void setWriter(DocumentWriter writer) {
@@ -364,37 +378,46 @@ public class Controller {
                 case "size":
                     setGameSize(Integer.parseInt(split[1]));
                     break;
-                case "shipsDestroyed":
-                    enemyGame.setDestroyedFiveShips(Integer.parseInt(split[1]));
-                    enemyGame.setDestroyedFourShips(Integer.parseInt(split[2]));
-                    enemyGame.setDestroyedThreeShips(Integer.parseInt(split[3]));
-                    enemyGame.setDestroyedTwoShips(Integer.parseInt(split[4]));
+
+                case "gameMode":
+                    myGame.setGameMode(GameMode.valueOf(split[1]));
                     break;
-               case "ships":
-                   myGame.setAllFiveShips(Integer.parseInt(split[1]));
-                   myGame.setAllFourShips(Integer.parseInt(split[2]));
-                   myGame.setAllThreeShips(Integer.parseInt(split[3]));
-                   myGame.setAllTwoShips(Integer.parseInt(split[4]));
-                   break;
+                case "shipsDestroyed":
+                    enemyGame.setDestroyedTwoShips(Integer.parseInt(split[1]));
+                    enemyGame.setDestroyedThreeShips(Integer.parseInt(split[2]));
+                    enemyGame.setDestroyedFourShips(Integer.parseInt(split[3]));
+                    enemyGame.setDestroyedFiveShips(Integer.parseInt(split[4]));
+                    break;
+                case "ships":
+                    myGame.setAllTwoShips(Integer.parseInt(split[1]));
+                    myGame.setAllThreeShips(Integer.parseInt(split[2]));
+                    myGame.setAllFourShips(Integer.parseInt(split[3]));
+                    myGame.setAllFiveShips(Integer.parseInt(split[4]));
+                    break;
                 case "MyGame":
 
                     x = Integer.parseInt(split[1]);
                     y = Integer.parseInt(split[2]);
-                    status = interpretStatusByNumber(Integer.parseInt(split[1]));
+                    status = interpretStatusByNumber(Integer.parseInt(split[3]));
+
                     myGame.setgameElementStatus(x, y, status);
 
+                    if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
+                        myGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]), Integer.parseInt(split[6]));
+                    }
                     break;
                 case "EnemyGame":
                     x = Integer.parseInt(split[1]);
                     y = Integer.parseInt(split[2]);
 
-                    status = interpretStatusByNumber(Integer.parseInt(split[1]));
-
+                    status = interpretStatusByNumber(Integer.parseInt(split[3]));
                     enemyGame.setgameElementStatus(x, y, status);
 
+                    if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
+                        enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]),Integer.parseInt(split[6]));
+                    }
                     break;
             }
-
         }
     }
 
@@ -402,8 +425,6 @@ public class Controller {
     private GameElementStatus interpretStatusByNumber(int s) {
 
         switch (s) {
-            case 0:
-                return GameElementStatus.WATER;
             case 1:
                 return GameElementStatus.SHIP;
             case 2:
@@ -418,6 +439,7 @@ public class Controller {
                 return GameElementStatus.WATER;
         }
     }
+
 
     //endregion
 }

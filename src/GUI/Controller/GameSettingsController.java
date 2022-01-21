@@ -125,6 +125,7 @@ public class GameSettingsController {
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.setGameSize(gameSize);
             Game.logicController.setGameMode(determineGameMode());
+            Game.logicController.determineNumberOfShips();
             Game.showPlacingFieldWindow();
         }
     }
@@ -161,6 +162,7 @@ public class GameSettingsController {
 
     private void setGameSize() {
         Game.logicController.setGameSize(gameSize);
+        Game.logicController.determineNumberOfShips();
         setLabelTexts();
         slider.setValue(gameSize);
         labelGameFieldSize.setText("" + gameSize);

@@ -51,12 +51,13 @@ public class Game {
             }
         }
 
-        determineNumberOfShips();
-
-        setAllTwoShips(countTwoShip);
-        setAllThreeShips(countThreeShip);
-        setAllFourShips(countFourShip);
-        setAllFiveShips(countFiveShip);
+        //  if(gameMode == GameMode.OFFLINE){
+        // determineNumberOfShips();
+        // setAllTwoShips(countTwoShip);
+        // setAllThreeShips(countThreeShip);
+        // setAllFourShips(countFourShip);
+        // setAllFiveShips(countFiveShip);
+        //   }
     }
 
     public int getSize() {
@@ -69,6 +70,10 @@ public class Game {
 
     public void setGameMode(GameMode m) {
         this.gameMode = m;
+    }
+
+    public GameMode getGameMode() {
+        return gameMode;
     }
 
     public GameElementStatus getgameElementStatus(int element) {
@@ -85,6 +90,22 @@ public class Game {
 
     public void setgameElementStatus(int x, int y, GameElementStatus status) {
         gameField[x][y].setStatus(status);
+    }
+
+    public void setGameElementShip(int x, int y, int size, boolean isHorizontal, int hash) {
+        Ship newShip = null;
+
+        for (Ship s : ships) {
+            if (s.getHash() == hash) {
+                newShip = s;
+                break;
+            }
+        }
+        if (newShip == null) {
+            new Ship(size, isHorizontal);
+        }
+
+        gameField[x][y].setShip(newShip);
     }
 
     public boolean allShipPlaced() {
@@ -128,6 +149,7 @@ public class Game {
     }
 
     public void setAllTwoShips(int allTwoShip) {
+        this.countTwoShip = allTwoShip;
         this.allTwoShip = allTwoShip;
     }
 
@@ -136,6 +158,7 @@ public class Game {
     }
 
     public void setAllThreeShips(int allThreeShip) {
+        this.countThreeShip = allThreeShip;
         this.allThreeShip = allThreeShip;
     }
 
@@ -144,6 +167,7 @@ public class Game {
     }
 
     public void setAllFourShips(int allFourShip) {
+        this.countFourShip = allFourShip;
         this.allFourShip = allFourShip;
     }
 
@@ -152,6 +176,7 @@ public class Game {
     }
 
     public void setAllFiveShips(int allFiveShip) {
+        this.countFiveShip = allFiveShip;
         this.allFiveShip = allFiveShip;
     }
 
@@ -647,7 +672,7 @@ public class Game {
         }
     }
 
-    protected void determineNumberOfShips() {
+    public void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
         int placesForShip = 0;
@@ -684,70 +709,76 @@ public class Game {
                     addShip(5, 1);
                     break;
             }
-            return;
+
+        } else {
+
+
+            // Prozente je nach Spielgröße
+            if (size >= 9 && size <= 15) {
+
+                percentTwo = 15;
+                percentThree = 30;
+                percentFour = 35;
+                percentFive = 20;
+            } else if (size >= 16 && size <= 21) {
+
+                percentTwo = 5;
+                percentThree = 35;
+                percentFour = 35;
+                percentFive = 25;
+            } else if (size >= 22) {
+                percentTwo = 0;
+                percentThree = 20;
+                percentFour = 40;
+                percentFive = 40;
+            }
+
+
+            // Zweier Shiffe vergeben
+            placesForShip = (places * percentTwo) / 100;
+            addShip(2, placesForShip / 2);
+            placesRemaining += placesForShip % 2;
+
+            // Dreier Shiffe vergeben
+            placesForShip = (places * percentThree) / 100;
+            addShip(3, placesForShip / 3);
+            placesRemaining += placesForShip % 3;
+
+            // Vierer Shiffe vergeben
+            placesForShip = (places * percentFour) / 100;
+            addShip(4, placesForShip / 4);
+            placesRemaining += placesForShip % 4;
+
+            // Fünfer Shiffe vergeben
+            placesForShip = (places * percentFive) / 100;
+            addShip(5, placesForShip / 5);
+            placesRemaining += placesForShip % 5;
+
+            // Restliche Plätze vergeben Reihenfolge 3 -> 4 -> 5 -> 2
+            while (placesRemaining > 2) {
+                if ((placesRemaining - 3) >= 0) {
+                    placesRemaining -= 3;
+                    addShip(3, 1);
+                }
+                if ((placesRemaining - 4) >= 0) {
+                    placesRemaining -= 4;
+                    addShip(4, 1);
+                }
+                if ((placesRemaining - 5) >= 0) {
+                    placesRemaining -= 5;
+                    addShip(5, 1);
+                }
+                if ((placesRemaining - 2) >= 0) {
+                    placesRemaining -= 2;
+                    addShip(2, 1);
+                }
+            }
         }
 
-
-        // Prozente je nach Spielgröße
-        if (size >= 9 && size <= 15) {
-
-            percentTwo = 15;
-            percentThree = 30;
-            percentFour = 35;
-            percentFive = 20;
-        } else if (size >= 16 && size <= 21) {
-
-            percentTwo = 5;
-            percentThree = 35;
-            percentFour = 35;
-            percentFive = 25;
-        } else if (size >= 22) {
-            percentTwo = 0;
-            percentThree = 20;
-            percentFour = 40;
-            percentFive = 40;
-        }
-
-
-        // Zweier Shiffe vergeben
-        placesForShip = (places * percentTwo) / 100;
-        addShip(2, placesForShip / 2);
-        placesRemaining += placesForShip % 2;
-
-        // Dreier Shiffe vergeben
-        placesForShip = (places * percentThree) / 100;
-        addShip(3, placesForShip / 3);
-        placesRemaining += placesForShip % 3;
-
-        // Vierer Shiffe vergeben
-        placesForShip = (places * percentFour) / 100;
-        addShip(4, placesForShip / 4);
-        placesRemaining += placesForShip % 4;
-
-        // Fünfer Shiffe vergeben
-        placesForShip = (places * percentFive) / 100;
-        addShip(5, placesForShip / 5);
-        placesRemaining += placesForShip % 5;
-
-        // Restliche Plätze vergeben Reihenfolge 3 -> 4 -> 5 -> 2
-        while (placesRemaining > 2) {
-            if ((placesRemaining - 3) >= 0) {
-                placesRemaining -= 3;
-                addShip(3, 1);
-            }
-            if ((placesRemaining - 4) >= 0) {
-                placesRemaining -= 4;
-                addShip(4, 1);
-            }
-            if ((placesRemaining - 5) >= 0) {
-                placesRemaining -= 5;
-                addShip(5, 1);
-            }
-            if ((placesRemaining - 2) >= 0) {
-                placesRemaining -= 2;
-                addShip(2, 1);
-            }
-        }
+        setAllTwoShips(countTwoShip);
+        setAllThreeShips(countThreeShip);
+        setAllFourShips(countFourShip);
+        setAllFiveShips(countFiveShip);
 
     }
 
