@@ -30,15 +30,14 @@ public abstract class Network {
     }
 */
 
-    private static void closeNetwork(Network player){
+    private static void closeNetwork(Network player) {
         try {
-            if (player instanceof Server){
+            if (player instanceof Server) {
                 ((Server) player).getServerSocket().close();
-            }
-            else if (player instanceof Client){
+            } else if (player instanceof Client) {
                 ((Client) player).getClient().close();
             }
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -47,4 +46,10 @@ public abstract class Network {
     public static Network getPlayer() {
         return player;
     }
+
+    public abstract int shoot(int x, int y);
+
+    public abstract int[] getShotAt();
+
+    public abstract void sendAnswer(int nr);
 }

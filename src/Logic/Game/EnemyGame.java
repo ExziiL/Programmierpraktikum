@@ -32,8 +32,7 @@ public class EnemyGame extends Game {
         int y = index / size;
         boolean hit = false;
 
-        if (gameMode == LogicConstants.GameMode.OFFLINE) {
-
+        if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.OFFLINE) {
             hit = player.shoot(x, y);
 
             if (hit && isShipDestroyed(x, y)) {
@@ -53,9 +52,8 @@ public class EnemyGame extends Game {
                         break;
                 }
             }
-        }else{
-
-            // TODO auf Feld des Gegners schießen
+        } else if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE){
+            player.shoot(x,y);
         }
 
         return hit;

@@ -1,8 +1,10 @@
 package Logic.main;
 
 import Logic.Game.Game;
+import Network.*;
 
 public class OnlinePlayer extends Player {
+    private Network player = Network.getPlayer();
 
     public OnlinePlayer(Game game) {
         super(game);
@@ -10,9 +12,32 @@ public class OnlinePlayer extends Player {
 
     @Override
     public boolean takeTurn() {
+        int[] xy = player.getShotAt();
 
-        //TODO Warten auf Antwort des Gegners
+        if (game.getgameElementStatus(xy[0], xy[1]) == LogicConstants.GameElementStatus.MISS) {
+            player.sendAnswer(0);
+        } else if (game.getgameElementStatus(xy[0], xy[1]) == LogicConstants.GameElementStatus.SHIP) {
+            player.sendAnswer(1);
+        } else if (game.isShipDestroyed(xy[0], xy[1])) {
+            player.sendAnswer(2);
+        }
         return false;
     }
 
+    @Override
+    public boolean shoot(int x, int y) {
+        int isHit = player.shoot(x, y);
+
+        if (isHit == 0) {
+            game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
+        } else if (isHit == 1) {
+            game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
+        } else if (isHit == 2) {
+            //TODO setShipDestroyed
+        } else {
+            game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
+        }
+
+        return false;
+    }
 }

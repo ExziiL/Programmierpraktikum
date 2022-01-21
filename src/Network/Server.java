@@ -27,7 +27,7 @@ public class Server extends Network {
             String line = inStream.readLine();
             System.out.println(line);
             return true;
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -48,11 +48,12 @@ public class Server extends Network {
         return serverSocket;
     }
 
+
     public void sendInitialisation(int size, int[] ships) {
         try {
             String stringships = "";
 
-            outStream.write(String.format("%s%n","size " + size));
+            outStream.write(String.format("%s%n", "size " + size));
             outStream.flush();
             get_Message = inStream.readLine();
             if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
@@ -60,26 +61,71 @@ public class Server extends Network {
             for (int ship : ships) {
                 stringships = stringships + ship;
             }
-            outStream.write(String.format("%s%n","ships " + stringships));
+            outStream.write(String.format("%s%n", "ships " + stringships));
             outStream.flush();
             get_Message = inStream.readLine();
             if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void sendREADY(){
+    public void sendREADY() {
         try {
-            outStream.write(String.format("%s%n","ready"));
+            outStream.write(String.format("%s%n", "ready"));
             outStream.flush();
 
             get_Message = inStream.readLine();
             if (!(get_Message.equals("ready"))) sendREADY();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public int shoot(int x, int y) {
+        try {
+            outStream.write(String.format("%s%n", "shoot " + x + " " + y));
+            outStream.flush();
+
+            get_Message = inStream.readLine();
+            switch (get_Message) {
+                case "answer 0":
+                    return 0;
+                case "answer 1":
+                    return 1;
+                case "answer 2":
+                    return 2;
+                default:
+                    wait(10);
+                    shoot(x, y);
+                    break;
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public int[] getShotAt() {
+
+        int[] xy = new int[0];
+        String[] shot;
+        get_Message = inStream.readLine();
+
+        if (get_Message.startsWith("short")) {
+            shot = get_Message.split("");
+            xy[0] = Integer.parseInt(shot[1]);
+            xy[1] = Integer.parseInt(shot[2]);
+        }
+        return xy;
+    }
+
+    @Override
+    public void sendAnswer(int nr) {
+
     }
 }

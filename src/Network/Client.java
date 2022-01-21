@@ -61,4 +61,37 @@ public class Client extends Network {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public int shoot(int x, int y) {
+        try {
+            outStream.write(String.format("%s%n", "shoot " + x + " " + y));
+            outStream.flush();
+
+            message = inStream.readLine();
+            if (message.equals("answer 0")){
+                return 0;
+            } else if (message.equals("answer 1")){
+                return 1;
+            } else if (message.equals("answer 2")){
+                return 2;
+            }else {
+                wait(10);
+                shoot(x, y);
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public int[] getShotAt() {
+        return new int[0];
+    }
+
+    @Override
+    public void sendAnswer(int nr) {
+
+    }
 }
