@@ -101,7 +101,7 @@
       </HBox>
       <HBox layoutX="60.0" layoutY="311.0" prefHeight="300.0" prefWidth="300.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="50.0">
          <children>
-            <GridPane fx:id="tableGamer">
+            <GridPane fx:id="tableGamer" prefHeight="300.0" prefWidth="300.0">
             </GridPane>
          </children>
       </HBox>
