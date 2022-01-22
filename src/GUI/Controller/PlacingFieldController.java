@@ -73,7 +73,7 @@ public class PlacingFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gridBuilder = new GridPaneBuilder(size);
+        gridBuilder = new GridPaneBuilder(size, null, null, null, null);
         table = gridBuilder.createTablePlacingField(table, this);
 
         // Event choose Ship

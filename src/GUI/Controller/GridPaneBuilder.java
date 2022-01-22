@@ -21,22 +21,51 @@ public class GridPaneBuilder {
     private ObservableList<Node> numberLables;
     private ObservableList<Node> letterLables;
 
-    private final Image error = new Image("assets/neueSchiffe/error2.png");
-    private final Image water = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
-    private final Image water20 = new Image("assets/neueSchiffe20/20waterGreen.png");
-    private final Image water75 = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2_small.png");
-    private final Image close = new Image("assets/neueSchiffe/schiff_border.png");
+    private Image error;
+    private Image water;
+    private Image close;
+    private Image ship;
 
-    private final Image twoShipFirstHor = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
-    private final Image twoShipSecondHor = new Image("assets/neueSchiffe/schiff_schwarz.png");
-    private final Image twoShipFirstVert = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
-    private final Image twoShipSecondVert = new Image("assets/neueSchiffe/2er_unten_vertikal.png");
+    private Image error25 = new Image("assets/newShips/error25.png");
+    private Image error60 = new Image("assets/newShips/error60.png");
+    private Image error100 = new Image("assets/newShips/error100.png");
 
-    private final Image shipBlack = new Image("assets/neueSchiffe/schiff_schwarz.png");
+    private Image water25 = new Image("assets/newShips/water25.png");
+    private Image water60 = new Image("assets/newShips20/water60.png");
+    private Image water100 = new Image("assets/newShips/water100.png");
 
-    public GridPaneBuilder(int size) {
+    private Image close25 = new Image("assets/newShips/nearShip25.png");
+    private Image close60 = new Image("assets/newShips/nearShip60.png");
+    private Image close100 = new Image("assets/newShips/nearShip100.png");
+
+    private Image ship25 = new Image("assets/newShips/ship25.png");
+    private Image ship60 = new Image("assets/newShips/ship60.png");
+    private Image ship100 = new Image("assets/newShips/ship100.png");
+
+    public GridPaneBuilder(int size, Image water, Image ship, Image close, Image error) {
         this.size = size;
+        this.water = water;
+        this.ship = ship;
+        this.close = close;
+        this.error = error;
+
         // ! Größen im Konstruktor setzen
+        if (size <= 13) {
+            this.water = water25;
+            this.ship = ship25;
+            this.close = close25;
+            this.error = error25;
+        } else if (size <= 25 && size > 13) {
+            this.water = water60;
+            this.ship = ship60;
+            this.close = close60;
+            this.error = error60;
+        } else {
+            this.water = water100;
+            this.ship = ship100;
+            this.close = close100;
+            this.error = error100;
+        }
     }
 
     public GridPane createTableEnemy(GridPane tableEnemy, PlayingFieldController controller) {
@@ -332,7 +361,7 @@ public class GridPaneBuilder {
 
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(shipBlack);
+            image.setImage(ship);
             // if (isHorizontal) {
             // switch (shipSize) {
             // case 2:
@@ -381,13 +410,13 @@ public class GridPaneBuilder {
     private void setPictureWater(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(water75);
+            image.setImage(water);
         }
     }
 
     private ImageView getImageViewOfPane(Pane pane) {
         ObservableList<Node> children = pane.getChildren();
-        ImageView pictureOfShip = null;
+        // ImageView pictureOfShip = null;
         for (Node e : children) {
             if (e.getClass() == ImageView.class) {
                 return (ImageView) e;

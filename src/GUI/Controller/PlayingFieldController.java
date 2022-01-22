@@ -40,7 +40,7 @@ public class PlayingFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gridBuilder = new GridPaneBuilder(size);
+        gridBuilder = new GridPaneBuilder(size, null, null, null, null);
 
         Game.logicController.createEnemyGame();
 
@@ -55,7 +55,6 @@ public class PlayingFieldController implements Initializable {
         setLabelsShipDestroyed();
 
     }
-
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
@@ -92,7 +91,6 @@ public class PlayingFieldController implements Initializable {
         gridBuilder.redrawGamerPanes();
     }
 
-
     public void checkMyWin() {
 
         if (Game.logicController.allEnemyShipsDestroyed()) {
@@ -105,7 +103,6 @@ public class PlayingFieldController implements Initializable {
         }
 
     }
-
 
     public void checkEnemyWin() {
 
