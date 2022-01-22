@@ -1,6 +1,8 @@
 package GUI.Controller;
 
 import GUI.Game;
+import Logic.main.LogicConstants;
+import Network.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
@@ -27,6 +29,10 @@ public class PlayingFieldController implements Initializable {
     private Text labelFour;
     @FXML
     private Text labelFive;
+    @FXML
+    private Text statusText;
+    //endregion
+
 
     private int maxCountTwoShips = 0;
     private int maxCountThreeShips = 0;
@@ -36,6 +42,8 @@ public class PlayingFieldController implements Initializable {
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
+
+    private boolean yourTurn = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -53,8 +61,18 @@ public class PlayingFieldController implements Initializable {
 
         gridBuilder.redrawGamerPanes();
         gridBuilder.redrawEnemyPanes();
-    }
 
+        if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+            Network netplay = Network.getNetplay();
+            if (netplay instanceof Server) {
+                yourTurn = true;
+            } else if (netplay instanceof Client) {
+                yourTurn = false;
+            }
+        } else {
+            yourTurn = true;
+        }
+    }
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
@@ -71,14 +89,19 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void yourTurn(int index) {
-        boolean isHit = Game.logicController.shoot(index);
-        gridBuilder.redrawEnemyPanes();
+        if (yourTurn) {
+            boolean isHit = Game.logicController.shoot(index);
+            gridBuilder.redrawEnemyPanes();
 
-        checkMyWin();
+            checkMyWin();
 
-        if (isHit == false) {
+            yourTurn = isHit;
+        } else {
+
+
             enemyTurn();
             checkEnemyWin();
+            yourTurn = true;
         }
     }
 
@@ -130,4 +153,15 @@ public class PlayingFieldController implements Initializable {
         labelFour.setText(currentFourShip + " / " + maxCountFourShips);
         labelFive.setText(currentFiveShip + " / " + maxCountFiveShips);
     }
+
+    private void setStatusText(){
+        if(yourTurn){
+
+        }else{
+
+        }
+
+    }
+
+
 }
