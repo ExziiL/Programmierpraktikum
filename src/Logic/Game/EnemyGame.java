@@ -56,7 +56,7 @@ public class EnemyGame extends Game {
             hit = player.shoot(x, y);
             int shipSize = isShipDestroyed(x, y);
             if (hit && shipSize > 0) {
-                switch (shipSize){
+                switch (shipSize) {
                     case 1:
                         break;
                     case 2:

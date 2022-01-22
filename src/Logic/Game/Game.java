@@ -478,22 +478,23 @@ public class Game {
 
                 for (int i = 0; i < size; i++) {
                     for (int j = 0; j < size; j++) {
-                        // if all Parts of the Ship are HIT return true
-                        if (countTrys == ship.getSize()) {
-                            return 1;
-                        }
+
                         // if a Pane is found which isn't destroyed return false
                         // else if Pane is HIT and the same Ship then increase Counter
                         if (gameField[i][j].getStatus() == GameElementStatus.SHIP && gameField[i][j].getShip() == ship) {
                             return 0;
                         } else if (gameField[i][j].getStatus() == GameElementStatus.HIT && gameField[i][j].getShip() == ship) {
                             countTrys++;
+
+                            // if all Parts of the Ship are HIT return true
+                            if (countTrys == ship.getSize()) {
+                                return 1;
+                            }
                         }
                     }
                 }
             }
-        }
-        else if (GUI.Game.logicController.getGameMode() == GameMode.ONLINE) {
+        } else if (GUI.Game.logicController.getGameMode() == GameMode.ONLINE) {
             int i = x, j = y;
             int richtung = 0;
             while (gameField[i][j].getStatus() == GameElementStatus.HIT) {

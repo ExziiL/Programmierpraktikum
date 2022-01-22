@@ -2,7 +2,10 @@ package GUI.Controller;
 
 import GUI.Game;
 import Logic.main.LogicConstants;
-import Network.*;
+import Network.Client;
+import Network.Network;
+import Network.Server;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
@@ -33,7 +36,7 @@ public class PlayingFieldController implements Initializable {
     private Text statusText;
     //endregion
 
-
+    //region Variables
     private int maxCountTwoShips = 0;
     private int maxCountThreeShips = 0;
     private int maxCountFourShips = 0;
@@ -42,8 +45,8 @@ public class PlayingFieldController implements Initializable {
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
-
     private boolean yourTurn = false;
+    //endregion
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -89,19 +92,48 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void yourTurn(int index) {
-        if (yourTurn) {
-            boolean isHit = Game.logicController.shoot(index);
-            gridBuilder.redrawEnemyPanes();
 
-            checkMyWin();
+        setStatusText();
 
-            yourTurn = isHit;
-        } else {
+        try {
+            Thread t = new Thread(() -> {
+                if (yourTurn) {
+                    yourTurn = Game.logicController.shoot(index);
+                }
+
+                Platform.runLater(() -> {
+                    checkMyWin();
+                    setStatusText();
+                    gridBuilder.redrawEnemyPanes();
+                });
+
+            });
+            t.start();
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
-            enemyTurn();
-            checkEnemyWin();
-            yourTurn = true;
+        try {
+            Thread t = new Thread(() -> {
+                setStatusText();
+
+                if (!yourTurn) {
+                    enemyTurn();
+                }
+
+                Platform.runLater(() -> {
+                    yourTurn = true;
+                    setStatusText();
+                    checkEnemyWin();
+                });
+            });
+
+            t.start();
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -110,8 +142,9 @@ public class PlayingFieldController implements Initializable {
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
         } while (isEnemyTurn);
-
-        gridBuilder.redrawGamerPanes();
+        Platform.runLater(() -> {
+            gridBuilder.redrawGamerPanes();
+        });
     }
 
 
@@ -154,14 +187,13 @@ public class PlayingFieldController implements Initializable {
         labelFive.setText(currentFiveShip + " / " + maxCountFiveShips);
     }
 
-    private void setStatusText(){
-        if(yourTurn){
-
-        }else{
-
-        }
-
+    private void setStatusText() {
+        Platform.runLater(() -> {
+            if (yourTurn) {
+                statusText.setText("Du bist dran!");
+            } else {
+                statusText.setText("Warte auf Gegner");
+            }
+        });
     }
-
-
 }
