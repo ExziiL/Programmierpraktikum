@@ -71,7 +71,7 @@ public class PlacingFieldController implements Initializable {
     private Pane currentPane;
     private ObservableList shipPartsList;
     private Thread networkThread;
-    private Network netplay = Network.getNetplay();
+    private Network netplay;
 
     private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
     private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
@@ -201,6 +201,7 @@ public class PlacingFieldController implements Initializable {
         Game.logicController.initDocument();
         if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
             networkThread = new Thread(() -> {
+                netplay = Network.getNetplay();
                 if (netplay instanceof Server) {
                     ((Server) netplay).sendREADY();
                 }

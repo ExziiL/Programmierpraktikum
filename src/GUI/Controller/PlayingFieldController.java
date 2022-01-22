@@ -14,12 +14,11 @@ import java.util.ResourceBundle;
 
 public class PlayingFieldController implements Initializable {
 
+    //region FXML-Variables
     @FXML
     private GridPane tableEnemy;
-
     @FXML
     private GridPane tableGamer;
-
     @FXML
     private Text labelTwo;
     @FXML

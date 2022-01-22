@@ -25,6 +25,7 @@ public class OnlinePlayer extends Player {
 
     @Override
     public boolean shoot(int x, int y) {
+        netplay = Network.getNetplay();
         int isHit = netplay.shoot(x, y);
 
         if (isHit == 0) {

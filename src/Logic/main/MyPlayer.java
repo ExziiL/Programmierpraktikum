@@ -1,6 +1,7 @@
 package Logic.main;
 
 import Logic.Game.Game;
+import Network.Network;
 
 public class MyPlayer extends Player {
 
@@ -22,6 +23,7 @@ public class MyPlayer extends Player {
         if (game.getGameMode() == LogicConstants.GameMode.OFFLINE) {
             return super.shoot(x, y);
         } else if (game.getGameMode() == LogicConstants.GameMode.ONLINE) {
+            netplay = Network.getNetplay();
             int isHit = netplay.shoot(x, y);
 
             if (isHit == 0) {

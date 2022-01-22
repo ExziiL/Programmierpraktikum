@@ -8,7 +8,7 @@ import Network.Network;
 public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob determineNumberofShips ausgeführt wird oder nicht
 
     protected Game game;
-    protected Network netplay = Network.getNetplay();
+    protected Network netplay;
 
     public Player(Game game) {
         this.game = game;
