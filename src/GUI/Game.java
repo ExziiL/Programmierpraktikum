@@ -83,8 +83,8 @@ public class Game extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle(GUIConstants.titel);
+        Game.primaryStage = primaryStage;
+        Game.primaryStage.setTitle(GUIConstants.titel);
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();

@@ -23,47 +23,51 @@ public class GridPaneBuilder {
 
     private Image error;
     private Image water;
-    private Image close;
+    private Image nearShip;
     private Image ship;
 
-    private Image error25 = new Image("assets/newShips/error25.png");
-    private Image error60 = new Image("assets/newShips/error60.png");
-    private Image error100 = new Image("assets/newShips/error100.png");
+    public Image error25 = new Image("assets/newShips/error25.png");
+    public Image error60 = new Image("assets/newShips/error60.png");
+    public Image error100 = new Image("assets/newShips/error100.png");
 
-    private Image water25 = new Image("assets/newShips/water25.png");
-    private Image water60 = new Image("assets/newShips20/water60.png");
-    private Image water100 = new Image("assets/newShips/water100.png");
+    public Image water25 = new Image("assets/newShips/water25.png");
+    public Image water60 = new Image("assets/newShips20/water60.png");
+    public Image water100 = new Image("assets/newShips/water100.png");
 
-    private Image close25 = new Image("assets/newShips/nearShip25.png");
-    private Image close60 = new Image("assets/newShips/nearShip60.png");
-    private Image close100 = new Image("assets/newShips/nearShip100.png");
+    public Image nearShip25 = new Image("assets/newShips/nearShip25.png");
+    public Image nearShip60 = new Image("assets/newShips/nearShip60.png");
+    public Image nearShip100 = new Image("assets/newShips/nearShip100.png");
 
-    private Image ship25 = new Image("assets/newShips/ship25.png");
-    private Image ship60 = new Image("assets/newShips/ship60.png");
-    private Image ship100 = new Image("assets/newShips/ship100.png");
+    public Image ship25 = new Image("assets/newShips/ship25.png");
+    public Image ship60 = new Image("assets/newShips/ship60.png");
+    public Image ship100 = new Image("assets/newShips/ship100.png");
 
-    public GridPaneBuilder(int size, Image water, Image ship, Image close, Image error) {
+    Image test = new Image("assets/newShips/error25.png");
+
+    private Image shipTest = new Image(getClass().getResource("/assets/newShips/ship100.png").toExternalForm());
+
+    public GridPaneBuilder(int size, Image water, Image ship, Image nearShip, Image error) {
         this.size = size;
         this.water = water;
         this.ship = ship;
-        this.close = close;
+        this.nearShip = nearShip;
         this.error = error;
 
         // ! Größen im Konstruktor setzen
         if (size <= 13) {
             this.water = water25;
             this.ship = ship25;
-            this.close = close25;
+            this.nearShip = nearShip25;
             this.error = error25;
         } else if (size <= 25 && size > 13) {
             this.water = water60;
             this.ship = ship60;
-            this.close = close60;
+            this.nearShip = nearShip60;
             this.error = error60;
         } else {
             this.water = water100;
             this.ship = ship100;
-            this.close = close100;
+            this.nearShip = nearShip100;
             this.error = error100;
         }
     }
@@ -403,7 +407,7 @@ public class GridPaneBuilder {
     private void setPictureClose(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(close);
+            image.setImage(nearShip);
         }
     }
 

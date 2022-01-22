@@ -71,9 +71,15 @@ public class PlacingFieldController implements Initializable {
     private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
     private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
 
+    private Image error;
+    private Image water;
+    private Image nearShip;
+    private Image ship;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gridBuilder = new GridPaneBuilder(size, null, null, null, null);
+        gridBuilder = new GridPaneBuilder(size, water, ship, nearShip, error);
+
         table = gridBuilder.createTablePlacingField(table, this);
 
         // Event choose Ship
