@@ -29,7 +29,7 @@ public class OnlinePlayer extends Player {
 
         if (isHit == 0) {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
-        } else if (isHit == 1) {
+        } else if (isHit == 1 || isHit == 2) {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
             return true;
         } else {
