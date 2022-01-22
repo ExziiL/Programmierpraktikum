@@ -26,25 +26,20 @@ public class GridPaneBuilder {
     private Image nearShip;
     private Image ship;
 
-    public Image error25 = new Image("assets/newShips/error25.png");
-    public Image error60 = new Image("assets/newShips/error60.png");
-    public Image error100 = new Image("assets/newShips/error100.png");
+    public Image error25;
+    public Image error60;
+    public Image error100;
+    public Image water25;
+    public Image water60;
+    public Image water100;
 
-    public Image water25 = new Image("assets/newShips/water25.png");
-    public Image water60 = new Image("assets/newShips20/water60.png");
-    public Image water100 = new Image("assets/newShips/water100.png");
+    public Image nearShip25;
+    public Image nearShip60;
+    public Image nearShip100;
 
-    public Image nearShip25 = new Image("assets/newShips/nearShip25.png");
-    public Image nearShip60 = new Image("assets/newShips/nearShip60.png");
-    public Image nearShip100 = new Image("assets/newShips/nearShip100.png");
-
-    public Image ship25 = new Image("assets/newShips/ship25.png");
-    public Image ship60 = new Image("assets/newShips/ship60.png");
-    public Image ship100 = new Image("assets/newShips/ship100.png");
-
-    Image test = new Image("assets/newShips/error25.png");
-
-    private Image shipTest = new Image(getClass().getResource("/assets/newShips/ship100.png").toExternalForm());
+    public Image ship25;
+    public Image ship60;
+    public Image ship100;
 
     public GridPaneBuilder(int size, Image water, Image ship, Image nearShip, Image error) {
         this.size = size;
@@ -53,13 +48,30 @@ public class GridPaneBuilder {
         this.nearShip = nearShip;
         this.error = error;
 
+        error25 = new Image("assets/newShips/error25.png");
+        error60 = new Image("assets/newShips/error60.png");
+        error100 = new Image("assets/newShips/error100.png");
+
+        water25 = new Image("assets/newShips/water25.png");
+        water60 = new Image("assets/newShips/water60.png");
+        water100 = new Image("assets/newShips/water100.png");
+
+        nearShip25 = new Image("assets/newShips/nearShip25.png");
+        nearShip60 = new Image("assets/newShips/nearShip60.png");
+        nearShip100 = new Image("assets/newShips/nearShip100.png");
+
+        ship25 = new Image("assets/newShips/ship25.png");
+        ship60 = new Image("assets/newShips/ship60.png");
+        ship100 = new Image("assets/newShips/ship100.png");
+
+
         // ! Größen im Konstruktor setzen
-        if (size <= 13) {
+        if (size >= 25) {
             this.water = water25;
             this.ship = ship25;
             this.nearShip = nearShip25;
             this.error = error25;
-        } else if (size <= 25 && size > 13) {
+        } else if (size >= 13) {
             this.water = water60;
             this.ship = ship60;
             this.nearShip = nearShip60;
