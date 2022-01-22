@@ -53,7 +53,7 @@ public class GameSettingsController {
 
     private int gameSize;
     private Thread networkThread = null;
-    protected Network player;
+    protected Network netplay;
     private boolean connected;
 
 
@@ -86,16 +86,16 @@ public class GameSettingsController {
                     if (Client.isSelected()) {
                         selectClient();
                         networkThread = new Thread(() -> {
-                            player = Network.chooseNetworkTyp(false);
+                            netplay = Network.chooseNetworkTyp(false);
                         });
                         networkThread.start();
                     } else {
                         selectServer();
                         networkThread = new Thread(() -> {
-                            player = Network.chooseNetworkTyp(true);
-                            if (!(player instanceof Server)) selectServer();
+                            netplay = Network.chooseNetworkTyp(true);
+                            if (!(netplay instanceof Server)) selectServer();
                             Platform.runLater(() -> {
-                                Ip.setText(((Server) player).getIp());
+                                Ip.setText(((Server) netplay).getIp());
                             });
                         });
                         networkThread.start();
@@ -113,8 +113,8 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    player = Network.chooseNetworkTyp(false);
-                    if (!(player instanceof Client)) selectClient();
+                    netplay = Network.chooseNetworkTyp(false);
+                    if (!(netplay instanceof Client)) selectClient();
                 });
                 networkThread.start();
             }
@@ -128,10 +128,10 @@ public class GameSettingsController {
                     networkThread.stop();
                 }
                 networkThread = new Thread(() -> {
-                    player = Network.chooseNetworkTyp(true);
-                    if (!(player instanceof Server)) selectServer();
+                    netplay = Network.chooseNetworkTyp(true);
+                    if (!(netplay instanceof Server)) selectServer();
                     Platform.runLater(() -> {
-                        Ip.setText(((Server) player).getIp());
+                        Ip.setText(((Server) netplay).getIp());
                     });
                 });
                 networkThread.start();
@@ -147,10 +147,10 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 networkThread = new Thread(() -> {
-                    if (player instanceof Server) {
-                        connected = ((Server) player).createServer();
-                    } else if (player instanceof Client) {
-                        connected = ((Client) player).createClient(Ip.getText());
+                    if (netplay instanceof Server) {
+                        connected = ((Server) netplay).createServer();
+                    } else if (netplay instanceof Client) {
+                        connected = ((Client) netplay).createClient(Ip.getText());
                     }
                     Platform.runLater(() -> {
                         if (connected) {
@@ -187,23 +187,22 @@ public class GameSettingsController {
         } else if (gameMode.getValue().equals("Online")) {
             networkThread = new Thread(() -> {
                 int[] i = {2, 2, 2, 3, 3, 4};
-                if (player instanceof Server) {
-                    ((Server) player).sendInitialisation(Game.logicController.getGameSize(), i);
+                if (netplay instanceof Server) {
+                    ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), i);
                 }
-                if (player instanceof Client) {
-                    ((Client) player).receiveMessage();
+                if (netplay instanceof Client) {
+                    ((Client) netplay).receiveMessage();
                 }
             });
             networkThread.start();
-            Game.showPlacingFieldWindow();
         } else {
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.setGameSize(gameSize);
-            Game.logicController.setGameMode(determineGameMode());
             Game.logicController.determineNumberOfShips();
-            Game.showPlacingFieldWindow();
         }
+        Game.logicController.setGameMode(determineGameMode());
+        Game.showPlacingFieldWindow();
     }
 
     private void setLabelTexts() {
@@ -215,7 +214,7 @@ public class GameSettingsController {
 
     private LogicConstants.GameMode determineGameMode() {
 
-        if (gameMode.getSelectionModel().equals("Online")) {
+        if (gameMode.getValue().equals("Online")) {
             return LogicConstants.GameMode.ONLINE;
         }
         return LogicConstants.GameMode.OFFLINE;

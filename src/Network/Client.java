@@ -53,7 +53,7 @@ public class Client extends Network {
                 outStream.write(String.format("%s%n", "ready"));
                 outStream.flush();
             } else {
-                wait(1000);
+                wait(100);
                 receiveMessage(); //TODO zeige "auf Server warten" + in Plingfield großes Label flipfloppen auf Warte und du bist dran
             }
         } catch (IOException |
@@ -64,6 +64,7 @@ public class Client extends Network {
 
     @Override
     public int shoot(int x, int y) {
+        System.out.println( "shoot " + x + " " + y);
         try {
             outStream.write(String.format("%s%n", "shoot " + x + " " + y));
             outStream.flush();
@@ -87,11 +88,32 @@ public class Client extends Network {
 
     @Override
     public int[] getShotAt() {
-        return new int[0];
+        int[] xy = new int[0];
+        String[] shot;
+        try {
+            message = inStream.readLine();
+            System.out.println(message);
+            if (message.startsWith("short")) {
+                shot = message.split("");
+                xy[0] = Integer.parseInt(shot[1]);
+                xy[1] = Integer.parseInt(shot[2]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return xy;
     }
 
     @Override
     public void sendAnswer(int nr) {
-
+        String message = "answer ";
+        System.out.println("answer " + nr);
+        try {
+            outStream.write(message + nr);
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

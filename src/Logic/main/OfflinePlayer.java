@@ -77,7 +77,7 @@ public class OfflinePlayer extends Player {
                 // Delete shots in Opposite Direction because there can not be a ship
                 deleteOppositeDirection(shipHitted, nextHit.direction);
 
-                if (!game.isShipDestroyed(shipHitted.x, shipHitted.y)) {
+                if (game.isShipDestroyed(shipHitted.x, shipHitted.y) == 0) {
                     // Add Shot in same direction
                     addShootDirection(shootInDirection, nextHit.direction);
                 }

@@ -468,31 +468,58 @@ public class Game {
         return false;
     }
 
-    public boolean isShipDestroyed(int x, int y) {
+    public int isShipDestroyed(int x, int y) {
         int countTrys = 0;
 
-        if (gameField[x][y].getStatus() == GameElementStatus.SHIP || gameField[x][y].getStatus() == GameElementStatus.HIT) {
+        if (GUI.Game.logicController.getGameMode() == GameMode.OFFLINE) {
+            if (gameField[x][y].getStatus() == GameElementStatus.SHIP || gameField[x][y].getStatus() == GameElementStatus.HIT) {
 
-            Ship ship = gameField[x][y].getShip();
+                Ship ship = gameField[x][y].getShip();
 
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    // if all Parts of the Ship are HIT return true
-                    if (countTrys == ship.getSize()) {
-                        return true;
-                    }
-                    // if a Pane is found which isn't destroyed return false
-                    // else if Pane is HIT and the same Ship then increase Counter
-                    if (gameField[i][j].getStatus() == GameElementStatus.SHIP && gameField[i][j].getShip() == ship) {
-                        return false;
-                    } else if (gameField[i][j].getStatus() == GameElementStatus.HIT && gameField[i][j].getShip() == ship) {
-                        countTrys++;
+                for (int i = 0; i < size; i++) {
+                    for (int j = 0; j < size; j++) {
+                        // if all Parts of the Ship are HIT return true
+                        if (countTrys == ship.getSize()) {
+                            return 1;
+                        }
+                        // if a Pane is found which isn't destroyed return false
+                        // else if Pane is HIT and the same Ship then increase Counter
+                        if (gameField[i][j].getStatus() == GameElementStatus.SHIP && gameField[i][j].getShip() == ship) {
+                            return 0;
+                        } else if (gameField[i][j].getStatus() == GameElementStatus.HIT && gameField[i][j].getShip() == ship) {
+                            countTrys++;
+                        }
                     }
                 }
             }
         }
-        return false;
+        else if (GUI.Game.logicController.getGameMode() == GameMode.ONLINE) {
+            int i = x, j = y;
+            int richtung = 0;
+            while (gameField[i][j].getStatus() == GameElementStatus.HIT) {
+                if (gameField[i + 1][j].getStatus() == GameElementStatus.HIT && richtung == 0) {
+                    i++;
+                    countTrys++;
+                } else if (gameField[i][j + 1].getStatus() == GameElementStatus.HIT && richtung == 1) {
+                    j++;
+                    countTrys++;
+                } else if (gameField[i - 1][j].getStatus() == GameElementStatus.HIT && richtung == 2) {
+                    i--;
+                    countTrys++;
+                } else if (gameField[i][j - 1].getStatus() == GameElementStatus.HIT && richtung == 3) {
+                    j--;
+                    countTrys++;
+                } else if (gameField[i][j].getStatus() == GameElementStatus.MISS) {
+                    richtung++;
+                } else {
+                    break;
+                }
+            }
+            return countTrys;
+        }
+        return 0;
     }
+
 
     public boolean allShipDestroyed() {
         for (int i = 0; i < size; i++) {

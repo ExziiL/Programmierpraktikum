@@ -3,11 +3,12 @@ package Logic.main;
 //import java.awt.*;
 
 import Logic.Game.Game;
+import Network.Network;
 
 public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob determineNumberofShips ausgeführt wird oder nicht
 
     protected Game game;
-
+    protected Network netplay = Network.getNetplay();
 
     public Player(Game game) {
         this.game = game;

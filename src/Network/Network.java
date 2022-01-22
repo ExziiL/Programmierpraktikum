@@ -1,22 +1,19 @@
 package Network;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
 import java.io.IOException;
-import java.net.Socket;
 
 public abstract class Network {
     protected static int port = 50000;
     protected static boolean connected;
-    protected static Network player;
+    protected static Network netplay;
 
     public static Network chooseNetworkTyp(boolean server) {
         if (server) {
-            player = new Server();
+            netplay = new Server();
         } else {
-            player = new Client();
+            netplay = new Client();
         }
-        return player;
+        return netplay;
     }
 
   /*  public static Network chooseNetworkTyp(boolean server, Network player) {
@@ -43,8 +40,8 @@ public abstract class Network {
 
     }
 
-    public static Network getPlayer() {
-        return player;
+    public static Network getNetplay() {
+        return netplay;
     }
 
     public abstract int shoot(int x, int y);

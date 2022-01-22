@@ -87,6 +87,7 @@ public class Server extends Network {
     @Override
     public int shoot(int x, int y) {
         try {
+            System.out.println("shoot " + x + " " + y);
             outStream.write(String.format("%s%n", "shoot " + x + " " + y));
             outStream.flush();
 
@@ -111,21 +112,32 @@ public class Server extends Network {
 
     @Override
     public int[] getShotAt() {
-
         int[] xy = new int[0];
         String[] shot;
-        get_Message = inStream.readLine();
-
-        if (get_Message.startsWith("short")) {
-            shot = get_Message.split("");
-            xy[0] = Integer.parseInt(shot[1]);
-            xy[1] = Integer.parseInt(shot[2]);
+        try {
+            get_Message = inStream.readLine();
+            System.out.println(get_Message);
+            if (get_Message.startsWith("short")) {
+                shot = get_Message.split("");
+                xy[0] = Integer.parseInt(shot[1]);
+                xy[1] = Integer.parseInt(shot[2]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
         return xy;
     }
 
     @Override
     public void sendAnswer(int nr) {
-
+        String message = "answer ";
+        System.out.println("answer " + nr);
+        try {
+            outStream.write(message + nr);
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
