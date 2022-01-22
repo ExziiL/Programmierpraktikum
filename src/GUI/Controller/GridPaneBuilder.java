@@ -23,6 +23,8 @@ public class GridPaneBuilder {
 
     private final Image error = new Image("assets/neueSchiffe/error2.png");
     private final Image water = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2.png");
+    private final Image water20 = new Image("assets/neueSchiffe20/20waterGreen.png");
+    private final Image water75 = new Image("assets/neueSchiffe/smallNormalGridPaneBorder2_small.png");
     private final Image close = new Image("assets/neueSchiffe/schiff_border.png");
 
     private final Image twoShipFirstHor = new Image("assets/neueSchiffe/2er_oben_vertikal2_small.png");
@@ -34,13 +36,14 @@ public class GridPaneBuilder {
 
     public GridPaneBuilder(int size) {
         this.size = size;
+        // ! Größen im Konstruktor setzen
     }
 
     public GridPane createTableEnemy(GridPane tableEnemy, PlayingFieldController controller) {
 
         int column = 0;
         int row = 0;
-        double paneSize = tableEnemy.getPrefHeight()/Game.logicController.getGameSize();
+        double paneSize = tableEnemy.getPrefHeight() / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < size * size; i++) {
@@ -83,7 +86,7 @@ public class GridPaneBuilder {
             pane.setPrefHeight(paneSize);
             pane.setId("field" + row + column);
             tableEnemy.add(pane, column++, row);
-            //}
+            // }
             // Events
             pane.setOnMouseEntered(event -> setColorPane(pane, GUIConstants.colorShotMarker));
 
@@ -108,7 +111,7 @@ public class GridPaneBuilder {
 
         int column = 0;
         int row = 0;
-        double paneSize = tableGamer.getPrefHeight()/Game.logicController.getGameSize();
+        double paneSize = tableGamer.getPrefHeight() / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size) * (size); i++) {
@@ -166,7 +169,7 @@ public class GridPaneBuilder {
     public GridPane createTablePlacingField(GridPane tablePlacing, PlacingFieldController controller) {
         int column = 0;
         int row = 0;
-        double paneSize = tablePlacing.getPrefHeight()/Game.logicController.getGameSize();
+        double paneSize = tablePlacing.getPrefHeight() / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size + 1) * (size + 1); i++) {
@@ -301,22 +304,6 @@ public class GridPaneBuilder {
         return noPlacingAllowed;
     }
 
-    private double setPaneSize() {
-        double height;
-        if (size < 9) {
-            height = 85;
-        } else if (size < 15) {
-            height = 40;
-        } else if (size < 20) {
-            height = 31;
-        } else if (size < 25) {
-            height = 24;
-        } else {
-            height = 19;
-        }
-        return height;
-    }
-
     private void redrawPanes(ObservableList list) {
         for (int j = 0; j < list.size(); j++) {
             Pane pane = (Pane) list.get(j);
@@ -346,33 +333,33 @@ public class GridPaneBuilder {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
             image.setImage(shipBlack);
-            //  if (isHorizontal) {
-            //      switch (shipSize) {
-            //          case 2:
-            //              switch (part) {
-            //                  case 1:
-            //                      image.setImage(twoShipFirstHor);
-            //                      break;
-            //                  case 2:
-            //                      image.setImage(twoShipSecondHor);
-            //                      break;
-            //              }
-            //              break;
-            //      }
-            //  } else {
-            //      switch (shipSize) {
-            //          case 2:
-            //              switch (part) {
-            //                  case 1:
-            //                      image.setImage(twoShipFirstVert);
-            //                      break;
-            //                  case 2:
-            //                      image.setImage(twoShipSecondVert);
-            //                      break;
-            //              }
-            //              break;
-            //      }
-            //  }
+            // if (isHorizontal) {
+            // switch (shipSize) {
+            // case 2:
+            // switch (part) {
+            // case 1:
+            // image.setImage(twoShipFirstHor);
+            // break;
+            // case 2:
+            // image.setImage(twoShipSecondHor);
+            // break;
+            // }
+            // break;
+            // }
+            // } else {
+            // switch (shipSize) {
+            // case 2:
+            // switch (part) {
+            // case 1:
+            // image.setImage(twoShipFirstVert);
+            // break;
+            // case 2:
+            // image.setImage(twoShipSecondVert);
+            // break;
+            // }
+            // break;
+            // }
+            // }
         }
 
     }
@@ -394,7 +381,7 @@ public class GridPaneBuilder {
     private void setPictureWater(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(water);
+            image.setImage(water75);
         }
     }
 

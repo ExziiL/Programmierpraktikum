@@ -334,7 +334,6 @@ public class PlacingFieldController implements Initializable {
         HBox box = getBoxShip(currentShip);
         if (box != null) {
             box.setStyle("-fx-border-color: none ;");
-
             // imageView.setImage(null);
             // imageView.setImage(new Image("@../../assets/Schiffe/2er_seite_grau.jpg"));
         }

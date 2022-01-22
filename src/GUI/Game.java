@@ -123,7 +123,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                                       Pane contentPane) {
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -148,10 +148,10 @@ public class Game extends Application {
 
             contentPane.setPrefWidth(newWidth / scaleFactor);
             contentPane.setPrefHeight(newHeight / scaleFactor);
-            //  } else {
-            //      contentPane.setPrefWidth(Math.max(initWidth, newWidth));
-            //      contentPane.setPrefHeight(Math.max(initHeight, newHeight));
-            //  }
+            // } else {
+            // contentPane.setPrefWidth(Math.max(initWidth, newWidth));
+            // contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+            // }
         }
     }
 

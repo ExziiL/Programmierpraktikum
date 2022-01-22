@@ -92,16 +92,16 @@
             </HBox>
          </children>
       </VBox>
-      <HBox layoutX="415.0" layoutY="121.0" prefHeight="450.0" prefWidth="450.0" style="-fx-border-color: black;" AnchorPane.rightAnchor="50.0">
+      <HBox layoutX="415.0" layoutY="121.0" prefHeight="450.0" prefWidth="450.0" style="-fx-border-color: grey;" AnchorPane.rightAnchor="50.0">
          <children>
             <GridPane fx:id="tableEnemy" prefHeight="450.0" prefWidth="450.0">
 
             </GridPane>
          </children>
       </HBox>
-      <HBox layoutX="60.0" layoutY="311.0" prefHeight="300.0" prefWidth="300.0" style="-fx-border-color: black;" AnchorPane.leftAnchor="50.0">
+      <HBox layoutX="60.0" layoutY="311.0" prefHeight="300.0" prefWidth="300.0" style="-fx-border-color: grey;" AnchorPane.leftAnchor="50.0">
          <children>
-            <GridPane fx:id="tableGamer">
+            <GridPane fx:id="tableGamer" prefHeight="300.0" prefWidth="300.0">
             </GridPane>
          </children>
       </HBox>
