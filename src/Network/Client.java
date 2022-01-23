@@ -10,6 +10,8 @@ public class Client extends Network {
     private static Writer outStream;
     private static Socket client;
     private String message;
+    private int[] xy = new int[2];
+    private String[] shot;
 
     public boolean createClient(String ip) {
         try {
@@ -64,23 +66,20 @@ public class Client extends Network {
 
     @Override
     public int shoot(int x, int y) {
-        System.out.println( "shoot " + x + " " + y);
+        System.out.println("shoot " + x + " " + y);
         try {
             outStream.write(String.format("%s%n", "shoot " + x + " " + y));
             outStream.flush();
 
             message = inStream.readLine();
-            if (message.equals("answer 0")){
+            if (message.equals("answer 0")) {
                 return 0;
-            } else if (message.equals("answer 1")){
+            } else if (message.equals("answer 1")) {
                 return 1;
-            } else if (message.equals("answer 2")){
+            } else if (message.equals("answer 2")) {
                 return 2;
-            }else {
-                wait(10);
-                shoot(x, y);
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return -1;
@@ -88,16 +87,18 @@ public class Client extends Network {
 
     @Override
     public int[] getShotAt() {
-        int[] xy = new int[0];
-        String[] shot;
+        message = null;
         try {
+            // Wartet auf Message
             message = inStream.readLine();
+
             System.out.println(message);
-            if (message.startsWith("short")) {
-                shot = message.split("");
+            if (message.startsWith("shoot")) {
+                shot = message.split(" ");
                 xy[0] = Integer.parseInt(shot[1]);
                 xy[1] = Integer.parseInt(shot[2]);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -110,7 +111,7 @@ public class Client extends Network {
         String message = "answer ";
         System.out.println("answer " + nr);
         try {
-            outStream.write(message + nr);
+            outStream.write(String.format("%s%n",message + nr));
             outStream.flush();
         } catch (IOException e) {
             e.printStackTrace();

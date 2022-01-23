@@ -12,6 +12,8 @@ public class Server extends Network {
     private static ServerSocket serverSocket;
     private static Socket server;
     private String get_Message;
+    private int[] xy = new int[2];
+    private String[] shot;
 
     //public Server createServer() throws IOException {
     public boolean createServer() {
@@ -91,7 +93,9 @@ public class Server extends Network {
             outStream.write(String.format("%s%n", "shoot " + x + " " + y));
             outStream.flush();
 
+            //Warten auf Message
             get_Message = inStream.readLine();
+            System.out.println(get_Message);
             switch (get_Message) {
                 case "answer 0":
                     return 0;
@@ -112,13 +116,11 @@ public class Server extends Network {
 
     @Override
     public int[] getShotAt() {
-        int[] xy = new int[0];
-        String[] shot;
         try {
             get_Message = inStream.readLine();
             System.out.println(get_Message);
             if (get_Message.startsWith("short")) {
-                shot = get_Message.split("");
+                shot = get_Message.split(" ");
                 xy[0] = Integer.parseInt(shot[1]);
                 xy[1] = Integer.parseInt(shot[2]);
             }
@@ -134,7 +136,7 @@ public class Server extends Network {
         String message = "answer ";
         System.out.println("answer " + nr);
         try {
-            outStream.write(message + nr);
+            outStream.write(String.format("%s%n",message + nr));
             outStream.flush();
         } catch (IOException e) {
             e.printStackTrace();

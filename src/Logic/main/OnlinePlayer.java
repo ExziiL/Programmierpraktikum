@@ -11,11 +11,15 @@ public class OnlinePlayer extends Player {
 
     @Override
     public boolean takeTurn() {
+        netplay = Network.getNetplay();
+        System.out.println(netplay);
         int[] xy = netplay.getShotAt();
 
-        if (game.getgameElementStatus(xy[0], xy[1]) == LogicConstants.GameElementStatus.MISS) {
+
+        LogicConstants.GameElementStatus status = game.getgameElementStatus(xy[0],xy[1]);
+        if (status == LogicConstants.GameElementStatus.WATER || status == LogicConstants.GameElementStatus.CLOSE) {
             netplay.sendAnswer(0);
-        } else if (game.getgameElementStatus(xy[0], xy[1]) == LogicConstants.GameElementStatus.SHIP) {
+        } else if (status == LogicConstants.GameElementStatus.SHIP) {
             netplay.sendAnswer(1);
         } else if (game.isShipDestroyed(xy[0], xy[1]) > 0) {
             netplay.sendAnswer(2);

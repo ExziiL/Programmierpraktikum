@@ -71,10 +71,16 @@ public class PlayingFieldController implements Initializable {
                 yourTurn = true;
             } else if (netplay instanceof Client) {
                 yourTurn = false;
+                Thread t = new Thread(()->{
+                    enemyTurn();
+                    yourTurn = true;
+                });
+                t.start();
             }
         } else {
             yourTurn = true;
         }
+        setStatusText();
     }
 
     @FXML
@@ -83,7 +89,7 @@ public class PlayingFieldController implements Initializable {
         Game.showPopUpSaveGame();
     }
 
-    public void handleSetOnMouseClicked(MouseEvent event, int index) {
+    public void handleSetOnMouseClicked(MouseEvent event, int index) { //TODO enemyTurn darf nicht erst wenn geclickt wurde aufgerufen werden, muss automatisch aufgerufen werden
 
         if (event.getButton() == MouseButton.PRIMARY) {
             yourTurn(index);
@@ -92,50 +98,28 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void yourTurn(int index) {
-
-        setStatusText();
-
-        try {
-            Thread t = new Thread(() -> {
-                if (yourTurn) {
-                    yourTurn = Game.logicController.shoot(index);
-                }
-
+        Thread t = new Thread(() -> {
+            if (yourTurn) {
+                yourTurn = Game.logicController.shoot(index);
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();
                     gridBuilder.redrawEnemyPanes();
                 });
-
-            });
-            t.start();
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            Thread t = new Thread(() -> {
-                setStatusText();
-
-                if (!yourTurn) {
-                    enemyTurn();
-                }
-
+            }
+            if (!yourTurn) {
+                enemyTurn();
                 Platform.runLater(() -> {
                     yourTurn = true;
                     setStatusText();
                     checkEnemyWin();
                 });
-            });
-
-            t.start();
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+            }
+        });
+        t.start();
     }
+
+
 
     public void enemyTurn() {
         boolean isEnemyTurn = false;
