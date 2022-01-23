@@ -71,7 +71,7 @@ public class PlayingFieldController implements Initializable {
                 yourTurn = true;
             } else if (netplay instanceof Client) {
                 yourTurn = false;
-                Thread t = new Thread(()->{
+                Thread t = new Thread(() -> {
                     enemyTurn();
                     yourTurn = true;
                 });
@@ -93,7 +93,7 @@ public class PlayingFieldController implements Initializable {
 
         if (event.getButton() == MouseButton.PRIMARY) {
             yourTurn(index);
-            setLabelsShipDestroyed();
+
         }
     }
 
@@ -104,6 +104,7 @@ public class PlayingFieldController implements Initializable {
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();
+                    setLabelsShipDestroyed();
                     gridBuilder.redrawEnemyPanes();
                 });
             }
@@ -118,7 +119,6 @@ public class PlayingFieldController implements Initializable {
         });
         t.start();
     }
-
 
 
     public void enemyTurn() {

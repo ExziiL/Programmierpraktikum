@@ -1,7 +1,6 @@
 package Logic.main;
 
 import Logic.DocumentWriter.DocumentWriter;
-import GUI.Game;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.Game.MyGame;
@@ -351,10 +350,14 @@ public class Controller {
 
     }
 
-    public void save() {
+    public void save(boolean isInitiator) {
 
         writer.writeGameMode(myGame.getGameMode());
         writer.writeShipsDestroyed(enemyGame.getDestroyedShips(2), enemyGame.getDestroyedShips(3), enemyGame.getDestroyedShips(4), enemyGame.getDestroyedShips(5));
+
+        if (myGame.getGameMode() == GameMode.ONLINE) {
+            writer.writeInitiator(isInitiator);
+        }
         writer.writeEnemyGameField(enemyGame.getGameField());
         writer.writeMyGameField(myGame.getGameField());
         writer.save();
@@ -405,6 +408,9 @@ public class Controller {
                     myGame.setAllFourShips(Integer.parseInt(split[3]));
                     myGame.setAllFiveShips(Integer.parseInt(split[4]));
                     break;
+                case "init":
+                    //TODO initiator set
+                    break;
                 case "MyGame":
 
                     x = Integer.parseInt(split[1]);
@@ -427,6 +433,7 @@ public class Controller {
                         enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]), Integer.parseInt(split[6]));
                     }
                     break;
+
             }
         }
     }

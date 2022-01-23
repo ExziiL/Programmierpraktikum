@@ -57,6 +57,8 @@ public class PlacingFieldController implements Initializable {
     @FXML
     private Text textRightClick;
     @FXML
+    private Text textHeader;
+    @FXML
     private ImageView Next;
     @FXML
     private ImageView imageView;
@@ -148,6 +150,12 @@ public class PlacingFieldController implements Initializable {
 
         textLeftClick.setText(GUIConstants.explTextPlacingLeft);
         textRightClick.setText(GUIConstants.explTextPlacingRight);
+
+        if (Game.logicController.getCountTwoShip() != 0) {
+            chooseShip(2);
+        } else {
+            chooseShip(3);
+        }
 
         gridBuilder.redrawPlacingField();
     }
@@ -394,6 +402,13 @@ public class PlacingFieldController implements Initializable {
     private void setEditMode(boolean mode) {
         editMode = mode;
         EditShips.setSelected(mode);
+        if (mode) {
+            textHeader.setText("Schiffe bearbeiten");
+
+        } else {
+            textHeader.setText("Schiffe platzieren");
+        }
+
         setHelpTexts();
     }
 

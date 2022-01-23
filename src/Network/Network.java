@@ -6,12 +6,16 @@ public abstract class Network {
     protected static int port = 50000;
     protected static boolean connected;
     protected static Network netplay;
+    protected static boolean isServer;
+
 
     public static Network chooseNetworkTyp(boolean server) {
         if (server) {
             netplay = new Server();
+            isServer = true;
         } else {
             netplay = new Client();
+            isServer = false;
         }
         return netplay;
     }
@@ -26,6 +30,10 @@ public abstract class Network {
         return player;
     }
 */
+
+    public static boolean isServer() {
+        return isServer;
+    }
 
     private static void closeNetwork(Network player) {
         try {

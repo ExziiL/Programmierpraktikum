@@ -2,6 +2,7 @@ package GUI.Controller;
 
 import GUI.Game;
 import Logic.DocumentWriter.DocumentWriter;
+import Logic.main.LogicConstants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -97,7 +98,11 @@ public class LoadGameController implements Initializable {
             Game.logicController.setWriter(new DocumentWriter(s));
             Game.logicController.loadGame();
 
-            Game.showPlayingFieldWindow();
+            if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+                Game.showPopUpReconnect();
+            } else {
+                Game.showPlayingFieldWindow();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

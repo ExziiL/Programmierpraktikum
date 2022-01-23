@@ -128,6 +128,10 @@ public class DocumentWriter {
         }
     }
 
+    public void writeInitiator(boolean isInitiator) {
+        text.add("init " + isInitiator);
+    }
+
     public ArrayList<String> load() {
 
         ArrayList<String> output = new ArrayList<>();
