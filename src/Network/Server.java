@@ -119,7 +119,7 @@ public class Server extends Network {
         try {
             get_Message = inStream.readLine();
             System.out.println(get_Message);
-            if (get_Message.startsWith("short")) {
+            if (get_Message.startsWith("shoot")) {
                 shot = get_Message.split(" ");
                 xy[0] = Integer.parseInt(shot[1]);
                 xy[1] = Integer.parseInt(shot[2]);
