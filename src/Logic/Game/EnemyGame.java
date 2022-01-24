@@ -24,9 +24,9 @@ public class EnemyGame extends Game {
         player = new MyPlayer(this, name);
         if (gameMode == LogicConstants.GameMode.OFFLINE) {
             determineNumberOfShips();
-            setDestroyedShips();
             shuffleShips();
         }
+        setDestroyedShips();
     }
 
     public int shoot(int index) {
