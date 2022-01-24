@@ -4,11 +4,13 @@ import GUI.GUIConstants;
 import GUI.Game;
 import Utilities.HoverState;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -133,7 +135,15 @@ public class GridPaneBuilder {
             tableEnemy.add(pane, column++, row);
             // }
             // Events
-            pane.setOnMouseEntered(event -> setColorPane(pane, GUIConstants.colorShotMarker));
+            pane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (controller.isYourTurn()){
+                        setColorPane(pane, GUIConstants.colorShotMarker);
+                    }
+                }
+            });
+
 
             pane.setOnMouseExited(event -> redrawEnemyPanes());
 

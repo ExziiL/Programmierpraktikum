@@ -157,6 +157,10 @@ public class PlayingFieldController implements Initializable {
         }
     }
 
+    public boolean isYourTurn() {
+        return yourTurn;
+    }
+
     private void setLabelsShipDestroyed() {
 
         int currentTwoShip = Game.logicController.getDestroyedShips(2);
