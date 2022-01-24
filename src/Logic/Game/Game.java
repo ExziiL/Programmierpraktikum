@@ -498,25 +498,25 @@ public class Game {
             int i = x, j = y;
             int richtung = 0;
             while (gameField[i][j].getStatus() == GameElementStatus.HIT) {
-                if ((x % size) != 0 && richtung == 0 && gameField[i - 1][j].getStatus() == GameElementStatus.HIT) {
+                if (inGameField(i - 1, j) && richtung == 0 && gameField[i - 1][j].getStatus() == GameElementStatus.HIT) {
                     i++;
                     countTrys++;
-                } else if ((y % size) != 0 && richtung == 1 && gameField[i][j - 1].getStatus() == GameElementStatus.HIT) {
+                } else if (inGameField(i, j - 1) && richtung == 1 && gameField[i][j - 1].getStatus() == GameElementStatus.HIT) {
                     j--;
                     countTrys++;
-                } else if ((x % size) != (size - 1) && richtung == 2 && gameField[i + 1][j].getStatus() == GameElementStatus.HIT) {
+                } else if (inGameField(i + 1, j) && richtung == 2 && gameField[i + 1][j].getStatus() == GameElementStatus.HIT) {
                     i--;
                     countTrys++;
-                } else if ((y % size) != (size - 1) && richtung == 3 && gameField[i][j + 1].getStatus() == GameElementStatus.HIT) {
+                } else if (inGameField(i, j + 1) && richtung == 3 && gameField[i][j + 1].getStatus() == GameElementStatus.HIT) {
                     j++;
                     countTrys++;
-                } else if ((x % size) != 0 && gameField[i - 1][j].getStatus() == GameElementStatus.MISS) {
+                } else if (inGameField(i - 1, j) && gameField[i - 1][j].getStatus() == GameElementStatus.MISS) {
                     richtung++;
-                } else if ((y % size) != 0 && gameField[i][j - 1].getStatus() == GameElementStatus.MISS) {
+                } else if (inGameField(i, j - 1) && gameField[i][j - 1].getStatus() == GameElementStatus.MISS) {
                     richtung++;
-                } else if ((x % size) != (size - 1) && gameField[i + 1][j].getStatus() == GameElementStatus.MISS) {
+                } else if (inGameField(i + 1, j) && gameField[i + 1][j].getStatus() == GameElementStatus.MISS) {
                     richtung++;
-                } else if ((y % size) != (size - 1) && gameField[i][j + 1].getStatus() == GameElementStatus.MISS) {
+                } else if (inGameField(i, j + 1) && gameField[i][j + 1].getStatus() == GameElementStatus.MISS) {
                     richtung++;
                 } else break;
             }

@@ -3,6 +3,7 @@ package Logic.Game;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.main.LogicConstants;
 import Logic.main.MyPlayer;
+import Network.Network;
 
 public class EnemyGame extends Game {
 
@@ -21,10 +22,11 @@ public class EnemyGame extends Game {
         }
 
         player = new MyPlayer(this, name);
-
-        determineNumberOfShips();
-        setDestroyedShips();
-        shuffleShips();
+        if (gameMode == LogicConstants.GameMode.OFFLINE) {
+            determineNumberOfShips();
+            setDestroyedShips();
+            shuffleShips();
+        }
     }
 
     public boolean shoot(int index) {
