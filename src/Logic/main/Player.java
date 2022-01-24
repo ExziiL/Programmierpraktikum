@@ -14,18 +14,17 @@ public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob de
         this.game = game;
     }
 
-    public boolean shoot(int x, int y) {
+    public int shoot(int x, int y) {
 
         if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.SHIP) {
 
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
-            return true;
+            return 1;
         } else if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.HIT) {
-
-            return true;
+            return 1;
         } else {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
-            return false;
+            return 0;
 
         }
     }

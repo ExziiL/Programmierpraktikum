@@ -16,7 +16,7 @@ public class OnlinePlayer extends Player {
         int[] xy = netplay.getShotAt();
 
 
-        LogicConstants.GameElementStatus status = game.getgameElementStatus(xy[0],xy[1]);
+        LogicConstants.GameElementStatus status = game.getgameElementStatus(xy[0], xy[1]);
         if (status == LogicConstants.GameElementStatus.WATER || status == LogicConstants.GameElementStatus.CLOSE) {
             netplay.sendAnswer(0);
         } else if (status == LogicConstants.GameElementStatus.SHIP) {
@@ -30,18 +30,21 @@ public class OnlinePlayer extends Player {
     }
 
     @Override
-    public boolean shoot(int x, int y) {
+    public int shoot(int x, int y) {
         netplay = Network.getNetplay();
         int isHit = netplay.shoot(x, y);
 
         if (isHit == 0) {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
-        } else if (isHit == 1 || isHit == 2) {
+        } else if (isHit == 1) {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
-            return true;
+            return 1;
+        } else if (isHit == 2) {
+            game.setgameElementStatus(x,y, LogicConstants.GameElementStatus.HIT);
+            return 2;
         } else {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
         }
-        return false;
+        return 0;
     }
 }

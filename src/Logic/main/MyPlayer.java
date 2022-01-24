@@ -19,7 +19,7 @@ public class MyPlayer extends Player {
     }
 
     @Override
-    public boolean shoot(int x, int y) {
+    public int shoot(int x, int y) {
         if (game.getGameMode() == LogicConstants.GameMode.OFFLINE) {
             return super.shoot(x, y);
         } else if (game.getGameMode() == LogicConstants.GameMode.ONLINE) {
@@ -30,11 +30,14 @@ public class MyPlayer extends Player {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
             } else if (isHit == 1 || isHit == 2) {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
-                return true;
-            } else {
+            }else if (isHit == 2){
+                game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
+            }
+            else {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
             }
+            return isHit;
         }
-        return false;
+        return 0;
     }
 }

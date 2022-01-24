@@ -29,15 +29,15 @@ public class EnemyGame extends Game {
         }
     }
 
-    public boolean shoot(int index) {
+    public int shoot(int index) {
         int x = index % size;
         int y = index / size;
-        boolean hit = false;
+        int hit = 0;
 
         if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.OFFLINE) {
             hit = player.shoot(x, y);
 
-            if (hit && isShipDestroyed(x, y) > 0) {
+            if (hit == 2 && isShipDestroyed(x, y) > 0) {
 
                 switch (getShipSize(x, y)) {
                     case 2:
@@ -57,7 +57,7 @@ public class EnemyGame extends Game {
         } else if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
             hit = player.shoot(x, y);
             int shipSize = isShipDestroyed(x, y);
-            if (hit && shipSize > 0) {
+            if (hit > 0 && shipSize > 0) {
                 switch (shipSize) {
                     case 1:
                         break;
@@ -76,7 +76,6 @@ public class EnemyGame extends Game {
                 }
             }
         }
-
         return hit;
     }
 
