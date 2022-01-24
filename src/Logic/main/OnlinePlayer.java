@@ -1,7 +1,7 @@
 package Logic.main;
 
 import Logic.Game.Game;
-import Network.*;
+import Network.Network;
 
 public class OnlinePlayer extends Player {
 
@@ -20,11 +20,15 @@ public class OnlinePlayer extends Player {
         if (status == LogicConstants.GameElementStatus.WATER || status == LogicConstants.GameElementStatus.CLOSE) {
             netplay.sendAnswer(0);
         } else if (status == LogicConstants.GameElementStatus.SHIP) {
-            netplay.sendAnswer(1);
-            return true;
-        } else if (game.isShipDestroyed(xy[0], xy[1]) > 0) {
-            netplay.sendAnswer(2);
-            return true;
+            game.setgameElementStatus(xy[0], xy[1], LogicConstants.GameElementStatus.HIT);
+
+            if (game.isShipDestroyed(xy[0], xy[1]) > 0) {
+                netplay.sendAnswer(2);
+                return true;
+            } else {
+                netplay.sendAnswer(1);
+                return true;
+            }
         }
         return false;
     }
@@ -40,7 +44,7 @@ public class OnlinePlayer extends Player {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
             return 1;
         } else if (isHit == 2) {
-            game.setgameElementStatus(x,y, LogicConstants.GameElementStatus.HIT);
+            game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
             return 2;
         } else {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
