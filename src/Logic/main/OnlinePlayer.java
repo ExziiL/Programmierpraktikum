@@ -21,8 +21,10 @@ public class OnlinePlayer extends Player {
             netplay.sendAnswer(0);
         } else if (status == LogicConstants.GameElementStatus.SHIP) {
             netplay.sendAnswer(1);
+            return true;
         } else if (game.isShipDestroyed(xy[0], xy[1]) > 0) {
             netplay.sendAnswer(2);
+            return true;
         }
         return false;
     }

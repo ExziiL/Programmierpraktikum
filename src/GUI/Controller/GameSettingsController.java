@@ -198,10 +198,10 @@ public class GameSettingsController {
         } else {
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());
-            Game.logicController.setGameSize(gameSize);
             Game.logicController.determineNumberOfShips();
         }
         Game.logicController.setGameMode(determineGameMode());
+        Game.logicController.setGameSize(gameSize);
         Game.showPlacingFieldWindow();
     }
 

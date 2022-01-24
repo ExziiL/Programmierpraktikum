@@ -494,27 +494,31 @@ public class Game {
                     }
                 }
             }
-        } else if (GUI.Game.logicController.getGameMode() == GameMode.ONLINE) {
+        } else if (GUI.Game.logicController.getGameMode() == GameMode.ONLINE) { //TODO Verkürzen!!!!
             int i = x, j = y;
             int richtung = 0;
             while (gameField[i][j].getStatus() == GameElementStatus.HIT) {
-                if (gameField[i + 1][j].getStatus() == GameElementStatus.HIT && richtung == 0) {
+                if ((x % size) != 0 && richtung == 0 && gameField[i - 1][j].getStatus() == GameElementStatus.HIT) {
                     i++;
                     countTrys++;
-                } else if (gameField[i][j + 1].getStatus() == GameElementStatus.HIT && richtung == 1) {
-                    j++;
-                    countTrys++;
-                } else if (gameField[i - 1][j].getStatus() == GameElementStatus.HIT && richtung == 2) {
-                    i--;
-                    countTrys++;
-                } else if (gameField[i][j - 1].getStatus() == GameElementStatus.HIT && richtung == 3) {
+                } else if ((y % size) != 0 && richtung == 1 && gameField[i][j - 1].getStatus() == GameElementStatus.HIT) {
                     j--;
                     countTrys++;
-                } else if (gameField[i][j].getStatus() == GameElementStatus.MISS) {
+                } else if ((x % size) != (size - 1) && richtung == 2 && gameField[i + 1][j].getStatus() == GameElementStatus.HIT) {
+                    i--;
+                    countTrys++;
+                } else if ((y % size) != (size - 1) && richtung == 3 && gameField[i][j + 1].getStatus() == GameElementStatus.HIT) {
+                    j++;
+                    countTrys++;
+                } else if ((x % size) != 0 && gameField[i - 1][j].getStatus() == GameElementStatus.MISS) {
                     richtung++;
-                } else {
-                    break;
-                }
+                } else if ((y % size) != 0 && gameField[i][j - 1].getStatus() == GameElementStatus.MISS) {
+                    richtung++;
+                } else if ((x % size) != (size - 1) && gameField[i + 1][j].getStatus() == GameElementStatus.MISS) {
+                    richtung++;
+                } else if ((y % size) != (size - 1) && gameField[i][j + 1].getStatus() == GameElementStatus.MISS) {
+                    richtung++;
+                } else break;
             }
             return countTrys;
         }

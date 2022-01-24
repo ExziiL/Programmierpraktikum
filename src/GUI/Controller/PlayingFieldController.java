@@ -126,10 +126,10 @@ public class PlayingFieldController implements Initializable {
         boolean isEnemyTurn = false;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
+            Platform.runLater(() -> {
+                gridBuilder.redrawGamerPanes();
+            });
         } while (isEnemyTurn);
-        Platform.runLater(() -> {
-            gridBuilder.redrawGamerPanes();
-        });
     }
 
 
