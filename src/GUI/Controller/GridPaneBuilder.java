@@ -32,11 +32,9 @@ public class GridPaneBuilder {
     public Image water25;
     public Image water60;
     public Image water100;
-
     public Image nearShip25;
     public Image nearShip60;
     public Image nearShip100;
-
     public Image ship25;
     public Image ship60;
     public Image ship100;
@@ -63,7 +61,6 @@ public class GridPaneBuilder {
         ship25 = new Image("assets/newShips/ship25.png");
         ship60 = new Image("assets/newShips/ship60.png");
         ship100 = new Image("assets/newShips/ship100.png");
-
 
         // ! Größen im Konstruktor setzen
         if (size >= 25) {

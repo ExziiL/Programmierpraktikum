@@ -11,8 +11,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@LoadGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoadGameController">
    <children>
-      <ListView fx:id="saveGames" layoutX="100.0" layoutY="113.0" prefHeight="375.0" prefWidth="600.0" />
-      <HBox alignment="CENTER" layoutY="3.0" prefHeight="110.0" prefWidth="800.0">
+      <ListView fx:id="saveGames" layoutX="150.0" layoutY="113.0" prefHeight="450.0" prefWidth="600.0" />
+      <HBox alignment="CENTER" layoutX="6.0" prefHeight="110.0" prefWidth="900.0">
          <children>
             <Label text="Deine Spielstände">
                <font>

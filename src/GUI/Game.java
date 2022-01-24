@@ -25,7 +25,11 @@ public class Game extends Application {
     private static BorderPane mainLayout;
     private static Stage primaryStage;
     private static Popup PopupSaveGame;
+
+    public static String endGameText;
+
     private static final Stage dialogSaveGame = new Stage();
+    private static final Stage dialogStartNewGame = new Stage();
 
     public static void main(String[] args) {
         launch(args);
@@ -76,9 +80,15 @@ public class Game extends Application {
     }
 
     public static void showPopUpSaveGame() {
-
         dialogSaveGame.show();
+    }
 
+    public static void showStartNewGame() {
+        System.out.println("End Game Text davor: " + endGameText);
+        endGameText = "Sie haben verloren :(";
+        System.out.println("End Game Text danach: " + endGameText);
+        // dialogStartNewGame.
+        dialogStartNewGame.show();
     }
 
     @Override
@@ -89,6 +99,7 @@ public class Game extends Application {
         showStartGameWindow();
         logicController = new Controller();
         buildPopUpSaveGame();
+        buildPopUpStartNewGame();
     }
 
     private void showAppWindow() throws IOException {
@@ -156,7 +167,6 @@ public class Game extends Application {
     }
 
     private void buildPopUpSaveGame() {
-
         dialogSaveGame.initOwner(primaryStage);
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie Speichern?");
@@ -209,6 +219,48 @@ public class Game extends Application {
                 dialogSaveGame.hide();
             }
         });
+    }
 
+    private void buildPopUpStartNewGame() {
+        dialogStartNewGame.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(10);
+        // VBox dialogVbox2 = new VBox(10);
+        Label gameText = new Label(endGameText);
+        Label text = new Label("Möchten Sie ein neues Spiel starten?");
+        text.setMinHeight(50);
+        text.setMinWidth(100);
+        HBox dialogHbox = new HBox(20);
+        Button yes = new Button("Ja");
+        Button endGame = new Button("Nein");
+
+        // dialogVbox2.getChildren().addAll(gameText, dialogHbox);
+        dialogVbox.getChildren().addAll(gameText, text, dialogHbox);
+        dialogHbox.getChildren().addAll(yes, endGame);
+        dialogHbox.setAlignment(Pos.CENTER);
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 150);
+
+        dialogStartNewGame.initModality(Modality.APPLICATION_MODAL);
+        dialogStartNewGame.setScene(dialogScene);
+
+        yes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dialogStartNewGame.hide();
+                    // Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        endGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.logicController.exitGame();
+            }
+        });
     }
 }

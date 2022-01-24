@@ -3,6 +3,7 @@ package GUI.Controller;
 import GUI.Game;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -58,7 +59,6 @@ public class PlayingFieldController implements Initializable {
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-
         Game.showPopUpSaveGame();
     }
 
@@ -87,32 +87,22 @@ public class PlayingFieldController implements Initializable {
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
         } while (isEnemyTurn);
-
         gridBuilder.redrawGamerPanes();
     }
 
     public void checkMyWin() {
-
         if (Game.logicController.allEnemyShipsDestroyed()) {
-            try {
-                Game.logicController.setConcratulation(true);
-                Game.showEnd();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Game.logicController.setConcratulation(true);
+            // Game.showEnd();
+            Game.showStartNewGame();
         }
-
     }
 
     public void checkEnemyWin() {
-
         if (Game.logicController.allShipsDestroyed()) {
-            try {
-                Game.logicController.setConcratulation(false);
-                Game.showEnd();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Game.logicController.setConcratulation(false);
+            // Game.showEnd();
+            Game.showStartNewGame();
         }
     }
 

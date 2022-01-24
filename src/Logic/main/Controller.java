@@ -14,12 +14,12 @@ import static Logic.main.LogicConstants.GameElementStatus;
 import static Logic.main.LogicConstants.GameMode;
 
 public class Controller {
-    //region Local Variables
+    // region Local Variables
     private MyGame myGame;
     private EnemyGame enemyGame;
-    private boolean concratulation;
+    private boolean congratulation;
     private DocumentWriter writer;
-    //endregion
+    // endregion
 
     /**
      * Constructor for Controller-Class creates a new Game
@@ -47,7 +47,8 @@ public class Controller {
     }
 
     /**
-     * Sets the wanted Size of the Playingfield. If something goes wrong a FalseFieldSize Exception will be thrown
+     * Sets the wanted Size of the Playingfield. If something goes wrong a
+     * FalseFieldSize Exception will be thrown
      *
      * @param n Playingfield-Size
      */
@@ -126,7 +127,8 @@ public class Controller {
         return myGame.getAllTwoShips();
     }
 
-    public int getAllThreeShips() { return myGame.getAllThreeShips();
+    public int getAllThreeShips() {
+        return myGame.getAllThreeShips();
     }
 
     public int getAllFourShips() {
@@ -258,14 +260,14 @@ public class Controller {
      * @param concratulation
      */
     public void setConcratulation(boolean concratulation) {
-        this.concratulation = concratulation;
+        this.congratulation = concratulation;
     }
 
     public boolean isConcratulation() {
-        return concratulation;
+        return congratulation;
     }
 
-    //region Methods for Enemy-Game
+    // region Methods for Enemy-Game
 
     /**
      * Gets the States of Panes in the Enemy-Playingfield
@@ -321,15 +323,15 @@ public class Controller {
     public int getDestroyedShips(int size) {
         return enemyGame.getDestroyedShips(size);
     }
-    //endregion
+    // endregion
 
-
-    //region Methods for Save Game / Online Game
+    // region Methods for Save Game / Online Game
 
     public void initDocument() {
 
         writer.writeSize(getGameSize());
-        writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(), myGame.getAllFiveShips());
+        writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(),
+                myGame.getAllFiveShips());
     }
 
     public void save() {
@@ -370,12 +372,12 @@ public class Controller {
                     enemyGame.setDestroyedThreeShips(Integer.parseInt(split[3]));
                     enemyGame.setDestroyedTwoShips(Integer.parseInt(split[4]));
                     break;
-               case "ships":
-                   myGame.setAllFiveShips(Integer.parseInt(split[1]));
-                   myGame.setAllFourShips(Integer.parseInt(split[2]));
-                   myGame.setAllThreeShips(Integer.parseInt(split[3]));
-                   myGame.setAllTwoShips(Integer.parseInt(split[4]));
-                   break;
+                case "ships":
+                    myGame.setAllFiveShips(Integer.parseInt(split[1]));
+                    myGame.setAllFourShips(Integer.parseInt(split[2]));
+                    myGame.setAllThreeShips(Integer.parseInt(split[3]));
+                    myGame.setAllTwoShips(Integer.parseInt(split[4]));
+                    break;
                 case "MyGame":
 
                     x = Integer.parseInt(split[1]);
@@ -398,7 +400,6 @@ public class Controller {
         }
     }
 
-
     private GameElementStatus interpretStatusByNumber(int s) {
 
         switch (s) {
@@ -419,5 +420,5 @@ public class Controller {
         }
     }
 
-    //endregion
+    // endregion
 }
