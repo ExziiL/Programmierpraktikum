@@ -299,6 +299,7 @@ public class Controller {
      */
     public void createEnemyGame() {
         enemyGame = new EnemyGame(getGameSize());
+        enemyGame.setGameMode(myGame.getGameMode());
     }
 
     /**
