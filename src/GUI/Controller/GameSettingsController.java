@@ -146,6 +146,8 @@ public class GameSettingsController {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                ErrorMessage.setText("Warte auf Verbindung");
+
                 networkThread = new Thread(() -> {
                     if (netplay instanceof Server) {
                         connected = ((Server) netplay).createServer();
@@ -154,10 +156,10 @@ public class GameSettingsController {
                     }
                     Platform.runLater(() -> {
                         if (connected) {
-                            ErrorMessage.setText("Connected");
+                            ErrorMessage.setText("Verbunden");
                             ErrorMessage.setStyle("-fx-text-fill: green");
                         } else {
-                            ErrorMessage.setText("Connection failed!");
+                            ErrorMessage.setText("Verbindung fehlgeschlagen");
                             ErrorMessage.setStyle("-fx-text-fill: red");
                         }
                     });

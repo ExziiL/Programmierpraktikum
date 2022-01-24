@@ -62,6 +62,8 @@ public class PlacingFieldController implements Initializable {
     private ImageView Next;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Text Message;
 
     private GridPaneBuilder gridBuilder;
     private final int size = Game.logicController.getGameSize();
@@ -209,6 +211,8 @@ public class PlacingFieldController implements Initializable {
     public void handleNext(MouseEvent event) throws IOException {
         Game.logicController.initDocument();
         if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+            Message.setText("Warte auf Spieler");
+            Message.setStyle("-fx-text-fill: green");
             networkThread = new Thread(() -> {
                 netplay = Network.getNetplay();
                 if (netplay instanceof Server) {
