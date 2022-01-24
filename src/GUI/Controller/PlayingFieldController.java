@@ -74,7 +74,9 @@ public class PlayingFieldController implements Initializable {
                 Thread t = new Thread(() -> {
                     enemyTurn();
                     yourTurn = true;
-                    Platform.runLater(()->{setStatusText();});
+                    Platform.runLater(() -> {
+                        setStatusText();
+                    });
                 });
                 t.start();
             }
@@ -126,6 +128,10 @@ public class PlayingFieldController implements Initializable {
         boolean isEnemyTurn = false;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
+
+            if (Game.logicController.allShipsDestroyed()) {
+                isEnemyTurn = false;
+            }
             Platform.runLater(() -> {
                 gridBuilder.redrawGamerPanes();
             });
@@ -175,10 +181,10 @@ public class PlayingFieldController implements Initializable {
     }
 
     private void setStatusText() {
-            if (yourTurn) {
-                statusText.setText("Du bist dran!");
-            } else {
-                statusText.setText("Warte auf Gegner");
-            }
+        if (yourTurn) {
+            statusText.setText("Du bist dran!");
+        } else {
+            statusText.setText("Warte auf Gegner");
+        }
     }
 }
