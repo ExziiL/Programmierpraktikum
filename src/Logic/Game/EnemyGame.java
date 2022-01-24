@@ -3,7 +3,6 @@ package Logic.Game;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.main.LogicConstants;
 import Logic.main.MyPlayer;
-import Network.Network;
 
 public class EnemyGame extends Game {
 
@@ -22,11 +21,7 @@ public class EnemyGame extends Game {
         }
 
         player = new MyPlayer(this, name);
-        if (gameMode == LogicConstants.GameMode.OFFLINE) {
-            determineNumberOfShips();
-            shuffleShips();
-        }
-        setDestroyedShips();
+
     }
 
     public int shoot(int index) {
@@ -37,7 +32,7 @@ public class EnemyGame extends Game {
         if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.OFFLINE) {
             hit = player.shoot(x, y);
 
-            if (hit > 0 && isShipDestroyed(x, y) > 0) {
+            if (hit > 0 && isMyShipDestroyed(x, y)) {
 
                 switch (getShipSize(x, y)) {
                     case 2:
@@ -56,7 +51,7 @@ public class EnemyGame extends Game {
             }
         } else if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
             hit = player.shoot(x, y);
-            int shipSize = isShipDestroyed(x, y);
+            int shipSize = getCountOfDestroyedShip(x, y);
             if (hit == 2 && shipSize > 0) {
                 switch (shipSize) {
                     case 1:
@@ -98,10 +93,10 @@ public class EnemyGame extends Game {
     }
 
     private void setDestroyedShips() {
-        destroyedTwoShips = countTwoShip;
-        destroyedThreeShips = countThreeShip;
-        destroyedFourShips = countFourShip;
-        destroyedFiveShips = countFiveShip;
+        destroyedTwoShips = allTwoShip;
+        destroyedThreeShips = allThreeShip;
+        destroyedFourShips = allFourShip;
+        destroyedFiveShips = allFiveShip;
     }
 
     public void setDestroyedTwoShips(int destroyedTwoShips) {
@@ -118,6 +113,16 @@ public class EnemyGame extends Game {
 
     public void setDestroyedFiveShips(int destroyedFiveShips) {
         this.destroyedFiveShips = destroyedFiveShips;
+    }
+
+    @Override
+    public void setGameMode(LogicConstants.GameMode m) {
+        super.setGameMode(m);
+        if (gameMode == LogicConstants.GameMode.OFFLINE) {
+            determineNumberOfShips();
+            shuffleShips();
+        }
+        setDestroyedShips();
     }
 
     @Override

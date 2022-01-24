@@ -54,7 +54,6 @@ public class Controller {
     public void setGameSize(int n) {
         try {
             myGame.setSize(n);
-            createEnemyGame();
         } catch (FalseFieldSize falseFieldSize) {
             System.out.println("Falsche Spielfeldgröße");
         }
@@ -72,7 +71,6 @@ public class Controller {
      */
     public void setGameMode(GameMode m) {
         myGame.setGameMode(m);
-        enemyGame.setGameMode(m);
     }
 
     /**
@@ -297,9 +295,12 @@ public class Controller {
     /**
      * Creates an instance of EnemyGame
      */
-    public void createEnemyGame() {
-        enemyGame = new EnemyGame(getGameSize());
-        enemyGame.setGameMode(myGame.getGameMode());
+    public void createEnemyGame(int gameSize) {
+        enemyGame = new EnemyGame(gameSize);
+    }
+
+    public void setEnemyGameGameMode(GameMode m) {
+        enemyGame.setGameMode(m);
     }
 
     /**

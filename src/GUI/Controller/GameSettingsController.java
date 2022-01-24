@@ -200,8 +200,10 @@ public class GameSettingsController {
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
         }
-        Game.logicController.setGameMode(determineGameMode());
         Game.logicController.setGameSize(gameSize);
+        Game.logicController.createEnemyGame(gameSize);
+        Game.logicController.setGameMode(determineGameMode());
+        Game.logicController.setEnemyGameGameMode(determineGameMode());
         Game.showPlacingFieldWindow();
     }
 

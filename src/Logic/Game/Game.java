@@ -468,7 +468,77 @@ public class Game {
         return false;
     }
 
-    public int isShipDestroyed(int x, int y) {
+    public boolean isMyShipDestroyed(int x, int y) {
+        int countTrys = 0;
+        if (gameField[x][y].getStatus() == GameElementStatus.SHIP || gameField[x][y].getStatus() == GameElementStatus.HIT) {
+
+            Ship ship = gameField[x][y].getShip();
+
+            for (int i = 0; i < size; i++) {
+                for (int j = 0; j < size; j++) {
+
+                    // if a Pane is found which isn't destroyed return false
+                    // else if Pane is HIT and the same Ship then increase Counter
+                    if (gameField[i][j].getStatus() == GameElementStatus.SHIP && gameField[i][j].getShip() == ship) {
+                        return false;
+                    } else if (gameField[i][j].getStatus() == GameElementStatus.HIT && gameField[i][j].getShip() == ship) {
+                        countTrys++;
+
+                        // if all Parts of the Ship are HIT return true
+                        if (countTrys == ship.getSize()) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public int getCountOfDestroyedShip(int x, int y) {
+        int i = 0, j = 0;
+        int countTrys = 0;
+
+        if (gameField[x][y].getStatus() == GameElementStatus.HIT) {
+            countTrys++;
+        } else {
+            return 0;
+        }
+        i = x + 1;
+        j = y;
+        while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+            i++;
+            countTrys++;
+        }
+        i = x - 1;
+        j = y;
+
+        while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+            i--;
+            countTrys++;
+        }
+
+        i = x;
+        j = y + 1;
+
+        while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+            j++;
+            countTrys++;
+        }
+
+        i = x;
+        j = y - 1;
+
+        while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+            j--;
+            countTrys++;
+        }
+
+        return countTrys;
+
+    }
+
+    public int isShipDestroyed(int x, int y) { //TODO Löschen?
         int countTrys = 0;
 
         if (GUI.Game.logicController.getGameMode() == GameMode.OFFLINE) {
