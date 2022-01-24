@@ -51,7 +51,7 @@ public class Server extends Network {
     }
 
 
-    public void sendInitialisation(int size, int[] ships) {
+    public void sendInitialisation(int size, String ships) {
         try {
             String stringships = "";
 
@@ -60,10 +60,7 @@ public class Server extends Network {
             get_Message = inStream.readLine();
             if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
 
-            for (int ship : ships) {
-                stringships = stringships + ship;
-            }
-            outStream.write(String.format("%s%n", "ships " + stringships));
+            outStream.write(String.format("%s%n", "ships " + ships));
             outStream.flush();
             get_Message = inStream.readLine();
             if (!(get_Message.equals("done"))) sendInitialisation(size, ships);
@@ -136,7 +133,7 @@ public class Server extends Network {
         String message = "answer ";
         System.out.println("answer " + nr);
         try {
-            outStream.write(String.format("%s%n",message + nr));
+            outStream.write(String.format("%s%n", message + nr));
             outStream.flush();
         } catch (IOException e) {
             e.printStackTrace();

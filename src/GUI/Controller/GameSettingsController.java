@@ -185,13 +185,17 @@ public class GameSettingsController {
 
     @FXML
     void handleNext(MouseEvent event) throws IOException, InterruptedException {
+        Game.logicController.setGameSize(gameSize);
+        Game.logicController.createEnemyGame(gameSize);
+        Game.logicController.setGameMode(determineGameMode());
+        Game.logicController.setEnemyGameGameMode(determineGameMode());
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else if (gameMode.getValue().equals("Online")) {
             networkThread = new Thread(() -> {
-                int[] i = {2, 2, 2, 3, 3, 4};
+                //int[] i = {2, 2, 2, 3, 3, 4};
                 if (netplay instanceof Server) {
-                    ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), i);
+                    ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
                 }
                 if (netplay instanceof Client) {
                     ((Client) netplay).receiveMessage();
@@ -203,10 +207,6 @@ public class GameSettingsController {
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
         }
-        Game.logicController.setGameSize(gameSize);
-        Game.logicController.createEnemyGame(gameSize);
-        Game.logicController.setGameMode(determineGameMode());
-        Game.logicController.setEnemyGameGameMode(determineGameMode());
         Game.showPlacingFieldWindow();
     }
 
@@ -246,6 +246,30 @@ public class GameSettingsController {
         setLabelTexts();
         slider.setValue(gameSize);
         labelGameFieldSize.setText("" + gameSize);
+    }
+
+    private String setNetworkShip() {
+
+        int two = Game.logicController.getAllTwoShips();
+        int three = Game.logicController.getAllThreeShips();
+        int four = Game.logicController.getAllFourShips();
+        int five = Game.logicController.getAllFiveShips();
+        String s = "";
+
+        for (int i = 0; i < two; i++) {
+            s += " 2";
+        }
+        for (int i = 0; i < three; i++) {
+            s += " 3";
+        }
+        for (int i = 0; i < four; i++) {
+            s += " 4";
+        }
+        for (int i = 0; i < five; i++) {
+            s += " 5";
+        }
+
+        return s;
     }
 }
 
