@@ -74,6 +74,7 @@ public class PlayingFieldController implements Initializable {
                 Thread t = new Thread(() -> {
                     enemyTurn();
                     yourTurn = true;
+                    Platform.runLater(()->{setStatusText();});
                 });
                 t.start();
             }
@@ -172,12 +173,10 @@ public class PlayingFieldController implements Initializable {
     }
 
     private void setStatusText() {
-        Platform.runLater(() -> {
             if (yourTurn) {
                 statusText.setText("Du bist dran!");
             } else {
                 statusText.setText("Warte auf Gegner");
             }
-        });
     }
 }
