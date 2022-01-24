@@ -80,7 +80,8 @@ public class PlacingFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gridBuilder = new GridPaneBuilder(size);
+        gridBuilder = new GridPaneBuilder(size, null, null, null, null);
+
         table = gridBuilder.createTablePlacingField(table, this);
 
         // Event choose Ship
@@ -367,7 +368,6 @@ public class PlacingFieldController implements Initializable {
         HBox box = getBoxShip(currentShip);
         if (box != null) {
             box.setStyle("-fx-border-color: none ;");
-
             // imageView.setImage(null);
             // imageView.setImage(new Image("@../../assets/Schiffe/2er_seite_grau.jpg"));
         }

@@ -83,7 +83,6 @@ public class LoadGameController implements Initializable {
         }
 
         saveGames.setItems(games);
-
     }
 
 

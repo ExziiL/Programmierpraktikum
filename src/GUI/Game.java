@@ -60,7 +60,6 @@ public class Game extends Application {
         loader.setLocation(Game.class.getResource("PlayingField/PlayingField.fxml"));
         AnchorPane playingField = loader.load();
         mainLayout.setCenter(playingField);
-
     }
 
     public static void showEnd() throws IOException {
@@ -69,7 +68,6 @@ public class Game extends Application {
         AnchorPane playingField = loader.load();
         mainLayout.setCenter(playingField);
     }
-
 
     public static void showLoadGameWindow() throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -86,11 +84,10 @@ public class Game extends Application {
         dialogReconnect.show();
     }
 
-
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle(GUIConstants.titel);
+        Game.primaryStage = primaryStage;
+        Game.primaryStage.setTitle(GUIConstants.titel);
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
@@ -130,7 +127,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                                       Pane contentPane) {
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -155,10 +152,10 @@ public class Game extends Application {
 
             contentPane.setPrefWidth(newWidth / scaleFactor);
             contentPane.setPrefHeight(newHeight / scaleFactor);
-            //  } else {
-            //      contentPane.setPrefWidth(Math.max(initWidth, newWidth));
-            //      contentPane.setPrefHeight(Math.max(initHeight, newHeight));
-            //  }
+            // } else {
+            // contentPane.setPrefWidth(Math.max(initWidth, newWidth));
+            // contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+            // }
         }
     }
 
