@@ -146,7 +146,7 @@ public class GameSettingsController {
         connect.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ErrorMessage.setText("Warte auf Verbindung");
+                ErrorMessage.setText("Warte auf Verbindung...");
                 ErrorMessage.setStyle("-fx-text-fill: grey");
 
                 networkThread = new Thread(() -> {

@@ -211,7 +211,7 @@ public class PlacingFieldController implements Initializable {
     public void handleNext(MouseEvent event) throws IOException {
         Game.logicController.initDocument();
         if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
-            Message.setText("Warte auf Spieler");
+            Message.setText("Warte auf Spieler...");
             Message.setStyle("-fx-text-fill: green");
             networkThread = new Thread(() -> {
                 netplay = Network.getNetplay();
