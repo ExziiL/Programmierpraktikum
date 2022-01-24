@@ -21,7 +21,6 @@ public class LoadGameController implements Initializable {
     @FXML
     ListView<String> saveGames;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -35,12 +34,10 @@ public class LoadGameController implements Initializable {
 
         saveGames.setItems(games);
 
-
-
         saveGames.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if(event.getButton() == MouseButton.PRIMARY){
+                if (event.getButton() == MouseButton.PRIMARY) {
                     ObservableList<String> selectedGame = saveGames.getSelectionModel().getSelectedItems();
                     String s = selectedGame.get(0);
 
@@ -55,5 +52,11 @@ public class LoadGameController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    public void handleBack() throws IOException {
+        Game.showStartGameWindow();
+        ;
     }
 }
