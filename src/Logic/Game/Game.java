@@ -488,38 +488,50 @@ public class Game {
 
                             // if all Parts of the Ship are HIT return true
                             if (countTrys == ship.getSize()) {
-                                return 1;
+                                return countTrys;
                             }
                         }
                     }
                 }
             }
         } else if (GUI.Game.logicController.getGameMode() == GameMode.ONLINE) { //TODO Verkürzen!!!!
-            int i = x, j = y;
-            int richtung = 0;
-            while (gameField[i][j].getStatus() == GameElementStatus.HIT) {
-                if (inGameField(i - 1, j) && richtung == 0 && gameField[i - 1][j].getStatus() == GameElementStatus.HIT) {
-                    i++;
-                    countTrys++;
-                } else if (inGameField(i, j - 1) && richtung == 1 && gameField[i][j - 1].getStatus() == GameElementStatus.HIT) {
-                    j--;
-                    countTrys++;
-                } else if (inGameField(i + 1, j) && richtung == 2 && gameField[i + 1][j].getStatus() == GameElementStatus.HIT) {
-                    i--;
-                    countTrys++;
-                } else if (inGameField(i, j + 1) && richtung == 3 && gameField[i][j + 1].getStatus() == GameElementStatus.HIT) {
-                    j++;
-                    countTrys++;
-                } else if (inGameField(i - 1, j) && gameField[i - 1][j].getStatus() == GameElementStatus.MISS) {
-                    richtung++;
-                } else if (inGameField(i, j - 1) && gameField[i][j - 1].getStatus() == GameElementStatus.MISS) {
-                    richtung++;
-                } else if (inGameField(i + 1, j) && gameField[i + 1][j].getStatus() == GameElementStatus.MISS) {
-                    richtung++;
-                } else if (inGameField(i, j + 1) && gameField[i][j + 1].getStatus() == GameElementStatus.MISS) {
-                    richtung++;
-                } else break;
+            int i = 0, j = 0;
+
+            if (gameField[x][y].getStatus() == GameElementStatus.HIT) {
+                countTrys++;
+            } else {
+                return 0;
             }
+            i = x + 1;
+            j = y;
+            while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+                i++;
+                countTrys++;
+            }
+            i = x - 1;
+            j = y;
+
+            while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+                i--;
+                countTrys++;
+            }
+
+            i = x;
+            j = y + 1;
+
+            while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+                j++;
+                countTrys++;
+            }
+
+            i = x;
+            j = y - 1;
+
+            while (inGameField(i, j) && gameField[i][j].getStatus() == GameElementStatus.HIT) {
+                j--;
+                countTrys++;
+            }
+
             return countTrys;
         }
         return 0;
