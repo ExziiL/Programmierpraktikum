@@ -101,7 +101,7 @@ public class PlayingFieldController implements Initializable {
     public void yourTurn(int index) {
         Thread t = new Thread(() -> {
             if (yourTurn) {
-                yourTurn = Game.logicController.shoot(index);
+                yourTurn = Game.logicController.shoot(index) > 0;
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();

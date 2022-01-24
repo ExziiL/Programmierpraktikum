@@ -308,7 +308,7 @@ public class Controller {
      * @param index of Pane
      * @return true if EnemyShip is hit
      */
-    public boolean shoot(int index) {
+    public int shoot(int index) {
         return enemyGame.shoot(index);
     }
 
