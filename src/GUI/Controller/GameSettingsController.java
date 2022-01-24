@@ -147,6 +147,7 @@ public class GameSettingsController {
             @Override
             public void handle(ActionEvent event) {
                 ErrorMessage.setText("Warte auf Verbindung");
+                ErrorMessage.setStyle("-fx-text-fill: grey");
 
                 networkThread = new Thread(() -> {
                     if (netplay instanceof Server) {
