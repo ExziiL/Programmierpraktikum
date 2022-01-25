@@ -141,7 +141,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Text fx:id="Message" layoutX="439.0" layoutY="677.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="Message" layoutX="351.0" layoutY="677.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="199.0" />
 
     </children>
 </AnchorPane>
