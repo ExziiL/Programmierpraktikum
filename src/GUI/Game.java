@@ -1,6 +1,7 @@
 package GUI;
 
 import Logic.main.Controller;
+import Network.*;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,10 +9,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
@@ -25,10 +28,24 @@ public class Game extends Application {
     private static BorderPane mainLayout;
     private static Stage primaryStage;
     private static Popup PopupSaveGame;
+    private static Scene scene;
+
+    public static Label endGameText = new Label();
+
     private static final Stage dialogSaveGame = new Stage();
+    private static final Stage dialogStartNewGame = new Stage();
+    private static final Stage dialogReconnect = new Stage();
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void toggleCursorHand(boolean hide) {
+        if (hide) {
+            scene.setCursor(Cursor.HAND);
+        } else {
+            scene.setCursor(Cursor.DEFAULT);
+        }
     }
 
     public static void showStartGameWindow() throws IOException {
@@ -76,19 +93,37 @@ public class Game extends Application {
     }
 
     public static void showPopUpSaveGame() {
-
         dialogSaveGame.show();
+    }
 
+    public static void showPopUpReconnect(String ip, boolean isServer) {
+        buildPopUpReconnect(ip, isServer);
+        dialogReconnect.show();
+    }
+
+    public static void showStartNewGame() {
+        // endGameText = "Sie haben verloren :(";
+        if (Game.logicController.isConcratulation()) {
+            endGameText.setText("Du hast gewonnen :)");
+        } else {
+            endGameText.setText("Du hast verloren :(");
+        }
+
+        buildPopUpStartNewGame();
+
+        // dialogStartNewGame.
+        dialogStartNewGame.show();
     }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle(GUIConstants.titel);
+        Game.primaryStage = primaryStage;
+        Game.primaryStage.setTitle(GUIConstants.titel);
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
         buildPopUpSaveGame();
+
     }
 
     private void showAppWindow() throws IOException {
@@ -97,7 +132,7 @@ public class Game extends Application {
         // Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
 
         mainLayout = loader.load();
-        Scene scene = new Scene(new Group(mainLayout));
+        scene = new Scene(new Group(mainLayout));
         Game.primaryStage.setScene(scene);
         Game.primaryStage.show();
 
@@ -123,7 +158,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                Pane contentPane) {
+                                       Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -156,7 +191,6 @@ public class Game extends Application {
     }
 
     private void buildPopUpSaveGame() {
-
         dialogSaveGame.initOwner(primaryStage);
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie Speichern?");
@@ -181,7 +215,7 @@ public class Game extends Application {
                 // TODO Speichern
                 try {
                     dialogSaveGame.hide();
-                    Game.logicController.save();
+                    Game.logicController.save(true);
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -209,6 +243,102 @@ public class Game extends Application {
                 dialogSaveGame.hide();
             }
         });
-
     }
+
+    private static void buildPopUpStartNewGame() {
+        dialogStartNewGame.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(10);
+        Label text = new Label("Möchten Sie ein neues Spiel starten?");
+        text.setMinHeight(50);
+        text.setMinWidth(100);
+        HBox dialogHbox = new HBox(20);
+        Button yes = new Button("Ja");
+        Button endGame = new Button("Nein");
+
+        dialogVbox.getChildren().addAll(endGameText, text, dialogHbox);
+        dialogHbox.getChildren().addAll(yes, endGame);
+        dialogHbox.setAlignment(Pos.CENTER);
+
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 150);
+
+        dialogStartNewGame.initModality(Modality.APPLICATION_MODAL);
+        dialogStartNewGame.setScene(dialogScene);
+
+        yes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dialogStartNewGame.hide();
+                    // Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        endGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.logicController.exitGame();
+            }
+        });
+    }
+
+    private static void buildPopUpReconnect(String inputIP, boolean isServer) {
+
+        dialogReconnect.initOwner(primaryStage);
+        dialogReconnect.setTitle("Neu Verbinden");
+        VBox dialogVbox = new VBox(5);
+        Label text = new Label("Warte auf Verbindung");
+        text.setStyle("-fx-text-fill: orange");
+        text.setMinHeight(50);
+        text.setMinWidth(50);
+        HBox dialogHbox = new HBox(20);
+        TextField ip = new TextField();
+        ip.setMinWidth(148);
+        ip.setMinHeight(25);
+
+        if (isServer) {
+            ip.setEditable(false);
+            ip.setText(inputIP);
+        } else {
+            ip.setPromptText("IP-Adresse");
+        }
+        Button verbinden = new Button("Verbinden");
+
+        dialogVbox.getChildren().addAll(dialogHbox, text);
+        dialogHbox.getChildren().addAll(ip, verbinden);
+        dialogHbox.setAlignment(Pos.CENTER);
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 100);
+
+        dialogReconnect.initModality(Modality.APPLICATION_MODAL);
+        dialogReconnect.setScene(dialogScene);
+
+        verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent event) {
+
+                Server server;
+                Client client;
+                if (isServer) {
+                    server = (Server) Network.chooseNetworkTyp(true);
+                    server.createServer();
+                } else {
+                   client  = (Client) Network.chooseNetworkTyp(false);
+                   client.createClient(ip.getText());
+                }
+
+                dialogReconnect.hide();
+                try {
+                    showPlayingFieldWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }
