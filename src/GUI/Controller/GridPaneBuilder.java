@@ -108,36 +108,36 @@ public class GridPaneBuilder {
                 column++;
                 continue;
             }
-            if (i % (size) == 0) {
-                String b = Integer.toString(row - 1);
-                Label verticallLabel = new Label(b);
-                verticallLabel.setMinWidth(15);
-                verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-                if (size > 20) {
-                    verticallLabel.setFont(Font.font(10));
-                } else if (size > 25) {
-                    verticallLabel.setFont(Font.font(0.5));
-                }
-                tableEnemy.add(verticallLabel, column++, row);
-            } else if (row == 0) {
-                String b = Integer.toString(column - 1);
-                Label horizonatlLabel = new Label(b);
-                horizonatlLabel.setPrefWidth(paneSize);
-                horizonatlLabel.setAlignment(Pos.CENTER);
-                if (size > 20) {
-                    horizonatlLabel.setFont(Font.font(1));
-                } else if (size > 25) {
-                    horizonatlLabel.setFont(Font.font(0.5));
-                }
-                tableEnemy.add(horizonatlLabel, column++, row);
-            } else {
+//            if (i % (size) == 0) {
+//                String b = Integer.toString(row - 1);
+//                Label verticallLabel = new Label(b);
+//                verticallLabel.setMinWidth(15);
+//                verticallLabel.setAlignment(Pos.CENTER_RIGHT);
+//                if (size > 20) {
+//                    verticallLabel.setFont(Font.font(10));
+//                } else if (size > 25) {
+//                    verticallLabel.setFont(Font.font(0.5));
+//                }
+//                tableEnemy.add(verticallLabel, column++, row);
+//            } else if (row == 0) {
+//                String b = Integer.toString(column - 1);
+//                Label horizonatlLabel = new Label(b);
+//                horizonatlLabel.setPrefWidth(paneSize);
+//                horizonatlLabel.setAlignment(Pos.CENTER);
+//                if (size > 20) {
+//                    horizonatlLabel.setFont(Font.font(1));
+//                } else if (size > 25) {
+//                    horizonatlLabel.setFont(Font.font(0.5));
+//                }
+//                tableEnemy.add(horizonatlLabel, column++, row);
+//            } else {
                 pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
                 pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
                 pane.setPrefWidth(paneSize);
                 pane.setPrefHeight(paneSize);
                 pane.setId("field" + row + column);
                 tableEnemy.add(pane, column++, row);
-            }
+            // }
             // Events
             pane.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
