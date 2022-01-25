@@ -1,8 +1,12 @@
 import GUI.Game;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class Launcher {
+public class Launcher{
 
     public static void main(String[] args) {
-        Game.main(args);
+
+        GUI.Game.main(args);
+
     }
 }
