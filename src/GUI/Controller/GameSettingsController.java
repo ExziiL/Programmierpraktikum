@@ -194,6 +194,10 @@ public class GameSettingsController {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else if (gameMode.getValue().equals("Online")) {
+
+            // Controller for Network
+            Network.setController(Game.logicController);
+
             networkThread = new Thread(() -> {
                 //int[] i = {2, 2, 2, 3, 3, 4};
                 if (netplay instanceof Server) {
@@ -252,6 +256,7 @@ public class GameSettingsController {
 
     private String setNetworkShip() {
 
+        //   int two = Game.logicController.getAllTwoShips();
         int two = Game.logicController.getAllTwoShips();
         int three = Game.logicController.getAllThreeShips();
         int four = Game.logicController.getAllFourShips();

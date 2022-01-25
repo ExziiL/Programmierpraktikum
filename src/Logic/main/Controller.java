@@ -152,6 +152,22 @@ public class Controller {
         return myGame.getAllFiveShips();
     }
 
+    public void setAllTwoShips(int allTwoShip) {
+        myGame.setAllTwoShips(allTwoShip);
+    }
+
+    public void setAllThreeShips(int allThreeShip) {
+        myGame.setAllThreeShips(allThreeShip);
+    }
+
+    public void setAllFourShips(int allFourShip) {
+        myGame.setAllFourShips(allFourShip);
+    }
+
+    public void setAllFiveShips(int allFiveShip) {
+        myGame.setAllFiveShips(allFiveShip);
+    }
+
     /**
      * Gets the Status of the Pane with index
      *
@@ -267,6 +283,7 @@ public class Controller {
         return myGame.allShipDestroyed();
     }
 
+
     /**
      * Sets if Player has won
      *
@@ -340,6 +357,23 @@ public class Controller {
     public int getDestroyedShips(int size) {
         return enemyGame.getDestroyedShips(size);
     }
+
+    public void setDestroyedTwoShips(int ships) {
+        enemyGame.setDestroyedTwoShips(ships);
+    }
+
+    public void setDestroyedThreeShips(int ships) {
+        enemyGame.setDestroyedThreeShips(ships);
+    }
+
+    public void setDestroyedFourShips(int ships) {
+        enemyGame.setDestroyedFourShips(ships);
+    }
+
+    public void setDestroyedFiveShips(int ships) {
+        enemyGame.setDestroyedFiveShips(ships);
+    }
+
     //endregion
 
 

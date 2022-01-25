@@ -1,5 +1,7 @@
 package Network;
 
+import Logic.main.Controller;
+
 import java.io.IOException;
 
 public abstract class Network {
@@ -7,6 +9,7 @@ public abstract class Network {
     protected static boolean connected;
     protected static Network netplay;
     protected static boolean isServer;
+    protected static Controller controller;
 
 
     public static Network chooseNetworkTyp(boolean server) {
@@ -18,6 +21,10 @@ public abstract class Network {
             isServer = false;
         }
         return netplay;
+    }
+
+    public static void setController(Controller c) {
+        controller = c;
     }
 
   /*  public static Network chooseNetworkTyp(boolean server, Network player) {
