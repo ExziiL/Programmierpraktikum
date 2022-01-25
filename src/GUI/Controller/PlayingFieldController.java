@@ -141,7 +141,7 @@ public class PlayingFieldController implements Initializable {
 
     public void checkMyWin() {
         if (Game.logicController.allEnemyShipsDestroyed()) {
-            // Game.logicController.setConcratulation(true);
+            Game.logicController.setConcratulation(true);
             // Game.showEnd();
             Game.showStartNewGame();
         }
@@ -149,7 +149,7 @@ public class PlayingFieldController implements Initializable {
 
     public void checkEnemyWin() {
         if (Game.logicController.allShipsDestroyed()) {
-            // Game.logicController.setConcratulation(false);
+            Game.logicController.setConcratulation(false);
             // Game.showEnd();
             Game.showStartNewGame();
         }

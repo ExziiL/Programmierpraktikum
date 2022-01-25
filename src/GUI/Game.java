@@ -28,7 +28,7 @@ public class Game extends Application {
     private static Stage primaryStage;
     private static Popup PopupSaveGame;
 
-    public static String endGameText;
+    public static Label endGameText = new Label();
 
     private static final Stage dialogSaveGame = new Stage();
     private static final Stage dialogStartNewGame = new Stage();
@@ -88,9 +88,15 @@ public class Game extends Application {
     }
 
     public static void showStartNewGame() {
-        System.out.println("End Game Text davor: " + endGameText);
-        endGameText = "Sie haben verloren :(";
-        System.out.println("End Game Text danach: " + endGameText);
+        // endGameText = "Sie haben verloren :(";
+        if (Game.logicController.isConcratulation()) {
+            endGameText.setText("Du hast gewonnen :)");
+        } else {
+            endGameText.setText("Du hast verloren :(");
+        }
+
+        buildPopUpStartNewGame();
+
         // dialogStartNewGame.
         dialogStartNewGame.show();
     }
@@ -107,7 +113,7 @@ public class Game extends Application {
         showStartGameWindow();
         logicController = new Controller();
         buildPopUpSaveGame();
-        buildPopUpStartNewGame();
+        //    buildPopUpStartNewGame();
         buildPopUpReconnect();
     }
 
@@ -143,7 +149,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                Pane contentPane) {
+                                       Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -230,11 +236,9 @@ public class Game extends Application {
         });
     }
 
-    private void buildPopUpStartNewGame() {
+    private static void buildPopUpStartNewGame() {
         dialogStartNewGame.initOwner(primaryStage);
         VBox dialogVbox = new VBox(10);
-        // VBox dialogVbox2 = new VBox(10);
-        Label gameText = new Label(endGameText);
         Label text = new Label("Möchten Sie ein neues Spiel starten?");
         text.setMinHeight(50);
         text.setMinWidth(100);
@@ -242,10 +246,11 @@ public class Game extends Application {
         Button yes = new Button("Ja");
         Button endGame = new Button("Nein");
 
-        // dialogVbox2.getChildren().addAll(gameText, dialogHbox);
-        dialogVbox.getChildren().addAll(gameText, text, dialogHbox);
+
+        dialogVbox.getChildren().addAll(endGameText, text, dialogHbox);
         dialogHbox.getChildren().addAll(yes, endGame);
         dialogHbox.setAlignment(Pos.CENTER);
+
         dialogVbox.setAlignment(Pos.CENTER);
         Scene dialogScene = new Scene(dialogVbox, 300, 150);
 
