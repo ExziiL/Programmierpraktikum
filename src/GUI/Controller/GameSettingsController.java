@@ -50,12 +50,10 @@ public class GameSettingsController {
     @FXML
     private ComboBox<String> gameMode;
 
-
     private int gameSize;
     private Thread networkThread = null;
     protected Network netplay;
     private boolean connected;
-
 
     @FXML
     void initialize() {
@@ -95,7 +93,8 @@ public class GameSettingsController {
                         selectServer();
                         networkThread = new Thread(() -> {
                             netplay = Network.chooseNetworkTyp(true);
-                            if (!(netplay instanceof Server)) selectServer();
+                            if (!(netplay instanceof Server))
+                                selectServer();
                             Platform.runLater(() -> {
                                 Ip.setText(((Server) netplay).getIp());
                             });
@@ -107,6 +106,19 @@ public class GameSettingsController {
             }
         });
 
+        gameMode.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+
+        gameMode.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+            }
+        });
         Client.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -116,9 +128,24 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(false);
-                    if (!(netplay instanceof Client)) selectClient();
+                    if (!(netplay instanceof Client))
+                        selectClient();
                 });
                 networkThread.start();
+            }
+        });
+
+        Client.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+
+        Client.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
             }
         });
 
@@ -131,7 +158,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(true);
-                    if (!(netplay instanceof Server)) selectServer();
+                    if (!(netplay instanceof Server))
+                        selectServer();
                     Platform.runLater(() -> {
                         Ip.setText(((Server) netplay).getIp());
                     });
@@ -140,9 +168,37 @@ public class GameSettingsController {
             }
         });
         // ------------------------------- Slider ---------------------------------
+        Server.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+
+        Server.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+            }
+        });
+
         slider.valueProperty().addListener((observable, oldValue, newValue) -> {
             gameSize = newValue.intValue();
             setGameSize();
+        });
+
+        slider.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+
+        slider.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+            }
         });
 
         connect.setOnAction(new EventHandler<ActionEvent>() {
@@ -168,6 +224,20 @@ public class GameSettingsController {
                     });
                 });
                 networkThread.start();
+            }
+        });
+
+        connect.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+
+        connect.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
             }
         });
     }
@@ -199,7 +269,7 @@ public class GameSettingsController {
             Network.setController(Game.logicController);
 
             networkThread = new Thread(() -> {
-                //int[] i = {2, 2, 2, 3, 3, 4};
+                // int[] i = {2, 2, 2, 3, 3, 4};
                 if (netplay instanceof Server) {
                     ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
                 }
@@ -256,7 +326,7 @@ public class GameSettingsController {
 
     private String setNetworkShip() {
 
-        //   int two = Game.logicController.getAllTwoShips();
+        // int two = Game.logicController.getAllTwoShips();
         int two = Game.logicController.getAllTwoShips();
         int three = Game.logicController.getAllThreeShips();
         int four = Game.logicController.getAllFourShips();
@@ -279,4 +349,3 @@ public class GameSettingsController {
         return s;
     }
 }
-

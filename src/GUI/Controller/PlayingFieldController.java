@@ -6,8 +6,10 @@ import Network.Client;
 import Network.Network;
 import Network.Server;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -19,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class PlayingFieldController implements Initializable {
 
-    //region FXML-Variables
+    // region FXML-Variables
     @FXML
     private GridPane tableEnemy;
     @FXML
@@ -34,9 +36,9 @@ public class PlayingFieldController implements Initializable {
     private Text labelFive;
     @FXML
     private Text statusText;
-    //endregion
+    // endregion
 
-    //region Variables
+    // region Variables
     private int maxCountTwoShips = 0;
     private int maxCountThreeShips = 0;
     private int maxCountFourShips = 0;
@@ -46,7 +48,7 @@ public class PlayingFieldController implements Initializable {
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
     private boolean yourTurn = false;
-    //endregion
+    // endregion
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,15 +86,30 @@ public class PlayingFieldController implements Initializable {
             yourTurn = true;
         }
         setStatusText();
+
+        tableEnemy.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+        tableEnemy.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+            }
+        });
+
     }
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-
         Game.showPopUpSaveGame();
     }
 
-    public void handleSetOnMouseClicked(MouseEvent event, int index) { //TODO enemyTurn darf nicht erst wenn geclickt wurde aufgerufen werden, muss automatisch aufgerufen werden
+    public void handleSetOnMouseClicked(MouseEvent event, int index) { // TODO enemyTurn darf nicht erst wenn geclickt
+                                                                       // wurde aufgerufen werden, muss automatisch
+                                                                       // aufgerufen werden
 
         if (event.getButton() == MouseButton.PRIMARY) {
             yourTurn(index);
@@ -123,7 +140,6 @@ public class PlayingFieldController implements Initializable {
         t.start();
     }
 
-
     public void enemyTurn() {
         boolean isEnemyTurn = false;
         do {
@@ -139,27 +155,18 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void checkMyWin() {
-
         if (Game.logicController.allEnemyShipsDestroyed()) {
-            try {
-                Game.logicController.setConcratulation(true);
-                Game.showEnd();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Game.logicController.setConcratulation(true);
+            // Game.showEnd();
+            Game.showStartNewGame();
         }
-
     }
 
     public void checkEnemyWin() {
-
         if (Game.logicController.allShipsDestroyed()) {
-            try {
-                Game.logicController.setConcratulation(false);
-                Game.showEnd();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Game.logicController.setConcratulation(false);
+            // Game.showEnd();
+            Game.showStartNewGame();
         }
     }
 

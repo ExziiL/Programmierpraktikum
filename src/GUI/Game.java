@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -25,11 +27,25 @@ public class Game extends Application {
     public static Controller logicController;
     private static BorderPane mainLayout;
     private static Stage primaryStage;
+    private static Popup PopupSaveGame;
+    private static Scene scene;
+
+    public static Label endGameText = new Label();
+
     private static final Stage dialogSaveGame = new Stage();
+    private static final Stage dialogStartNewGame = new Stage();
     private static final Stage dialogReconnect = new Stage();
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void toggleCursorHand(boolean hide) {
+        if (hide) {
+            scene.setCursor(Cursor.HAND);
+        } else {
+            scene.setCursor(Cursor.DEFAULT);
+        }
     }
 
     public static void showStartGameWindow() throws IOException {
@@ -85,6 +101,20 @@ public class Game extends Application {
         dialogReconnect.show();
     }
 
+    public static void showStartNewGame() {
+        // endGameText = "Sie haben verloren :(";
+        if (Game.logicController.isConcratulation()) {
+            endGameText.setText("Du hast gewonnen :)");
+        } else {
+            endGameText.setText("Du hast verloren :(");
+        }
+
+        buildPopUpStartNewGame();
+
+        // dialogStartNewGame.
+        dialogStartNewGame.show();
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Game.primaryStage = primaryStage;
@@ -102,7 +132,7 @@ public class Game extends Application {
         // Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
 
         mainLayout = loader.load();
-        Scene scene = new Scene(new Group(mainLayout));
+        scene = new Scene(new Group(mainLayout));
         Game.primaryStage.setScene(scene);
         Game.primaryStage.show();
 
@@ -161,7 +191,6 @@ public class Game extends Application {
     }
 
     private void buildPopUpSaveGame() {
-
         dialogSaveGame.initOwner(primaryStage);
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie Speichern?");
@@ -214,7 +243,47 @@ public class Game extends Application {
                 dialogSaveGame.hide();
             }
         });
+    }
 
+    private static void buildPopUpStartNewGame() {
+        dialogStartNewGame.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(10);
+        Label text = new Label("Möchten Sie ein neues Spiel starten?");
+        text.setMinHeight(50);
+        text.setMinWidth(100);
+        HBox dialogHbox = new HBox(20);
+        Button yes = new Button("Ja");
+        Button endGame = new Button("Nein");
+
+        dialogVbox.getChildren().addAll(endGameText, text, dialogHbox);
+        dialogHbox.getChildren().addAll(yes, endGame);
+        dialogHbox.setAlignment(Pos.CENTER);
+
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 150);
+
+        dialogStartNewGame.initModality(Modality.APPLICATION_MODAL);
+        dialogStartNewGame.setScene(dialogScene);
+
+        yes.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dialogStartNewGame.hide();
+                    // Game.logicController.initializeGameField();
+                    Game.showGameSettingsWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        endGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.logicController.exitGame();
+            }
+        });
     }
 
     private static void buildPopUpReconnect(String inputIP, boolean isServer) {

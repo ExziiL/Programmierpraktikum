@@ -1,4 +1,4 @@
-#bearbeiten {
+.buttons {
 	-fx-cursor: hand;
 	-fx-color: #ffffff;
 	-fx-background-color: #fff;
@@ -10,7 +10,8 @@
 }
 
 #bearbeiten:selected {
-	-fx-background-color: grey;
+	-fx-background-color: darkgrey;
+	-fx-color: white;
 }
 
 .arrowIcon:hover {
