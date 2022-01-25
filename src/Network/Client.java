@@ -144,7 +144,7 @@ public class Client extends Network {
         controller.setAllFiveShips(five);
 
         controller.setDestroyedTwoShips(two);
-        controller.setDestroyedThreeShips(two);
+        controller.setDestroyedThreeShips(three);
         controller.setDestroyedFourShips(four);
         controller.setDestroyedFiveShips(five);
 
