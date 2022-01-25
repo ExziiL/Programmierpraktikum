@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
@@ -30,9 +31,11 @@ public class Game extends Application {
 
     private static final Stage dialogSaveGame = new Stage();
     private static final Stage dialogStartNewGame = new Stage();
+    private static final Stage dialogReconnect = new Stage();
 
     public static void main(String[] args) {
         launch(args);
+
     }
 
     public static void showStartGameWindow() throws IOException {
@@ -91,6 +94,10 @@ public class Game extends Application {
         dialogStartNewGame.show();
     }
 
+    public static void showPopUpReconnect() {
+        dialogReconnect.show();
+    }
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         Game.primaryStage = primaryStage;
@@ -100,6 +107,7 @@ public class Game extends Application {
         logicController = new Controller();
         buildPopUpSaveGame();
         buildPopUpStartNewGame();
+        buildPopUpReconnect();
     }
 
     private void showAppWindow() throws IOException {
@@ -191,7 +199,7 @@ public class Game extends Application {
                 // TODO Speichern
                 try {
                     dialogSaveGame.hide();
-                    Game.logicController.save();
+                    Game.logicController.save(true);
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -263,4 +271,42 @@ public class Game extends Application {
             }
         });
     }
+
+    private void buildPopUpReconnect() {
+
+        dialogReconnect.initOwner(primaryStage);
+        dialogReconnect.setTitle("Neu Verbinden");
+        VBox dialogVbox = new VBox(5);
+        Label text = new Label("Warte auf Verbindung");
+        text.setStyle("-fx-text-fill: orange");
+        text.setMinHeight(50);
+        text.setMinWidth(50);
+        HBox dialogHbox = new HBox(20);
+        TextField ip = new TextField();
+        ip.setMinWidth(148);
+        ip.setMinHeight(25);
+        Button verbinden = new Button("Verbinden");
+
+        dialogVbox.getChildren().addAll(dialogHbox, text);
+        dialogHbox.getChildren().addAll(ip, verbinden);
+        dialogHbox.setAlignment(Pos.CENTER);
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 100);
+
+        dialogReconnect.initModality(Modality.APPLICATION_MODAL);
+        dialogReconnect.setScene(dialogScene);
+
+        verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+            @Override
+            public void handle(javafx.event.ActionEvent event) {
+                dialogReconnect.hide();
+                try {
+                    showPlayingFieldWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 }

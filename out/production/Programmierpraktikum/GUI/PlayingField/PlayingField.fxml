@@ -13,7 +13,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@PlayingField.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlayingFieldController">
    <children>
       <Text fill="#00000080" layoutX="50.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dein Spielfeld" />
-      <Text layoutX="530.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du bist dran!">
+      <Text fx:id="statusText" layoutX="530.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du bist dran!">
          <font>
             <Font size="36.0" />
          </font>

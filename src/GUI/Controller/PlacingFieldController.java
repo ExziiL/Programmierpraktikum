@@ -2,6 +2,10 @@ package GUI.Controller;
 
 import GUI.GUIConstants;
 import GUI.Game;
+import Logic.main.LogicConstants;
+import Network.Client;
+import Network.Network;
+import Network.Server;
 import Utilities.HoverState;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -19,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,9 +57,13 @@ public class PlacingFieldController implements Initializable {
     @FXML
     private Text textRightClick;
     @FXML
+    private Text textHeader;
+    @FXML
     private ImageView Next;
     @FXML
     private ImageView imageView;
+    @FXML
+    private Text Message;
 
     private GridPaneBuilder gridBuilder;
     private final int size = Game.logicController.getGameSize();
@@ -67,6 +74,8 @@ public class PlacingFieldController implements Initializable {
     private int currentShip = 0;
     private Pane currentPane;
     private ObservableList shipPartsList;
+    private Thread networkThread;
+    private Network netplay;
 
     private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
     private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
@@ -145,6 +154,12 @@ public class PlacingFieldController implements Initializable {
         textLeftClick.setText(GUIConstants.explTextPlacingLeft);
         textRightClick.setText(GUIConstants.explTextPlacingRight);
 
+        if (Game.logicController.getCountTwoShip() != 0) {
+            chooseShip(2);
+        } else {
+            chooseShip(3);
+        }
+
         gridBuilder.redrawPlacingField();
     }
 
@@ -195,7 +210,29 @@ public class PlacingFieldController implements Initializable {
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
         Game.logicController.initDocument();
-        Game.showPlayingFieldWindow();
+        if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+            Message.setText("Warte auf Spieler...");
+            Message.setStyle("-fx-text-fill: green");
+            networkThread = new Thread(() -> {
+                netplay = Network.getNetplay();
+                if (netplay instanceof Server) {
+                    ((Server) netplay).sendREADY();
+                }
+                if (netplay instanceof Client) {
+                    ((Client) netplay).receiveMessage();
+                }
+                Platform.runLater(() -> {
+                    try {
+                        Game.showPlayingFieldWindow();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+            });
+            networkThread.start();
+        } else {
+            Game.showPlayingFieldWindow();
+        }
     }
 
     private void setChoosenShipProperties() {
@@ -369,6 +406,13 @@ public class PlacingFieldController implements Initializable {
     private void setEditMode(boolean mode) {
         editMode = mode;
         EditShips.setSelected(mode);
+        if (mode) {
+            textHeader.setText("Schiffe bearbeiten");
+
+        } else {
+            textHeader.setText("Schiffe platzieren");
+        }
+
         setHelpTexts();
     }
 
