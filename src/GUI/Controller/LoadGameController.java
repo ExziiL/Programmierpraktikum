@@ -76,8 +76,8 @@ public class LoadGameController implements Initializable {
             right.setSpacing(20);
             right.setAlignment(Pos.TOP_RIGHT);
 
-            left.setMaxWidth(780);
-            left.setMinWidth(750);
+            left.setMaxWidth(560);
+            left.setMinWidth(560);
             line.getChildren().addAll(left, right);
             games.add(line);
         }
