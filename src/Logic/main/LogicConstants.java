@@ -11,7 +11,7 @@ public class LogicConstants {
     }
 
     public enum GameMode {
-        OFFLINE, ONLINE
+        OFFLINE, ONLINE, BOT
     }
 
     public enum Direction {

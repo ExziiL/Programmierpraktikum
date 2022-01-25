@@ -1,6 +1,7 @@
 package Logic.Game;
 
 import Logic.Game.Exceptions.FalseFieldSize;
+import Logic.main.LogicConstants;
 import Logic.main.MyPlayer;
 
 public class EnemyGame extends Game {
@@ -19,7 +20,7 @@ public class EnemyGame extends Game {
             System.out.println(e);
         }
 
-        player = new MyPlayer(this, name);
+
         determineNumberOfShips();
 
         setDestroyedShips();
@@ -92,5 +93,18 @@ public class EnemyGame extends Game {
 
     public void setDestroyedFiveShips(int destroyedFiveShips) {
         this.destroyedFiveShips = destroyedFiveShips;
+    }
+
+    @Override
+    public void setGameMode(LogicConstants.GameMode m) {
+        super.setGameMode(m);
+        switch (gameMode) {
+            case BOT:
+                player = createPlayer(LogicConstants.PlayerType.OFFLINE);
+                break;
+            case OFFLINE:
+                player = player = new MyPlayer(this, name);
+                break;
+        }
     }
 }
