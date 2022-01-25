@@ -1,7 +1,9 @@
 package GUI;
 
 import Logic.main.Controller;
-import Network.*;
+import Network.Client;
+import Network.Network;
+import Network.Server;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -43,6 +45,14 @@ public class Game extends Application {
     public static void toggleCursorHand(boolean hide) {
         if (hide) {
             scene.setCursor(Cursor.HAND);
+        } else {
+            scene.setCursor(Cursor.DEFAULT);
+        }
+    }
+
+    public static void toggleCursorGrabHand(boolean hide) {
+        if (hide) {
+            scene.setCursor(Cursor.CLOSED_HAND);
         } else {
             scene.setCursor(Cursor.DEFAULT);
         }
@@ -327,8 +337,8 @@ public class Game extends Application {
                     server = (Server) Network.chooseNetworkTyp(true);
                     server.createServer();
                 } else {
-                   client  = (Client) Network.chooseNetworkTyp(false);
-                   client.createClient(ip.getText());
+                    client = (Client) Network.chooseNetworkTyp(false);
+                    client.createClient(ip.getText());
                 }
 
                 dialogReconnect.hide();

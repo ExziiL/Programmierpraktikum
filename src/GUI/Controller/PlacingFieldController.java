@@ -311,7 +311,17 @@ public class PlacingFieldController implements Initializable {
             Thread t = new Thread(() -> Platform.runLater(() -> {
                 HoverState[] states = Game.logicController.getHoverStateStatus(getIndexofPane(pane), currentShip,
                         isHorizontal);
+                if (Game.logicController.getGameElementStatus(getIndexofPane(pane)) == LogicConstants.GameElementStatus.SHIP) {
+                    Platform.runLater(() -> {
+                        Game.toggleCursorHand(true);
+                    });
+                } else {
+                    Game.toggleCursorHand(false);
+                }
+
                 noPlacingAllowed = gridBuilder.hoverShip(states);
+
+
             }));
             t.start();
             t.join();
@@ -418,6 +428,11 @@ public class PlacingFieldController implements Initializable {
 
     private void setReplaceShipMode(boolean mode) {
         replaceShipMode = mode;
+        if (mode) {
+            Game.toggleCursorGrabHand(true);
+        } else {
+            Game.toggleCursorGrabHand(false);
+        }
         setHelpTexts();
     }
 

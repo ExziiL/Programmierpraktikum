@@ -11,7 +11,7 @@
 
 #bearbeiten:selected {
 	-fx-background-color: darkgrey;
-	-fx-color-label-visible: white;
+	-fx-color: white;
 }
 
 .arrowIcon:hover {
