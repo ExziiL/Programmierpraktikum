@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,12 +22,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
 public class Game extends Application {
     public static Controller logicController;
     private static BorderPane mainLayout;
     private static Stage primaryStage;
     private static Popup PopupSaveGame;
+    private static Scene scene;
 
     public static Label endGameText = new Label();
 
@@ -36,6 +37,14 @@ public class Game extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    public static void toggleCursorHand(boolean hide) {
+        if (hide) {
+            scene.setCursor(Cursor.HAND);
+        } else {
+            scene.setCursor(Cursor.DEFAULT);
+        }
     }
 
     public static void showStartGameWindow() throws IOException {
@@ -112,7 +121,7 @@ public class Game extends Application {
         showStartGameWindow();
         logicController = new Controller();
         buildPopUpSaveGame();
-        //    buildPopUpStartNewGame();
+        // buildPopUpStartNewGame();
         buildPopUpReconnect();
     }
 
@@ -122,7 +131,7 @@ public class Game extends Application {
         // Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
 
         mainLayout = loader.load();
-        Scene scene = new Scene(new Group(mainLayout));
+        scene = new Scene(new Group(mainLayout));
         Game.primaryStage.setScene(scene);
         Game.primaryStage.show();
 
@@ -148,7 +157,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                                       Pane contentPane) {
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -244,7 +253,6 @@ public class Game extends Application {
         HBox dialogHbox = new HBox(20);
         Button yes = new Button("Ja");
         Button endGame = new Button("Nein");
-
 
         dialogVbox.getChildren().addAll(endGameText, text, dialogHbox);
         dialogHbox.getChildren().addAll(yes, endGame);

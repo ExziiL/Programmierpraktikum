@@ -113,15 +113,15 @@
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="Random" layoutX="557.0" layoutY="457.0" mnemonicParsing="false" text="Random" />
-      <Button fx:id="Clear" layoutX="557.0" layoutY="419.0" mnemonicParsing="false" text="Clear" />
+      <Button fx:id="Random" layoutX="557.0" layoutY="457.0" mnemonicParsing="false" styleClass="buttons" text="Random" />
+      <Button fx:id="Clear" layoutX="557.0" layoutY="419.0" mnemonicParsing="false" styleClass="buttons" text="Clear" />
       <Text fx:id="textHeader" layoutX="119.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="317.00390625">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
 
-      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="557.0" layoutY="496.0" mnemonicParsing="false" text="Bearbeiten" />
+      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="557.0" layoutY="496.0" mnemonicParsing="false" styleClass="buttons" text="Bearbeiten" />
       <Pane layoutX="756.0" layoutY="567.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
          <children>
       

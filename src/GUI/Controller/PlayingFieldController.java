@@ -6,6 +6,7 @@ import Network.Client;
 import Network.Network;
 import Network.Server;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -85,6 +86,20 @@ public class PlayingFieldController implements Initializable {
             yourTurn = true;
         }
         setStatusText();
+
+        tableEnemy.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+            }
+        });
+        tableEnemy.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+            }
+        });
+
     }
 
     @FXML

@@ -6,6 +6,7 @@ import Utilities.HoverState;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -25,21 +26,33 @@ public class GridPaneBuilder {
 
     private Image error;
     private Image water;
+    private Image waterHit;
+    private Image waterHover;
     private Image nearShip;
     private Image ship;
+    private Image shipHit;
 
     public Image error25;
     public Image error60;
     public Image error100;
+
     public Image water25;
     public Image water60;
     public Image water100;
+
+    public Image waterHit100;
+
+    public Image waterHover100;
+
     public Image nearShip25;
     public Image nearShip60;
     public Image nearShip100;
+
     public Image ship25;
     public Image ship60;
     public Image ship100;
+
+    public Image shipHit100;
 
     public GridPaneBuilder(int size, Image water, Image ship, Image nearShip, Image error) {
         this.size = size;
@@ -56,29 +69,43 @@ public class GridPaneBuilder {
         water60 = new Image("assets/newShips/water60.png");
         water100 = new Image("assets/newShips/water100.png");
 
+        waterHit100 = new Image("assets/newShips/waterHit100.png");
+
+        waterHover100 = new Image("assets/newShips/waterHover100.png");
+
         nearShip25 = new Image("assets/newShips/nearShip25.png");
         nearShip60 = new Image("assets/newShips/nearShip60.png");
         nearShip100 = new Image("assets/newShips/nearShip100.png");
 
         ship25 = new Image("assets/newShips/ship25.png");
         ship60 = new Image("assets/newShips/ship60.png");
-        // ship100 = new Image("assets/newShips/ship100.png");
-        ship100 = new Image("assets/newShips/ship100white.png");
+        ship100 = new Image("assets/newShips/ship100.png");
+
+        shipHit100 = new Image("assets/newShips/shipHit100.png");
 
         // ! Größen im Konstruktor setzen
         if (size >= 25) {
             this.water = water25;
+            this.waterHit = waterHit100;
+            this.waterHover = waterHover100;
             this.ship = ship25;
+            this.shipHit = shipHit100;
             this.nearShip = nearShip25;
             this.error = error25;
         } else if (size >= 16) {
             this.water = water60;
+            this.waterHit = waterHit100;
+            this.waterHover = waterHover100;
             this.ship = ship60;
+            this.shipHit = shipHit100;
             this.nearShip = nearShip60;
             this.error = error60;
         } else {
             this.water = water100;
+            this.waterHit = waterHit100;
+            this.waterHover = waterHover100;
             this.ship = ship100;
+            this.shipHit = shipHit100;
             this.nearShip = nearShip100;
             this.error = error100;
         }
@@ -143,7 +170,6 @@ public class GridPaneBuilder {
                 @Override
                 public void handle(MouseEvent event) {
                     if (controller.isYourTurn()) {
-
                         setPictureHover(pane);
                     }
                 }
@@ -154,6 +180,18 @@ public class GridPaneBuilder {
             pane.setOnMouseClicked(event -> {
 
                 controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
+
+            });
+
+            tableEnemy.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (controller.isYourTurn()) {
+
+                        setPictureHover(pane);
+
+                    }
+                }
 
             });
 
@@ -425,31 +463,30 @@ public class GridPaneBuilder {
     private void setPictureWaterBorderSmall(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(water); //TODO Water Border Small
+            image.setImage(water); // TODO Water Border Small
         }
     }
 
     private void setPictureHit(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(error); // TODO error
+            image.setImage(shipHit); // TODO error
         }
     }
 
     private void setPictureMiss(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(water); //TODO Miss
+            image.setImage(waterHit); // TODO Miss
         }
     }
 
     private void setPictureHover(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(ship); //TODO Hover
+            image.setImage(waterHover); // TODO Hover
         }
     }
-
 
     private ImageView getImageViewOfPane(Pane pane) {
         ObservableList<Node> children = pane.getChildren();
