@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+
 public class Game extends Application {
     public static Controller logicController;
     private static BorderPane mainLayout;

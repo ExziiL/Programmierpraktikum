@@ -4,11 +4,13 @@ import GUI.GUIConstants;
 import GUI.Game;
 import Utilities.HoverState;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -130,10 +132,22 @@ public class GridPaneBuilder {
             pane.setPrefWidth(paneSize);
             pane.setPrefHeight(paneSize);
             pane.setId("field" + row + column);
+            // Set Image View in Pane
+            ImageView image = new ImageView();
+            image.setFitHeight(paneSize);
+            image.setFitWidth(paneSize);
+            pane.getChildren().add(image);
+
             tableEnemy.add(pane, column++, row);
             // }
             // Events
-            pane.setOnMouseEntered(event -> setColorPane(pane, GUIConstants.colorShotMarker));
+            pane.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    setPictureHover(pane);
+                }
+            });
+
 
             pane.setOnMouseExited(event -> redrawEnemyPanes());
 
@@ -200,6 +214,12 @@ public class GridPaneBuilder {
             pane.setPrefWidth(paneSize);
             pane.setPrefHeight(paneSize);
             pane.setId("field" + row + column);
+            // Set Image View
+            ImageView image = new ImageView();
+            image.setFitHeight(paneSize);
+            image.setFitWidth(paneSize);
+            pane.getChildren().add(image);
+
             tableGamer.add(pane, column++, row);
             // }
         }
@@ -289,16 +309,16 @@ public class GridPaneBuilder {
 
             switch (Game.logicController.getGameElementStatus(j)) {
                 case SHIP:
-                    setColorPane(pane, GUIConstants.colorShip);
+                    setPictureofShip(pane);
                     break;
                 case HIT:
-                    setColorPane(pane, GUIConstants.colorHit);
+                    setPictureHit(pane);
                     break;
                 case MISS:
-                    setColorPane(pane, GUIConstants.colorMiss);
+                    setPictureMiss(pane);
                     break;
                 default: // WATER
-                    setColorPane(pane, GUIConstants.colorGameField);
+                    setPictureWaterBorderSmall(pane);
                     break;
             }
         }
@@ -310,13 +330,13 @@ public class GridPaneBuilder {
 
             switch (Game.logicController.getEnemyElementStatus(j)) {
                 case HIT:
-                    setColorPane(pane, GUIConstants.colorHit);
+                    setPictureHit(pane);
                     break;
                 case MISS:
-                    setColorPane(pane, GUIConstants.colorMiss);
+                    setPictureMiss(pane);
                     break;
                 default: // WATER
-                    setColorPane(pane, GUIConstants.colorGameField);
+                    setPictureWaterBorderSmall(pane);
                     break;
             }
         }
@@ -332,7 +352,7 @@ public class GridPaneBuilder {
 
                 switch (states[i].getStatus()) {
                     case SHIP:
-                        setPictureofShip(pane, states[i].getShipSize(), states[i].getPart(), states[i].isHorizontal());
+                        setPictureofShip(pane);
                         break;
                     case ERROR:
                         setPictureError(pane);
@@ -355,8 +375,7 @@ public class GridPaneBuilder {
 
             switch (Game.logicController.getGameElementStatus(j)) {
                 case SHIP:
-                    setPictureofShip(pane, Game.logicController.getShipSize(j), Game.logicController.getPartofShip(j),
-                            Game.logicController.isShipHorizontal(j));
+                    setPictureofShip(pane);
                     break;
                 case CLOSE:
                     setPictureClose(pane);
@@ -373,38 +392,11 @@ public class GridPaneBuilder {
                 + ";");
     }
 
-    private void setPictureofShip(Pane pane, int shipSize, int part, boolean isHorizontal) {
+    private void setPictureofShip(Pane pane) {
 
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
             image.setImage(ship);
-            // if (isHorizontal) {
-            // switch (shipSize) {
-            // case 2:
-            // switch (part) {
-            // case 1:
-            // image.setImage(twoShipFirstHor);
-            // break;
-            // case 2:
-            // image.setImage(twoShipSecondHor);
-            // break;
-            // }
-            // break;
-            // }
-            // } else {
-            // switch (shipSize) {
-            // case 2:
-            // switch (part) {
-            // case 1:
-            // image.setImage(twoShipFirstVert);
-            // break;
-            // case 2:
-            // image.setImage(twoShipSecondVert);
-            // break;
-            // }
-            // break;
-            // }
-            // }
         }
 
     }
@@ -429,6 +421,35 @@ public class GridPaneBuilder {
             image.setImage(water);
         }
     }
+
+    private void setPictureWaterBorderSmall(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(water); //TODO Water Border Small
+        }
+    }
+
+    private void setPictureHit(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(error); // TODO error
+        }
+    }
+
+    private void setPictureMiss(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(water); //TODO Miss
+        }
+    }
+
+    private void setPictureHover(Pane pane) {
+        ImageView image = getImageViewOfPane(pane);
+        if (image != null) {
+            image.setImage(ship); //TODO Hover
+        }
+    }
+
 
     private ImageView getImageViewOfPane(Pane pane) {
         ObservableList<Node> children = pane.getChildren();
