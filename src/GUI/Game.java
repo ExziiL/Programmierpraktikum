@@ -1,6 +1,7 @@
 package GUI;
 
 import Logic.main.Controller;
+import Network.*;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -79,7 +80,8 @@ public class Game extends Application {
         dialogSaveGame.show();
     }
 
-    public static void showPopUpReconnect() {
+    public static void showPopUpReconnect(String ip, boolean isServer) {
+        buildPopUpReconnect(ip, isServer);
         dialogReconnect.show();
     }
 
@@ -91,7 +93,7 @@ public class Game extends Application {
         showStartGameWindow();
         logicController = new Controller();
         buildPopUpSaveGame();
-        buildPopUpReconnect();
+
     }
 
     private void showAppWindow() throws IOException {
@@ -126,7 +128,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                Pane contentPane) {
+                                       Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -215,7 +217,7 @@ public class Game extends Application {
 
     }
 
-    private void buildPopUpReconnect() {
+    private static void buildPopUpReconnect(String inputIP, boolean isServer) {
 
         dialogReconnect.initOwner(primaryStage);
         dialogReconnect.setTitle("Neu Verbinden");
@@ -228,6 +230,13 @@ public class Game extends Application {
         TextField ip = new TextField();
         ip.setMinWidth(148);
         ip.setMinHeight(25);
+
+        if (isServer) {
+            ip.setEditable(false);
+            ip.setText(inputIP);
+        } else {
+            ip.setPromptText("IP-Adresse");
+        }
         Button verbinden = new Button("Verbinden");
 
         dialogVbox.getChildren().addAll(dialogHbox, text);
@@ -242,6 +251,17 @@ public class Game extends Application {
         verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
+
+                Server server;
+                Client client;
+                if (isServer) {
+                    server = (Server) Network.chooseNetworkTyp(true);
+                    server.createServer();
+                } else {
+                   client  = (Client) Network.chooseNetworkTyp(false);
+                   client.createClient(ip.getText());
+                }
+
                 dialogReconnect.hide();
                 try {
                     showPlayingFieldWindow();

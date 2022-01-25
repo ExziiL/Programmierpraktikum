@@ -17,6 +17,7 @@ public class DocumentWriter {
     private Scanner myScanner;
     private File myObj;
     private ArrayList<String> text = new ArrayList<>();
+    private ArrayList<String> output;
     private String id;
     private String path;
 
@@ -39,7 +40,11 @@ public class DocumentWriter {
 
         id = s;
         String fs = System.getProperty("file.separator");
-        path = "src" + fs + "SaveFiles" + fs + id + fs;
+        path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public void writeShot(int x, int y) {
@@ -77,6 +82,10 @@ public class DocumentWriter {
 
         text.add(ships + "\n");
     }
+
+    // public void writeInitiator(boolean isInitiator){
+
+    // }
 
     public void writeMyGameField(GameElement[][] gameField) {
         writeGameField("MyGame", gameField);
@@ -129,24 +138,26 @@ public class DocumentWriter {
     }
 
     public void writeInitiator(boolean isInitiator) {
-        text.add("init " + isInitiator);
+        text.add("init " + isInitiator + "\n");
     }
 
     public ArrayList<String> load() {
 
-        ArrayList<String> output = new ArrayList<>();
+        if (output.isEmpty()) {
+            output = new ArrayList<>();
 
-        if (myScanner == null) {
-            try {
-                myObj = new File(path);
-                myScanner = new Scanner(myObj);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (myScanner == null) {
+                try {
+                    myObj = new File(path);
+                    myScanner = new Scanner(myObj);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
-        while (myScanner.hasNextLine()) {
-            output.add(myScanner.nextLine());
+            while (myScanner.hasNextLine()) {
+                output.add(myScanner.nextLine());
+            }
         }
         return output;
     }

@@ -3,8 +3,10 @@ package Logic.main;
 import Logic.DocumentWriter.DocumentWriter;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
+import Logic.Game.Game;
 import Logic.Game.MyGame;
 import Utilities.HoverState;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -19,6 +21,7 @@ public class Controller {
     private EnemyGame enemyGame;
     private boolean concratulation;
     private DocumentWriter writer;
+    private boolean initiator;
     //endregion
 
     /**
@@ -445,7 +448,7 @@ public class Controller {
                     myGame.setAllFiveShips(Integer.parseInt(split[4]));
                     break;
                 case "init":
-                    //TODO initiator set
+                    initiator = Boolean.parseBoolean(split[1]);
                     break;
                 case "MyGame":
 
@@ -474,6 +477,13 @@ public class Controller {
         }
     }
 
+    public String getDocumentID() {
+        return writer.getId();
+    }
+
+    public boolean isInitiator() {
+        return initiator;
+    }
 
     private GameElementStatus interpretStatusByNumber(int s) {
 

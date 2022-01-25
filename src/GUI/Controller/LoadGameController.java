@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -47,6 +48,7 @@ public class LoadGameController implements Initializable {
             HBox right = new HBox();
             HBox line = new HBox();
             // Set Label with Filename
+            s.replace(".txt", "");
             Label text = new Label(s);
             left.getChildren().add(text);
 
@@ -94,14 +96,22 @@ public class LoadGameController implements Initializable {
     private void loadGame() {
         try {
             String s = getSelectedText();
+            InetAddress realIP = InetAddress.getLocalHost();
             Game.logicController.setWriter(new DocumentWriter(s));
             Game.logicController.loadGame();
 
             if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
-                Game.showPopUpReconnect();
+
+                if (Game.logicController.isInitiator()) {
+                    Game.showPopUpReconnect(realIP.getHostAddress(), true);
+                } else {
+                    Game.showPopUpReconnect("", false);
+                }
+
             } else {
                 Game.showPlayingFieldWindow();
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();

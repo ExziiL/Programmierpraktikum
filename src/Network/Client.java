@@ -1,5 +1,7 @@
 package Network;
 
+import Logic.DocumentWriter.DocumentWriter;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -150,4 +152,63 @@ public class Client extends Network {
 
 
     }
+
+    @Override
+    public void save() {
+        String message = "save ";
+        message += controller.getDocumentID();
+        try {
+            outStream.write(String.format("%s%n", message));
+            outStream.flush();
+
+            controller.save(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void load() {
+        String message = "load ";
+        message += controller.getDocumentID();
+        try {
+            outStream.write(String.format("%s%n", message));
+            outStream.flush();
+
+            controller.loadGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void receiveSave() {
+        try {
+            message = inStream.readLine();
+            System.out.println(message);
+            if (message.startsWith("save")) {
+                controller.save(false);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void receiveLoad() {
+        try {
+            message = inStream.readLine();
+            System.out.println(message);
+            if (message.startsWith("load")) {
+                String[] id = message.split(" ");
+                controller.setWriter(new DocumentWriter(id[1]));
+                controller.loadGame();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

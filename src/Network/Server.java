@@ -1,6 +1,7 @@
 package Network;
 
 import GUI.Game;
+import Logic.DocumentWriter.DocumentWriter;
 
 import java.net.*;
 import java.io.*;
@@ -139,4 +140,63 @@ public class Server extends Network {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void save() {
+        String message = "save ";
+        message += controller.getDocumentID();
+        try {
+            outStream.write(String.format("%s%n", message));
+            outStream.flush();
+
+            controller.save(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void load() {
+        String message = "load ";
+        message += controller.getDocumentID();
+        try {
+            outStream.write(String.format("%s%n", message));
+            outStream.flush();
+
+            controller.loadGame();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void receiveSave() {
+        try {
+            get_Message = inStream.readLine();
+            System.out.println(get_Message);
+            if (get_Message.startsWith("save")) {
+                controller.save(false);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void receiveLoad() {
+        try {
+            get_Message = inStream.readLine();
+            System.out.println(get_Message);
+            if (get_Message.startsWith("load")) {
+                String[] id = get_Message.split(" ");
+                controller.setWriter(new DocumentWriter(id[1]));
+                controller.loadGame();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

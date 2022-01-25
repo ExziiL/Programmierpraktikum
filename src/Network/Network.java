@@ -1,5 +1,6 @@
 package Network;
 
+import Logic.DocumentWriter.DocumentWriter;
 import Logic.main.Controller;
 
 import java.io.IOException;
@@ -10,6 +11,7 @@ public abstract class Network {
     protected static Network netplay;
     protected static boolean isServer;
     protected static Controller controller;
+    private String get_Message;
 
 
     public static Network chooseNetworkTyp(boolean server) {
@@ -54,6 +56,12 @@ public abstract class Network {
         }
 
     }
+
+    public abstract void save();
+    public abstract void load();
+
+    public abstract void receiveSave();
+    public abstract void receiveLoad();
 
     public static Network getNetplay() {
         return netplay;
