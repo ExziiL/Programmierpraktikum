@@ -34,11 +34,9 @@ public class GridPaneBuilder {
     public Image water25;
     public Image water60;
     public Image water100;
-
     public Image nearShip25;
     public Image nearShip60;
     public Image nearShip100;
-
     public Image ship25;
     public Image ship60;
     public Image ship100;
@@ -64,8 +62,8 @@ public class GridPaneBuilder {
 
         ship25 = new Image("assets/newShips/ship25.png");
         ship60 = new Image("assets/newShips/ship60.png");
-        ship100 = new Image("assets/newShips/ship100.png");
-
+        // ship100 = new Image("assets/newShips/ship100.png");
+        ship100 = new Image("assets/newShips/ship100white.png");
 
         // ! Größen im Konstruktor setzen
         if (size >= 25) {
@@ -73,7 +71,7 @@ public class GridPaneBuilder {
             this.ship = ship25;
             this.nearShip = nearShip25;
             this.error = error25;
-        } else if (size >= 13) {
+        } else if (size >= 16) {
             this.water = water60;
             this.ship = ship60;
             this.nearShip = nearShip60;
@@ -144,10 +142,12 @@ public class GridPaneBuilder {
             pane.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    setPictureHover(pane);
+                    if (controller.isYourTurn()) {
+
+                        setPictureHover(pane);
+                    }
                 }
             });
-
 
             pane.setOnMouseExited(event -> redrawEnemyPanes());
 

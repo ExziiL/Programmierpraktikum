@@ -1,8 +1,14 @@
 package GUI.Controller;
 
 import GUI.Game;
+import Logic.main.LogicConstants;
+import Network.Client;
+import Network.Network;
+import Network.Server;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -14,12 +20,11 @@ import java.util.ResourceBundle;
 
 public class PlayingFieldController implements Initializable {
 
+    // region FXML-Variables
     @FXML
     private GridPane tableEnemy;
-
     @FXML
     private GridPane tableGamer;
-
     @FXML
     private Text labelTwo;
     @FXML
@@ -28,7 +33,11 @@ public class PlayingFieldController implements Initializable {
     private Text labelFour;
     @FXML
     private Text labelFive;
+    @FXML
+    private Text statusText;
+    // endregion
 
+    // region Variables
     private int maxCountTwoShips = 0;
     private int maxCountThreeShips = 0;
     private int maxCountFourShips = 0;
@@ -37,12 +46,12 @@ public class PlayingFieldController implements Initializable {
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
+    private boolean yourTurn = false;
+    // endregion
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gridBuilder = new GridPaneBuilder(size, null, null, null, null);
-
-        Game.logicController.createEnemyGame();
 
         maxCountTwoShips = Game.logicController.getAllTwoShips();
         maxCountThreeShips = Game.logicController.getAllThreeShips();
@@ -54,66 +63,100 @@ public class PlayingFieldController implements Initializable {
 
         setLabelsShipDestroyed();
 
+        gridBuilder.redrawGamerPanes();
+        gridBuilder.redrawEnemyPanes();
+
+        if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+            Network netplay = Network.getNetplay();
+            if (netplay instanceof Server) {
+                yourTurn = true;
+            } else if (netplay instanceof Client) {
+                yourTurn = false;
+                Thread t = new Thread(() -> {
+                    enemyTurn();
+                    yourTurn = true;
+                    Platform.runLater(() -> {
+                        setStatusText();
+                    });
+                });
+                t.start();
+            }
+        } else {
+            yourTurn = true;
+        }
+        setStatusText();
     }
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-
         Game.showPopUpSaveGame();
     }
 
-    public void handleSetOnMouseClicked(MouseEvent event, int index) {
+    public void handleSetOnMouseClicked(MouseEvent event, int index) { // TODO enemyTurn darf nicht erst wenn geclickt
+                                                                       // wurde aufgerufen werden, muss automatisch
+                                                                       // aufgerufen werden
 
         if (event.getButton() == MouseButton.PRIMARY) {
             yourTurn(index);
-            setLabelsShipDestroyed();
+
         }
     }
 
     public void yourTurn(int index) {
-        boolean isHit = Game.logicController.shoot(index);
-        gridBuilder.redrawEnemyPanes();
-
-        checkMyWin();
-
-        if (isHit == false) {
-            enemyTurn();
-            checkEnemyWin();
-        }
+        Thread t = new Thread(() -> {
+            if (yourTurn) {
+                yourTurn = Game.logicController.shoot(index) > 0;
+                Platform.runLater(() -> {
+                    checkMyWin();
+                    setStatusText();
+                    setLabelsShipDestroyed();
+                    gridBuilder.redrawEnemyPanes();
+                });
+            }
+            if (!yourTurn) {
+                enemyTurn();
+                Platform.runLater(() -> {
+                    yourTurn = true;
+                    setStatusText();
+                    checkEnemyWin();
+                });
+            }
+        });
+        t.start();
     }
 
     public void enemyTurn() {
         boolean isEnemyTurn = false;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
-        } while (isEnemyTurn);
 
-        gridBuilder.redrawGamerPanes();
+            if (Game.logicController.allShipsDestroyed()) {
+                isEnemyTurn = false;
+            }
+            Platform.runLater(() -> {
+                gridBuilder.redrawGamerPanes();
+            });
+        } while (isEnemyTurn);
     }
 
     public void checkMyWin() {
-
         if (Game.logicController.allEnemyShipsDestroyed()) {
-            try {
-                Game.logicController.setConcratulation(true);
-                Game.showEnd();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Game.logicController.setConcratulation(true);
+            // Game.showEnd();
+            Game.showStartNewGame();
         }
-
     }
 
     public void checkEnemyWin() {
-
         if (Game.logicController.allShipsDestroyed()) {
-            try {
-                Game.logicController.setConcratulation(false);
-                Game.showEnd();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            // Game.logicController.setConcratulation(false);
+            // Game.showEnd();
+            Game.showStartNewGame();
         }
+    }
+
+    public boolean isYourTurn() {
+        return yourTurn;
     }
 
     private void setLabelsShipDestroyed() {
@@ -127,5 +170,13 @@ public class PlayingFieldController implements Initializable {
         labelThree.setText(currentThreeShip + " / " + maxCountThreeShips);
         labelFour.setText(currentFourShip + " / " + maxCountFourShips);
         labelFive.setText(currentFiveShip + " / " + maxCountFiveShips);
+    }
+
+    private void setStatusText() {
+        if (yourTurn) {
+            statusText.setText("Du bist dran!");
+        } else {
+            statusText.setText("Warte auf Gegner");
+        }
     }
 }

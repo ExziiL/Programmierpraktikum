@@ -43,7 +43,8 @@ public class GameElement {
     }
 
     public void setShip(Ship ship) {
-        if (status == GameElementStatus.SHIP) {
+        if (status == GameElementStatus.SHIP ||
+                status == GameElementStatus.HIT) {
             this.ship = ship;
         } else if (status == GameElementStatus.CLOSE) {
             closeShips.add(ship);
@@ -54,9 +55,9 @@ public class GameElement {
         return ship;
     }
 
-    public boolean isShipClose(Ship ship){
-        for(int i = 0; i<closeShips.size(); i++){
-            if(closeShips.get(i) == ship){
+    public boolean isShipClose(Ship ship) {
+        for (int i = 0; i < closeShips.size(); i++) {
+            if (closeShips.get(i) == ship) {
                 return true;
             }
         }
