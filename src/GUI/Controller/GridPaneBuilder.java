@@ -16,8 +16,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class GridPaneBuilder {
     private final int size;
+    private final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
+            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$"};
+
     private ObservableList<Node> shipPartsGamerList;
     private ObservableList<Node> shipPartsEnemyList;
     private ObservableList<Node> shipPartsPlacingList;
@@ -115,56 +121,50 @@ public class GridPaneBuilder {
 
         int column = 0;
         int row = 0;
-        double paneSize = tableEnemy.getPrefHeight() / Game.logicController.getGameSize();
+        double paneSize = (tableEnemy.getPrefHeight() - 15) / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
-        for (int i = 0; i < size * size; i++) {
+        for (int i = 0; i < (size + 1) * (size + 1); i++) {
             Pane pane = new Pane();
 
-            if (column == size) {
+            if (column == size + 1) {
                 column = 0;
                 row++;
             }
-            // if (i == 0) {
-            // column++;
-            // continue;
-            // }
-            // if (i % (size + 1) == 0) {
-            // String b = Integer.toString(row - 1);
-            // Label verticallLabel = new Label(b);
-            // verticallLabel.setMinWidth(15);
-            // verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-            // if (size > 20) {
-            // verticallLabel.setFont(Font.font(10));
-            // } else if (size > 25) {
-            // verticallLabel.setFont(Font.font(0.5));
-            // }
-            // tableEnemy.add(verticallLabel, column++, row);
-            // } else if (row == 0) {
-            // String b = Integer.toString(column - 1);
-            // Label horizonatlLabel = new Label(b);
-            // horizonatlLabel.setPrefWidth(paneSize);
-            // horizonatlLabel.setAlignment(Pos.CENTER);
-            // if (size > 20) {
-            // horizonatlLabel.setFont(Font.font(1));
-            // } else if (size > 25) {
-            // horizonatlLabel.setFont(Font.font(0.5));
-            // }
-            // tableEnemy.add(horizonatlLabel, column++, row);
-            // } else {
-            pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
-            pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
-            pane.setPrefWidth(paneSize);
-            pane.setPrefHeight(paneSize);
-            pane.setId("field" + row + column);
-            // Set Image View in Pane
-            ImageView image = new ImageView();
-            image.setFitHeight(paneSize);
-            image.setFitWidth(paneSize);
-            pane.getChildren().add(image);
+            if (i == 0) {
+                column++;
+                continue;
+            }
+            if (i % (size + 1) == 0) {
+                String b = Integer.toString(row - 1);
+                Label verticallLabel = new Label(b);
+                verticallLabel.setMinWidth(15);
+                verticallLabel.setAlignment(Pos.CENTER);
+                verticallLabel.setFont(Font.font(10));
 
-            tableEnemy.add(pane, column++, row);
-            // }
+                tableEnemy.add(verticallLabel, column++, row);
+            } else if (row == 0) {
+                //String b = Integer.toString(column - 1);
+                Label horizonatlLabel = new Label(alphabet[column - 1]);
+                horizonatlLabel.setPrefWidth(paneSize);
+                horizonatlLabel.setAlignment(Pos.CENTER);
+                horizonatlLabel.setFont(Font.font(10));
+
+                tableEnemy.add(horizonatlLabel, column++, row);
+            } else {
+                pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
+                pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
+                pane.setPrefWidth(paneSize);
+                pane.setPrefHeight(paneSize);
+                pane.setId("field" + row + column);
+                // Set Image View in Pane
+                ImageView image = new ImageView();
+                image.setFitHeight(paneSize);
+                image.setFitWidth(paneSize);
+                pane.getChildren().add(image);
+
+                tableEnemy.add(pane, column++, row);
+            }
             // Events
             pane.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
@@ -218,34 +218,6 @@ public class GridPaneBuilder {
                 column = 0;
                 row++;
             }
-            // if (i == 0) {
-            // column++;
-            // continue;
-            // }
-            // if (i % (size + 1) == 0) {
-            // String b = Integer.toString(row - 1);
-            // Label verticallLabel = new Label(b);
-            // verticallLabel.setMinWidth(15);
-            // verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-            // if (size > 20) {
-            // verticallLabel.setFont(Font.font(10));
-            // } else if (size > 25) {
-            // verticallLabel.setFont(Font.font(0.5));
-            // }
-            // tableGamer.add(verticallLabel, column++, row);
-            // } else if (row == 0) {
-            // String b = Integer.toString(column - 1);
-            // Label horizonatlLabel = new Label(b);
-            // horizonatlLabel.setPrefWidth(paneSize);
-            // horizonatlLabel.setAlignment(Pos.CENTER);
-
-            // if (size > 20) {
-            // horizonatlLabel.setFont(Font.font(1));
-            // } else if (size > 25) {
-            // horizonatlLabel.setFont(Font.font(0.5));
-            // }
-            // tableGamer.add(horizonatlLabel, column++, row);
-            // } else {
 
             pane.setStyle("-fx-background-color: " + GUIConstants.colorGameField + ";");
             pane.setStyle("-fx-border-color: " + GUIConstants.colorGameFieldBorder + ";");
@@ -259,10 +231,12 @@ public class GridPaneBuilder {
             pane.getChildren().add(image);
 
             tableGamer.add(pane, column++, row);
-            // }
         }
+
         // Save Grid List
-        shipPartsGamerList = tableGamer.getChildren().filtered(node -> node instanceof Pane);
+        shipPartsGamerList = tableGamer.getChildren().
+
+                filtered(node -> node instanceof Pane);
 
         redrawGamerPanes();
 
@@ -272,7 +246,7 @@ public class GridPaneBuilder {
     public GridPane createTablePlacingField(GridPane tablePlacing, PlacingFieldController controller) {
         int column = 0;
         int row = 0;
-        double paneSize = tablePlacing.getPrefHeight() / Game.logicController.getGameSize();
+        double paneSize = (tablePlacing.getPrefHeight() - 15) / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size + 1) * (size + 1); i++) {
@@ -290,24 +264,17 @@ public class GridPaneBuilder {
                 String b = Integer.toString(row - 1);
                 Label verticallLabel = new Label(b);
                 verticallLabel.setMinWidth(15);
-                verticallLabel.setAlignment(Pos.CENTER_RIGHT);
-                if (size > 20) {
-                    verticallLabel.setFont(Font.font(10));
-                } else if (size > 25) {
-                    verticallLabel.setFont(Font.font(0.5));
-                }
+                verticallLabel.setAlignment(Pos.CENTER);
+                verticallLabel.setFont(Font.font(10));
+
+
                 tablePlacing.add(verticallLabel, column++, row);
             } else if (row == 0) {
-                String b = Integer.toString(column - 1);
-                Label horizonatlLabel = new Label(b);
+                Label horizonatlLabel = new Label(alphabet[column - 1]);
                 horizonatlLabel.setPrefWidth(paneSize);
                 horizonatlLabel.setAlignment(Pos.CENTER);
+                horizonatlLabel.setFont(Font.font(10));
 
-                if (size > 20) {
-                    horizonatlLabel.setFont(Font.font(10));
-                } else if (size > 25) {
-                    horizonatlLabel.setFont(Font.font(0.5));
-                }
                 tablePlacing.add(horizonatlLabel, column++, row);
             } else {
                 pane.setPrefSize(paneSize, paneSize);

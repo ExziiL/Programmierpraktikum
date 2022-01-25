@@ -13,13 +13,13 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@PlayingField.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlayingFieldController">
    <children>
       <Text fill="#00000080" layoutX="50.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dein Spielfeld" />
-      <Text fx:id="statusText" layoutX="530.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du bist dran!">
+      <Text fx:id="statusText" layoutX="530.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du bist dran!">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="400.0" layoutY="591.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
-      <Text layoutX="400.0" layoutY="607.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss abfeuern" />
+      <Text layoutX="400.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
+      <Text layoutX="400.0" layoutY="611.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss abfeuern" />
       <VBox layoutX="50.0" layoutY="103.0" prefHeight="137.0" prefWidth="300.0" spacing="10.0">
          <children>
             <HBox alignment="CENTER" prefHeight="59.0" prefWidth="32.0" spacing="75.0">
@@ -92,14 +92,14 @@
             </HBox>
          </children>
       </VBox>
-      <HBox layoutX="415.0" layoutY="121.0" prefHeight="450.0" prefWidth="450.0" style="-fx-border-color: grey;" AnchorPane.rightAnchor="50.0">
+      <HBox layoutX="415.0" layoutY="121.0" prefHeight="475.0" prefWidth="475.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="105.0">
          <children>
-            <GridPane fx:id="tableEnemy" prefHeight="450.0" prefWidth="450.0">
+            <GridPane fx:id="tableEnemy" prefHeight="475.0" prefWidth="475.0">
 
             </GridPane>
          </children>
       </HBox>
-      <HBox layoutX="60.0" layoutY="311.0" prefHeight="300.0" prefWidth="300.0" style="-fx-border-color: grey;" AnchorPane.leftAnchor="50.0">
+      <HBox layoutX="60.0" layoutY="311.0" prefHeight="300.0" prefWidth="300.0" AnchorPane.leftAnchor="50.0">
          <children>
             <GridPane fx:id="tableGamer" prefHeight="300.0" prefWidth="300.0">
             </GridPane>
