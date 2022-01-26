@@ -43,22 +43,20 @@ public class OfflinePlayer extends Player {
 
     public OfflinePlayer(Game game) {
         super(game);
+
     }
 
     @Override
     public int shoot(int x, int y) {
-        //wait shortly
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         return super.shoot(x, y);
+
     }
 
     @Override
-    public boolean takeTurn() {
+    public int takeTurn() {
+        // 0 = hit
+        // 1 = miss
+
         OfflinePlayer.nextHits nextHit = null;
         Point shipHitted;
         Point shootInDirection;
@@ -73,23 +71,23 @@ public class OfflinePlayer extends Player {
             shootInDirection = nextHit.getPointDirection();
 
             isHit = shoot(shootInDirection.x, shootInDirection.y);
-            if (isHit > 0) {
+            if (isHit == 0) {
                 // Delete shots in Opposite Direction because there can not be a ship
                 deleteOppositeDirection(shipHitted, nextHit.direction);
 
-                if (game.isMyShipDestroyed(shipHitted.x, shipHitted.y)) {
+                if (!game.isMyShipDestroyed(shipHitted.x, shipHitted.y)) {
                     // Add Shot in same direction
                     addShootDirection(shootInDirection, nextHit.direction);
                 }
             }
 
         }
-        return isHit > 0;
+        return isHit;
     }
 
     private int shootRandom() {
         Point hit;
-        int isHit = 0;
+        int isHit = 1;
 
         // Define random Point in Game
         do {
@@ -99,7 +97,7 @@ public class OfflinePlayer extends Player {
 
         isHit = shoot(hit.x, hit.y);
         // if a Ship is Hit then try in all Directions
-        if (isHit > 0) {
+        if (isHit == 0) {
             addShotInAllDirection(hit);
         }
         return isHit;

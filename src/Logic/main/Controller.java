@@ -3,11 +3,8 @@ package Logic.main;
 import Logic.DocumentWriter.DocumentWriter;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
-import Logic.Game.Game;
 import Logic.Game.MyGame;
 import Utilities.HoverState;
-//import com.sun.org.apache.xpath.internal.operations.Bool;
-
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -22,7 +19,7 @@ public class Controller {
     private boolean congratulation;
     private DocumentWriter writer;
     private boolean initiator;
-    //endregion
+    // endregion
 
     /**
      * Constructor for Controller-Class creates a new Game
@@ -337,7 +334,7 @@ public class Controller {
      *
      * @return true if enemy hits a Ship
      */
-    public boolean enemyTurn() {
+    public int enemyTurn() {
         return myGame.enemyTurn();
     }
 
@@ -430,6 +427,7 @@ public class Controller {
             switch (split[0]) {
                 case "size":
                     setGameSize(Integer.parseInt(split[1]));
+                    createEnemyGame(Integer.parseInt(split[1]));
                     break;
 
                 case "gameMode":
@@ -469,9 +467,11 @@ public class Controller {
                     status = interpretStatusByNumber(Integer.parseInt(split[3]));
                     enemyGame.setgameElementStatus(x, y, status);
 
-                    if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
-                        enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]),
-                                Integer.parseInt(split[6]));
+                    if (getGameMode() != GameMode.ONLINE) {
+                        if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
+                            enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]),
+                                    Boolean.parseBoolean(split[5]), Integer.parseInt(split[6]));
+                        }
                     }
                     break;
 
@@ -505,6 +505,5 @@ public class Controller {
         }
     }
 
-
-    //endregion
+    // endregion
 }

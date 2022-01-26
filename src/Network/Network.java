@@ -1,6 +1,5 @@
 package Network;
 
-import Logic.DocumentWriter.DocumentWriter;
 import Logic.main.Controller;
 
 import java.io.IOException;
@@ -11,7 +10,6 @@ public abstract class Network {
     protected static Network netplay;
     protected static boolean isServer;
     protected static Controller controller;
-    private String get_Message;
 
 
     public static Network chooseNetworkTyp(boolean server) {
@@ -44,7 +42,7 @@ public abstract class Network {
         return isServer;
     }
 
-    private static void closeNetwork(Network player) {
+    protected static void closeNetwork(Network player) {
         try {
             if (player instanceof Server) {
                 ((Server) player).getServerSocket().close();
@@ -57,10 +55,24 @@ public abstract class Network {
 
     }
 
+    public static boolean isNetworkClosed(Network player) {
+        if (player instanceof Server) {
+            return ((Server) player).testRead() == -1;
+        } else if (player instanceof Client) {
+            return ((Client) player).testRead() == -1;
+        }
+
+        return true;
+    }
+
+    public abstract void sendNothing();
+
     public abstract void save();
+
     public abstract void load();
 
-    public abstract void receiveSave();
+    public abstract String receiveSave();
+
     public abstract void receiveLoad();
 
     public static Network getNetplay() {
@@ -69,7 +81,7 @@ public abstract class Network {
 
     public abstract int shoot(int x, int y);
 
-    public abstract int[] getShotAt();
+    public abstract int[] receiveSaveOrShot();
 
     public abstract void sendAnswer(int nr);
 }

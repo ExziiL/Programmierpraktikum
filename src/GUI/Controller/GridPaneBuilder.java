@@ -6,7 +6,6 @@ import Utilities.HoverState;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -321,9 +320,11 @@ public class GridPaneBuilder {
                     setPictureofShip(pane);
                     break;
                 case HIT:
+                    wait_shortly(10);
                     setPictureHit(pane);
                     break;
                 case MISS:
+                    wait_shortly(10);
                     setPictureMiss(pane);
                     break;
                 default: // WATER
@@ -434,28 +435,28 @@ public class GridPaneBuilder {
     private void setPictureWaterBorderSmall(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(water); // TODO Water Border Small
+            image.setImage(water);
         }
     }
 
     private void setPictureHit(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(shipHit); // TODO error
+            image.setImage(shipHit);
         }
     }
 
     private void setPictureMiss(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(waterHit); // TODO Miss
+            image.setImage(waterHit);
         }
     }
 
     private void setPictureHover(Pane pane) {
         ImageView image = getImageViewOfPane(pane);
         if (image != null) {
-            image.setImage(waterHover); // TODO Hover
+            image.setImage(waterHover);
         }
     }
 
@@ -470,4 +471,12 @@ public class GridPaneBuilder {
         return null;
     }
 
+    private void wait_shortly(int millis) {
+        //wait shortly
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

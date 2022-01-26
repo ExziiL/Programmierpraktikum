@@ -1,6 +1,7 @@
 package GUI;
 
 import Logic.main.Controller;
+import Logic.main.LogicConstants;
 import Network.Client;
 import Network.Network;
 import Network.Server;
@@ -33,10 +34,13 @@ public class Game extends Application {
     private static Scene scene;
 
     public static Label endGameText = new Label();
+    public static Label connection = new Label();
 
     private static final Stage dialogSaveGame = new Stage();
-    private static final Stage dialogStartNewGame = new Stage();
+    private static Stage dialogStartNewGame = new Stage();
     private static final Stage dialogReconnect = new Stage();
+    private static final Stage dialogConnectionClosed = new Stage();
+    private static final Stage dialogCannotSave = new Stage();
 
     public static void main(String[] args) {
         launch(args);
@@ -111,6 +115,23 @@ public class Game extends Application {
         dialogReconnect.show();
     }
 
+    public static void showPopUpConnectionClosed(boolean save, String id) {
+        if (save) {
+            connection.setText("Das Spiel wurde vom Gegner gespeichert");
+
+        } else {
+            connection.setText("Das Spiel wurde vom Gegner unterbrochen");
+        }
+
+        buildPopUpConnectionClosed(id);
+        dialogConnectionClosed.show();
+        dialogSaveGame.initOwner(primaryStage);
+    }
+
+    public static void showPopUpCannotSave() {
+        dialogCannotSave.show();
+    }
+
     public static void showStartNewGame() {
         // endGameText = "Sie haben verloren :(";
         if (Game.logicController.isConcratulation()) {
@@ -119,6 +140,7 @@ public class Game extends Application {
             endGameText.setText("Du hast verloren :(");
         }
 
+        dialogStartNewGame = new Stage();
         buildPopUpStartNewGame();
 
         // dialogStartNewGame.
@@ -133,6 +155,7 @@ public class Game extends Application {
         showStartGameWindow();
         logicController = new Controller();
         buildPopUpSaveGame();
+        buildPopUpCannotSave();
 
     }
 
@@ -204,7 +227,7 @@ public class Game extends Application {
     }
 
     private void buildPopUpSaveGame() {
-        dialogSaveGame.initOwner(primaryStage);
+
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie Speichern?");
         text.setMinHeight(50);
@@ -228,7 +251,11 @@ public class Game extends Application {
                 // TODO Speichern
                 try {
                     dialogSaveGame.hide();
-                    Game.logicController.save(true);
+                    if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+                        Network.getNetplay().save();
+                    } else {
+                        Game.logicController.save(true);
+                    }
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -242,6 +269,9 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogSaveGame.hide();
+                    if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+                        Network.getNetplay().sendNothing();
+                    }
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -259,7 +289,12 @@ public class Game extends Application {
     }
 
     private static void buildPopUpStartNewGame() {
-        dialogStartNewGame.initOwner(primaryStage);
+        try {
+            dialogStartNewGame.initOwner(primaryStage);
+        } catch (IllegalStateException e) {
+
+        }
+
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie ein neues Spiel starten?");
         text.setMinHeight(50);
@@ -352,6 +387,91 @@ public class Game extends Application {
                 }
             }
         });
+    }
+
+    private static void buildPopUpConnectionClosed(String id) {
+
+        dialogConnectionClosed.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(10);
+
+        connection.setMinHeight(50);
+        connection.setMinWidth(100);
+
+        Label idText = new Label("ID: " + id);
+        HBox dialogHbox = new HBox(20);
+        Button ok = new Button("Ok");
+
+
+        dialogHbox.getChildren().addAll(ok);
+        dialogVbox.getChildren().addAll(connection, idText, dialogHbox);
+        dialogHbox.setAlignment(Pos.CENTER);
+
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 150);
+
+        dialogConnectionClosed.initModality(Modality.APPLICATION_MODAL);
+        dialogConnectionClosed.setScene(dialogScene);
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dialogConnectionClosed.hide();
+                    Game.showGameSettingsWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
+    private void buildPopUpCannotSave() {
+        try {
+            dialogStartNewGame.initOwner(primaryStage);
+        } catch (IllegalStateException e) {
+
+        }
+
+        VBox dialogVbox = new VBox(50);
+        VBox textVbox = new VBox(10);
+        Label text = new Label("Sie sind nicht an der Reihe ");
+        Label text2 = new Label("und können deshalb nicht Speichern");
+        HBox dialogHbox = new HBox(20);
+        Button back = new Button("Zurück");
+        Button endGame = new Button("Trotzdem Beenden");
+
+        textVbox.getChildren().addAll(text, text2);
+        dialogVbox.getChildren().addAll(textVbox, dialogHbox);
+        dialogHbox.getChildren().addAll(endGame, back);
+        dialogHbox.setAlignment(Pos.CENTER);
+        textVbox.setAlignment(Pos.CENTER);
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 150);
+
+        dialogCannotSave.initModality(Modality.APPLICATION_MODAL);
+        dialogCannotSave.setScene(dialogScene);
+
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+
+                dialogCannotSave.hide();
+            }
+        });
+
+        endGame.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    showGameSettingsWindow();
+                    dialogCannotSave.hide();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
 }

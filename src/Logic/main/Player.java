@@ -15,19 +15,20 @@ public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob de
     }
 
     public int shoot(int x, int y) {
-
+        // 0 = hit
+        // 1 = miss
         if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.SHIP) {
 
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
-            return 1;
+            return 0;
         } else if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.HIT) {
-            return 1;
+            return 0;
         } else {
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
-            return 0;
+            return 1;
 
         }
     }
 
-    public abstract boolean takeTurn();
+    public abstract int takeTurn();
 }

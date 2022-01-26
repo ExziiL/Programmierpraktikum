@@ -9,7 +9,6 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -104,12 +103,17 @@ public class PlayingFieldController implements Initializable {
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-        Game.showPopUpSaveGame();
+        if(yourTurn){
+            Game.showPopUpSaveGame();
+        }else{
+            Game.showPopUpCannotSave();
+        }
+
     }
 
     public void handleSetOnMouseClicked(MouseEvent event, int index) { // TODO enemyTurn darf nicht erst wenn geclickt
-                                                                       // wurde aufgerufen werden, muss automatisch
-                                                                       // aufgerufen werden
+        // wurde aufgerufen werden, muss automatisch
+        // aufgerufen werden
 
         if (event.getButton() == MouseButton.PRIMARY) {
             yourTurn(index);
@@ -118,9 +122,13 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void yourTurn(int index) {
+
+
         Thread t = new Thread(() -> {
+            int answer[] = new int[3];
+
             if (yourTurn) {
-                yourTurn = Game.logicController.shoot(index) > 0;
+                yourTurn = Game.logicController.shoot(index) == 0;
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();
@@ -130,28 +138,39 @@ public class PlayingFieldController implements Initializable {
             }
             if (!yourTurn) {
                 enemyTurn();
+
                 Platform.runLater(() -> {
                     yourTurn = true;
                     setStatusText();
                     checkEnemyWin();
                 });
             }
+
         });
+
         t.start();
+
     }
 
     public void enemyTurn() {
-        boolean isEnemyTurn = false;
+        int isEnemyTurn = 0;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
 
+            if (isEnemyTurn == 2) {
+                Platform.runLater(() -> {
+                    Game.showPopUpConnectionClosed(true, Game.logicController.getDocumentID());
+                });
+                isEnemyTurn = 1;
+            }
+
             if (Game.logicController.allShipsDestroyed()) {
-                isEnemyTurn = false;
+                isEnemyTurn = 1;
             }
             Platform.runLater(() -> {
                 gridBuilder.redrawGamerPanes();
             });
-        } while (isEnemyTurn);
+        } while (isEnemyTurn != 1);
     }
 
     public void checkMyWin() {

@@ -78,7 +78,6 @@ public class Game {
     }
 
     public GameElementStatus getgameElementStatus(int x, int y) {
-
         return gameField[x][y].getStatus();
     }
 
