@@ -5,6 +5,7 @@ import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.Game.MyGame;
 import Utilities.HoverState;
+
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -432,6 +433,7 @@ public class Controller {
 
                 case "gameMode":
                     myGame.setGameMode(GameMode.valueOf(split[1]));
+                    enemyGame.setGameMode(GameMode.valueOf(split[1]));
                     break;
                 case "shipsDestroyed":
                     enemyGame.setDestroyedTwoShips(Integer.parseInt(split[1]));
@@ -444,6 +446,10 @@ public class Controller {
                     myGame.setAllThreeShips(Integer.parseInt(split[2]));
                     myGame.setAllFourShips(Integer.parseInt(split[3]));
                     myGame.setAllFiveShips(Integer.parseInt(split[4]));
+                    enemyGame.setAllTwoShips(Integer.parseInt(split[1]));
+                    enemyGame.setAllThreeShips(Integer.parseInt(split[2]));
+                    enemyGame.setAllFourShips(Integer.parseInt(split[3]));
+                    enemyGame.setAllFiveShips(Integer.parseInt(split[4]));
                     break;
                 case "init":
                     initiator = Boolean.parseBoolean(split[1]);
