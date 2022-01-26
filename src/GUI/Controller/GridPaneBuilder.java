@@ -46,8 +46,12 @@ public class GridPaneBuilder {
     public Image water60;
     public Image water100;
 
+    public Image waterHit25;
+    public Image waterHit60;
     public Image waterHit100;
 
+    public Image waterHover25;
+    public Image waterHover60;
     public Image waterHover100;
 
     public Image nearShip25;
@@ -77,8 +81,12 @@ public class GridPaneBuilder {
         water60 = new Image("assets/newShips/water60.png");
         water100 = new Image("assets/newShips/water100.png");
 
+        waterHit25 = new Image("assets/newShips/waterHit25.png");
+        waterHit60 = new Image("assets/newShips/waterHit60.png");
         waterHit100 = new Image("assets/newShips/waterHit100.png");
 
+        waterHover25 = new Image("assets/newShips/waterHover25.png");
+        waterHover60 = new Image("assets/newShips/waterHover60.png");
         waterHover100 = new Image("assets/newShips/waterHover100.png");
 
         nearShip25 = new Image("assets/newShips/nearShip25.png");
@@ -96,16 +104,16 @@ public class GridPaneBuilder {
         // ! Größen im Konstruktor setzen
         if (size >= 25) {
             this.water = water25;
-            this.waterHit = waterHit100;
-            this.waterHover = waterHover100;
+            this.waterHit = waterHit25;
+            this.waterHover = waterHover25;
             this.ship = ship25;
             this.shipHit = shipHit25;
             this.nearShip = nearShip25;
             this.error = error25;
         } else if (size >= 16) {
             this.water = water60;
-            this.waterHit = waterHit100;
-            this.waterHover = waterHover100;
+            this.waterHit = waterHit60;
+            this.waterHover = waterHover60;
             this.ship = ship60;
             this.shipHit = shipHit60;
             this.nearShip = nearShip60;
@@ -472,7 +480,7 @@ public class GridPaneBuilder {
     }
 
     private void wait_shortly(int millis) {
-        //wait shortly
+        // wait shortly
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {
