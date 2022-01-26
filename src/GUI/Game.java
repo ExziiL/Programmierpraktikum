@@ -180,23 +180,26 @@ public class Game extends Application {
         public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
             final double newWidth = scene.getWidth();
             final double newHeight = scene.getHeight();
+            if (newHeight >= 400 && newWidth >= 600) {
+                double scaleFactor = newWidth / newHeight > ratio
+                        ? newHeight / initHeight
+                        : newWidth / initWidth;
 
-            double scaleFactor = newWidth / newHeight > ratio
-                    ? newHeight / initHeight
-                    : newWidth / initWidth;
+                // if (scaleFactor >= 1) {
+                Scale scale = new Scale(scaleFactor, scaleFactor);
+                scale.setPivotX(0);
+                scale.setPivotY(0);
+                scene.getRoot().getTransforms().setAll(scale);
 
-            // if (scaleFactor >= 1) {
-            Scale scale = new Scale(scaleFactor, scaleFactor);
-            scale.setPivotX(0);
-            scale.setPivotY(0);
-            scene.getRoot().getTransforms().setAll(scale);
-
-            contentPane.setPrefWidth(newWidth / scaleFactor);
-            contentPane.setPrefHeight(newHeight / scaleFactor);
-            // } else {
-            // contentPane.setPrefWidth(Math.max(initWidth, newWidth));
-            // contentPane.setPrefHeight(Math.max(initHeight, newHeight));
-            // }
+                contentPane.setPrefWidth(newWidth / scaleFactor);
+                contentPane.setPrefHeight(newHeight / scaleFactor);
+                // } else {
+                // contentPane.setPrefWidth(Math.max(initWidth, newWidth));
+                // contentPane.setPrefHeight(Math.max(initHeight, newHeight));
+                // }
+            }else {
+                primaryStage.sizeToScene();
+            }
         }
     }
 
