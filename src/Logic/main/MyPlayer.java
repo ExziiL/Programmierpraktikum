@@ -14,8 +14,8 @@ public class MyPlayer extends Player {
     }
 
     @Override
-    public boolean takeTurn() {
-        return false;
+    public int takeTurn() {
+        return 0;
     }
 
     @Override
@@ -30,10 +30,9 @@ public class MyPlayer extends Player {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
             } else if (isHit == 1 || isHit == 2) {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
-            }else if (isHit == 2){
+            } else if (isHit == 2) {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
-            }
-            else {
+            } else {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
             }
             return isHit;

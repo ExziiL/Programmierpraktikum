@@ -34,11 +34,12 @@ public class Game extends Application {
     private static Scene scene;
 
     public static Label endGameText = new Label();
+    public static Label connection = new Label();
 
     private static final Stage dialogSaveGame = new Stage();
     private static final Stage dialogStartNewGame = new Stage();
     private static final Stage dialogReconnect = new Stage();
-    private static final Stage dialogReceivedSave = new Stage();
+    private static final Stage dialogConnectionClosed = new Stage();
 
     public static void main(String[] args) {
         launch(args);
@@ -113,9 +114,15 @@ public class Game extends Application {
         dialogReconnect.show();
     }
 
-    public static void showPopUpReceivedSave(String id) {
-        buildPopUpReceivedSave(id);
-        dialogReceivedSave.show();
+    public static void showPopUpConnectionClosed(boolean save, String id) {
+        if (save) {
+            connection.setText("Das Spiel wurde vom Gegner mit der ID" + id + "gespeichert");
+        } else {
+            connection.setText("Das Spiel wurde vom Gegner unterbrochen");
+        }
+
+        buildPopUpConnectionClosed();
+        dialogConnectionClosed.show();
     }
 
     public static void showStartNewGame() {
@@ -250,6 +257,9 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogSaveGame.hide();
+                    if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+                        Network.getNetplay().sendNothing();
+                    }
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -362,32 +372,32 @@ public class Game extends Application {
         });
     }
 
-    private static void buildPopUpReceivedSave(String id) {
+    private static void buildPopUpConnectionClosed() {
 
-        dialogReceivedSave.initOwner(primaryStage);
+        dialogConnectionClosed.initOwner(primaryStage);
         VBox dialogVbox = new VBox(10);
-        Label text = new Label("Das Spiel wurde vom Gegner mit der ID" + id + "gespeichert");
-        text.setMinHeight(50);
-        text.setMinWidth(100);
+
+        connection.setMinHeight(50);
+        connection.setMinWidth(100);
         HBox dialogHbox = new HBox(20);
         Button ok = new Button("Ok");
 
 
         dialogHbox.getChildren().addAll(ok);
-        dialogVbox.getChildren().addAll(text, dialogHbox);
+        dialogVbox.getChildren().addAll(connection, dialogHbox);
         dialogHbox.setAlignment(Pos.CENTER);
 
         dialogVbox.setAlignment(Pos.CENTER);
         Scene dialogScene = new Scene(dialogVbox, 300, 150);
 
-        dialogReceivedSave.initModality(Modality.APPLICATION_MODAL);
-        dialogReceivedSave.setScene(dialogScene);
+        dialogConnectionClosed.initModality(Modality.APPLICATION_MODAL);
+        dialogConnectionClosed.setScene(dialogScene);
 
         ok.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
-                    dialogReceivedSave.hide();
+                    dialogConnectionClosed.hide();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();

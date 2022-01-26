@@ -13,7 +13,7 @@ public class Server extends Network {
     private static ServerSocket serverSocket;
     private static Socket server;
     private String get_Message;
-    private int[] xy = new int[2];
+    private int[] xy = new int[3];
     private String[] shot;
 
     //public Server createServer() throws IOException {
@@ -102,25 +102,34 @@ public class Server extends Network {
                 case "answer 2":
                     return 2;
                 default:
-                    wait(10);
+                    // wait(10);
                     shoot(x, y);
                     break;
             }
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return -1;
     }
 
     @Override
-    public int[] getShotAt() {
+    public int[] receiveSaveOrShot() {
         try {
             get_Message = inStream.readLine();
             System.out.println(get_Message);
             if (get_Message.startsWith("shoot")) {
                 shot = get_Message.split(" ");
-                xy[0] = Integer.parseInt(shot[1]);
-                xy[1] = Integer.parseInt(shot[2]);
+                xy[0] = 0;
+                xy[1] = Integer.parseInt(shot[1]);
+                xy[2] = Integer.parseInt(shot[2]);
+            } else if (get_Message.startsWith("save")) {
+                String[] id = get_Message.split(" ");
+                controller.setWriter(new DocumentWriter(id[1]));
+                controller.save(false);
+                xy[0] = 1;
+                xy[1] = 99;
+                xy[2] = 99;
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -149,6 +158,9 @@ public class Server extends Network {
             outStream.flush();
 
             controller.save(true);
+
+            Network.closeNetwork(this);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -205,4 +217,24 @@ public class Server extends Network {
         }
     }
 
+    @Override
+    public void sendNothing() {
+        String message = "";
+        try {
+            outStream.write(String.format("%s%n", message));
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int testRead() {
+
+        // try {
+        //     return inStream.ready();
+        // } catch (IOException e) {
+        //     return -1;
+        // }
+        return 0;
+    }
 }

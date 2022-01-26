@@ -120,9 +120,10 @@ public class PlayingFieldController implements Initializable {
 
 
         Thread t = new Thread(() -> {
+            int answer[] = new int[3];
 
             if (yourTurn) {
-                yourTurn = Game.logicController.shoot(index) > 0;
+                    yourTurn = Game.logicController.shoot(index) > 0;
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();
@@ -132,42 +133,39 @@ public class PlayingFieldController implements Initializable {
             }
             if (!yourTurn) {
                 enemyTurn();
+
                 Platform.runLater(() -> {
                     yourTurn = true;
                     setStatusText();
                     checkEnemyWin();
                 });
             }
+
         });
 
-        Thread save = new Thread(() -> {
-            String id = Network.getNetplay().receiveSave();
-
-
-            Platform.runLater(() -> {
-                if (id != null) {
-                    Game.showPopUpReceivedSave(id);
-                }
-            });
-        });
-
-       // save.setDaemon(true);
         t.start();
-       // save.start();
+
     }
 
     public void enemyTurn() {
-        boolean isEnemyTurn = false;
+        int isEnemyTurn = 0;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
 
+            if (isEnemyTurn == 2) {
+                Platform.runLater(() -> {
+                    Game.showPopUpConnectionClosed(true, Game.logicController.getDocumentID());
+                });
+                isEnemyTurn = 1;
+            }
+
             if (Game.logicController.allShipsDestroyed()) {
-                isEnemyTurn = false;
+                isEnemyTurn = 1;
             }
             Platform.runLater(() -> {
                 gridBuilder.redrawGamerPanes();
             });
-        } while (isEnemyTurn);
+        } while (isEnemyTurn != 1);
     }
 
     public void checkMyWin() {

@@ -338,7 +338,7 @@ public class Controller {
      *
      * @return true if enemy hits a Ship
      */
-    public boolean enemyTurn() {
+    public int enemyTurn() {
         return myGame.enemyTurn();
     }
 

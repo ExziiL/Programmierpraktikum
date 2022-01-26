@@ -7,10 +7,11 @@ import java.net.Socket;
 
 public class Client extends Network {
     private static BufferedReader inStream;
+    private static BufferedReader inStreamDeamon;
     private static Writer outStream;
     private static Socket client;
     private String message;
-    private int[] xy = new int[2];
+    private int[] xy = new int[3];
     private String[] shot;
 
     public boolean createClient(String ip) {
@@ -18,6 +19,7 @@ public class Client extends Network {
             client = new Socket(ip, port);
 
             inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            inStreamDeamon = new BufferedReader(new InputStreamReader(client.getInputStream()));
             outStream = new OutputStreamWriter(client.getOutputStream());
 
             outStream.write("Hallo Server bin da!\n");
@@ -84,7 +86,7 @@ public class Client extends Network {
     }
 
     @Override
-    public int[] getShotAt() {
+    public int[] receiveSaveOrShot() {
         message = null;
         try {
             // Wartet auf Message
@@ -93,8 +95,17 @@ public class Client extends Network {
             System.out.println(message);
             if (message.startsWith("shoot")) {
                 shot = message.split(" ");
-                xy[0] = Integer.parseInt(shot[1]);
-                xy[1] = Integer.parseInt(shot[2]);
+                xy[0] = 0;
+                xy[1] = Integer.parseInt(shot[1]);
+                xy[2] = Integer.parseInt(shot[2]);
+            } else if (message.startsWith("save")) {
+                String[] id = message.split(" ");
+                controller.setWriter(new DocumentWriter(id[1]));
+                controller.save(false);
+                xy[0] = 1;
+                xy[1] = 99;
+                xy[2] = 99;
+
             }
 
         } catch (IOException e) {
@@ -162,6 +173,7 @@ public class Client extends Network {
             outStream.flush();
 
             controller.save(true);
+            Network.closeNetwork(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -184,7 +196,7 @@ public class Client extends Network {
     @Override
     public String receiveSave() {
         try {
-            message = inStream.readLine();
+            message = inStreamDeamon.readLine();
 
             System.out.println(message);
             if (message.startsWith("save")) {
@@ -216,4 +228,24 @@ public class Client extends Network {
         }
     }
 
+    @Override
+    public void sendNothing() {
+        String message = "";
+        try {
+            outStream.write(String.format("%s%n", message));
+            outStream.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int testRead() {
+
+        try {
+            return inStream.read();
+        } catch (IOException e) {
+            return -1;
+        }
+
+    }
 }

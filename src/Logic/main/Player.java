@@ -15,7 +15,8 @@ public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob de
     }
 
     public int shoot(int x, int y) {
-
+        // 0 = miss
+        // 1 = hit
         if (game.getgameElementStatus(x, y) == LogicConstants.GameElementStatus.SHIP) {
 
             game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
@@ -29,5 +30,5 @@ public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob de
         }
     }
 
-    public abstract boolean takeTurn();
+    public abstract int takeTurn();
 }

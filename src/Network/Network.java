@@ -42,7 +42,7 @@ public abstract class Network {
         return isServer;
     }
 
-    private static void closeNetwork(Network player) {
+    protected static void closeNetwork(Network player) {
         try {
             if (player instanceof Server) {
                 ((Server) player).getServerSocket().close();
@@ -54,6 +54,18 @@ public abstract class Network {
         }
 
     }
+
+    public static boolean isNetworkClosed(Network player) {
+        if (player instanceof Server) {
+            return ((Server) player).testRead() == -1;
+        } else if (player instanceof Client) {
+            return ((Client) player).testRead() == -1;
+        }
+
+        return true;
+    }
+
+    public abstract void sendNothing();
 
     public abstract void save();
 
@@ -69,7 +81,7 @@ public abstract class Network {
 
     public abstract int shoot(int x, int y);
 
-    public abstract int[] getShotAt();
+    public abstract int[] receiveSaveOrShot();
 
     public abstract void sendAnswer(int nr);
 }

@@ -24,7 +24,7 @@ public class MyGame extends Game {
         }
     }
 
-    public boolean enemyTurn() {
+    public int enemyTurn() {
         return player.takeTurn();
     }
 }

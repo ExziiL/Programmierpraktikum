@@ -51,7 +51,10 @@ public class OfflinePlayer extends Player {
     }
 
     @Override
-    public boolean takeTurn() {
+    public int takeTurn() {
+        // 0 = hit
+        // 1 = miss
+
         OfflinePlayer.nextHits nextHit = null;
         Point shipHitted;
         Point shootInDirection;
@@ -77,7 +80,7 @@ public class OfflinePlayer extends Player {
             }
 
         }
-        return isHit > 0;
+        return isHit;
     }
 
     private int shootRandom() {
@@ -92,7 +95,7 @@ public class OfflinePlayer extends Player {
 
         isHit = shoot(hit.x, hit.y);
         // if a Ship is Hit then try in all Directions
-        if (isHit > 0) {
+        if (isHit == 1) {
             addShotInAllDirection(hit);
         }
         return isHit;
