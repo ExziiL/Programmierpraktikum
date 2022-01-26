@@ -82,7 +82,7 @@ public class PlacingFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gridBuilder = new GridPaneBuilder(size, null, null, null, null);
+        gridBuilder = new GridPaneBuilder(size);
 
         table = gridBuilder.createTablePlacingField(table, this);
 
@@ -311,7 +311,8 @@ public class PlacingFieldController implements Initializable {
             Thread t = new Thread(() -> Platform.runLater(() -> {
                 HoverState[] states = Game.logicController.getHoverStateStatus(getIndexofPane(pane), currentShip,
                         isHorizontal);
-                if (Game.logicController.getGameElementStatus(getIndexofPane(pane)) == LogicConstants.GameElementStatus.SHIP) {
+                if (Game.logicController
+                        .getGameElementStatus(getIndexofPane(pane)) == LogicConstants.GameElementStatus.SHIP) {
                     Platform.runLater(() -> {
                         Game.toggleCursorHand(true);
                     });
@@ -320,7 +321,6 @@ public class PlacingFieldController implements Initializable {
                 }
 
                 noPlacingAllowed = gridBuilder.hoverShip(states);
-
 
             }));
             t.start();

@@ -10,8 +10,9 @@
 }
 
 #bearbeiten:selected {
-	-fx-background-color: darkgrey;
-	-fx-color: white;
+	-fx-background-color: rgb(100, 100, 100);
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
 }
 
 .arrowIcon:hover {

@@ -51,7 +51,7 @@ public class PlayingFieldController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        gridBuilder = new GridPaneBuilder(size, null, null, null, null);
+        gridBuilder = new GridPaneBuilder(size);
 
         maxCountTwoShips = Game.logicController.getAllTwoShips();
         maxCountThreeShips = Game.logicController.getAllThreeShips();

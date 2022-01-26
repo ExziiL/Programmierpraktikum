@@ -13,16 +13,16 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@PlayingField.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlayingFieldController">
    <children>
       <Text fill="#00000080" layoutX="50.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dein Spielfeld" />
-      <Text fx:id="statusText" layoutX="530.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du bist dran!">
+      <Text fx:id="statusText" layoutX="522.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Du bist dran!">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
       <Text layoutX="400.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
       <Text layoutX="400.0" layoutY="611.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss abfeuern" />
-      <VBox layoutX="50.0" layoutY="103.0" prefHeight="137.0" prefWidth="300.0" spacing="10.0">
+      <VBox layoutX="59.0" layoutY="59.0" prefHeight="217.0" prefWidth="335.0" spacing="10.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="59.0" prefWidth="32.0" spacing="75.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="105.0" prefWidth="300.0" spacing="75.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="59.0" prefWidth="12.0">
                      <children>
@@ -31,7 +31,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="45.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="58.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
                            </image>
@@ -39,14 +39,14 @@
                         <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="59.0" prefWidth="12.0">
+                  <VBox alignment="CENTER" prefHeight="96.0" prefWidth="147.0">
                      <children>
                         <Text fx:id="labelThree" strokeType="OUTSIDE" strokeWidth="0.0" text="20 / 22">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="43.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="47.0" fitWidth="93.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
                            </image>
@@ -56,7 +56,7 @@
                   </VBox>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="57.0" prefWidth="59.0" spacing="75.0">
+            <HBox alignment="BOTTOM_LEFT" prefHeight="270.0" prefWidth="300.0" spacing="75.0">
                <children>
                   <VBox alignment="CENTER" prefHeight="59.0" prefWidth="12.0">
                      <children>
@@ -65,7 +65,7 @@
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="53.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
                            </image>
@@ -73,14 +73,14 @@
                         <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
                      </children>
                   </VBox>
-                  <VBox alignment="CENTER" prefHeight="59.0" prefWidth="86.0">
+                  <VBox alignment="CENTER" prefHeight="111.0" prefWidth="115.0">
                      <children>
                         <Text fx:id="labelFive" strokeType="OUTSIDE" strokeWidth="0.0" text="20 / 22">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Text>
-                        <ImageView fitHeight="43.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="51.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
                            </image>
@@ -105,7 +105,7 @@
             </GridPane>
          </children>
       </HBox>
-      <Pane layoutX="-3.0" layoutY="559.0" prefHeight="35.0" prefWidth="40.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+      <Pane layoutX="-3.0" layoutY="559.0" prefHeight="35.0" prefWidth="40.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
          <children>
             <ImageView fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
                <image>
@@ -114,6 +114,6 @@
             </ImageView>
          </children>
       </Pane>
-      <Text fill="#00000080" layoutX="87.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="übriggebliebene Schiffe" />
+      <Text fill="#00000080" layoutX="50.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="übriggebliebene Schiffe" />
    </children>
 </AnchorPane>

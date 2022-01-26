@@ -66,12 +66,8 @@ public class GridPaneBuilder {
     public Image shipHit60;
     public Image shipHit25;
 
-    public GridPaneBuilder(int size, Image water, Image ship, Image nearShip, Image error) {
+    public GridPaneBuilder(int size) {
         this.size = size;
-        this.water = water;
-        this.ship = ship;
-        this.nearShip = nearShip;
-        this.error = error;
 
         error25 = new Image("assets/newShips/error25.png");
         error60 = new Image("assets/newShips/error60.png");

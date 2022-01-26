@@ -102,9 +102,9 @@
                 </GridPane>
             </children>
         </HBox>
-      <HBox alignment="CENTER" layoutX="58.0" layoutY="574.0" prefHeight="81.0" prefWidth="784.0">
+      <HBox alignment="CENTER" layoutX="58.0" layoutY="574.0" prefHeight="91.0" prefWidth="784.0">
          <children>
-            <VBox prefHeight="66.0" prefWidth="541.0">
+            <VBox alignment="CENTER" prefHeight="99.0" prefWidth="773.0">
                <children>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" textAlignment="CENTER" underline="true" wrappingWidth="771.9999694824219" />
                   <Text fx:id="textLeftClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" textAlignment="CENTER" wrappingWidth="772.9586181640625" />
@@ -115,14 +115,14 @@
       </HBox>
       <Button fx:id="Random" layoutX="557.0" layoutY="457.0" mnemonicParsing="false" styleClass="buttons" text="Random" />
       <Button fx:id="Clear" layoutX="557.0" layoutY="419.0" mnemonicParsing="false" styleClass="buttons" text="Clear" />
-      <Text fx:id="textHeader" layoutX="119.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" wrappingWidth="317.00390625">
+      <Text fx:id="textHeader" layoutX="71.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" textAlignment="CENTER" wrappingWidth="450.0">
          <font>
             <Font size="36.0" />
          </font>
       </Text>
 
       <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="557.0" layoutY="496.0" mnemonicParsing="false" styleClass="buttons" text="Bearbeiten" />
-      <Pane layoutX="756.0" layoutY="567.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0">
+      <Pane layoutX="756.0" layoutY="567.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
          <children>
       
                         <ImageView fx:id="Next" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
@@ -132,7 +132,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="1.0" layoutY="557.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0">
+      <Pane layoutX="1.0" layoutY="557.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
          <children>
             <ImageView id="arrowIconPlacing" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
                <image>

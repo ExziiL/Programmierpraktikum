@@ -135,7 +135,7 @@ public class Game extends Application {
     public static void showStartNewGame() {
         // endGameText = "Sie haben verloren :(";
         if (Game.logicController.isConcratulation()) {
-            endGameText.setText("Du hast gewonnen :)");
+            endGameText.setText("Du hast gewonnen!:)");
         } else {
             endGameText.setText("Du hast verloren :(");
         }
@@ -191,7 +191,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                                       Pane contentPane) {
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -220,7 +220,7 @@ public class Game extends Application {
                 // contentPane.setPrefWidth(Math.max(initWidth, newWidth));
                 // contentPane.setPrefHeight(Math.max(initHeight, newHeight));
                 // }
-            }else {
+            } else {
                 primaryStage.sizeToScene();
             }
         }
@@ -400,7 +400,6 @@ public class Game extends Application {
         Label idText = new Label("ID: " + id);
         HBox dialogHbox = new HBox(20);
         Button ok = new Button("Ok");
-
 
         dialogHbox.getChildren().addAll(ok);
         dialogVbox.getChildren().addAll(connection, idText, dialogHbox);

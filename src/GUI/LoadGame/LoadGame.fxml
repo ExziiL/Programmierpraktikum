@@ -21,7 +21,7 @@
             </Label>
          </children>
       </HBox>
-      <Pane layoutY="569.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0">
+      <Pane layoutY="569.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
          <children>
             <ImageView id="arrowIconPlacing" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
                <image>
