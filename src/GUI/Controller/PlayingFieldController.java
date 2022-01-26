@@ -103,9 +103,9 @@ public class PlayingFieldController implements Initializable {
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-        if(yourTurn){
+        if (yourTurn) {
             Game.showPopUpSaveGame();
-        }else{
+        } else {
             Game.showPopUpCannotSave();
         }
 
@@ -123,12 +123,17 @@ public class PlayingFieldController implements Initializable {
 
     public void yourTurn(int index) {
 
-
         Thread t = new Thread(() -> {
             int answer[] = new int[3];
 
             if (yourTurn) {
-                yourTurn = Game.logicController.shoot(index) == 0;
+                if (Game.logicController.getEnemyElementStatus(index) == LogicConstants.GameElementStatus.HIT ||
+                        Game.logicController.getEnemyElementStatus(index) == LogicConstants.GameElementStatus.MISS) {
+                    yourTurn = true;
+                } else {
+                    yourTurn = Game.logicController.shoot(index) == 0;
+                }
+
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();
