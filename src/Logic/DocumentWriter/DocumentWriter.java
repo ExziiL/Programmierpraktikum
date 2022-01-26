@@ -129,6 +129,8 @@ public class DocumentWriter {
                         shipInfo = gameField[x][y].getShip();
                         if (shipInfo != null) {
                             gameElementInfo += shipInfo.toString() + "\n";
+                        } else {
+                            gameElementInfo += "\n";
                         }
                         break;
                 }
@@ -143,7 +145,7 @@ public class DocumentWriter {
 
     public ArrayList<String> load() {
 
-        if (output.isEmpty()) {
+        if (output == null || output.isEmpty()) {
             output = new ArrayList<>();
 
             if (myScanner == null) {

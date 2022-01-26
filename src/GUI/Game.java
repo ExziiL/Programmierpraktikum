@@ -37,7 +37,7 @@ public class Game extends Application {
     public static Label connection = new Label();
 
     private static final Stage dialogSaveGame = new Stage();
-    private static final Stage dialogStartNewGame = new Stage();
+    private static Stage dialogStartNewGame = new Stage();
     private static final Stage dialogReconnect = new Stage();
     private static final Stage dialogConnectionClosed = new Stage();
 
@@ -116,13 +116,15 @@ public class Game extends Application {
 
     public static void showPopUpConnectionClosed(boolean save, String id) {
         if (save) {
-            connection.setText("Das Spiel wurde vom Gegner mit der ID" + id + "gespeichert");
+            connection.setText("Das Spiel wurde vom Gegner mit der ID gespeichert");
+
         } else {
             connection.setText("Das Spiel wurde vom Gegner unterbrochen");
         }
 
-        buildPopUpConnectionClosed();
+        buildPopUpConnectionClosed(id);
         dialogConnectionClosed.show();
+        dialogSaveGame.initOwner(primaryStage);
     }
 
     public static void showStartNewGame() {
@@ -133,6 +135,7 @@ public class Game extends Application {
             endGameText.setText("Du hast verloren :(");
         }
 
+        dialogStartNewGame = new Stage();
         buildPopUpStartNewGame();
 
         // dialogStartNewGame.
@@ -215,7 +218,7 @@ public class Game extends Application {
     }
 
     private void buildPopUpSaveGame() {
-        dialogSaveGame.initOwner(primaryStage);
+
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie Speichern?");
         text.setMinHeight(50);
@@ -277,7 +280,12 @@ public class Game extends Application {
     }
 
     private static void buildPopUpStartNewGame() {
-        dialogStartNewGame.initOwner(primaryStage);
+        try {
+            dialogStartNewGame.initOwner(primaryStage);
+        } catch (IllegalStateException e) {
+
+        }
+
         VBox dialogVbox = new VBox(10);
         Label text = new Label("Möchten Sie ein neues Spiel starten?");
         text.setMinHeight(50);
@@ -372,19 +380,21 @@ public class Game extends Application {
         });
     }
 
-    private static void buildPopUpConnectionClosed() {
+    private static void buildPopUpConnectionClosed(String id) {
 
         dialogConnectionClosed.initOwner(primaryStage);
         VBox dialogVbox = new VBox(10);
 
         connection.setMinHeight(50);
         connection.setMinWidth(100);
+
+        Label idText = new Label("ID: " + id);
         HBox dialogHbox = new HBox(20);
         Button ok = new Button("Ok");
 
 
         dialogHbox.getChildren().addAll(ok);
-        dialogVbox.getChildren().addAll(connection, dialogHbox);
+        dialogVbox.getChildren().addAll(connection, idText, dialogHbox);
         dialogHbox.setAlignment(Pos.CENTER);
 
         dialogVbox.setAlignment(Pos.CENTER);

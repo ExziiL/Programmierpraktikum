@@ -1,6 +1,7 @@
 package Network;
 
 import Logic.DocumentWriter.DocumentWriter;
+import Logic.main.LogicConstants;
 
 import java.io.*;
 import java.net.Socket;
@@ -43,6 +44,8 @@ public class Client extends Network {
                 message_split = message.split(" ", (message.length() - "size".length()));
                 System.out.println(message_split[1]);
                 controller.setGameSize(Integer.parseInt(message_split[1]));
+                controller.createEnemyGame(Integer.parseInt(message_split[1]));
+                controller.setEnemyGameGameMode(LogicConstants.GameMode.ONLINE);
                 outStream.write(String.format("%s%n", "done"));
                 outStream.flush();
                 receiveMessage();

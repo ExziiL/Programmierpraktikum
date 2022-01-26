@@ -3,11 +3,8 @@ package Logic.main;
 import Logic.DocumentWriter.DocumentWriter;
 import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
-import Logic.Game.Game;
 import Logic.Game.MyGame;
-import Network.Network;
 import Utilities.HoverState;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -384,8 +381,7 @@ public class Controller {
     public void initDocument() {
 
         writer.writeSize(getGameSize());
-        writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(),
-                myGame.getAllFiveShips());
+        writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(), myGame.getAllFiveShips());
 
     }
 
@@ -393,8 +389,7 @@ public class Controller {
 
 
         writer.writeGameMode(myGame.getGameMode());
-        writer.writeShipsDestroyed(enemyGame.getDestroyedShips(2), enemyGame.getDestroyedShips(3),
-                enemyGame.getDestroyedShips(4), enemyGame.getDestroyedShips(5));
+        writer.writeShipsDestroyed(enemyGame.getDestroyedShips(2), enemyGame.getDestroyedShips(3), enemyGame.getDestroyedShips(4), enemyGame.getDestroyedShips(5));
 
         if (myGame.getGameMode() == GameMode.ONLINE) {
             writer.writeInitiator(isInitiator);
@@ -432,6 +427,7 @@ public class Controller {
             switch (split[0]) {
                 case "size":
                     setGameSize(Integer.parseInt(split[1]));
+                    createEnemyGame(Integer.parseInt(split[1]));
                     break;
 
                 case "gameMode":
@@ -460,8 +456,7 @@ public class Controller {
                     myGame.setgameElementStatus(x, y, status);
 
                     if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
-                        myGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]),
-                                Integer.parseInt(split[6]));
+                        myGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]), Integer.parseInt(split[6]));
                     }
                     break;
                 case "EnemyGame":
@@ -471,9 +466,10 @@ public class Controller {
                     status = interpretStatusByNumber(Integer.parseInt(split[3]));
                     enemyGame.setgameElementStatus(x, y, status);
 
-                    if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
-                        enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]),
-                                Integer.parseInt(split[6]));
+                    if (getGameMode() != GameMode.ONLINE) {
+                        if (status == GameElementStatus.SHIP || status == GameElementStatus.HIT) {
+                            enemyGame.setGameElementShip(x, y, Integer.parseInt(split[4]), Boolean.parseBoolean(split[5]), Integer.parseInt(split[6]));
+                        }
                     }
                     break;
 

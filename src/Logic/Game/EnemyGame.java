@@ -33,7 +33,7 @@ public class EnemyGame extends Game {
         if (GUI.Game.logicController.getGameMode() == LogicConstants.GameMode.OFFLINE) {
             hit = player.shoot(x, y);
 
-            if (hit > 0 && isMyShipDestroyed(x, y)) {
+            if (hit == 0 && isMyShipDestroyed(x, y)) {
 
                 switch (getShipSize(x, y)) {
                     case 2:
@@ -54,6 +54,7 @@ public class EnemyGame extends Game {
             hit = player.shoot(x, y);
             int shipSize = getCountOfDestroyedShip(x, y);
             if (hit == 2 && shipSize > 0) {
+                hit = 0;
                 switch (shipSize) {
                     case 1:
                         break;
@@ -125,14 +126,14 @@ public class EnemyGame extends Game {
         }
         setDestroyedShips();
 
-       // switch (gameMode) {
-       //     case BOT:
-       //         player = createPlayer(LogicConstants.PlayerType.OFFLINE);
-       //         break;
-       //     case OFFLINE:
-       //         player = player = new MyPlayer(this, name);
-       //         break;
-       // }
+        // switch (gameMode) {
+        //     case BOT:
+        //         player = createPlayer(LogicConstants.PlayerType.OFFLINE);
+        //         break;
+        //     case OFFLINE:
+        //         player = player = new MyPlayer(this, name);
+        //         break;
+        // }
     }
 
     @Override

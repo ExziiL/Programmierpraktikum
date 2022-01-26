@@ -28,15 +28,18 @@ public class MyPlayer extends Player {
 
             if (isHit == 0) {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.MISS);
-            } else if (isHit == 1 || isHit == 2) {
+                return 1; // miss
+            } else if (isHit == 1) {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
+                return 0; // hit
             } else if (isHit == 2) {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
+                return 2; // hit
             } else {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
             }
             return isHit;
         }
-        return 0;
+        return 1;
     }
 }

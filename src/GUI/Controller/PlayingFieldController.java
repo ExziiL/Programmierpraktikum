@@ -123,7 +123,7 @@ public class PlayingFieldController implements Initializable {
             int answer[] = new int[3];
 
             if (yourTurn) {
-                    yourTurn = Game.logicController.shoot(index) > 0;
+                yourTurn = Game.logicController.shoot(index) == 0;
                 Platform.runLater(() -> {
                     checkMyWin();
                     setStatusText();

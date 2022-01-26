@@ -97,6 +97,7 @@ public class LoadGameController implements Initializable {
         try {
             String s = getSelectedText();
             InetAddress realIP = InetAddress.getLocalHost();
+            s = s.replace(".txt", "");
             Game.logicController.setWriter(new DocumentWriter(s));
             Game.logicController.loadGame();
 
