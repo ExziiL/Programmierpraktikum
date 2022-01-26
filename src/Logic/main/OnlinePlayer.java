@@ -19,7 +19,7 @@ public class OnlinePlayer extends Player {
         System.out.println(netplay);
         int[] xy = netplay.receiveSaveOrShot();
         if (xy[0] == 0) {
-            LogicConstants.GameElementStatus status = game.getgameElementStatus(xy[0], xy[1]);
+            LogicConstants.GameElementStatus status = game.getgameElementStatus(xy[1], xy[2]);
             if (status == LogicConstants.GameElementStatus.WATER || status == LogicConstants.GameElementStatus.CLOSE) {
                 game.setgameElementStatus(xy[1], xy[2], LogicConstants.GameElementStatus.MISS);
                 netplay.sendAnswer(0);

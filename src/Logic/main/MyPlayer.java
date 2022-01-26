@@ -15,7 +15,7 @@ public class MyPlayer extends Player {
 
     @Override
     public int takeTurn() {
-        return 0;
+        return 1;
     }
 
     @Override
