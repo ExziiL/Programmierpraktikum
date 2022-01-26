@@ -103,7 +103,12 @@ public class PlayingFieldController implements Initializable {
 
     @FXML
     public void handleBack(MouseEvent event) throws IOException {
-        Game.showPopUpSaveGame();
+        if(yourTurn){
+            Game.showPopUpSaveGame();
+        }else{
+            Game.showPopUpCannotSave();
+        }
+
     }
 
     public void handleSetOnMouseClicked(MouseEvent event, int index) { // TODO enemyTurn darf nicht erst wenn geclickt

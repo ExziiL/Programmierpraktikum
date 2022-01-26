@@ -80,11 +80,13 @@ public class GameSettingsController {
             public void handle(ActionEvent event) {
                 if (gameMode.getValue().equals("Offline")) {
                     BoxOnline.setDisable(true);
+                    slider.setDisable(false);
                 } else if (gameMode.getValue().equals("Online")) {
 
                     BoxOnline.setDisable(false);
                     if (Client.isSelected()) {
                         selectClient();
+
                         networkThread = new Thread(() -> {
                             netplay = Network.chooseNetworkTyp(false);
                         });
@@ -276,6 +278,14 @@ public class GameSettingsController {
                 if (netplay instanceof Client) {
                     ((Client) netplay).receiveMessage();
                 }
+
+                Platform.runLater(() -> {
+                    try {
+                        Game.showPlacingFieldWindow();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
             });
             networkThread.start();
         } else {
@@ -283,7 +293,7 @@ public class GameSettingsController {
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
         }
-        Game.showPlacingFieldWindow();
+
     }
 
     private void setLabelTexts() {
@@ -304,6 +314,7 @@ public class GameSettingsController {
     private void selectClient() {
         Ip.setEditable(true);
         Ip.setText("");
+        slider.setDisable(true);
     }
 
     private void selectServer() {
@@ -311,6 +322,7 @@ public class GameSettingsController {
             InetAddress realIP = InetAddress.getLocalHost();
             Ip.setEditable(false);
             Ip.setText(realIP.getHostAddress());
+            slider.setDisable(false);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
