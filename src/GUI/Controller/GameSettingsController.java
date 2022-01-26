@@ -267,7 +267,6 @@ public class GameSettingsController {
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else if (gameMode.getValue().equals("Online")) {
-
             // Controller for Network
             Network.setController(Game.logicController);
 
@@ -293,6 +292,7 @@ public class GameSettingsController {
             ErrorMessage.setText("");
             Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
+            Game.showPlacingFieldWindow();
         }
 
     }
