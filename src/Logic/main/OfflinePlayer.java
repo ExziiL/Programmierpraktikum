@@ -47,13 +47,6 @@ public class OfflinePlayer extends Player {
 
     @Override
     public int shoot(int x, int y) {
-        //wait shortly
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
         return super.shoot(x, y);
     }
 

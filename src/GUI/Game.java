@@ -1,6 +1,7 @@
 package GUI;
 
 import Logic.main.Controller;
+import Logic.main.LogicConstants;
 import Network.Client;
 import Network.Network;
 import Network.Server;
@@ -37,6 +38,7 @@ public class Game extends Application {
     private static final Stage dialogSaveGame = new Stage();
     private static final Stage dialogStartNewGame = new Stage();
     private static final Stage dialogReconnect = new Stage();
+    private static final Stage dialogReceivedSave = new Stage();
 
     public static void main(String[] args) {
         launch(args);
@@ -109,6 +111,11 @@ public class Game extends Application {
     public static void showPopUpReconnect(String ip, boolean isServer) {
         buildPopUpReconnect(ip, isServer);
         dialogReconnect.show();
+    }
+
+    public static void showPopUpReceivedSave(String id) {
+        buildPopUpReceivedSave(id);
+        dialogReceivedSave.show();
     }
 
     public static void showStartNewGame() {
@@ -225,7 +232,11 @@ public class Game extends Application {
                 // TODO Speichern
                 try {
                     dialogSaveGame.hide();
-                    Game.logicController.save(true);
+                    if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
+                        Network.getNetplay().save();
+                    } else {
+                        Game.logicController.save(true);
+                    }
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -349,6 +360,41 @@ public class Game extends Application {
                 }
             }
         });
+    }
+
+    private static void buildPopUpReceivedSave(String id) {
+
+        dialogReceivedSave.initOwner(primaryStage);
+        VBox dialogVbox = new VBox(10);
+        Label text = new Label("Das Spiel wurde vom Gegner mit der ID" + id + "gespeichert");
+        text.setMinHeight(50);
+        text.setMinWidth(100);
+        HBox dialogHbox = new HBox(20);
+        Button ok = new Button("Ok");
+
+
+        dialogHbox.getChildren().addAll(ok);
+        dialogVbox.getChildren().addAll(text, dialogHbox);
+        dialogHbox.setAlignment(Pos.CENTER);
+
+        dialogVbox.setAlignment(Pos.CENTER);
+        Scene dialogScene = new Scene(dialogVbox, 300, 150);
+
+        dialogReceivedSave.initModality(Modality.APPLICATION_MODAL);
+        dialogReceivedSave.setScene(dialogScene);
+
+        ok.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    dialogReceivedSave.hide();
+                    Game.showGameSettingsWindow();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
     }
 
 }

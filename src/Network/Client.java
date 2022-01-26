@@ -182,17 +182,22 @@ public class Client extends Network {
     }
 
     @Override
-    public void receiveSave() {
+    public String receiveSave() {
         try {
             message = inStream.readLine();
+
             System.out.println(message);
             if (message.startsWith("save")) {
+                String[] id = message.split(" ");
+                controller.setWriter(new DocumentWriter(id[1]));
                 controller.save(false);
+                return id[1];
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override

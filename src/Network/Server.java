@@ -1,11 +1,11 @@
 package Network;
 
-import GUI.Game;
 import Logic.DocumentWriter.DocumentWriter;
 
-import java.net.*;
 import java.io.*;
-import java.util.Enumeration;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class Server extends Network {
     private static BufferedReader inStream;
@@ -141,7 +141,6 @@ public class Server extends Network {
         }
     }
 
-    @Override
     public void save() {
         String message = "save ";
         message += controller.getDocumentID();
@@ -155,7 +154,6 @@ public class Server extends Network {
         }
     }
 
-    @Override
     public void load() {
         String message = "load ";
         message += controller.getDocumentID();
@@ -169,18 +167,26 @@ public class Server extends Network {
         }
     }
 
+
     @Override
-    public void receiveSave() {
+    public String receiveSave() {
         try {
+
             get_Message = inStream.readLine();
+
             System.out.println(get_Message);
             if (get_Message.startsWith("save")) {
+                String[] id = get_Message.split(" ");
+                controller.setWriter(new DocumentWriter(id[1]));
                 controller.save(false);
+                return id[1];
             }
+
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     @Override

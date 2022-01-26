@@ -5,6 +5,7 @@ import Logic.Game.EnemyGame;
 import Logic.Game.Exceptions.FalseFieldSize;
 import Logic.Game.Game;
 import Logic.Game.MyGame;
+import Network.Network;
 import Utilities.HoverState;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 
@@ -389,6 +390,7 @@ public class Controller {
     }
 
     public void save(boolean isInitiator) {
+
 
         writer.writeGameMode(myGame.getGameMode());
         writer.writeShipsDestroyed(enemyGame.getDestroyedShips(2), enemyGame.getDestroyedShips(3),
