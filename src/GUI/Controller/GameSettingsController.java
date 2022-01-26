@@ -73,7 +73,8 @@ public class GameSettingsController {
         BoxOnline.setDisable(true);
         Ip.setPromptText("IP-Adresse");
 
-        name.setText("Player");
+        // name.setText("Player");
+        name.setPromptText("Player");
 
         gameMode.setOnAction(new EventHandler<ActionEvent>() {
             @Override

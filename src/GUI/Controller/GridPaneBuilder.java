@@ -21,8 +21,9 @@ import java.util.stream.IntStream;
 
 public class GridPaneBuilder {
     private final int size;
-    private final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$"};
+    private final String[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+            "Q", "R", "S", "T",
+            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$" };
 
     private ObservableList<Node> shipPartsGamerList;
     private ObservableList<Node> shipPartsEnemyList;
@@ -59,6 +60,8 @@ public class GridPaneBuilder {
     public Image ship100;
 
     public Image shipHit100;
+    public Image shipHit60;
+    public Image shipHit25;
 
     public GridPaneBuilder(int size, Image water, Image ship, Image nearShip, Image error) {
         this.size = size;
@@ -87,6 +90,8 @@ public class GridPaneBuilder {
         ship60 = new Image("assets/newShips/ship60.png");
         ship100 = new Image("assets/newShips/ship100.png");
 
+        shipHit25 = new Image("assets/newShips/shipHit25.png");
+        shipHit60 = new Image("assets/newShips/shipHit60.png");
         shipHit100 = new Image("assets/newShips/shipHit100.png");
 
         // ! Größen im Konstruktor setzen
@@ -95,7 +100,7 @@ public class GridPaneBuilder {
             this.waterHit = waterHit100;
             this.waterHover = waterHover100;
             this.ship = ship25;
-            this.shipHit = shipHit100;
+            this.shipHit = shipHit25;
             this.nearShip = nearShip25;
             this.error = error25;
         } else if (size >= 16) {
@@ -103,7 +108,7 @@ public class GridPaneBuilder {
             this.waterHit = waterHit100;
             this.waterHover = waterHover100;
             this.ship = ship60;
-            this.shipHit = shipHit100;
+            this.shipHit = shipHit60;
             this.nearShip = nearShip60;
             this.error = error60;
         } else {
@@ -144,7 +149,7 @@ public class GridPaneBuilder {
 
                 tableEnemy.add(verticallLabel, column++, row);
             } else if (row == 0) {
-                //String b = Integer.toString(column - 1);
+                // String b = Integer.toString(column - 1);
                 Label horizonatlLabel = new Label(alphabet[column - 1]);
                 horizonatlLabel.setPrefWidth(paneSize);
                 horizonatlLabel.setAlignment(Pos.CENTER);
@@ -266,7 +271,6 @@ public class GridPaneBuilder {
                 verticallLabel.setMinWidth(15);
                 verticallLabel.setAlignment(Pos.CENTER);
                 verticallLabel.setFont(Font.font(10));
-
 
                 tablePlacing.add(verticallLabel, column++, row);
             } else if (row == 0) {
