@@ -43,14 +43,14 @@
             </Pane>
          </children>
       </Pane>
-          <VBox alignment="CENTER" layoutX="21.0" layoutY="484.0" prefHeight="148.0" prefWidth="156.0">
+                    <VBox alignment="CENTER" layoutX="155.0" layoutY="486.0" prefHeight="112.0" prefWidth="119.0">
               <children>
                   <Label fx:id="labelTwo" text="0x">
                       <font>
                           <Font size="24.0" />
                       </font>
                   </Label>
-                  <ImageView fitHeight="92.0" fitWidth="141.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="65.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
                       </image>
@@ -58,7 +58,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="215.0" layoutY="481.0" prefHeight="168.0" prefWidth="174.0">
+          <VBox alignment="CENTER" layoutX="313.0" layoutY="490.0">
               <children>
                   <Label fx:id="labelThree" alignment="TOP_CENTER" text="0x" textAlignment="JUSTIFY">
                       <font>
@@ -68,7 +68,7 @@
                           <Insets left="10.0" right="10.0" />
                       </VBox.margin>
                   </Label>
-                  <ImageView fitHeight="93.0" fitWidth="174.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
                       </image>
@@ -76,14 +76,14 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="437.0" layoutY="475.0" prefHeight="174.0" prefWidth="190.0">
+          <VBox alignment="CENTER" layoutX="474.0" layoutY="490.0">
               <children>
                   <Label fx:id="labelFour" text="0x">
                       <font>
                           <Font size="24.0" />
                       </font>
                   </Label>
-                  <ImageView fitHeight="90.0" fitWidth="186.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="119.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
                       </image>
@@ -91,7 +91,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="669.0" layoutY="477.0" prefHeight="156.0" prefWidth="199.0">
+          <VBox alignment="CENTER" layoutX="636.0" layoutY="489.0" prefHeight="97.0" prefWidth="119.0">
               <children>
                   <Label fx:id="labelFive" text="0x">
                       <font>
@@ -101,7 +101,7 @@
                           <Insets />
                       </VBox.margin>
                   </Label>
-                  <ImageView fitHeight="97.0" fitWidth="196.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="60.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
                       <image>
                           <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
                       </image>

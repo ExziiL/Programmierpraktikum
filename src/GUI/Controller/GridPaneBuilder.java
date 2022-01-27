@@ -15,14 +15,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
 public class GridPaneBuilder {
     private final int size;
-    private final String[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+    private final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
             "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$" };
+            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$"};
 
     private ObservableList<Node> shipPartsGamerList;
     private ObservableList<Node> shipPartsEnemyList;
@@ -197,8 +194,8 @@ public class GridPaneBuilder {
                     if (controller.isYourTurn()) {
 
                         setPictureHover(pane);
-
                     }
+
                 }
 
             });
