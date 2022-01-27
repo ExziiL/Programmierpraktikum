@@ -26,10 +26,14 @@ public class DocumentWriter {
         return myObj.delete();
     }
 
-    public DocumentWriter(Timestamp t) {
+    public DocumentWriter(Timestamp t, boolean online) {
         LocalDateTime time = t.toLocalDateTime();
 
         id = time.getDayOfMonth() + "_" + time.getMonthValue() + "_" + time.getYear() + "-" + time.getHour() + "_" + time.getMinute() + "_" + time.getSecond();
+        if (online) {
+            id += "_Online";
+        }
+
 
         String fs = System.getProperty("file.separator");
         path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;

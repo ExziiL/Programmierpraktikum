@@ -1,0 +1,249 @@
+gameMode ONLINE
+shipsDestroyed 2 2 2 0
+init false
+EnemyGame 0 0 5
+EnemyGame 0 1 5
+EnemyGame 0 2 5
+EnemyGame 0 3 0
+EnemyGame 0 4 0
+EnemyGame 0 5 5
+EnemyGame 0 6 5
+EnemyGame 0 7 5
+EnemyGame 0 8 5
+EnemyGame 0 9 5
+EnemyGame 0 10 0
+EnemyGame 1 0 0
+EnemyGame 1 1 0
+EnemyGame 1 2 0
+EnemyGame 1 3 0
+EnemyGame 1 4 0
+EnemyGame 1 5 0
+EnemyGame 1 6 0
+EnemyGame 1 7 0
+EnemyGame 1 8 0
+EnemyGame 1 9 0
+EnemyGame 1 10 0
+EnemyGame 2 0 0
+EnemyGame 2 1 5
+EnemyGame 2 2 2
+EnemyGame 2 3 0
+EnemyGame 2 4 5
+EnemyGame 2 5 5
+EnemyGame 2 6 5
+EnemyGame 2 7 0
+EnemyGame 2 8 0
+EnemyGame 2 9 0
+EnemyGame 2 10 0
+EnemyGame 3 0 0
+EnemyGame 3 1 5
+EnemyGame 3 2 0
+EnemyGame 3 3 0
+EnemyGame 3 4 0
+EnemyGame 3 5 0
+EnemyGame 3 6 0
+EnemyGame 3 7 0
+EnemyGame 3 8 0
+EnemyGame 3 9 0
+EnemyGame 3 10 0
+EnemyGame 4 0 0
+EnemyGame 4 1 5
+EnemyGame 4 2 0
+EnemyGame 4 3 0
+EnemyGame 4 4 0
+EnemyGame 4 5 0
+EnemyGame 4 6 0
+EnemyGame 4 7 0
+EnemyGame 4 8 0
+EnemyGame 4 9 0
+EnemyGame 4 10 0
+EnemyGame 5 0 0
+EnemyGame 5 1 5
+EnemyGame 5 2 0
+EnemyGame 5 3 0
+EnemyGame 5 4 2
+EnemyGame 5 5 0
+EnemyGame 5 6 0
+EnemyGame 5 7 0
+EnemyGame 5 8 0
+EnemyGame 5 9 0
+EnemyGame 5 10 0
+EnemyGame 6 0 0
+EnemyGame 6 1 0
+EnemyGame 6 2 0
+EnemyGame 6 3 0
+EnemyGame 6 4 0
+EnemyGame 6 5 0
+EnemyGame 6 6 0
+EnemyGame 6 7 0
+EnemyGame 6 8 0
+EnemyGame 6 9 0
+EnemyGame 6 10 0
+EnemyGame 7 0 0
+EnemyGame 7 1 0
+EnemyGame 7 2 0
+EnemyGame 7 3 0
+EnemyGame 7 4 0
+EnemyGame 7 5 0
+EnemyGame 7 6 0
+EnemyGame 7 7 0
+EnemyGame 7 8 0
+EnemyGame 7 9 0
+EnemyGame 7 10 0
+EnemyGame 8 0 0
+EnemyGame 8 1 0
+EnemyGame 8 2 0
+EnemyGame 8 3 0
+EnemyGame 8 4 0
+EnemyGame 8 5 0
+EnemyGame 8 6 0
+EnemyGame 8 7 0
+EnemyGame 8 8 0
+EnemyGame 8 9 0
+EnemyGame 8 10 0
+EnemyGame 9 0 0
+EnemyGame 9 1 0
+EnemyGame 9 2 0
+EnemyGame 9 3 0
+EnemyGame 9 4 0
+EnemyGame 9 5 0
+EnemyGame 9 6 0
+EnemyGame 9 7 0
+EnemyGame 9 8 0
+EnemyGame 9 9 0
+EnemyGame 9 10 0
+EnemyGame 10 0 0
+EnemyGame 10 1 0
+EnemyGame 10 2 0
+EnemyGame 10 3 0
+EnemyGame 10 4 0
+EnemyGame 10 5 0
+EnemyGame 10 6 0
+EnemyGame 10 7 0
+EnemyGame 10 8 0
+EnemyGame 10 9 0
+EnemyGame 10 10 0
+MyGame 0 0 3
+MyGame 0 1 1 4 true 1232355263
+MyGame 0 2 3
+MyGame 0 3 1 2 true 1202968801
+MyGame 0 4 3
+MyGame 0 5 3
+MyGame 0 6 3
+MyGame 0 7 3
+MyGame 0 8 3
+MyGame 0 9 3
+MyGame 0 10 3
+MyGame 1 0 3
+MyGame 1 1 1 4 true 1232355263
+MyGame 1 2 3
+MyGame 1 3 1 2 true 1202968801
+MyGame 1 4 3
+MyGame 1 5 3
+MyGame 1 6 1 4 false 1133270223
+MyGame 1 7 1 4 false 1133270223
+MyGame 1 8 1 4 false 1133270223
+MyGame 1 9 1 4 false 1133270223
+MyGame 1 10 3
+MyGame 2 0 3
+MyGame 2 1 1 4 true 1232355263
+MyGame 2 2 3
+MyGame 2 3 3
+MyGame 2 4 3
+MyGame 2 5 3
+MyGame 2 6 3
+MyGame 2 7 3
+MyGame 2 8 3
+MyGame 2 9 3
+MyGame 2 10 3
+MyGame 3 0 3
+MyGame 3 1 1 4 true 1232355263
+MyGame 3 2 3
+MyGame 3 3 3
+MyGame 3 4 3
+MyGame 3 5 0
+MyGame 3 6 0
+MyGame 3 7 0
+MyGame 3 8 3
+MyGame 3 9 1 3 true 110023386
+MyGame 3 10 3
+MyGame 4 0 3
+MyGame 4 1 3
+MyGame 4 2 3
+MyGame 4 3 1 5 true 1852808307
+MyGame 4 4 3
+MyGame 4 5 3
+MyGame 4 6 3
+MyGame 4 7 3
+MyGame 4 8 3
+MyGame 4 9 1 3 true 110023386
+MyGame 4 10 3
+MyGame 5 0 5 2 false 935474575
+MyGame 5 1 5 2 false 935474575
+MyGame 5 2 3
+MyGame 5 3 1 5 true 1852808307
+MyGame 5 4 3
+MyGame 5 5 3
+MyGame 5 6 1 4 true 382281108
+MyGame 5 7 3
+MyGame 5 8 3
+MyGame 5 9 1 3 true 110023386
+MyGame 5 10 3
+MyGame 6 0 2
+MyGame 6 1 3
+MyGame 6 2 3
+MyGame 6 3 1 5 true 1852808307
+MyGame 6 4 3
+MyGame 6 5 3
+MyGame 6 6 1 4 true 382281108
+MyGame 6 7 3
+MyGame 6 8 3
+MyGame 6 9 3
+MyGame 6 10 3
+MyGame 7 0 3
+MyGame 7 1 1 3 true 1721838997
+MyGame 7 2 3
+MyGame 7 3 1 5 true 1852808307
+MyGame 7 4 3
+MyGame 7 5 3
+MyGame 7 6 1 4 true 382281108
+MyGame 7 7 3
+MyGame 7 8 3
+MyGame 7 9 3
+MyGame 7 10 5 3 true 1950333238
+MyGame 8 0 3
+MyGame 8 1 1 3 true 1721838997
+MyGame 8 2 2
+MyGame 8 3 1 5 true 1852808307
+MyGame 8 4 3
+MyGame 8 5 3
+MyGame 8 6 1 4 true 382281108
+MyGame 8 7 3
+MyGame 8 8 5 3 true 1391953011
+MyGame 8 9 3
+MyGame 8 10 5 3 true 1950333238
+MyGame 9 0 3
+MyGame 9 1 1 3 true 1721838997
+MyGame 9 2 3
+MyGame 9 3 3
+MyGame 9 4 3
+MyGame 9 5 3
+MyGame 9 6 3
+MyGame 9 7 3
+MyGame 9 8 5 3 true 1391953011
+MyGame 9 9 3
+MyGame 9 10 5 3 true 1950333238
+MyGame 10 0 3
+MyGame 10 1 3
+MyGame 10 2 3
+MyGame 10 3 0
+MyGame 10 4 0
+MyGame 10 5 0
+MyGame 10 6 0
+MyGame 10 7 3
+MyGame 10 8 5 3 true 1391953011
+MyGame 10 9 3
+MyGame 10 10 3
+ 10 7 3
+MyGame 10 8 3
+MyGame 10 9 3
+MyGame 10 10 3

@@ -28,7 +28,7 @@ public class Controller {
     public Controller() {
         myGame = new MyGame();
         Timestamp instant = Timestamp.from(Instant.now());
-        writer = new DocumentWriter(instant);
+        writer = new DocumentWriter(instant, getGameMode() == GameMode.ONLINE);
     }
 
     /**
