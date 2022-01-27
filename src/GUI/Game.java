@@ -68,7 +68,6 @@ public class Game extends Application {
         BorderPane startGame = loader.load();
         mainLayout.setCenter(startGame);
         mainLayout.setStyle("-fx-background-color: #ffffff");
-
     }
 
     public static void showGameSettingsWindow() throws IOException {
@@ -118,7 +117,6 @@ public class Game extends Application {
     public static void showPopUpConnectionClosed(boolean save, String id) {
         if (save) {
             connection.setText("Das Spiel wurde vom Gegner gespeichert");
-
         } else {
             connection.setText("Das Spiel wurde vom Gegner unterbrochen");
         }
