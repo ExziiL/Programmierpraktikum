@@ -40,6 +40,8 @@ public class GameSettingsController {
     @FXML
     private Text labelGameFieldSize;
     @FXML
+    private Text IpAdresseText;
+    @FXML
     private Label ErrorMessage;
     @FXML
     private Pane BoxOnline;
@@ -71,20 +73,21 @@ public class GameSettingsController {
         gameMode.setValue("Offline");
 
         BoxOnline.setDisable(true);
-        Ip.setPromptText("IP-Adresse");
+        Ip.setPromptText("IP-Adresse eingeben");
 
-        // name.setText("Player");
         name.setPromptText("Player");
+        IpAdresseText.opacityProperty().setValue(0.3);
 
         gameMode.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 if (gameMode.getValue().equals("Offline")) {
                     BoxOnline.setDisable(true);
+                    IpAdresseText.opacityProperty().setValue(0.3);
                     slider.setDisable(false);
                 } else if (gameMode.getValue().equals("Online")) {
-
                     BoxOnline.setDisable(false);
+                    IpAdresseText.opacityProperty().setValue(1);
                     if (Client.isSelected()) {
                         selectClient();
 
