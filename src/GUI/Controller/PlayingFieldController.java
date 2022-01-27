@@ -47,6 +47,7 @@ public class PlayingFieldController implements Initializable {
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
     private boolean yourTurn = false;
+    private boolean noClick = false;
     // endregion
 
     @Override
@@ -111,13 +112,9 @@ public class PlayingFieldController implements Initializable {
 
     }
 
-    public void handleSetOnMouseClicked(MouseEvent event, int index) { // TODO enemyTurn darf nicht erst wenn geclickt
-        // wurde aufgerufen werden, muss automatisch
-        // aufgerufen werden
-
-        if (event.getButton() == MouseButton.PRIMARY) {
+    public void handleSetOnMouseClicked(MouseEvent event, int index) {
+        if (event.getButton() == MouseButton.PRIMARY && yourTurn) {
             yourTurn(index);
-
         }
     }
 
@@ -161,7 +158,6 @@ public class PlayingFieldController implements Initializable {
         int isEnemyTurn = 0;
         do {
             isEnemyTurn = Game.logicController.enemyTurn();
-
             if (isEnemyTurn == 2) {
                 Platform.runLater(() -> {
                     Game.showPopUpConnectionClosed(true, Game.logicController.getDocumentID());
@@ -176,6 +172,8 @@ public class PlayingFieldController implements Initializable {
                 gridBuilder.redrawGamerPanes();
             });
         } while (isEnemyTurn != 1);
+
+
     }
 
     public void checkMyWin() {
@@ -196,6 +194,10 @@ public class PlayingFieldController implements Initializable {
 
     public boolean isYourTurn() {
         return yourTurn;
+    }
+
+    public void setNoClick(boolean noClick) {
+        this.noClick = noClick;
     }
 
     private void setLabelsShipDestroyed() {
