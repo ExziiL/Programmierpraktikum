@@ -71,7 +71,7 @@ public class Client extends Network {
     public int shoot(int x, int y) {
         System.out.println("shoot " + x + " " + y);
         try {
-            outStream.write(String.format("%s%n", "shoot " + x + " " + y));
+            outStream.write(String.format("%s%n", "shot " + x + " " + y));
             outStream.flush();
 
             message = inStream.readLine();
@@ -96,7 +96,7 @@ public class Client extends Network {
             message = inStream.readLine();
 
             System.out.println(message);
-            if (message.startsWith("shoot")) {
+            if (message.startsWith("shot")) {
                 shot = message.split(" ");
                 xy[0] = 0;
                 xy[1] = Integer.parseInt(shot[1]);

@@ -88,7 +88,7 @@ public class Server extends Network {
     public int shoot(int x, int y) {
         try {
             System.out.println("shoot " + x + " " + y);
-            outStream.write(String.format("%s%n", "shoot " + x + " " + y));
+            outStream.write(String.format("%s%n", "shot " + x + " " + y));
             outStream.flush();
 
             //Warten auf Message
@@ -117,7 +117,7 @@ public class Server extends Network {
         try {
             get_Message = inStream.readLine();
             System.out.println(get_Message);
-            if (get_Message.startsWith("shoot")) {
+            if (get_Message.startsWith("shot")) {
                 shot = get_Message.split(" ");
                 xy[0] = 0;
                 xy[1] = Integer.parseInt(shot[1]);
