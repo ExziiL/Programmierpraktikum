@@ -7,7 +7,7 @@ public class DocTester {
 
     public static void main(String[] args) {
         Timestamp instant= Timestamp.from(Instant.now());
-        DocumentWriter writer = new DocumentWriter(instant);
+        DocumentWriter writer = new DocumentWriter(instant,false);
 
         writer.writeShot(1, 2);
         writer.writeSize(4);
