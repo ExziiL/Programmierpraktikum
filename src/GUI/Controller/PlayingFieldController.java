@@ -113,7 +113,7 @@ public class PlayingFieldController implements Initializable {
     }
 
     public void handleSetOnMouseClicked(MouseEvent event, int index) {
-        if (event.getButton() == MouseButton.PRIMARY && !noClick) {
+        if (event.getButton() == MouseButton.PRIMARY && yourTurn) {
             yourTurn(index);
         }
     }
@@ -129,12 +129,6 @@ public class PlayingFieldController implements Initializable {
                     yourTurn = true;
                 } else {
                     yourTurn = Game.logicController.shoot(index) == 0;
-
-                    if (yourTurn == true) {
-                        setNoClick(false);
-                    } else {
-                        setNoClick(true);
-                    }
                 }
 
                 Platform.runLater(() -> {
