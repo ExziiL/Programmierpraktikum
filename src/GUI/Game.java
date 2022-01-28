@@ -190,7 +190,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                                       Pane contentPane) {
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -311,6 +311,7 @@ public class Game extends Application {
 
         dialogStartNewGame.initModality(Modality.APPLICATION_MODAL);
         dialogStartNewGame.setScene(dialogScene);
+        dialogStartNewGame.setTitle("Neues Spiel");
 
         yes.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -362,6 +363,7 @@ public class Game extends Application {
 
         dialogReconnect.initModality(Modality.APPLICATION_MODAL);
         dialogReconnect.setScene(dialogScene);
+        dialogReconnect.setTitle("Erneut Verbinden");
 
         verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
@@ -413,13 +415,14 @@ public class Game extends Application {
 
         dialogConnectionClosed.initModality(Modality.APPLICATION_MODAL);
         dialogConnectionClosed.setScene(dialogScene);
+        dialogConnectionClosed.setTitle("Verbindung getrennt");
 
         ok.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 try {
                     dialogConnectionClosed.hide();
-                    Game.logicController.setWriter(new DocumentWriter(id ,true));
+                    Game.logicController.setWriter(new DocumentWriter(id, true));
                     Game.logicController.save();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -455,6 +458,7 @@ public class Game extends Application {
 
         dialogCannotSave.initModality(Modality.APPLICATION_MODAL);
         dialogCannotSave.setScene(dialogScene);
+        dialogCannotSave.setTitle("Speichern fehlgeschlagen");
 
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override

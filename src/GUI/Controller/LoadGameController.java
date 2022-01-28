@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,7 +25,6 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 
 public class LoadGameController implements Initializable {
 
@@ -66,7 +66,6 @@ public class LoadGameController implements Initializable {
         });
     }
 
-
     @FXML
     public void handleBack() throws IOException {
         Game.showStartGameWindow();
@@ -89,7 +88,6 @@ public class LoadGameController implements Initializable {
 
             Game.showPlayingFieldWindow();
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -98,7 +96,7 @@ public class LoadGameController implements Initializable {
     private void deleteGame() {
         String s = getSelectedText();
 
-        //TODO Online löschen
+        // TODO Online löschen
 
         if (Game.logicController.deleteFile(s)) {
             ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
@@ -131,10 +129,8 @@ public class LoadGameController implements Initializable {
 
         ObservableList<HBox> games = FXCollections.observableArrayList();
 
-
         files = Game.logicController.getAllSaveFiles();
         onlineFiles = Game.logicController.getAllOnlineSaveFiles();
-
 
         for (String s : files) {
             s = s.replace(".txt", "");
@@ -160,7 +156,7 @@ public class LoadGameController implements Initializable {
         Label text = new Label(s);
         left.getChildren().add(text);
 
-        //Add Icons for Processing
+        // Add Icons for Processing
         ImageView viewDelete = new ImageView(delete);
 
         viewDelete.setFitHeight(20);
@@ -186,12 +182,11 @@ public class LoadGameController implements Initializable {
         right.setSpacing(20);
         right.setAlignment(Pos.TOP_RIGHT);
 
-        left.setMaxWidth(560);
-        left.setMinWidth(560);
+        left.setMaxWidth(313);
+        left.setMinWidth(313);
         line.getChildren().addAll(left, right);
 
         return line;
     }
-
 
 }

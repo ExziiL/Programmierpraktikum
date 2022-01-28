@@ -1,0 +1,56 @@
+size 5
+ships 2 1 0 0
+size 5
+gameMode OFFLINE
+ships 2 1 0 0
+shipsDestroyed 2 1 0 0
+EnemyGame 0 0 1 2 false 382784396
+EnemyGame 0 1 1 2 false 382784396
+EnemyGame 0 2 3
+EnemyGame 0 3 3
+EnemyGame 0 4 3
+EnemyGame 1 0 3
+EnemyGame 1 1 3
+EnemyGame 1 2 3
+EnemyGame 1 3 5 3 true 1316145535
+EnemyGame 1 4 3
+EnemyGame 2 0 1 2 false 2086922521
+EnemyGame 2 1 1 2 false 2086922521
+EnemyGame 2 2 2
+EnemyGame 2 3 1 3 true 1316145535
+EnemyGame 2 4 3
+EnemyGame 3 0 3
+EnemyGame 3 1 3
+EnemyGame 3 2 3
+EnemyGame 3 3 1 3 true 1316145535
+EnemyGame 3 4 3
+EnemyGame 4 0 0
+EnemyGame 4 1 0
+EnemyGame 4 2 3
+EnemyGame 4 3 3
+EnemyGame 4 4 3
+MyGame 0 0 0
+MyGame 0 1 3
+MyGame 0 2 1 2 true 1202500531
+MyGame 0 3 3
+MyGame 0 4 1 3 true 1475363961
+MyGame 1 0 0
+MyGame 1 1 3
+MyGame 1 2 5 2 true 1202500531
+MyGame 1 3 3
+MyGame 1 4 1 3 true 1475363961
+MyGame 2 0 3
+MyGame 2 1 3
+MyGame 2 2 2
+MyGame 2 3 3
+MyGame 2 4 1 3 true 1475363961
+MyGame 3 0 3
+MyGame 3 1 1 2 true 252790473
+MyGame 3 2 3
+MyGame 3 3 3
+MyGame 3 4 3
+MyGame 4 0 3
+MyGame 4 1 1 2 true 252790473
+MyGame 4 2 3
+MyGame 4 3 0
+MyGame 4 4 0

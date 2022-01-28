@@ -12,12 +12,12 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@LoadGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoadGameController">
    <children>
-      <ListView fx:id="saveGames" layoutX="118.0" layoutY="113.0" prefHeight="450.0" prefWidth="600.0" />
-      <HBox alignment="CENTER" layoutX="6.0" prefHeight="110.0" prefWidth="900.0">
+      <ListView fx:id="saveGames" layoutX="275.0" layoutY="110.0" prefHeight="450.0" prefWidth="350.0" />
+      <HBox alignment="CENTER" layoutX="2.0" prefHeight="165.0" prefWidth="900.0">
          <children>
             <Label text="Deine Spielstände">
                <font>
-                  <Font size="20.0" />
+                  <Font size="30.0" />
                </font>
             </Label>
          </children>
@@ -31,7 +31,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="joinGame" layoutX="750.0" layoutY="538.0" mnemonicParsing="false" text="Spiel beitreten" />
-      <Button fx:id="refresh" layoutX="750.0" layoutY="500.0" mnemonicParsing="false" text="Neu Laden" />
+      <Button fx:id="joinGame" layoutX="670.0" layoutY="535.0" mnemonicParsing="false" styleClass="buttons" text="Spiel beitreten" />
+      <Button fx:id="refresh" layoutX="670.0" layoutY="497.0" mnemonicParsing="false" styleClass="buttons" text="Neu Laden" />
    </children>
 </AnchorPane>
