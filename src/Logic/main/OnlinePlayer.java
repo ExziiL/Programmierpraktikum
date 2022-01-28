@@ -39,7 +39,10 @@ public class OnlinePlayer extends Player {
         } else if (xy[0] == 1) {
 
             return 2;
+        } else if (xy[0] == 99) {
+            return 99;
         }
+
         return 1;
     }
 

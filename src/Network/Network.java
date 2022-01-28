@@ -6,6 +6,8 @@ import Logic.main.Controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public abstract class Network {
     protected static int port = 50000;
@@ -19,6 +21,7 @@ public abstract class Network {
     protected Writer outStream;
     private int[] xy = new int[3];
     private String[] shot;
+    private int checkConnected = 0;
 
     public static Network chooseNetworkTyp(boolean server) {
         if (server) {
@@ -35,54 +38,33 @@ public abstract class Network {
         controller = c;
     }
 
-  /*  public static Network chooseNetworkTyp(boolean server, Network player) {
-        if (player != null) closeNetwork(player);
-        if (server) {
-            player = new Server();
-        } else {
-            player = new Client();
-        }
-        return player;
-    }
-*/
-
-    public static boolean isServer() {
-        return isServer;
-    }
-
-
-    protected static void closeNetwork(Network player) {
+    public static void closeNetwork(Network player) {
         try {
             if (player instanceof Server) {
-                ((Server) player).getServerSocket().close();
+                Socket server = ((Server) player).getServer();
+                ServerSocket serverSocket = ((Server) player).getServerSocket();
+                if (server != null) {
+                    server.close();
+                }
+                if (serverSocket != null) {
+                    serverSocket.close();
+                }
+
+
             } else if (player instanceof Client) {
-                ((Client) player).getClient().close();
+                Socket client = ((Client) player).getClient();
+                if (client != null) {
+                    client.close();
+                }
             }
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public static boolean isNetworkClosed(Network player) {
-        //   if (player instanceof Server) {
-        //       return ((Server) player).testRead() == -1;
-        //   } else if (player instanceof Client) {
-        //       return ((Client) player).testRead() == -1;
-        //   }
-
-        return false;
-    }
-
-    public void sendNothing() {
-        String message = "";
-        try {
-            outStream.write(String.format("%s%n", message));
-            outStream.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     public void save() {
         String message = "save ";
@@ -120,26 +102,6 @@ public abstract class Network {
         }
     }
 
-    public String receiveSave() {
-        try {
-// TODO SEND OK
-            getMessage = inStream.readLine();
-
-            System.out.println(getMessage);
-            if (getMessage.startsWith("save")) {
-                String[] id = getMessage.split(" ");
-                controller.setWriter(new DocumentWriter(id[1], true, true));
-                controller.save();
-                return id[1];
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public boolean receiveLoad() {
         try {
             getMessage = inStream.readLine();
@@ -172,21 +134,26 @@ public abstract class Network {
 
             //Warten auf Message
             getMessage = inStream.readLine();
-            System.out.println(getMessage);
-            switch (getMessage) {
-                case "answer 0":
-                    return 0;
-                case "answer 1":
-                    return 1;
-                case "answer 2":
-                    return 2;
-                default:
-                    // wait(10);
-                    shoot(x, y);
-                    break;
+            if (getMessage != null) {
+                System.out.println(getMessage);
+                switch (getMessage) {
+                    case "answer 0":
+                        return 0;
+                    case "answer 1":
+                        return 1;
+                    case "answer 2":
+                        return 2;
+                    default:
+                        // wait(10);
+                        shoot(x, y);
+                        break;
+                }
+            } else {
+                return -1;
             }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            return -1;
         }
         return -1;
     }
@@ -194,24 +161,28 @@ public abstract class Network {
     public int[] receiveSaveOrShot() {
         try {
             getMessage = inStream.readLine();
-            System.out.println(getMessage);
-            if (getMessage.startsWith("shot")) {
-                shot = getMessage.split(" ");
-                xy[0] = 0;
-                xy[1] = Integer.parseInt(shot[1]);
-                xy[2] = Integer.parseInt(shot[2]);
-            } else if (getMessage.startsWith("save")) {
-                String[] id = getMessage.split(" ");
-                controller.setWriter(new DocumentWriter(id[1], true, true));
-                controller.save();
-                xy[0] = 1;
-                xy[1] = 99;
-                xy[2] = 99;
+            if (getMessage != null) {
+                System.out.println(getMessage);
+                if (getMessage.startsWith("shot")) {
+                    shot = getMessage.split(" ");
+                    xy[0] = 0;
+                    xy[1] = Integer.parseInt(shot[1]);
+                    xy[2] = Integer.parseInt(shot[2]);
+                } else if (getMessage.startsWith("save")) {
+                    String[] id = getMessage.split(" ");
+                    controller.setWriter(new DocumentWriter(id[1], true, true));
+                    controller.save();
+                    xy[0] = 1;
+                    xy[1] = 99;
+                    xy[2] = 99;
 
+                }
+            } else {
+                xy[0] = 99;
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            return null;
+
+            xy[0] = 99;
         }
         return xy;
     }
@@ -226,4 +197,6 @@ public abstract class Network {
             e.printStackTrace();
         }
     }
+
+
 }

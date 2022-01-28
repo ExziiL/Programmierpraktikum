@@ -36,9 +36,9 @@ public class MyPlayer extends Player {
                 game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.HIT);
                 return 2; // hit
             } else {
-                game.setgameElementStatus(x, y, LogicConstants.GameElementStatus.ERROR);
+                return -1;
             }
-            return isHit;
+
         }
         return 1;
     }

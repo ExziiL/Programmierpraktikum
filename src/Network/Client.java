@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 public class Client extends Network {
-    private static Socket client;
+    private Socket client;
     private String getMessage;
 
     public boolean createClient(String ip) {
@@ -28,11 +28,11 @@ public class Client extends Network {
         }
     }
 
-    protected Socket getClient() {
+    public Socket getClient() {
         return client;
     }
 
-    public void receiveMessage() { //TODO Game.determenNumberofShip disable
+    public boolean receiveMessage() {
         String[] message_split;
         try {
             getMessage = inStream.readLine();
@@ -59,8 +59,9 @@ public class Client extends Network {
             }
         } catch (IOException |
                 InterruptedException e) {
-            e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
 
@@ -97,6 +98,6 @@ public class Client extends Network {
         controller.setDestroyedThreeShips(three);
         controller.setDestroyedFourShips(four);
         controller.setDestroyedFiveShips(five);
-        
+
     }
 }

@@ -1,14 +1,17 @@
 package Network;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server extends Network {
 
-    private static ServerSocket serverSocket;
-    private static Socket server;
+    private ServerSocket serverSocket;
+    private Socket server;
     private String getMessage;
 
 
@@ -19,6 +22,7 @@ public class Server extends Network {
             System.out.println("Waiting");
             server = serverSocket.accept();
             System.out.println("Connected");
+
 
             inStream = new BufferedReader(new InputStreamReader(server.getInputStream()));
             outStream = new OutputStreamWriter(server.getOutputStream());
@@ -33,6 +37,10 @@ public class Server extends Network {
 
     }
 
+    public boolean isConnected() {
+        return server.isConnected();
+    }
+
     public String getIp() {
         String ip = null;
         try {
@@ -43,12 +51,16 @@ public class Server extends Network {
         return ip;
     }
 
+    protected Socket getServer() {
+        return server;
+    }
+
     protected ServerSocket getServerSocket() {
         return serverSocket;
     }
 
 
-    public void sendInitialisation(int size, String ships) {
+    public boolean sendInitialisation(int size, String ships) {
         try {
             String stringships = "";
 
@@ -63,9 +75,9 @@ public class Server extends Network {
             if (!(getMessage.equals("done"))) sendInitialisation(size, ships);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
-
+        return true;
     }
 
     public void sendREADY() {
@@ -79,5 +91,6 @@ public class Server extends Network {
             e.printStackTrace();
         }
     }
+
 
 }
