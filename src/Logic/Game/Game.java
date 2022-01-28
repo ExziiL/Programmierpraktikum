@@ -131,7 +131,16 @@ public class Game {
     public void setgameElementStatus(int x, int y, GameElementStatus status) {
         gameField[x][y].setStatus(status);
     }
-
+    /**
+     * Create a new Ship Object for the Game Element
+     * if it is the same Ship the hash Value has to be the same
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param size  of the Ship
+     * @param isHorizontal Orientation of the Ship
+     * @param hash   unique id of the Ship
+     */
     public void setGameElementShip(int x, int y, int size, boolean isHorizontal, int hash) {
         Ship newShip = null;
 
@@ -152,7 +161,11 @@ public class Game {
         }
 
     }
-
+    /**
+     * Check if all Ships are placed
+     *
+     * @return true if all ships are placed
+     */
     public boolean allShipPlaced() {
         return getCountTwoShip() == 0 &&
                 getCountThreeShip() == 0 &&
@@ -173,58 +186,111 @@ public class Game {
         return gameField[p.x][p.y].getPart();
     }
 
+    /**
+     * Gets Number of Two sized Ships, which aren't placed
+     *
+     * @return Number of Two sized Ships
+     */
     public int getCountTwoShip() {
         return countTwoShip;
     }
-
+    /**
+     * Gets Number of Three sized Ships, which aren't placed
+     *
+     * @return Number of Three sized Ships
+     */
     public int getCountThreeShip() {
         return countThreeShip;
     }
-
+    /**
+     * Gets Number of Four sized Ships, which aren't placed
+     *
+     * @return Number of Four sized Ships
+     */
     public int getCountFourShip() {
         return countFourShip;
     }
-
+    /**
+     * Gets Number of Five sized Ships, which aren't placed
+     *
+     * @return Number of Five sized Ships
+     */
     public int getCountFiveShip() {
         return countFiveShip;
     }
-
+    /**
+     * Gets Number of two sized Ships, which are set in the beginning of the Game
+     *
+     * @return Number of two sized Ships
+     */
     public int getAllTwoShips() {
         return allTwoShip;
     }
-
+    /**
+     * Sets Number of two sized Ships,
+     *
+     * @param allTwoShip Number of two sized Ships
+     */
     public void setAllTwoShips(int allTwoShip) {
         this.countTwoShip = allTwoShip;
         this.allTwoShip = allTwoShip;
     }
-
+    /**
+     * Gets Number of three sized Ships, which are set in the beginning of the Game
+     *
+     * @return Number of two sized Ships
+     */
     public int getAllThreeShips() {
         return allThreeShip;
     }
-
+    /**
+     * Sets Number of three sized Ships,
+     *
+     * @param allThreeShip Number of three sized Ships
+     */
     public void setAllThreeShips(int allThreeShip) {
         this.countThreeShip = allThreeShip;
         this.allThreeShip = allThreeShip;
     }
-
+    /**
+     * Gets Number of four sized Ships, which are set in the beginning of the Game
+     *
+     * @return Number of four sized Ships
+     */
     public int getAllFourShips() {
         return allFourShip;
     }
-
+    /**
+     * Sets Number of four sized Ships,
+     *
+     * @param allFourShip Number of four sized Ships
+     */
     public void setAllFourShips(int allFourShip) {
         this.countFourShip = allFourShip;
         this.allFourShip = allFourShip;
     }
-
+    /**
+     * Gets Number of three five Ships, which are set in the beginning of the Game
+     *
+     * @return Number of five sized Ships
+     */
     public int getAllFiveShips() {
         return allFiveShip;
     }
-
+    /**
+     * Sets Number of five sized Ships,
+     *
+     * @param allFiveShip Number of five sized Ships
+     */
     public void setAllFiveShips(int allFiveShip) {
         this.countFiveShip = allFiveShip;
         this.allFiveShip = allFiveShip;
     }
 
+    /**
+     * Initialize Game Field. Un place all Ships.
+     * Determine Number of Ships
+     */
     public void initializeGameField() {
 
         for (int i = 0; i < size; i++) {
@@ -235,7 +301,15 @@ public class Game {
         ships = new ArrayList<>();
         determineNumberOfShips();
     }
-
+    /**
+     * Return a List of States, with Index, where the ship is and where the Edges are
+     * And the list contains Error States, when placed near other ships
+     *
+     * @param index        of the middle Part of the ship
+     * @param isHorizontal Orientation of the ship
+     * @param ShipSize     Size of Ship
+     * @return List of States, with Index
+     */
     public HoverState[] getHoverStateStatus(int index, int ShipSize, boolean isHorizontal) {
         ArrayList<HoverState> stateList = new ArrayList<>();
 
@@ -407,7 +481,14 @@ public class Game {
         }
         return stateList.toArray(new HoverState[stateList.size()]);
     }
-
+    /**
+     * Places a ship in the Game Element Array
+     *
+     * @param index        of the middle Part of the ship
+     * @param isHorizontal Orientation of the ship
+     * @param ShipSize     Size of Ship
+     * @return true if ship is placed - false when not possible
+     */
     public boolean placeShip(int index, int ShipSize, boolean isHorizontal) {
         int x = 0;
         int y = 0;
@@ -447,7 +528,9 @@ public class Game {
         return true;
     }
 
-
+    /**
+     * Randomize Placing of all Ships
+     */
     public void shuffleShips() {
         int x = 0;
         int y = 0;
@@ -483,7 +566,13 @@ public class Game {
             }
         }
     }
-
+    /**
+     * Gets the Size of chosen Ship
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return Size of Ship
+     */
     public int getShipSize(int x, int y) {
         Ship ship;
 
@@ -494,7 +583,12 @@ public class Game {
         return 0;
 
     }
-
+    /**
+     * Gets the Size of chosen Ship
+     *
+     * @param index of Pane
+     * @return Size of Ship
+     */
     public int getShipSize(int index) {
         int x = index % size;
         int y = index / size;
@@ -502,7 +596,12 @@ public class Game {
         return getShipSize(x, y);
 
     }
-
+    /**
+     * Gets Ships Rotation
+     *
+     * @param index of Pane
+     * @return true if Ship is horizontal
+     */
     public boolean isShipHorizontal(int index) {
         int x = index % size;
         int y = index / size;
@@ -514,6 +613,14 @@ public class Game {
         return false;
     }
 
+
+    /**
+     * Return if selected Ship in my Game Field ist Destroyed
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return true if destroyed
+     */
     public boolean isMyShipDestroyed(int x, int y) {
         int countTrys = 0;
         if (gameField[x][y].getStatus() == GameElementStatus.SHIP || gameField[x][y].getStatus() == GameElementStatus.HIT) {
@@ -540,7 +647,13 @@ public class Game {
         }
         return false;
     }
-
+    /**
+     * Returns the Size of the destroyed Ship
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return size of Ship
+     */
     public int getCountOfDestroyedShip(int x, int y) {
         int i = 0, j = 0;
         int countTrys = 0;
@@ -653,7 +766,11 @@ public class Game {
         return 0;
     }
 
-
+    /**
+     * Return if all ship are destroyed
+     *
+     * @return true if all Ship are destroyed
+     */
     public boolean allShipDestroyed() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -666,7 +783,12 @@ public class Game {
         return true;
     }
 
-
+    /**
+     * Delete a ship in the Array
+     *
+     * @param index of Pane
+     * @return true if Ship was deleted
+     */
     public boolean deleteShip(int index) {
         int x = index % size;
         int y = index / size;
@@ -693,7 +815,13 @@ public class Game {
         }
         return false;
     }
-
+    /**
+     * Return if a Coordinate is in the Array
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return true if Coordinate is in the Array
+     */
     public boolean inGameField(int x, int y) {
 
         if (x >= 0 && x < size &&
@@ -703,16 +831,32 @@ public class Game {
             return false;
         }
     }
-
+    /**
+     * Matches x y Coordinates to an Index of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return Index of the Pane
+     */
     protected int matchIndex(int x, int y) {
 
         return y * (size) + x;
     }
-
+    /**
+     * Matches Index to x y Coordinates of the Pane
+     *
+     * @param index of Pane
+     * @return Point of Pane
+     */
     protected Point matchIndex(int index) {
         return new Point(index % size, index / size);
     }
-
+    /**
+     * Matches Index to x y Coordinates of the Pane
+     *
+     * @param size   of ship
+     * @param number of ship inserted
+     */
     protected void addShip(int size, int number) {
         for (int i = 0; i < number; i++) {
 
@@ -734,7 +878,13 @@ public class Game {
             ships.add(new Ship(size));
         }
     }
-
+    /**
+     * Return if ship is in Game Field
+     *
+     * @param p            x y Coordinate of the middle of the ship
+     * @param ShipSize
+     * @param isHorizontal Orientation of the ship
+     */
     protected boolean shipinGameField(Point p, int ShipSize, boolean isHorizontal) {
         int x = p.x;
         int y = p.y;
@@ -795,7 +945,11 @@ public class Game {
         }
         return false;
     }
-
+    /**
+     * Remove Ship from ship Array List
+     *
+     * @param index of Array List Index
+     */
     protected void removeShip(int index) {
 
         switch (ships.get(index).getSize()) {
@@ -815,7 +969,12 @@ public class Game {
 
         ships.remove(index);
     }
-
+    /**
+     * Create an Instance of a Player (Online / Offline / Self)
+     *
+     * @param t Player Type
+     * @return Instance of Player
+     */
     protected Player createPlayer(PlayerType t) {
         // erstelle je nach Spielertyp eine Unterklasse des Typ Spieler
         switch (t) {
@@ -829,7 +988,9 @@ public class Game {
                 return null;
         }
     }
-
+    /**
+     * Determine Number of Ships dependent on Game Field Size
+     */
     public void determineNumberOfShips() {
         // 30 % der Spielfeldgröße
         int places = ((size * size) * 30) / 100;
@@ -939,7 +1100,15 @@ public class Game {
         setAllFiveShips(countFiveShip);
 
     }
-
+    /**
+     * Add a new Ship to the Hover State List to an existing list
+     *
+     * @param x            Coordinate of the Panel
+     * @param y            Coordinate of the Panel
+     * @param status       of the ship (SHIP or ERROR)
+     * @param states       List of old States (ship will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
 
         if (inGameField(x, y)) {
@@ -947,7 +1116,12 @@ public class Game {
         }
         return states;
     }
-
+    /**
+     * Sets Close State to a Game Element
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     */
     private HoverState setEdge(int x, int y) {
         if (inGameField(x, y)) {
             // Ecke kann einach eingefügt werden
@@ -962,7 +1136,14 @@ public class Game {
     }
 
 
-    // ___________________________________________Ränder der Shiffe setzen__________________________________
+    /**
+     * Add Edges to the Top of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesTop(int x, int y, ArrayList<HoverState> states) {
 
         // Rand oben
@@ -982,7 +1163,14 @@ public class Game {
 
         return states;
     }
-
+    /**
+     * Add Edges to the Button of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesButton(int x, int y, ArrayList<HoverState> states) {
         //states.add(new HoverState(index, GameElementStatus.SHIP));
 
@@ -1004,7 +1192,14 @@ public class Game {
 
         return states;
     }
-
+    /**
+     * Add Edges to the Left of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesLeft(int x, int y, ArrayList<HoverState> states) {
 
         // Rand unten
@@ -1025,7 +1220,14 @@ public class Game {
 
         return states;
     }
-
+    /**
+     * Add Edges to the Right of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesRight(int x, int y, ArrayList<HoverState> states) {
 
         // Rand unten
@@ -1046,7 +1248,14 @@ public class Game {
 
         return states;
     }
-
+    /**
+     * Add Edges to the Left and Right of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesLeftRight(int x, int y, ArrayList<HoverState> states) {
         //Rand links
         states.add(setEdge(x - 1, y));
@@ -1056,7 +1265,14 @@ public class Game {
 
         return states;
     }
-
+    /**
+     * Add Edges to the Up and Button of a ship
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
+     * @param states List of old States (Edges will be added)
+     * @return New List of Hover States
+     */
     private ArrayList<HoverState> setEdgesUpDown(int x, int y, ArrayList<HoverState> states) {
         // Rand unten
         states.add(setEdge(x, y + 1));
