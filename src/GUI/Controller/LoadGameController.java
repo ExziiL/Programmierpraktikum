@@ -41,7 +41,7 @@ public class LoadGameController implements Initializable {
     ImageView arrowIconLoadGame;
     ArrayList<String> files;
     ArrayList<String> onlineFiles;
-    Image delete = new Image("assets/Icons/delete.png");
+    Image delete = new Image("assets/Icons/trash.png");
     Image reload = new Image("assets/Icons/reload.png");
 
     @Override

@@ -130,7 +130,7 @@
       
                         <ImageView fx:id="Next" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
                <image>
-                  <Image url="@../../assets/Icons/right-arrow.png" />
+                  <Image url="@../../assets/Icons/angle-double-small-right.png" />
                </image>
             </ImageView>
          </children>
@@ -139,7 +139,7 @@
          <children>
             <ImageView id="arrowIconPlacing" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
                <image>
-                  <Image url="@../../assets/Icons/left-arrow.png" />
+                  <Image url="@../../assets/Icons/angle-double-small-left.png" />
                </image>
             </ImageView>
          </children>

@@ -39,7 +39,7 @@
          <children>
             <ImageView fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
                <image>
-                  <Image url="@../../assets/Icons/left-arrow.png" />
+                  <Image url="@../../assets/Icons/angle-double-small-left.png" />
                </image>
             </ImageView>
          </children>

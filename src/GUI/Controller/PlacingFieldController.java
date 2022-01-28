@@ -77,8 +77,8 @@ public class PlacingFieldController implements Initializable {
     private Thread networkThread;
     private Network netplay;
 
-    private final Image rightArrow = new Image("assets/Icons/right-arrow.png");
-    private final Image rightArrowDisabled = new Image("assets/Icons/right-arrow-disabled.png");
+    private final Image rightArrow = new Image("assets/Icons/angle-double-small-right.png");
+    private final Image rightArrowDisabled = new Image("assets/Icons/angle-double-small-right-grey.png");
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

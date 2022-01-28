@@ -6,7 +6,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
@@ -17,7 +16,7 @@
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Battleships" textAlignment="CENTER" BorderPane.alignment="CENTER">
          <font>
-            <Font name="System Bold" size="64.0" />
+            <Font name="Arial Bold" size="64.0" />
          </font>
          <BorderPane.margin>
             <Insets top="20.0" />
@@ -25,44 +24,59 @@
       </Text>
    </top>
    <center>
-      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="490.0" BorderPane.alignment="CENTER">
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <columnConstraints>
          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
          </columnConstraints>
          <rowConstraints>
          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Pane prefHeight="206.0" prefWidth="295.0">
+            <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleStartGame" prefHeight="159.0" prefWidth="109.0" spacing="5.0">
                <children>
-                  <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleStartGame" prefHeight="159.0" prefWidth="491.0" spacing="5.0">
-                     <children>
-                        <ImageView fx:id="startGameIcon" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../assets/Icons/sailboat.png" />
-                           </image>
-                        </ImageView>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel starten">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Text>
-                        <Line id="gameStartLine" endX="-11.767768859863281" endY="-8.0108642578125E-5" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
-                           <VBox.margin>
-                              <Insets top="-5.0" />
-                           </VBox.margin>
-                        </Line>
-                     </children>
-                  </VBox>
+                  <ImageView fx:id="startGameIcon" fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/play.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel starten">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Line id="gameStartLine" endX="-11.767768859863281" endY="-8.0108642578125E-5" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
+                     <VBox.margin>
+                        <Insets top="-5.0" />
+                     </VBox.margin>
+                  </Line>
                </children>
-            </Pane>
-            <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleClose" prefHeight="137.0" prefWidth="202.0" spacing="5.0" GridPane.rowIndex="2">
+            </VBox>
+            <VBox id="paneBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleStartGame" prefHeight="159.0" prefWidth="109.0" spacing="5.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="startGameIcon2" fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/book-alt.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielanleitung">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Line id="gameStartLine" endX="-11.767768859863281" endY="-8.0108642578125E-5" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
+                     <VBox.margin>
+                        <Insets top="-5.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+            <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleClose" prefHeight="158.0" prefWidth="409.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
                   <ImageView fx:id="startGameIcon21" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/Icons/logout.png" />
+                        <Image url="@../../assets/Icons/sign-out.png" />
                      </image>
                   </ImageView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel beenden">
@@ -81,7 +95,7 @@
                <children>
                   <ImageView fx:id="startGameIcon1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/Icons/synchronization.png" />
+                        <Image url="@../../assets/Icons/disk.png" />
                      </image>
                   </ImageView>
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel laden">
