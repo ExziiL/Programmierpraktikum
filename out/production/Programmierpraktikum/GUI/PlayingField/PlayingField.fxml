@@ -44,7 +44,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Text layoutX="140.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="übriggebliebene Schiffe" />
+      <Text layoutX="142.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="zu zerstörende Schiffe" />
       <GridPane layoutX="40.0" layoutY="65.0" prefHeight="215.0" prefWidth="313.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

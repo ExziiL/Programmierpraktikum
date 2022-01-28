@@ -13,16 +13,6 @@
 <?import javafx.scene.text.Text?>
 
 <BorderPane prefHeight="700.0" prefWidth="900.0" stylesheets="@StartGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.StartGameController">
-   <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Battleships" textAlignment="CENTER" BorderPane.alignment="CENTER">
-         <font>
-            <Font name="Arial Bold" size="64.0" />
-         </font>
-         <BorderPane.margin>
-            <Insets top="20.0" />
-         </BorderPane.margin>
-      </Text>
-   </top>
    <center>
       <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="450.0" BorderPane.alignment="CENTER">
          <columnConstraints>
@@ -46,7 +36,7 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Line id="gameStartLine" endX="-11.767768859863281" endY="-8.0108642578125E-5" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
+                  <Line id="gameStartLine" endX="-11.767768859863281" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
                      <VBox.margin>
                         <Insets top="-5.0" />
                      </VBox.margin>
@@ -65,7 +55,7 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Line id="gameStartLine" endX="-11.767768859863281" endY="-8.0108642578125E-5" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
+                  <Line id="gameStartLine" endX="-11.767768859863281" layoutX="100.0" layoutY="100.0" startX="82.46446228027344" strokeWidth="2.5">
                      <VBox.margin>
                         <Insets top="-5.0" />
                      </VBox.margin>
@@ -84,7 +74,7 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Line id="gameStartLine" endX="-30.445438385009766" endY="-0.45932960510253906" startX="73.0" strokeWidth="2.5">
+                  <Line id="gameStartLine" endX="-30.445438385009766" startX="67.61674499511719" strokeWidth="2.5">
                      <VBox.margin>
                         <Insets top="-5.0" />
                      </VBox.margin>
@@ -103,7 +93,7 @@
                         <Font size="16.0" />
                      </font>
                   </Text>
-                  <Line id="gameStartLine" endX="-1.3743705749511719" endY="5.53131103515625E-5" startX="73.0" strokeWidth="2.5">
+                  <Line id="gameStartLine" endX="-1.3743705749511719" startX="73.0" strokeWidth="2.5">
                      <VBox.margin>
                         <Insets top="-5.0" />
                      </VBox.margin>
@@ -112,8 +102,18 @@
             </VBox>
          </children>
          <BorderPane.margin>
-            <Insets />
+            <Insets right="-80.0" />
          </BorderPane.margin>
       </GridPane>
    </center>
+   <right>
+      <ImageView fitHeight="606.0" fitWidth="570.0" opacity="0.89" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../assets/shipBackground.jpg" />
+         </image>
+         <BorderPane.margin>
+            <Insets right="-95.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </right>
 </BorderPane>

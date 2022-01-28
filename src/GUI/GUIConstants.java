@@ -1,8 +1,7 @@
 package GUI;
 
-
 public class GUIConstants {
-    public static final String titel = "Battleship";
+    public static final String titel = "Schiffe versenken";
 
     public static final String colorGameField = "white";
     public static final String colorGameFieldBorder = "#999898";
