@@ -28,15 +28,29 @@ public class Game {
     protected int allFourShip;
     protected int allFiveShip;
 
-
+    /**
+     * Gets the Game Field
+     *
+     * @return 2 Dim Array of GameElements
+     */
     public GameElement[][] getGameField() {
         return gameField;
     }
 
+    /**
+     * Sets the Name of the Player
+     *
+     * @param n Name of Player
+     */
     public void setName(String n) {
         this.name = n;
     }
 
+    /**
+     * Sets the Size of the Game Field
+     *
+     * @param s Game Field Size
+     */
     public void setSize(int s) throws FalseFieldSize {
         this.size = s;
         if (size < 5 || size > 30) {
@@ -54,29 +68,62 @@ public class Game {
         determineNumberOfShips();
     }
 
+    /**
+     * Get the Size of the Game Field
+     *
+     * @return Game Field Size
+     */
     public int getSize() {
         return this.size;
     }
 
+    /**
+     * Get the Name of the Player
+     *
+     * @return Name
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the Mode of the Game  (Online/Offline)
+     *
+     * @param m Game Mode
+     */
     public void setGameMode(GameMode m) {
         this.gameMode = m;
     }
 
+    /**
+     * Gets the Mode of the Game  (Online/Offline)
+     *
+     * @return Game Mode
+     */
     public GameMode getGameMode() {
         return gameMode;
     }
 
-    public GameElementStatus getgameElementStatus(int element) {
-        int x = element % size;
-        int y = element / size;
+    /**
+     * Return Status of Game Element
+     *
+     * @param index of the Panel
+     * @return Game Element Status
+     */
+    public GameElementStatus getgameElementStatus(int index) {
+        int x = index % size;
+        int y = index / size;
 
         return gameField[x][y].getStatus();
     }
 
+    /**
+     * Return Status of Game Element
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
+     * @return Game Element Status
+     */
     public GameElementStatus getgameElementStatus(int x, int y) {
         return gameField[x][y].getStatus();
     }
