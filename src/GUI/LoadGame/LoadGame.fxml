@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
@@ -11,7 +12,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@LoadGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoadGameController">
    <children>
-      <ListView fx:id="saveGames" layoutX="150.0" layoutY="113.0" prefHeight="450.0" prefWidth="600.0" />
+      <ListView fx:id="saveGames" layoutX="118.0" layoutY="113.0" prefHeight="450.0" prefWidth="600.0" />
       <HBox alignment="CENTER" layoutX="6.0" prefHeight="110.0" prefWidth="900.0">
          <children>
             <Label text="Deine Spielstände">
@@ -30,5 +31,7 @@
             </ImageView>
          </children>
       </Pane>
+      <Button fx:id="joinGame" layoutX="750.0" layoutY="538.0" mnemonicParsing="false" text="Spiel beitreten" />
+      <Button fx:id="refresh" layoutX="750.0" layoutY="500.0" mnemonicParsing="false" text="Neu Laden" />
    </children>
 </AnchorPane>

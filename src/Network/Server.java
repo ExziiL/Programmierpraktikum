@@ -124,8 +124,8 @@ public class Server extends Network {
                 xy[2] = Integer.parseInt(shot[2]);
             } else if (get_Message.startsWith("save")) {
                 String[] id = get_Message.split(" ");
-                controller.setWriter(new DocumentWriter(id[1]));
-                controller.save(false);
+                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.save();
                 xy[0] = 1;
                 xy[1] = 99;
                 xy[2] = 99;
@@ -157,7 +157,7 @@ public class Server extends Network {
             outStream.write(String.format("%s%n", message));
             outStream.flush();
 
-            controller.save(true);
+            controller.save();
 
             Network.closeNetwork(this);
 
@@ -169,6 +169,7 @@ public class Server extends Network {
     public void load() {
         String message = "load ";
         message += controller.getDocumentID();
+
         try {
             outStream.write(String.format("%s%n", message));
             outStream.flush();
@@ -189,8 +190,8 @@ public class Server extends Network {
             System.out.println(get_Message);
             if (get_Message.startsWith("save")) {
                 String[] id = get_Message.split(" ");
-                controller.setWriter(new DocumentWriter(id[1]));
-                controller.save(false);
+                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.save();
                 return id[1];
             }
 
@@ -208,7 +209,7 @@ public class Server extends Network {
             System.out.println(get_Message);
             if (get_Message.startsWith("load")) {
                 String[] id = get_Message.split(" ");
-                controller.setWriter(new DocumentWriter(id[1]));
+                controller.setWriter(new DocumentWriter(id[1], true));
                 controller.loadGame();
             }
 

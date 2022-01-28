@@ -30,21 +30,23 @@ public class DocumentWriter {
         LocalDateTime time = t.toLocalDateTime();
 
         id = time.getDayOfMonth() + "_" + time.getMonthValue() + "_" + time.getYear() + "-" + time.getHour() + "_" + time.getMinute() + "_" + time.getSecond();
-        if (online) {
-            id += "_Online";
-        }
-
-
         String fs = System.getProperty("file.separator");
-        path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;
-
+        if (online) {
+            path = "src" + fs + "SaveFilesOnline" + fs + id + ".txt" + fs;
+        } else {
+            path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;
+        }
     }
 
-    public DocumentWriter(String s) {
+    public DocumentWriter(String s, boolean online) {
 
         id = s;
         String fs = System.getProperty("file.separator");
-        path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;
+        if (online) {
+            path = "src" + fs + "SaveFilesOnline" + fs + id + ".txt" + fs;
+        } else {
+            path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;
+        }
     }
 
     public String getId() {
@@ -202,7 +204,7 @@ public class DocumentWriter {
         }
     }
 
-    public ArrayList<String> getAllSaveFiles() {
+    public static ArrayList<String> getAllSaveFiles() {
         File folder = new File("src/SaveFiles/");
         ArrayList<String> files = new ArrayList<>();
 
@@ -214,5 +216,15 @@ public class DocumentWriter {
         return files;
     }
 
+    public static ArrayList<String> getAllOnlineSaveFiles() {
+        File folder = new File("src/SaveFilesOnline/");
+        ArrayList<String> files = new ArrayList<>();
 
+        for (File file : folder.listFiles()) {
+            if (!file.isDirectory()) {
+                files.add(file.getName());
+            }
+        }
+        return files;
+    }
 }
