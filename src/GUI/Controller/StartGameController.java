@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import GUI.Game;
+import Utilities.WindowsPlatformAppPDF;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 
@@ -18,8 +19,8 @@ public class StartGameController {
     }
 
     @FXML
-    void handleOpenSettings(MouseEvent event) throws IOException {
-        Game.showGameSettingsWindow();
+    void handleShowManual(MouseEvent event) throws IOException {
+        WindowsPlatformAppPDF.showManual();
     }
 
     @FXML
