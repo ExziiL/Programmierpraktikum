@@ -264,6 +264,7 @@ public class GameSettingsController {
         Game.logicController.createEnemyGame(gameSize);
         Game.logicController.setGameMode(determineGameMode());
         Game.logicController.setEnemyGameGameMode(determineGameMode());
+        Game.logicController.createWriter();
         if (gameMode.getValue().equals("Online") && Client.isSelected() && Ip.getText().isEmpty()) {
             ErrorMessage.setText(errorMessageNoIP);
         } else if (gameMode.getValue().equals("Online")) {

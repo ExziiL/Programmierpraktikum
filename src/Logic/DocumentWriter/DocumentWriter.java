@@ -202,7 +202,7 @@ public class DocumentWriter {
         }
     }
 
-    public ArrayList<String> getAllSaveFiles() {
+    public static ArrayList<String> getAllSaveFiles() {
         File folder = new File("src/SaveFiles/");
         ArrayList<String> files = new ArrayList<>();
 

@@ -27,8 +27,6 @@ public class Controller {
      */
     public Controller() {
         myGame = new MyGame();
-        Timestamp instant = Timestamp.from(Instant.now());
-        writer = new DocumentWriter(instant, getGameMode() == GameMode.ONLINE);
     }
 
     /**
@@ -378,6 +376,11 @@ public class Controller {
 
     // region Methods for Save Game / Online Game
 
+    public void createWriter() {
+        Timestamp instant = Timestamp.from(Instant.now());
+        writer = new DocumentWriter(instant, getGameMode() == GameMode.ONLINE);
+    }
+
     public void initDocument() {
 
         writer.writeSize(getGameSize());
@@ -403,7 +406,7 @@ public class Controller {
 
     public ArrayList<String> getAllSaveFiles() {
 
-        return writer.getAllSaveFiles();
+        return DocumentWriter.getAllSaveFiles();
     }
 
     public boolean deleteFile(String s) {

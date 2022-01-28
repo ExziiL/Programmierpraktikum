@@ -1,5 +1,6 @@
 package GUI;
 
+import Logic.DocumentWriter.DocumentWriter;
 import Logic.main.Controller;
 import Logic.main.LogicConstants;
 import Network.Client;
@@ -189,7 +190,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                Pane contentPane) {
+                                       Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -414,6 +415,8 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogConnectionClosed.hide();
+                    Game.logicController.setWriter(new DocumentWriter(id + "_Spiel_beitreten"));
+                    Game.logicController.save(false);
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();
