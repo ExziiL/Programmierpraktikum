@@ -16,6 +16,10 @@ public class Client extends Network {
         try {
             client = new Socket(ip, port);
 
+            if (client.isConnected()) {
+                return false;
+            }
+
             inStream = new BufferedReader(new InputStreamReader(client.getInputStream()));
             outStream = new OutputStreamWriter(client.getOutputStream());
 
@@ -97,6 +101,6 @@ public class Client extends Network {
         controller.setDestroyedThreeShips(three);
         controller.setDestroyedFourShips(four);
         controller.setDestroyedFiveShips(five);
-        
+
     }
 }

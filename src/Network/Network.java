@@ -6,6 +6,7 @@ import Logic.main.Controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.Socket;
 
 public abstract class Network {
     protected static int port = 50000;
@@ -51,12 +52,18 @@ public abstract class Network {
     }
 
 
-    protected static void closeNetwork(Network player) {
+    public static void closeNetwork(Network player) {
         try {
             if (player instanceof Server) {
-                ((Server) player).getServerSocket().close();
+                Socket server = ((Server) player).getServer();
+                if (server != null) {
+                    server.close();
+                }
             } else if (player instanceof Client) {
-                ((Client) player).getClient().close();
+                Socket client = ((Client) player).getClient();
+                if (client != null) {
+                    client.close();
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

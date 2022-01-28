@@ -1,6 +1,9 @@
 package Network;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -33,6 +36,10 @@ public class Server extends Network {
 
     }
 
+    public boolean isConnected() {
+        return server.isConnected();
+    }
+
     public String getIp() {
         String ip = null;
         try {
@@ -43,8 +50,8 @@ public class Server extends Network {
         return ip;
     }
 
-    protected ServerSocket getServerSocket() {
-        return serverSocket;
+    protected Socket getServer() {
+        return server;
     }
 
 

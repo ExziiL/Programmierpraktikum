@@ -320,6 +320,7 @@ public class Game extends Application {
                 try {
                     dialogStartNewGame.hide();
                     // Game.logicController.initializeGameField();
+                    Network.closeNetwork(Network.getNetplay());
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -330,6 +331,7 @@ public class Game extends Application {
         endGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                Network.closeNetwork(Network.getNetplay());
                 Game.logicController.exitGame();
             }
         });
