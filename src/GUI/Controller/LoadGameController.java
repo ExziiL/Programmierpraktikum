@@ -3,6 +3,7 @@ package GUI.Controller;
 import GUI.Game;
 import Logic.DocumentWriter.DocumentWriter;
 import Network.Network;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -77,16 +78,20 @@ public class LoadGameController implements Initializable {
             InetAddress realIP = InetAddress.getLocalHost();
             String s = getSelectedText();
 
-            if (s.contains("Online")) {
-                s = s.replace("Online", "");
+            if (s.contains("|Online")) {
+                s = s.replace("|Online", "");
+
                 Game.logicController.setWriter(new DocumentWriter(s, true));
-                Game.showPopUpReconnect(realIP.getHostAddress(), true);
+                Platform.runLater(() -> {
+                    Game.showPopUpReconnect(realIP.getHostAddress(), true);
+                });
+
             } else {
                 Game.logicController.setWriter(new DocumentWriter(s, false));
                 Game.logicController.loadGame();
+                Game.showPlayingFieldWindow();
             }
 
-            Game.showPlayingFieldWindow();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -139,7 +144,7 @@ public class LoadGameController implements Initializable {
 
         for (String s : onlineFiles) {
             s = s.replace(".txt", "");
-            s += " Online";
+            s += "|Online";
             games.add(addLine(s));
         }
 

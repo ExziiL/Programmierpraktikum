@@ -1,12 +1,12 @@
 package GUI;
 
-import Logic.DocumentWriter.DocumentWriter;
 import Logic.main.Controller;
 import Logic.main.LogicConstants;
 import Network.Client;
 import Network.Network;
 import Network.Server;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -42,6 +42,8 @@ public class Game extends Application {
     private static final Stage dialogReconnect = new Stage();
     private static final Stage dialogConnectionClosed = new Stage();
     private static final Stage dialogCannotSave = new Stage();
+
+    private static boolean connectionStable;
 
     public static void main(String[] args) {
         launch(args);
@@ -335,8 +337,11 @@ public class Game extends Application {
     }
 
     private static void buildPopUpReconnect(String inputIP, boolean isServer) {
-
-        dialogReconnect.initOwner(primaryStage);
+        try {
+            dialogReconnect.initOwner(primaryStage);
+        } catch (IllegalStateException e) {
+            //Owner already init
+        }
         dialogReconnect.setTitle("Neu Verbinden");
         VBox dialogVbox = new VBox(5);
         Label text = new Label();
@@ -372,35 +377,42 @@ public class Game extends Application {
 
                 text.setText("Warte auf Verbindung");
                 text.setStyle("-fx-text-fill: grey");
-                try {
-                    Thread connect = new Thread(() -> {
-                        Server server;
-                        Client client;
-                        if (isServer) {
-                            server = (Server) Network.chooseNetworkTyp(true);
-                            server.createServer();
-                            server.load();
+                Thread connect = new Thread(() -> {
+                    Server server;
+                    Client client;
+                    if (isServer) {
+                        server = (Server) Network.chooseNetworkTyp(true);
+                        connectionStable = server.createServer();
+                        if (connectionStable) {
+                            connectionStable = server.load();
+                        }
 
-                        } else {
-                            client = (Client) Network.chooseNetworkTyp(false);
-                            client.createClient(ip.getText());
-                            client.receiveLoad();
+                    } else {
+                        client = (Client) Network.chooseNetworkTyp(false);
+                        connectionStable = client.createClient(ip.getText());
+                        if (connectionStable) {
+                            connectionStable = client.receiveLoad();
+                        }
+                    }
 
+                    Platform.runLater(() -> {
+                        try {
+                            if (!connectionStable) {
+                                text.setText("Verbindung fehlgeschlagen");
+                                text.setStyle("-fx-text-fill: red");
+                            } else {
+                                text.setText("Verbunden");
+                                text.setStyle("-fx-text-fill: green");
+                                dialogReconnect.hide();
+                                Game.showPlayingFieldWindow();
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     });
-                    connect.start();
-                    connect.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                });
+                connect.start();
 
-
-                dialogReconnect.hide();
-                try {
-                    showPlayingFieldWindow();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         });
     }
@@ -433,8 +445,6 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogConnectionClosed.hide();
-                    Game.logicController.setWriter(new DocumentWriter(id, true));
-                    Game.logicController.save();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();

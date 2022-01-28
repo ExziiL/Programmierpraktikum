@@ -97,7 +97,6 @@ public class Client extends Network {
         controller.setDestroyedThreeShips(three);
         controller.setDestroyedFourShips(four);
         controller.setDestroyedFiveShips(five);
-
-
+        
     }
 }
