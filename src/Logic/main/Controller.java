@@ -381,13 +381,6 @@ public class Controller {
         writer = new DocumentWriter(instant, getGameMode() == GameMode.ONLINE);
     }
 
-    public void initDocument() {
-
-        writer.writeSize(getGameSize());
-        writer.writeShips(myGame.getAllTwoShips(), myGame.getAllThreeShips(), myGame.getAllFourShips(),
-                myGame.getAllFiveShips());
-
-    }
 
     public void save() {
         writer.writeSize(getGameSize());

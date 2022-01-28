@@ -209,7 +209,6 @@ public class PlacingFieldController implements Initializable {
 
     @FXML
     public void handleNext(MouseEvent event) throws IOException {
-        Game.logicController.initDocument();
         if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
             Message.setText("Warte auf Spieler...");
             Message.setStyle("-fx-text-fill: green");

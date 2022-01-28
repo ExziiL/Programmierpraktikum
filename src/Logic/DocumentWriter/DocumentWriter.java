@@ -49,6 +49,14 @@ public class DocumentWriter {
         }
     }
 
+    public DocumentWriter(String s, boolean online, boolean client) {
+        this(s, online);
+        String fs = System.getProperty("file.separator");
+        if (client) {
+            path = "src" + fs + "SaveFilesClient" + fs + id + ".txt" + fs;
+        }
+    }
+
     public String getId() {
         return id;
     }

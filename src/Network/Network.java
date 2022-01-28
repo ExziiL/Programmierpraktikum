@@ -100,7 +100,7 @@ public abstract class Network {
         }
     }
 
-    public void load() {
+    public boolean load() {
         String message = "load ";
         message += controller.getDocumentID();
 
@@ -114,9 +114,9 @@ public abstract class Network {
             } else {
                 load();
             }
-
+            return true;
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
     }
 
@@ -128,7 +128,7 @@ public abstract class Network {
             System.out.println(getMessage);
             if (getMessage.startsWith("save")) {
                 String[] id = getMessage.split(" ");
-                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.setWriter(new DocumentWriter(id[1], true, true));
                 controller.save();
                 return id[1];
             }
@@ -140,22 +140,24 @@ public abstract class Network {
         return null;
     }
 
-    public void receiveLoad() {
+    public boolean receiveLoad() {
         try {
             getMessage = inStream.readLine();
             System.out.println(getMessage);
             if (getMessage.startsWith("load")) {
                 String[] id = getMessage.split(" ");
-                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.setWriter(new DocumentWriter(id[1], true, true));
                 controller.loadGame();
 
                 outStream.write(String.format("%s%n", "ok"));
                 outStream.flush();
+                return true;
             }
-
         } catch (IOException e) {
-            e.printStackTrace();
+            return false;
         }
+
+        return false;
     }
 
     public static Network getNetplay() {
@@ -200,7 +202,7 @@ public abstract class Network {
                 xy[2] = Integer.parseInt(shot[2]);
             } else if (getMessage.startsWith("save")) {
                 String[] id = getMessage.split(" ");
-                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.setWriter(new DocumentWriter(id[1], true, true));
                 controller.save();
                 xy[0] = 1;
                 xy[1] = 99;
