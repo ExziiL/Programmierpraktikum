@@ -141,7 +141,7 @@ public class PlacingFieldController implements Initializable {
             setChoosenShipProperties();
             setNextActive(true);
             chooseShip(0);
-            setEditMode(true);
+            setEditMode(false);
         });
 
         Clear.setOnAction(event -> {
