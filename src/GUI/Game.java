@@ -253,7 +253,7 @@ public class Game extends Application {
                     if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
                         Network.getNetplay().save();
                     } else {
-                        Game.logicController.save(true);
+                        Game.logicController.save();
                     }
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
@@ -338,8 +338,7 @@ public class Game extends Application {
         dialogReconnect.initOwner(primaryStage);
         dialogReconnect.setTitle("Neu Verbinden");
         VBox dialogVbox = new VBox(5);
-        Label text = new Label("Warte auf Verbindung");
-        text.setStyle("-fx-text-fill: orange");
+        Label text = new Label();
         text.setMinHeight(50);
         text.setMinWidth(50);
         HBox dialogHbox = new HBox(20);
@@ -370,12 +369,17 @@ public class Game extends Application {
 
                 Server server;
                 Client client;
+                text.setText("Warte auf Verbindung");
+                text.setStyle("-fx-text-fill: grey");
+
                 if (isServer) {
                     server = (Server) Network.chooseNetworkTyp(true);
                     server.createServer();
+                    server.load();
                 } else {
                     client = (Client) Network.chooseNetworkTyp(false);
                     client.createClient(ip.getText());
+                    client.receiveLoad();
                 }
 
                 dialogReconnect.hide();
@@ -415,8 +419,8 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogConnectionClosed.hide();
-                    Game.logicController.setWriter(new DocumentWriter(id + "_Spiel_beitreten"));
-                    Game.logicController.save(false);
+                    Game.logicController.setWriter(new DocumentWriter(id ,true));
+                    Game.logicController.save();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
                     e.printStackTrace();

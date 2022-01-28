@@ -103,8 +103,8 @@ public class Client extends Network {
                 xy[2] = Integer.parseInt(shot[2]);
             } else if (message.startsWith("save")) {
                 String[] id = message.split(" ");
-                controller.setWriter(new DocumentWriter(id[1]));
-                controller.save(false);
+                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.save();
                 xy[0] = 1;
                 xy[1] = 99;
                 xy[2] = 99;
@@ -175,7 +175,7 @@ public class Client extends Network {
             outStream.write(String.format("%s%n", message));
             outStream.flush();
 
-            controller.save(true);
+            controller.save();
             Network.closeNetwork(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -204,8 +204,8 @@ public class Client extends Network {
             System.out.println(message);
             if (message.startsWith("save")) {
                 String[] id = message.split(" ");
-                controller.setWriter(new DocumentWriter(id[1]));
-                controller.save(false);
+                controller.setWriter(new DocumentWriter(id[1], true));
+                controller.save();
                 return id[1];
             }
 
@@ -222,7 +222,7 @@ public class Client extends Network {
             System.out.println(message);
             if (message.startsWith("load")) {
                 String[] id = message.split(" ");
-                controller.setWriter(new DocumentWriter(id[1]));
+                controller.setWriter(new DocumentWriter(id[1], true));
                 controller.loadGame();
             }
 

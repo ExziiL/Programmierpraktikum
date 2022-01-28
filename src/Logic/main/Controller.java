@@ -389,15 +389,13 @@ public class Controller {
 
     }
 
-    public void save(boolean isInitiator) {
-
+    public void save() {
+        writer.writeSize(getGameSize());
         writer.writeGameMode(myGame.getGameMode());
+        writer.writeShips(getAllTwoShips(), getAllThreeShips(), getAllFourShips(), getAllFiveShips());
         writer.writeShipsDestroyed(enemyGame.getDestroyedShips(2), enemyGame.getDestroyedShips(3),
                 enemyGame.getDestroyedShips(4), enemyGame.getDestroyedShips(5));
 
-        if (myGame.getGameMode() == GameMode.ONLINE) {
-            writer.writeInitiator(isInitiator);
-        }
         writer.writeEnemyGameField(enemyGame.getGameField());
         writer.writeMyGameField(myGame.getGameField());
         writer.save();
@@ -407,6 +405,11 @@ public class Controller {
     public ArrayList<String> getAllSaveFiles() {
 
         return DocumentWriter.getAllSaveFiles();
+    }
+
+    public ArrayList<String> getAllOnlineSaveFiles() {
+
+        return DocumentWriter.getAllOnlineSaveFiles();
     }
 
     public boolean deleteFile(String s) {
