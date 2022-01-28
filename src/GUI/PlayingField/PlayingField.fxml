@@ -20,7 +20,7 @@
             <Font size="36.0" />
          </font>
       </Text>
-      <Text layoutX="400.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="80.0" />
+      <Text layoutX="400.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="120.0" />
       <Text layoutX="400.0" layoutY="611.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie einen Schuss abfeuern" />
       <HBox layoutX="415.0" layoutY="121.0" prefHeight="475.0" prefWidth="475.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="105.0">
          <children>
