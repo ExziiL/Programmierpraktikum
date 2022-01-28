@@ -72,25 +72,25 @@ public class LoadGameController implements Initializable {
     }
 
     private void loadGame() {
+
         try {
-            String s = getSelectedText();
             InetAddress realIP = InetAddress.getLocalHost();
+            String s = getSelectedText();
 
             if (s.contains("Online")) {
                 s = s.replace("Online", "");
                 Game.logicController.setWriter(new DocumentWriter(s, true));
                 Game.showPopUpReconnect(realIP.getHostAddress(), true);
             } else {
-
                 Game.logicController.setWriter(new DocumentWriter(s, false));
                 Game.logicController.loadGame();
             }
 
             Game.showPlayingFieldWindow();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void deleteGame() {
