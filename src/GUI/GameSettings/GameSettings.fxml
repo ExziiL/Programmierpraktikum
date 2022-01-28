@@ -166,7 +166,7 @@
                   <TextField fx:id="name" layoutX="118.0" layoutY="8.0" onAction="#handleInputName" prefHeight="30.0" />
          </children>
       </Pane>
-      <Text layoutX="293.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spieleinstellungen" textAlignment="CENTER">
+      <Text layoutX="306.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Einstellungen" textAlignment="CENTER">
          <font>
             <Font name="Arial" size="48.0" />
          </font>

@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
@@ -151,6 +152,7 @@ public class Game extends Application {
     public void start(Stage primaryStage) throws IOException {
         Game.primaryStage = primaryStage;
         Game.primaryStage.setTitle(GUIConstants.titel);
+        Game.primaryStage.getIcons().add(new Image("assets/Schiffe/titleBild.png"));
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
@@ -244,6 +246,7 @@ public class Game extends Application {
 
         dialogSaveGame.initModality(Modality.APPLICATION_MODAL);
         dialogSaveGame.setScene(dialogScene);
+        dialogSaveGame.setTitle("Spiel speichern");
 
         yes.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
@@ -341,7 +344,7 @@ public class Game extends Application {
         try {
             dialogReconnect.initOwner(primaryStage);
         } catch (IllegalStateException e) {
-            //Owner already init
+            // Owner already init
         }
         dialogReconnect.setTitle("Neu Verbinden");
         VBox dialogVbox = new VBox(5);
@@ -374,7 +377,6 @@ public class Game extends Application {
         verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
-
 
                 text.setText("Warte auf Verbindung");
                 text.setStyle("-fx-text-fill: grey");
