@@ -122,13 +122,21 @@ public class PlayingFieldController implements Initializable {
 
         Thread t = new Thread(() -> {
             int answer[] = new int[3];
+            int result = 0;
 
             if (yourTurn) {
                 if (Game.logicController.getEnemyElementStatus(index) == LogicConstants.GameElementStatus.HIT ||
                         Game.logicController.getEnemyElementStatus(index) == LogicConstants.GameElementStatus.MISS) {
                     yourTurn = true;
                 } else {
-                    yourTurn = Game.logicController.shoot(index) == 0;
+                    result = Game.logicController.shoot(index) ;
+
+                    if(result == -1){
+                        Platform.runLater(() -> {
+                            Game.showPopUpConnectionClosed(false, "");
+                        });
+                    }
+                    yourTurn = result == 0;
                 }
 
                 Platform.runLater(() -> {
@@ -166,8 +174,17 @@ public class PlayingFieldController implements Initializable {
             }
 
             if (Game.logicController.allShipsDestroyed()) {
+
                 isEnemyTurn = 1;
             }
+
+            if (isEnemyTurn == 99) {
+                isEnemyTurn = 1;
+                Platform.runLater(() -> {
+                    Game.showPopUpConnectionClosed(false, "");
+                });
+            }
+
             Platform.runLater(() -> {
                 gridBuilder.redrawGamerPanes();
             });

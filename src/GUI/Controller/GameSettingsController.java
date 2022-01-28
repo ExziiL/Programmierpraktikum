@@ -20,8 +20,6 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import static GUI.GUIConstants.errorMessageNoIP;
-
 public class GameSettingsController {
     @FXML
     private Slider slider;
@@ -230,12 +228,14 @@ public class GameSettingsController {
                         if (connected) {
                             ErrorMessage.setText("Verbunden");
                             ErrorMessage.setStyle("-fx-text-fill: green");
-                        } else if (!connected && serverCreated) {
+                        } else if (clientCreated || serverCreated) {
                             ErrorMessage.setText("Warte auf Verbindung...");
                             ErrorMessage.setStyle("-fx-text-fill: grey");
                         } else {
                             ErrorMessage.setText("Verbindung fehlgeschlagen");
                             ErrorMessage.setStyle("-fx-text-fill: red");
+                            Network.closeNetwork(netplay);
+
                         }
                     });
                 });
@@ -278,38 +278,41 @@ public class GameSettingsController {
         Game.logicController.setGameMode(determineGameMode());
         Game.logicController.setEnemyGameGameMode(determineGameMode());
         Game.logicController.createWriter();
-        if (gameMode.getValue().equals("Online") && !connected && Client.isSelected() && Ip.getText().isEmpty()) {
-            ErrorMessage.setText(errorMessageNoIP);
-        } else if (gameMode.getValue().equals("Online")) {
-            if (connected) {
-                ErrorMessage.setText("Warte auf Spieler...");
-                ErrorMessage.setStyle("-fx-text-fill: green");
-                // Controller for Network
-                Network.setController(Game.logicController);
 
-                networkThread = new Thread(() -> {
-                    // int[] i = {2, 2, 2, 3, 3, 4};
-                    if (netplay instanceof Server) {
-                        ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
-                    }
-                    if (netplay instanceof Client) {
-                        ((Client) netplay).receiveMessage();
-                    }
 
-                    Platform.runLater(() -> {
-                        try {
+        if (gameMode.getValue().equals("Online")) {
+            ErrorMessage.setText("Warte auf Spieler...");
+            ErrorMessage.setStyle("-fx-text-fill: green");
+            // Controller for Network
+            Network.setController(Game.logicController);
+
+            networkThread = new Thread(() -> {
+                // int[] i = {2, 2, 2, 3, 3, 4};
+                if (netplay instanceof Server) {
+                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
+
+                }
+                if (netplay instanceof Client) {
+                    connected = ((Client) netplay).receiveMessage();
+                }
+
+                Platform.runLater(() -> {
+                    try {
+
+                        if (!connected) {
+                            ErrorMessage.setText("Nicht Verbunden");
+                            ErrorMessage.setStyle("-fx-text-fill: red");
+
+                        } else {
                             Game.showPlacingFieldWindow();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
-                    });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 });
-                networkThread.start();
-            } else {
+            });
+            networkThread.start();
 
-                ErrorMessage.setText("Noch nicht verbunden");
-                ErrorMessage.setStyle("-fx-text-fill: red");
-            }
 
         } else {
             ErrorMessage.setText("");

@@ -5,7 +5,7 @@ package Logic.main;
 import Logic.Game.Game;
 import Network.Network;
 
-public abstract class Player { //TODO Könnten über Unterklasse bestimmen ob determineNumberofShips ausgeführt wird oder nicht
+public abstract class Player {
 
     protected Game game;
     protected Network netplay;

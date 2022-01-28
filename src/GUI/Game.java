@@ -121,12 +121,11 @@ public class Game extends Application {
         if (save) {
             connection.setText("Das Spiel wurde vom Gegner gespeichert");
         } else {
-            connection.setText("Das Spiel wurde vom Gegner unterbrochen");
+            connection.setText("Das Spiel wurde vom Gegner beendet");
         }
 
-        buildPopUpConnectionClosed(id);
+        buildPopUpConnectionClosed(save, id);
         dialogConnectionClosed.show();
-        dialogSaveGame.initOwner(primaryStage);
     }
 
     public static void showPopUpCannotSave() {
@@ -271,7 +270,7 @@ public class Game extends Application {
                 try {
                     dialogSaveGame.hide();
                     if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
-                        Network.getNetplay().sendNothing();
+                        Network.closeNetwork(Network.getNetplay());
                     }
                     Game.logicController.initializeGameField();
                     Game.showGameSettingsWindow();
@@ -417,20 +416,27 @@ public class Game extends Application {
         });
     }
 
-    private static void buildPopUpConnectionClosed(String id) {
+    private static void buildPopUpConnectionClosed(boolean save, String id) {
+        try {
+            dialogConnectionClosed.initOwner(primaryStage);
+        } catch (IllegalStateException e) {
 
-        dialogConnectionClosed.initOwner(primaryStage);
+        }
         VBox dialogVbox = new VBox(10);
 
         connection.setMinHeight(50);
         connection.setMinWidth(100);
-
-        Label idText = new Label("ID: " + id);
         HBox dialogHbox = new HBox(20);
         Button ok = new Button("Ok");
-
         dialogHbox.getChildren().addAll(ok);
-        dialogVbox.getChildren().addAll(connection, idText, dialogHbox);
+
+        if (save) {
+            Label idText = new Label("ID: " + id);
+            dialogVbox.getChildren().addAll(connection, idText, dialogHbox);
+        } else {
+            dialogVbox.getChildren().addAll(connection, dialogHbox);
+        }
+
         dialogHbox.setAlignment(Pos.CENTER);
 
         dialogVbox.setAlignment(Pos.CENTER);
