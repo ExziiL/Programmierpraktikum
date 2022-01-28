@@ -367,20 +367,31 @@ public class Game extends Application {
             @Override
             public void handle(javafx.event.ActionEvent event) {
 
-                Server server;
-                Client client;
+
                 text.setText("Warte auf Verbindung");
                 text.setStyle("-fx-text-fill: grey");
+                try {
+                    Thread connect = new Thread(() -> {
+                        Server server;
+                        Client client;
+                        if (isServer) {
+                            server = (Server) Network.chooseNetworkTyp(true);
+                            server.createServer();
+                            server.load();
 
-                if (isServer) {
-                    server = (Server) Network.chooseNetworkTyp(true);
-                    server.createServer();
-                    server.load();
-                } else {
-                    client = (Client) Network.chooseNetworkTyp(false);
-                    client.createClient(ip.getText());
-                    client.receiveLoad();
+                        } else {
+                            client = (Client) Network.chooseNetworkTyp(false);
+                            client.createClient(ip.getText());
+                            client.receiveLoad();
+
+                        }
+                    });
+                    connect.start();
+                    connect.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+
 
                 dialogReconnect.hide();
                 try {
@@ -419,7 +430,7 @@ public class Game extends Application {
             public void handle(ActionEvent event) {
                 try {
                     dialogConnectionClosed.hide();
-                    Game.logicController.setWriter(new DocumentWriter(id ,true));
+                    Game.logicController.setWriter(new DocumentWriter(id, true));
                     Game.logicController.save();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
