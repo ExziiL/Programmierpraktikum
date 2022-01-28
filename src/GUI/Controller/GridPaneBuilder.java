@@ -17,9 +17,9 @@ import javafx.scene.text.Font;
 
 public class GridPaneBuilder {
     private final int size;
-    private final String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
+    private final String[] alphabet = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P",
             "Q", "R", "S", "T",
-            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$"};
+            "U", "V", "W", "X", "Y", "Z", "!", "?", "@", "$" };
 
     private ObservableList<Node> shipPartsGamerList;
     private ObservableList<Node> shipPartsEnemyList;

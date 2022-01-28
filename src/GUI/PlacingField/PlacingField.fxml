@@ -102,11 +102,14 @@
                 </GridPane>
             </children>
         </HBox>
-      <HBox layoutX="71.0" layoutY="540.0" prefHeight="52.0" prefWidth="486.0">
+      <HBox layoutX="85.0" layoutY="550.0" prefHeight="52.0" prefWidth="524.0">
          <children>
             <VBox prefHeight="69.0" prefWidth="744.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="How-To Play" underline="true" wrappingWidth="125.99996948242188" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="How to Play:" underline="true" wrappingWidth="125.99996948242188">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
                   <Text fx:id="textLeftClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" wrappingWidth="514.9586181640625" />
                   <Text fx:id="textRightClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" wrappingWidth="514.1325073242188" />
                </children>
