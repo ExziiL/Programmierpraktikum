@@ -43,7 +43,7 @@
                   </Line>
                </children>
             </VBox>
-            <VBox id="paneBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleStartGame" prefHeight="159.0" prefWidth="109.0" spacing="5.0" GridPane.columnIndex="1">
+            <VBox id="paneBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleShowManual" prefHeight="159.0" prefWidth="109.0" spacing="5.0" GridPane.columnIndex="1">
                <children>
                   <ImageView fx:id="startGameIcon2" fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -102,7 +102,7 @@
             </VBox>
          </children>
          <BorderPane.margin>
-            <Insets right="-100.0" />
+            <Insets right="-80.0" />
          </BorderPane.margin>
       </GridPane>
    </center>
@@ -112,7 +112,7 @@
             <Image url="@../../assets/shipBackground.jpg" />
          </image>
          <BorderPane.margin>
-            <Insets right="-50.0" />
+            <Insets right="-95.0" />
          </BorderPane.margin>
       </ImageView>
    </right>
