@@ -11,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -101,12 +100,22 @@ public class LoadGameController implements Initializable {
     private void deleteGame() {
         String s = getSelectedText();
 
-        // TODO Online löschen
+        if (files.contains(s)) {
+            s += ".txt";
 
-        if (Game.logicController.deleteFile(s)) {
-            ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
-            saveGames.getItems().remove(selectedGame.get(0));
+            if (Game.logicController.deleteFile(s)) {
+                ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
+                saveGames.getItems().remove(selectedGame.get(0));
+            }
+
+        } else if (onlineFiles.contains(s)) {
+            s = s.replace("|Online", ".txt");
+            if (Game.logicController.deleteOnlineFile(s)) {
+                ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
+                saveGames.getItems().remove(selectedGame.get(0));
+            }
         }
+
 
         saveGames.refresh();
     }
@@ -155,6 +164,7 @@ public class LoadGameController implements Initializable {
     private HBox addLine(String s) {
         HBox left = new HBox();
         HBox right = new HBox();
+
         HBox line = new HBox();
         // Set Label with Filename
         s.replace(".txt", "");
@@ -166,6 +176,17 @@ public class LoadGameController implements Initializable {
 
         viewDelete.setFitHeight(20);
         viewDelete.setFitWidth(20);
+
+        right.getChildren().add(viewDelete);
+        right.setMaxWidth(30);
+        right.setMinWidth(30);
+        right.setAlignment(Pos.TOP_RIGHT);
+
+        left.setMaxWidth(300);
+        left.setMinWidth(300);
+
+        line.getChildren().addAll(left, right);
+
 
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -181,15 +202,6 @@ public class LoadGameController implements Initializable {
             }
         });
 
-        right.getChildren().add(viewDelete);
-        right.setMaxWidth(20);
-        right.setMinWidth(20);
-        right.setSpacing(20);
-        right.setAlignment(Pos.TOP_RIGHT);
-
-        left.setMaxWidth(313);
-        left.setMinWidth(313);
-        line.getChildren().addAll(left, right);
 
         return line;
     }

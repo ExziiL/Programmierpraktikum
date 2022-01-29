@@ -26,6 +26,17 @@ public class DocumentWriter {
         return myObj.delete();
     }
 
+    public static boolean deleteOnlineFile(String s) {
+        File myObj;
+        myObj = new File("src/SaveFilesOnline/" + s);
+        boolean answer = myObj.delete();
+
+        myObj = new File("src/SaveFilesClient/" + s);
+        myObj.delete();
+
+        return answer;
+    }
+
     public DocumentWriter(Timestamp t, boolean online) {
         LocalDateTime time = t.toLocalDateTime();
 
