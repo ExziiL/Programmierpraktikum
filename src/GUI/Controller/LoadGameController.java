@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -71,7 +72,6 @@ public class LoadGameController implements Initializable {
     }
 
     private void loadGame() {
-
         try {
             InetAddress realIP = InetAddress.getLocalHost();
             String s = getSelectedText();
@@ -89,7 +89,6 @@ public class LoadGameController implements Initializable {
                 Game.logicController.loadGame();
                 Game.showPlayingFieldWindow();
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -119,12 +118,11 @@ public class LoadGameController implements Initializable {
     }
 
     private String getSelectedText() {
-
         ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
         ObservableList<Node> children = selectedGame.get(0).getChildren();
         Node left = children.get(0);
-        if (left.getClass() == Pane.class) {
-            Pane leftBox = (Pane) left;
+        if (left.getClass() == HBox.class) {
+            HBox leftBox = (HBox) left;
             ObservableList<Node> leftBoxChildren = leftBox.getChildren();
 
             for (Node e : leftBoxChildren) {
@@ -166,8 +164,8 @@ public class LoadGameController implements Initializable {
     }
 
     private HBox addLine(String s) {
-        Pane left = new Pane();
-        Pane right = new Pane();
+        HBox left = new HBox();
+        HBox right = new HBox();
 
         HBox line = new HBox();
         // Set Label with Filename
@@ -180,21 +178,17 @@ public class LoadGameController implements Initializable {
 
         viewDelete.setFitHeight(20);
         viewDelete.setFitWidth(20);
-        viewDelete.setStyle("-fx-border-bolor: red;");
-        // line.setMinWidth(330);
-        // line.setMaxWidth(330);
-        // line.setMinHeight(20);
-        //
-        //
+
         right.getChildren().add(viewDelete);
-        right.setMaxWidth(30);
-        right.setMinWidth(30);
-        right.setMinHeight(20);
-        //
-        //
-        left.setMaxWidth(300);
-        left.setMinWidth(300);
-        left.setMinHeight(50);
+        right.setMaxWidth(20);
+        right.setMinWidth(20);
+        right.setMinHeight(25);
+        right.setAlignment(Pos.CENTER_LEFT);
+
+        left.setMaxWidth(460);
+        left.setMinWidth(460);
+        left.setMinHeight(25);
+        left.setAlignment(Pos.CENTER_LEFT);
 
         line.getChildren().addAll(left, right);
 
@@ -202,6 +196,18 @@ public class LoadGameController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 deleteGame();
+            }
+        });
+        line.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                line.setStyle("-fx-cursor: hand;");
+            }
+        });
+        line.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                line.setStyle("-fx-cursor: default;");
             }
         });
 

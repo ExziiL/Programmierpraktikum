@@ -242,7 +242,7 @@ public class PlacingFieldController implements Initializable {
             setChoosenShipProperties();
             setNextActive(true);
             chooseShip(0);
-            setEditMode(false);
+            setEditMode(true);
         });
 
         Clear.setOnAction(event -> {
@@ -277,11 +277,13 @@ public class PlacingFieldController implements Initializable {
                 if (replaceShipMode) {
                     placeShip(pane);
                     setReplaceShipMode(false);
+                    setArrowsAtShip(pane, false);
                     chooseShip(0);
                     gridBuilder.redrawPlacingField();
                 } else if (Game.logicController.isElementShip(getIndexofPane(pane))) {
                     replaceShip(pane);
                     setReplaceShipMode(true);
+                    setArrowsAtShip(pane, true);
                     gridBuilder.redrawPlacingField();
                     hoverShip(pane);
                 }
@@ -544,6 +546,7 @@ public class PlacingFieldController implements Initializable {
             textHeader.setText("Schiffe platzieren");
         }
         setHelpTexts();
+
     }
 
     private void setReplaceShipMode(boolean mode) {
@@ -554,6 +557,15 @@ public class PlacingFieldController implements Initializable {
             Game.toggleCursorGrabHand(false);
         }
         setHelpTexts();
+    }
+
+    private void setArrowsAtShip(Pane pane, boolean active) {
+        Game.logicController.getShipSize(getIndexofPane(pane));
+
+        ImageView selectedImg = getSelectedShipArrow(currentShip);
+        if (getSelectedShipArrow(currentShip) != null) {
+            selectedImg.setStyle("-fx-opacity: 1;");
+        }
     }
 
     private void setHelpTexts() {

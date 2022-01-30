@@ -500,7 +500,6 @@ public class Game extends Application {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 dialogCannotSave.hide();
             }
         });
