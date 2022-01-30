@@ -49,14 +49,14 @@
       </Pane>
       <Text layoutX="142.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="zu zerstörende Schiffe" />
       <GridPane layoutX="40.0" layoutY="65.0" prefHeight="215.0" prefWidth="313.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="59.0" prefWidth="12.0">
                <children>
@@ -65,7 +65,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="58.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="twoShip" fitHeight="58.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
                      </image>
@@ -80,7 +80,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="56.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="threeShip" fitHeight="56.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
                      </image>
@@ -95,7 +95,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="53.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="fourShip" fitHeight="53.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
                      </image>
@@ -110,7 +110,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="51.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="fiveShip" fitHeight="51.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
                      </image>

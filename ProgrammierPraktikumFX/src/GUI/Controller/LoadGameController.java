@@ -4,7 +4,6 @@ import GUI.Game;
 import Logic.DocumentWriter.DocumentWriter;
 import Network.Network;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -19,7 +18,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.URL;
@@ -32,7 +30,7 @@ public class LoadGameController implements Initializable {
     @FXML
     private ListView<HBox> saveGames;
     @FXML
-    private Button refresh;
+    private ImageView refresh;
     @FXML
     private Button joinGame;
     @FXML
@@ -40,6 +38,7 @@ public class LoadGameController implements Initializable {
     //endregion
 
     //region Variables
+    ObservableList<HBox> games;
     ArrayList<String> files;
     ArrayList<String> onlineFiles;
     Image delete = new Image("assets/Icons/trash.png");
