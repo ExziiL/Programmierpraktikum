@@ -18,7 +18,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@GameSettings.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
     <children>
-      <Pane layoutX="101.0" layoutY="131.0" prefHeight="65.0" prefWidth="729.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="131.0">
+      <Pane fx:id="boxGameSize" layoutX="101.0" layoutY="131.0" prefHeight="65.0" prefWidth="729.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="131.0">
          <children>
                   <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
                <font>
@@ -42,7 +42,7 @@
             </Pane>
          </children>
       </Pane>
-                    <VBox alignment="CENTER" layoutX="226.0" layoutY="224.0" prefHeight="109.0" prefWidth="107.0">
+                    <VBox fx:id="boxTwo" alignment="CENTER" layoutX="226.0" layoutY="224.0" prefHeight="109.0" prefWidth="107.0">
               <children>
                   <Label fx:id="labelTwo" text="0x">
                       <font>
@@ -57,7 +57,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="372.0" layoutY="228.0">
+          <VBox fx:id="boxThree" alignment="CENTER" layoutX="372.0" layoutY="228.0">
               <children>
                   <Label fx:id="labelThree" alignment="TOP_CENTER" text="0x" textAlignment="JUSTIFY">
                       <font>
@@ -75,7 +75,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="533.0" layoutY="228.0">
+          <VBox fx:id="boxFour" alignment="CENTER" layoutX="533.0" layoutY="228.0">
               <children>
                   <Label fx:id="labelFour" text="0x">
                       <font>
@@ -90,7 +90,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="695.0" layoutY="227.0" prefHeight="97.0" prefWidth="119.0">
+          <VBox fx:id="boxFive" alignment="CENTER" layoutX="695.0" layoutY="227.0" prefHeight="97.0" prefWidth="119.0">
               <children>
                   <Label fx:id="labelFive" text="0x">
                       <font>
