@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -51,6 +52,16 @@ public class GameSettingsController {
     private RadioButton Server, Client;
     @FXML
     private ComboBox<String> gameMode;
+    @FXML
+    private Pane boxGameSize;
+    @FXML
+    private VBox boxTwo;
+    @FXML
+    private VBox boxThree;
+    @FXML
+    private VBox boxFour;
+    @FXML
+    private VBox boxFive;
     //endregion
 
     //region Variables
@@ -287,6 +298,7 @@ public class GameSettingsController {
 
     /**
      * Sets the Variables, which are determined on the Settings Window and calls the Game-Class to show the Placing Window
+     *
      * @param event is fired if the Mouse clicked the Arrow in the lower right Corner
      * @throws IOException
      * @throws InterruptedException
@@ -353,6 +365,7 @@ public class GameSettingsController {
 
     /**
      * Determines the Gamemode of the Game, on which is chosen in the ComboBox
+     *
      * @return the Gamemode
      */
     private LogicConstants.GameMode determineGameMode() {
@@ -414,6 +427,7 @@ public class GameSettingsController {
 
     /**
      * Generates the String of the Ships, that are used in a Network-Game
+     *
      * @return a String of each Shipsize that is used
      */
     private String setNetworkShip() {
@@ -443,6 +457,7 @@ public class GameSettingsController {
 
     /**
      * Disable/ Able all Controls for Changing the Game Size
+     *
      * @param disable true if Controls should be disabled
      */
     private void disableGameSizeControls(boolean disable) {
