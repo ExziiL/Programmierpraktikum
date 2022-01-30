@@ -12,8 +12,6 @@ import static Logic.main.LogicConstants.*;
 
 
 public class Game {
-
-    //region Variables
     protected int size = 0;
     protected String name;
     protected GameMode gameMode;
@@ -29,7 +27,6 @@ public class Game {
     protected int allThreeShip;
     protected int allFourShip;
     protected int allFiveShip;
-    //endregion
 
     /**
      * Gets the Game Field
@@ -91,6 +88,7 @@ public class Game {
 
     /**
      * Sets the Mode of the Game  (Online/Offline)
+     *
      * @param m Game Mode
      */
     public void setGameMode(GameMode m) {
@@ -99,6 +97,7 @@ public class Game {
 
     /**
      * Gets the Mode of the Game  (Online/Offline)
+     *
      * @return Game Mode
      */
     public GameMode getGameMode() {
@@ -107,6 +106,7 @@ public class Game {
 
     /**
      * Return Status of Game Element
+     *
      * @param index of the Panel
      * @return Game Element Status
      */
@@ -119,8 +119,9 @@ public class Game {
 
     /**
      * Return Status of Game Element
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
      * @return Game Element Status
      */
     public GameElementStatus getgameElementStatus(int x, int y) {
@@ -133,9 +134,9 @@ public class Game {
     /**
      * Create a new Ship Object for the Game Element
      * if it is the same Ship the hash Value has to be the same
-
-     * @param x      Coordinate of the Pane
-     * @param y      Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param size  of the Ship
      * @param isHorizontal Orientation of the Ship
      * @param hash   unique id of the Ship
@@ -162,6 +163,7 @@ public class Game {
     }
     /**
      * Check if all Ships are placed
+     *
      * @return true if all ships are placed
      */
     public boolean allShipPlaced() {
@@ -173,6 +175,8 @@ public class Game {
 
     /**
      * Return the part of the ship
+     * 1, 2, 3, 4, 5
+     *
      * @param index of Pane
      * @return Part of the ship
      */
@@ -184,6 +188,7 @@ public class Game {
 
     /**
      * Gets Number of Two sized Ships, which aren't placed
+     *
      * @return Number of Two sized Ships
      */
     public int getCountTwoShip() {
@@ -191,6 +196,7 @@ public class Game {
     }
     /**
      * Gets Number of Three sized Ships, which aren't placed
+     *
      * @return Number of Three sized Ships
      */
     public int getCountThreeShip() {
@@ -198,6 +204,7 @@ public class Game {
     }
     /**
      * Gets Number of Four sized Ships, which aren't placed
+     *
      * @return Number of Four sized Ships
      */
     public int getCountFourShip() {
@@ -205,6 +212,7 @@ public class Game {
     }
     /**
      * Gets Number of Five sized Ships, which aren't placed
+     *
      * @return Number of Five sized Ships
      */
     public int getCountFiveShip() {
@@ -212,6 +220,7 @@ public class Game {
     }
     /**
      * Gets Number of two sized Ships, which are set in the beginning of the Game
+     *
      * @return Number of two sized Ships
      */
     public int getAllTwoShips() {
@@ -219,6 +228,7 @@ public class Game {
     }
     /**
      * Sets Number of two sized Ships,
+     *
      * @param allTwoShip Number of two sized Ships
      */
     public void setAllTwoShips(int allTwoShip) {
@@ -227,6 +237,7 @@ public class Game {
     }
     /**
      * Gets Number of three sized Ships, which are set in the beginning of the Game
+     *
      * @return Number of two sized Ships
      */
     public int getAllThreeShips() {
@@ -234,6 +245,7 @@ public class Game {
     }
     /**
      * Sets Number of three sized Ships,
+     *
      * @param allThreeShip Number of three sized Ships
      */
     public void setAllThreeShips(int allThreeShip) {
@@ -242,6 +254,7 @@ public class Game {
     }
     /**
      * Gets Number of four sized Ships, which are set in the beginning of the Game
+     *
      * @return Number of four sized Ships
      */
     public int getAllFourShips() {
@@ -249,6 +262,7 @@ public class Game {
     }
     /**
      * Sets Number of four sized Ships,
+     *
      * @param allFourShip Number of four sized Ships
      */
     public void setAllFourShips(int allFourShip) {
@@ -257,6 +271,7 @@ public class Game {
     }
     /**
      * Gets Number of three five Ships, which are set in the beginning of the Game
+     *
      * @return Number of five sized Ships
      */
     public int getAllFiveShips() {
@@ -264,6 +279,7 @@ public class Game {
     }
     /**
      * Sets Number of five sized Ships,
+     *
      * @param allFiveShip Number of five sized Ships
      */
     public void setAllFiveShips(int allFiveShip) {
@@ -288,6 +304,7 @@ public class Game {
     /**
      * Return a List of States, with Index, where the ship is and where the Edges are
      * And the list contains Error States, when placed near other ships
+     *
      * @param index        of the middle Part of the ship
      * @param isHorizontal Orientation of the ship
      * @param ShipSize     Size of Ship
@@ -466,6 +483,7 @@ public class Game {
     }
     /**
      * Places a ship in the Game Element Array
+     *
      * @param index        of the middle Part of the ship
      * @param isHorizontal Orientation of the ship
      * @param ShipSize     Size of Ship
@@ -550,6 +568,7 @@ public class Game {
     }
     /**
      * Gets the Size of chosen Ship
+     *
      * @param x Coordinate of the Panel
      * @param y Coordinate of the Panel
      * @return Size of Ship
@@ -566,6 +585,7 @@ public class Game {
     }
     /**
      * Gets the Size of chosen Ship
+     *
      * @param index of Pane
      * @return Size of Ship
      */
@@ -578,6 +598,7 @@ public class Game {
     }
     /**
      * Gets Ships Rotation
+     *
      * @param index of Pane
      * @return true if Ship is horizontal
      */
@@ -595,8 +616,9 @@ public class Game {
 
     /**
      * Return if selected Ship in my Game Field ist Destroyed
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
      * @return true if destroyed
      */
     public boolean isMyShipDestroyed(int x, int y) {
@@ -627,8 +649,9 @@ public class Game {
     }
     /**
      * Returns the Size of the destroyed Ship
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
      * @return size of Ship
      */
     public int getCountOfDestroyedShip(int x, int y) {
@@ -762,6 +785,7 @@ public class Game {
 
     /**
      * Delete a ship in the Array
+     *
      * @param index of Pane
      * @return true if Ship was deleted
      */
@@ -793,8 +817,9 @@ public class Game {
     }
     /**
      * Return if a Coordinate is in the Array
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
      * @return true if Coordinate is in the Array
      */
     public boolean inGameField(int x, int y) {
@@ -808,8 +833,9 @@ public class Game {
     }
     /**
      * Matches x y Coordinates to an Index of the Pane
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
      * @return Index of the Pane
      */
     protected int matchIndex(int x, int y) {
@@ -818,6 +844,7 @@ public class Game {
     }
     /**
      * Matches Index to x y Coordinates of the Pane
+     *
      * @param index of Pane
      * @return Point of Pane
      */
@@ -826,6 +853,7 @@ public class Game {
     }
     /**
      * Matches Index to x y Coordinates of the Pane
+     *
      * @param size   of ship
      * @param number of ship inserted
      */
@@ -852,8 +880,9 @@ public class Game {
     }
     /**
      * Return if ship is in Game Field
-     * @param p x y Coordinate of the middle of the ship
-     * @param ShipSize Size of a Ship
+     *
+     * @param p            x y Coordinate of the middle of the ship
+     * @param ShipSize
      * @param isHorizontal Orientation of the ship
      */
     protected boolean shipinGameField(Point p, int ShipSize, boolean isHorizontal) {
@@ -918,6 +947,7 @@ public class Game {
     }
     /**
      * Remove Ship from ship Array List
+     *
      * @param index of Array List Index
      */
     protected void removeShip(int index) {
@@ -941,6 +971,7 @@ public class Game {
     }
     /**
      * Create an Instance of a Player (Online / Offline / Self)
+     *
      * @param t Player Type
      * @return Instance of Player
      */
@@ -1071,10 +1102,11 @@ public class Game {
     }
     /**
      * Add a new Ship to the Hover State List to an existing list
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
-     * @param status of the ship (SHIP or ERROR)
-     * @param states List of old States (ship will be added)
+     *
+     * @param x            Coordinate of the Panel
+     * @param y            Coordinate of the Panel
+     * @param status       of the ship (SHIP or ERROR)
+     * @param states       List of old States (ship will be added)
      * @return New List of Hover States
      */
     private ArrayList<HoverState> setShip(int x, int y, ArrayList<HoverState> states, GameElementStatus status) {
@@ -1086,8 +1118,9 @@ public class Game {
     }
     /**
      * Sets Close State to a Game Element
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x Coordinate of the Panel
+     * @param y Coordinate of the Panel
      */
     private HoverState setEdge(int x, int y) {
         if (inGameField(x, y)) {
@@ -1105,8 +1138,9 @@ public class Game {
 
     /**
      * Add Edges to the Top of a ship
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param states List of old States (Edges will be added)
      * @return New List of Hover States
      */
@@ -1131,8 +1165,9 @@ public class Game {
     }
     /**
      * Add Edges to the Button of a ship
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param states List of old States (Edges will be added)
      * @return New List of Hover States
      */
@@ -1159,8 +1194,9 @@ public class Game {
     }
     /**
      * Add Edges to the Left of a ship
-     * @param x      Coordinate of the Pane
-     * @param y      Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param states List of old States (Edges will be added)
      * @return New List of Hover States
      */
@@ -1186,8 +1222,9 @@ public class Game {
     }
     /**
      * Add Edges to the Right of a ship
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param states List of old States (Edges will be added)
      * @return New List of Hover States
      */
@@ -1213,8 +1250,9 @@ public class Game {
     }
     /**
      * Add Edges to the Left and Right of a ship
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param states List of old States (Edges will be added)
      * @return New List of Hover States
      */
@@ -1229,8 +1267,9 @@ public class Game {
     }
     /**
      * Add Edges to the Up and Button of a ship
-     * @param x Coordinate of the Pane
-     * @param y Coordinate of the Pane
+     *
+     * @param x      Coordinate of the Panel
+     * @param y      Coordinate of the Panel
      * @param states List of old States (Edges will be added)
      * @return New List of Hover States
      */

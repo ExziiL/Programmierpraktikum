@@ -29,7 +29,7 @@ public class GameElement {
 
     public void init() {
         setStatus(GameElementStatus.WATER);
-        closeShips = new ArrayList<Ship>();
+        closeShips = new ArrayList<>();
         ship = null;
     }
 

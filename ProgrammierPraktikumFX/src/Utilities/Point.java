@@ -9,6 +9,13 @@ public class Point {
         this.y = y;
     }
 
+    /**
+     * Checks if the Coordinates of two Points are equal
+     *
+     * @param obj a Point
+     * @return true if Points are equal
+     */
+
     @Override
     public boolean equals(Object obj) {
         try {

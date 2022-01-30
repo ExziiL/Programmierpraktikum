@@ -19,6 +19,7 @@ public class Server extends Network {
     /**
      * Creates an Instance of the Class Server and trys to Connect with a Client. If it established a Connection
      * the Method creates a BufferedReader and an OutputStreamWriter
+     *
      * @return true if an Object of the Class Server is created
      */
     public boolean createServer() {
@@ -69,7 +70,8 @@ public class Server extends Network {
 
     /**
      * Send the necessary Data to the Client, so the Placing of the Ships can be done
-     * @param size Size of the Gamefield
+     *
+     * @param size  Size of the Gamefield
      * @param ships String with every Ship's Size that is used in the Game
      * @return true if an Answer "done" is received
      */

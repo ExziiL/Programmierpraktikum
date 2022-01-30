@@ -12,8 +12,8 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@LoadGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.LoadGameController">
    <children>
-      <ListView fx:id="saveGames" layoutX="275.0" layoutY="110.0" prefHeight="450.0" prefWidth="350.0" />
-      <HBox alignment="CENTER" layoutX="2.0" prefHeight="165.0" prefWidth="900.0">
+      <ListView fx:id="saveGames" layoutX="202.0" layoutY="112.0" prefHeight="450.0" prefWidth="500.0" />
+      <HBox alignment="BOTTOM_CENTER" layoutX="2.0" prefHeight="98.0" prefWidth="900.0">
          <children>
             <Label text="Deine Spielstände">
                <font>
@@ -31,7 +31,11 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="joinGame" layoutX="670.0" layoutY="535.0" mnemonicParsing="false" styleClass="buttons" text="Spiel beitreten" />
-      <Button fx:id="refresh" layoutX="670.0" layoutY="497.0" mnemonicParsing="false" styleClass="buttons" text="Neu Laden" />
+      <Button fx:id="joinGame" layoutX="202.0" layoutY="572.0" mnemonicParsing="false" styleClass="buttons" text="Online-Spiel beitreten" />
+      <ImageView fx:id="refresh" fitHeight="27.0" fitWidth="27.0" layoutX="675.0" layoutY="572.0" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+         <image>
+            <Image url="@../../assets/Icons/reload.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

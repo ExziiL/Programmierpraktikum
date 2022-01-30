@@ -9,6 +9,7 @@ public class MyPlayer extends Player {
 
     /**
      * Constructor
+     *
      * @param game Object of the Class Game
      * @param name Name of the Player
      */
@@ -25,11 +26,11 @@ public class MyPlayer extends Player {
     /**
      * Method uses the Shoot-Method of Player when the GAmeMode is Offline. When the GameMode is Online
      * the type of Shot is determined by the Answer is given in the second Part of Network shoot.
+     *
      * @param x Coordinate
      * @param y Coordinate
      * @return a 1 if the Shot was a Miss, 0 when it was a Hit and 2 if it was a Hit that sunk a Ship,
      * when in GameMode Online else it returns what shoot from Player returns.
-     *
      */
     @Override
     public int shoot(int x, int y) {

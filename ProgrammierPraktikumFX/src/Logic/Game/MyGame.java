@@ -10,6 +10,7 @@ public class MyGame extends Game {
      */
     public MyGame() {
         super();
+
     }
 
     @Override

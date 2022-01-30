@@ -123,13 +123,6 @@ public class Game extends Application {
     }
 
     /**
-     * Shows a Pop-Up Window, where the User decides if a Game should be saved
-     */
-    public static void showPopUpSaveGame() {
-        dialogSaveGame.show();
-    }
-
-    /**
      * Shows a Pop-Up Window in which the User cloud reconnect to the Server or host a Saved-Game-File
      * @param ip Ip-Adresse of the Host
      * @param isServer decides if the Pop-Up is shown for Servers or Clients
@@ -137,6 +130,13 @@ public class Game extends Application {
     public static void showPopUpReconnect(String ip, boolean isServer) {
         buildPopUpReconnect(ip, isServer);
         dialogReconnect.show();
+    }
+
+    /**
+     * Shows a Pop-Up Window, where the User decides if a Game should be saved
+     */
+    public static void showPopUpSaveGame() {
+        dialogSaveGame.show();
     }
 
     /**
@@ -189,6 +189,7 @@ public class Game extends Application {
     public void start(Stage primaryStage) throws IOException {
         Game.primaryStage = primaryStage;
         Game.primaryStage.setTitle(GUIConstants.titel);
+        Game.primaryStage.getIcons().add(new Image("assets/Schiffe/titleBild.png"));
         showAppWindow();
         showStartGameWindow();
         logicController = new Controller();
@@ -297,6 +298,7 @@ public class Game extends Application {
 
         dialogSaveGame.initModality(Modality.APPLICATION_MODAL);
         dialogSaveGame.setScene(dialogScene);
+        dialogSaveGame.setTitle("Spiel speichern");
 
         yes.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
@@ -402,7 +404,7 @@ public class Game extends Application {
         try {
             dialogReconnect.initOwner(primaryStage);
         } catch (IllegalStateException e) {
-            //Owner already init
+            // Owner already init
         }
         dialogReconnect.setTitle("Neu Verbinden");
         VBox dialogVbox = new VBox(5);
@@ -428,14 +430,18 @@ public class Game extends Application {
         dialogVbox.setAlignment(Pos.CENTER);
         Scene dialogScene = new Scene(dialogVbox, 300, 100);
 
-        dialogReconnect.initModality(Modality.APPLICATION_MODAL);
-        dialogReconnect.setScene(dialogScene);
+        try {
+            dialogReconnect.setScene(dialogScene);
+            dialogReconnect.initModality(Modality.APPLICATION_MODAL);
+        } catch (IllegalStateException e) {
+
+        }
+
         dialogReconnect.setTitle("Erneut Verbinden");
 
         verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
             @Override
             public void handle(javafx.event.ActionEvent event) {
-
 
                 text.setText("Warte auf Verbindung");
                 text.setStyle("-fx-text-fill: grey");
@@ -518,6 +524,7 @@ public class Game extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
+                    Network.closeNetwork(Network.getNetplay());
                     dialogConnectionClosed.hide();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -561,7 +568,6 @@ public class Game extends Application {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 dialogCannotSave.hide();
             }
         });

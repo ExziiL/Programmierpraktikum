@@ -49,20 +49,15 @@ public abstract class Network {
                 if (serverSocket != null) {
                     serverSocket.close();
                 }
-
-
             } else if (player instanceof Client) {
                 Socket client = ((Client) player).getClient();
                 if (client != null) {
                     client.close();
                 }
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static Network getNetplay() {

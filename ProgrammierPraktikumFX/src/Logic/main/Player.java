@@ -14,6 +14,7 @@ public abstract class Player {
 
     /**
      * Constructor
+     *
      * @param game Object of one of the Subclasses of Player
      */
     public Player(Game game) {
@@ -23,6 +24,7 @@ public abstract class Player {
     /**
      * Basic shoot-Methode that is use in the OfflineGame. The game Object checks if on the
      * Pane on the (x,y)Coordinate is a Ship or Nothing.
+     *
      * @param x Coordinate
      * @param y Coordinate
      * @return if a Ship is Hit, Sunk or Missed

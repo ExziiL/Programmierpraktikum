@@ -7,6 +7,7 @@ public class OnlinePlayer extends Player {
 
     /**
      * Constructor
+     *
      * @param game Object of the Class Game
      */
     public OnlinePlayer(Game game) {
@@ -20,6 +21,7 @@ public class OnlinePlayer extends Player {
      * when it was a Miss a 0 as Parameter and the Shot has sunk a Ship the Parameter is 2.
      * If in [0] is a 1 that means the Game was saved by the other Person.
      * If 99 is in [0] the other Person left the Game without saving.
+     *
      * @return an int - 1 = Miss, 0= Hit, 2 = Save and 99 = Other Player left the Game
      */
     @Override
@@ -63,6 +65,7 @@ public class OnlinePlayer extends Player {
      * Uses the shoot-Method of Network to shoot at the Opponent and get an answer if the
      * Shot was a Miss, Hit, or Hit and Sunk. Determined by the Answer, the Status of the affected Pane is changed
      * and a Return value is chosen
+     *
      * @param x Coordinate
      * @param y Coordinate
      * @return 1 = Miss, 0 = Hit, 2 = Hit and Sunk

@@ -83,7 +83,6 @@ public class GameSettingsController {
         BoxOnline.setDisable(true);
         Ip.setPromptText("IP-Adresse eingeben");
 
-        name.setPromptText("Player");
         IpAdresseText.opacityProperty().setValue(0.3);
 
         gameMode.setOnAction(new EventHandler<ActionEvent>() {
@@ -91,6 +90,7 @@ public class GameSettingsController {
             public void handle(ActionEvent event) {
                 if (gameMode.getValue().equals("Offline")) {
                     BoxOnline.setDisable(true);
+                    disableGameSizeControls(false);
                     IpAdresseText.opacityProperty().setValue(0.3);
                     slider.setDisable(false);
                 } else if (gameMode.getValue().equals("Online")) {
@@ -107,7 +107,8 @@ public class GameSettingsController {
                         selectServer();
                         networkThread = new Thread(() -> {
                             netplay = Network.chooseNetworkTyp(true);
-                            if (!(netplay instanceof Server)) selectServer();
+                            if (!(netplay instanceof Server))
+                                selectServer();
                             Platform.runLater(() -> {
                                 Ip.setText(((Server) netplay).getIp());
                             });
@@ -143,7 +144,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(false);
-                    if (!(netplay instanceof Client)) selectClient();
+                    if (!(netplay instanceof Client))
+                        selectClient();
                 });
                 networkThread.start();
             }
@@ -173,7 +175,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(true);
-                    if (!(netplay instanceof Server)) selectServer();
+                    if (!(netplay instanceof Server))
+                        selectServer();
                     Platform.runLater(() -> {
                         Ip.setText(((Server) netplay).getIp());
                     });
@@ -279,6 +282,7 @@ public class GameSettingsController {
     void handleInputName(ActionEvent event) throws IOException {
     }
 
+
     // ------------------------------- Next-Button ---------------------------------
 
     /**
@@ -295,7 +299,6 @@ public class GameSettingsController {
         Game.logicController.setEnemyGameGameMode(determineGameMode());
         Game.logicController.createWriter();
 
-
         if (gameMode.getValue().equals("Online")) {
             ErrorMessage.setText("Warte auf Spieler...");
             ErrorMessage.setStyle("-fx-text-fill: green");
@@ -305,7 +308,8 @@ public class GameSettingsController {
             networkThread = new Thread(() -> {
                 // int[] i = {2, 2, 2, 3, 3, 4};
                 if (netplay instanceof Server) {
-                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
+                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(),
+                            setNetworkShip());
 
                 }
                 if (netplay instanceof Client) {
@@ -329,10 +333,8 @@ public class GameSettingsController {
             });
             networkThread.start();
 
-
         } else {
             ErrorMessage.setText("");
-            Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
             Game.showPlacingFieldWindow();
         }
@@ -367,7 +369,8 @@ public class GameSettingsController {
     private void selectClient() {
         Ip.setEditable(true);
         Ip.setText("");
-        slider.setDisable(true);
+        disableGameSizeControls(true);
+
         ErrorMessage.setText("");
 
         if (serverCreated == true) {
@@ -385,7 +388,7 @@ public class GameSettingsController {
             InetAddress realIP = InetAddress.getLocalHost();
             Ip.setEditable(false);
             Ip.setText(realIP.getHostAddress());
-            slider.setDisable(false);
+            disableGameSizeControls(false);
             ErrorMessage.setText("");
 
             if (clientCreated == true) {
@@ -436,5 +439,31 @@ public class GameSettingsController {
         }
 
         return s;
+    }
+
+    /**
+     * Disable/ Able all Controls for Changing the Game Size
+     * @param disable true if Controls should be disabled
+     */
+    private void disableGameSizeControls(boolean disable) {
+        boxGameSize.setDisable(disable);
+        boxTwo.setDisable(disable);
+        boxThree.setDisable(disable);
+        boxFour.setDisable(disable);
+        boxFive.setDisable(disable);
+        if (!disable) {
+            boxGameSize.setStyle("-fx-opacity: 1");
+            boxTwo.setStyle("-fx-opacity: 1;");
+            boxThree.setStyle("-fx-opacity: 1;");
+            boxFour.setStyle("-fx-opacity: 1;");
+            boxFive.setStyle("-fx-opacity: 1;");
+        } else {
+            boxGameSize.setStyle("-fx-opacity: 0.3");
+            boxTwo.setStyle("-fx-opacity: 0.3;");
+            boxThree.setStyle("-fx-opacity: 0.3;");
+            boxFour.setStyle("-fx-opacity: 0.3;");
+            boxFive.setStyle("-fx-opacity: 0.3;");
+
+        }
     }
 }

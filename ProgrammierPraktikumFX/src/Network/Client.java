@@ -73,7 +73,7 @@ public class Client extends Network {
                 outStream.flush();
             } else {
                 wait(100);
-                receiveMessage();
+                receiveMessage(); //TODO zeige "auf Server warten" + in Plingfield großes Label flipfloppen auf Warte und du bist dran
             }
         } catch (IOException |
                 InterruptedException e) {
@@ -119,6 +119,5 @@ public class Client extends Network {
         controller.setDestroyedThreeShips(three);
         controller.setDestroyedFourShips(four);
         controller.setDestroyedFiveShips(five);
-
     }
 }

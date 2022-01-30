@@ -28,6 +28,7 @@ public abstract class Network {
 
     /**
      * Chooses between a Server and Client, wehen called
+     *
      * @param server indicates if The User is the Server or the Client
      * @return an Object of a Server or Client
      */
@@ -48,6 +49,7 @@ public abstract class Network {
 
     /**
      * Closes the Connection if the end of a Game is reached or a Player has quit/ saved the Game
+     *
      * @param player Instance of Object of Type Network
      */
     public static void closeNetwork(Network player) {
@@ -61,20 +63,15 @@ public abstract class Network {
                 if (serverSocket != null) {
                     serverSocket.close();
                 }
-
-
             } else if (player instanceof Client) {
                 Socket client = ((Client) player).getClient();
                 if (client != null) {
                     client.close();
                 }
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -99,6 +96,7 @@ public abstract class Network {
     /**
      * Send if the User loads a File of an OnlineGame, so that the other Player can load the same
      * File
+     *
      * @return true if "ok" game back as Answer
      */
     public boolean load() {
@@ -125,6 +123,7 @@ public abstract class Network {
      * If the Message "load" is received a new DocumentWriter is created to read the file with
      * the File, which name is in an Array on [1] when the getMessage was split. When the Writer is
      * also set the Game will be loaded and the Answer will be sent to the Server.
+     *
      * @return true if ok was send
      */
     public boolean receiveLoad() {
@@ -143,7 +142,6 @@ public abstract class Network {
         } catch (IOException e) {
             return false;
         }
-
         return false;
     }
 
@@ -154,10 +152,11 @@ public abstract class Network {
     /**
      * Send to the other Player the Coordinates where the User wants to shoot and gets an answer if he hitted something
      * or a Miss
+     *
      * @param x Coordinate
      * @param y Coordinate
-     * @return  a number that indicates if a Shot missed (= 0), hit a ship (= 1)
-     *          or destroyed a Ship (= 2) or when an Error occurred (= -1)
+     * @return a number that indicates if a Shot missed (= 0), hit a ship (= 1)
+     * or destroyed a Ship (= 2) or when an Error occurred (= -1)
      */
     public int shoot(int x, int y) {
         try {
@@ -198,9 +197,10 @@ public abstract class Network {
      * pared to Integer to resemble the Coordinates where the other Player has shot at.
      * If the message is "save", a DocumentWriter is created and the save-Method of the controller is
      * called. If an Error comes up the value of the first index is 99.
+     *
      * @return an int Array with the first number indicates a Shot (= 0), save (= 1) or an
-     *          Error (= 99)
-     * */
+     * Error (= 99)
+     */
     public int[] receiveSaveOrShot() {
         try {
             getMessage = inStream.readLine();
@@ -218,13 +218,11 @@ public abstract class Network {
                     xy[0] = 1;
                     xy[1] = 99;
                     xy[2] = 99;
-
                 }
             } else {
                 xy[0] = 99;
             }
         } catch (IOException e) {
-
             xy[0] = 99;
         }
         return xy;
@@ -240,10 +238,11 @@ public abstract class Network {
         try {
             outStream.write(String.format("%s%n", message + nr));
             outStream.flush();
-
-            message = inStream.readLine();
-            if (!(message.startsWith("pass"))){
-                sendAnswer(nr);
+            if (nr == 2) {
+                message = inStream.readLine();
+                if (!(message.startsWith("pass"))) {
+                    sendAnswer(nr);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();

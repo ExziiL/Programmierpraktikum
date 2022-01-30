@@ -197,9 +197,7 @@ public class GridPaneBuilder {
             pane.setOnMouseExited(event -> redrawEnemyPanes());
 
             pane.setOnMouseClicked(event -> {
-
                 controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
-
             });
 
             tableEnemy.setOnMouseEntered(new EventHandler<MouseEvent>() {
@@ -276,7 +274,7 @@ public class GridPaneBuilder {
     public GridPane createTablePlacingField(GridPane tablePlacing, PlacingFieldController controller) {
         int column = 0;
         int row = 0;
-        double paneSize = (tablePlacing.getPrefHeight() - 15) / Game.logicController.getGameSize();
+        double paneSize = (tablePlacing.getPrefHeight() - 10) / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size + 1) * (size + 1); i++) {
@@ -349,11 +347,9 @@ public class GridPaneBuilder {
                     setPictureofShip(pane);
                     break;
                 case HIT:
-                    wait_shortly(10);
                     setPictureHit(pane);
                     break;
                 case MISS:
-                    wait_shortly(10);
                     setPictureMiss(pane);
                     break;
                 default: // WATER
@@ -545,12 +541,4 @@ public class GridPaneBuilder {
         return null;
     }
 
-    private void wait_shortly(int millis) {
-        // wait shortly
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }

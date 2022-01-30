@@ -20,7 +20,6 @@ public final class HoverState {
         this.part = part;
         this.shipSize = shipSize;
         this.isHorizontal = isHorizontal;
-
     }
 
     public int getShipSize() {

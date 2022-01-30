@@ -104,21 +104,113 @@ public class PlacingFieldController implements Initializable {
             setEditMode(false);
             chooseShip(2);
         });
+        BoxTwo.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+                if (currentShip == 2) {
+                    arrowTwo.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowTwo.setStyle("-fx-opacity: 0.3;");
+                }
+            }
+        });
+        BoxTwo.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+                if (currentShip == 2) {
+                    arrowTwo.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowTwo.setStyle("-fx-opacity: 0;");
+                }
+            }
+        });
+
         BoxThree.setOnMouseClicked(event -> {
             setEditMode(false);
             chooseShip(3);
         });
+        BoxThree.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+                if (currentShip == 3) {
+                    arrowThree.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowThree.setStyle("-fx-opacity: 0.3;");
+                }
+            }
+        });
+        BoxThree.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+                if (currentShip == 3) {
+                    arrowThree.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowThree.setStyle("-fx-opacity: 0;");
+                }
+            }
+        });
+
         BoxFour.setOnMouseClicked(event -> {
             setEditMode(false);
             chooseShip(4);
         });
+        BoxFour.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+                if (currentShip == 4) {
+                    arrowFour.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowFour.setStyle("-fx-opacity: 0.3;");
+                }
+            }
+        });
+        BoxFour.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+                if (currentShip == 4) {
+                    arrowFour.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowFour.setStyle("-fx-opacity: 0;");
+                }
+            }
+        });
+
         BoxFive.setOnMouseClicked(event -> {
             setEditMode(false);
             chooseShip(5);
         });
+        BoxFive.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(true);
+                if (currentShip == 5) {
+                    arrowFive.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowFive.setStyle("-fx-opacity: 0.3;");
+                }
+            }
+        });
+        BoxFive.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Game.toggleCursorHand(false);
+                if (currentShip == 5) {
+                    arrowFive.setStyle("-fx-opacity: 1;");
+                } else {
+                    arrowFive.setStyle("-fx-opacity: 0;");
+                }
+            }
+        });
 
         // Save Grid List
         shipPartsList = table.getChildren().filtered(node -> node instanceof Pane);
+
         // Build up chosen Ships Properties
         setChoosenShipProperties();
 
@@ -154,7 +246,7 @@ public class PlacingFieldController implements Initializable {
             setChoosenShipProperties();
             setNextActive(true);
             chooseShip(0);
-            setEditMode(false);
+            setEditMode(true);
         });
 
         Clear.setOnAction(event -> {
@@ -194,11 +286,13 @@ public class PlacingFieldController implements Initializable {
                 if (replaceShipMode) {
                     placeShip(pane);
                     setReplaceShipMode(false);
+                    setArrowsAtShip(pane, false);
                     chooseShip(0);
                     gridBuilder.redrawPlacingField();
                 } else if (Game.logicController.isElementShip(getIndexofPane(pane))) {
                     replaceShip(pane);
                     setReplaceShipMode(true);
+                    setArrowsAtShip(pane, true);
                     gridBuilder.redrawPlacingField();
                     hoverShip(pane);
                 }
@@ -238,7 +332,7 @@ public class PlacingFieldController implements Initializable {
     public void handleNext(MouseEvent event) throws IOException {
         if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
             Message.setText("Warte auf Spieler...");
-            Message.setStyle("-fx-text-fill: green");
+            Message.setFill(Color.GREEN);
             networkThread = new Thread(() -> {
                 netplay = Network.getNetplay();
                 if (netplay instanceof Server) {
@@ -273,40 +367,48 @@ public class PlacingFieldController implements Initializable {
 
         if (Game.logicController.getCountTwoShip() == 0) {
             BoxTwo.setDisable(true);
+            BoxTwo.setStyle("-fx-opacity: 0.3;");
             if (currentShip == 2) {
                 determineNewChoosenShip();
             }
         } else {
             BoxTwo.setDisable(false);
+            BoxTwo.setStyle("-fx-opacity: 1;");
         }
         if (Game.logicController.getCountThreeShip() == 0) {
             BoxThree.setDisable(true);
+            BoxThree.setStyle("-fx-opacity: 0.3;");
             if (currentShip == 3) {
                 determineNewChoosenShip();
             }
         } else {
             BoxThree.setDisable(false);
+            BoxThree.setStyle("-fx-opacity: 1;");
         }
         if (Game.logicController.getCountFourShip() == 0) {
             BoxFour.setDisable(true);
+            BoxFour.setStyle("-fx-opacity: 0.3;");
             if (currentShip == 4) {
                 determineNewChoosenShip();
             }
         } else {
             BoxFour.setDisable(false);
+            BoxFour.setStyle("-fx-opacity: 1;");
         }
         if (Game.logicController.getCountFiveShip() == 0) {
             BoxFive.setDisable(true);
+            BoxFive.setStyle("-fx-opacity: 0.3;");
             if (currentShip == 5) {
                 determineNewChoosenShip();
             }
         } else {
             BoxFive.setDisable(false);
+            BoxFive.setStyle("-fx-opacity: 1;");
         }
     }
 
     /**
-     *
+     * choose a new current ship when actual current ships are all placed
      */
     private void determineNewChoosenShip() {
         for (int i = 2; i <= 5; i++) {
@@ -392,7 +494,7 @@ public class PlacingFieldController implements Initializable {
 
     }
 
-    //TODO?
+
     private void deleteShip(Pane pane) {
         if (Game.logicController.deleteShip(getIndexofPane(pane))) {
             setNextActive(false);
@@ -431,11 +533,10 @@ public class PlacingFieldController implements Initializable {
      * Unselects the Ship the User wants not to place right now
      */
     private void unchooseActualShip() {
-        HBox box = getBoxShip(currentShip);
-        if (box != null) {
-            box.setStyle("-fx-border-color: none ;");
-            // imageView.setImage(null);
-            // imageView.setImage(new Image("@../../assets/Schiffe/2er_seite_grau.jpg"));
+        ImageView selectedImg = getSelectedShipArrow(currentShip);
+
+        if (getBoxShip(currentShip) != null) {
+            selectedImg.setStyle("-fx-opacity: 0;");
         }
     }
 
@@ -446,11 +547,10 @@ public class PlacingFieldController implements Initializable {
     private void chooseShip(int ship) {
         unchooseActualShip();
         currentShip = ship;
-        HBox box = getBoxShip(ship);
-        if (box != null) {
-            box.setStyle("-fx-border-color: black ; -fx-border-radius: 7px;");
-            // imageView.setImage(null);
-            // imageView.setImage(new Image("@../../assets/Schiffe/2er_seite_grau.jpg"));
+        ImageView selectedImg = getSelectedShipArrow(ship);
+
+        if (getBoxShip(ship) != null) {
+            selectedImg.setStyle("-fx-opacity: 1;");
         }
     }
 
@@ -475,6 +575,26 @@ public class PlacingFieldController implements Initializable {
     }
 
     /**
+     * set Select Ship Arrow
+     * @param size of Ship
+     * @return Image View of Arrow
+     */
+    private ImageView getSelectedShipArrow(int ship) {
+        switch (ship) {
+            case 2:
+                return arrowTwo;
+            case 3:
+                return arrowThree;
+            case 4:
+                return arrowFour;
+            case 5:
+                return arrowFive;
+            default:
+                return null;
+        }
+    }
+
+    /**
      * Changes the Titel-Label to better indicated in which Mode the User is
      * @param mode true if the "bearbeiten"-Button is clicked, false when not
      *             and the normal mode is active
@@ -488,8 +608,8 @@ public class PlacingFieldController implements Initializable {
         } else {
             textHeader.setText("Schiffe platzieren");
         }
-
         setHelpTexts();
+
     }
 
     /**
@@ -517,6 +637,20 @@ public class PlacingFieldController implements Initializable {
         } else {
             textLeftClick.setText(GUIConstants.explTextPlacingLeft);
             textRightClick.setText(GUIConstants.explTextPlacingRight);
+        }
+    }
+
+    /**
+     * sets The Select Arrow of the Ship
+     * @param pane
+     * @param active is Actoive or not
+     */
+    private void setArrowsAtShip(Pane pane, boolean active) {
+        Game.logicController.getShipSize(getIndexofPane(pane));
+
+        ImageView selectedImg = getSelectedShipArrow(currentShip);
+        if (getSelectedShipArrow(currentShip) != null) {
+            selectedImg.setStyle("-fx-opacity: 1;");
         }
     }
 

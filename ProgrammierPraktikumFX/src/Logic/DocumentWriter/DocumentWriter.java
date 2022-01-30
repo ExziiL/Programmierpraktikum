@@ -26,7 +26,24 @@ public class DocumentWriter {
 
     public static boolean deleteFile(String s) {
         File myObj = new File("src/SaveFiles/" + s);
-        return myObj.delete();
+        if (myObj.exists()) {
+            return myObj.delete();
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deleteOnlineFile(String s) {
+        File myObj;
+        boolean answer = false;
+        myObj = new File("src/SaveFilesOnline/" + s);
+        if (myObj.exists()) {
+            answer = myObj.delete();
+            myObj = new File("src/SaveFilesClient/" + s);
+            myObj.delete();
+        }
+
+        return answer;
     }
 
     /**
@@ -61,6 +78,14 @@ public class DocumentWriter {
             path = "src" + fs + "SaveFilesOnline" + fs + id + ".txt" + fs;
         } else {
             path = "src" + fs + "SaveFiles" + fs + id + ".txt" + fs;
+        }
+    }
+
+    public DocumentWriter(String s, boolean online, boolean client) {
+        this(s, online);
+        String fs = System.getProperty("file.separator");
+        if (client) {
+            path = "src" + fs + "SaveFilesClient" + fs + id + ".txt" + fs;
         }
     }
 
@@ -120,9 +145,6 @@ public class DocumentWriter {
         text.add(ships + "\n");
     }
 
-    // public void writeInitiator(boolean isInitiator){
-
-    // }
 
     public void writeMyGameField(GameElement[][] gameField) {
         writeGameField("MyGame", gameField);
@@ -253,6 +275,7 @@ public class DocumentWriter {
         }
     }
 
+
     /**
      * Creates an ArrayList with every File in src/SaveFiles
      * @return an Arraylist with every File in the Folder SaveFiles
@@ -261,11 +284,14 @@ public class DocumentWriter {
         File folder = new File("src/SaveFiles/");
         ArrayList<String> files = new ArrayList<>();
 
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                files.add(file.getName());
+        if (folder.exists()) {
+            for (File file : folder.listFiles()) {
+                if (!file.isDirectory()) {
+                    files.add(file.getName());
+                }
             }
         }
+
         return files;
     }
 
@@ -277,9 +303,11 @@ public class DocumentWriter {
         File folder = new File("src/SaveFilesOnline/");
         ArrayList<String> files = new ArrayList<>();
 
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                files.add(file.getName());
+        if (folder.exists()) {
+            for (File file : folder.listFiles()) {
+                if (!file.isDirectory()) {
+                    files.add(file.getName());
+                }
             }
         }
         return files;

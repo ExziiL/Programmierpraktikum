@@ -3,7 +3,6 @@ package Utilities;
 import Logic.main.LogicConstants.GameElementStatus;
 
 public final class HoverState {
-
     private int index = 0;
     private GameElementStatus status = GameElementStatus.WATER;
     private int part = 0;
@@ -20,7 +19,6 @@ public final class HoverState {
         this.part = part;
         this.shipSize = shipSize;
         this.isHorizontal = isHorizontal;
-
     }
 
     public int getShipSize() {

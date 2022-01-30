@@ -22,36 +22,18 @@ public class OfflinePlayer extends Player {
     }
 
     private class nextHits {
-
-        //region Variables
         Point p = null;
         LogicConstants.Direction direction = NONE;
-        //endregion
 
-        /**
-         * Determines where the next Shot is placed in the gamefield if a Ship was hit
-         * @param x x-Coordinate
-         * @param y y-Coordinate
-         * @param dir Direction in which the next Shot is placed
-         */
         public nextHits(int x, int y, LogicConstants.Direction dir) {
             this.p = new Point(x, y);
             this.direction = dir;
         }
 
-        /**
-         * Determines where the next Shot is placed in the gamefield if a Ship was hit
-         * @param p Point of the next Shot
-         * @param dir Direction in which the next Shot is placed
-         */
         public nextHits(Point p, LogicConstants.Direction dir) {
             this(p.x, p.y, dir);
         }
 
-        /**
-         * Gets the Point for the next Shot when the Direction is direction.
-         * @return Point for the next Shot if a direction is chosen
-         */
         public Point getPointDirection() {
             switch (direction) {
                 case RIGHT:
@@ -144,6 +126,7 @@ public class OfflinePlayer extends Player {
     }
 
     private void addShootRight(Point p) {
+
         if (game.inGameField(p.x + 1, p.y) && !isHitorMiss(p.x + 1, p.y)) {
             nextHits.add(new nextHits(p, RIGHT));
         }
@@ -272,6 +255,7 @@ public class OfflinePlayer extends Player {
         if (game.inGameField(x - 1, y + 1) && isHit(x - 1, y + 1)) {
             return true;
         }
+
         return false;
     }
 }
