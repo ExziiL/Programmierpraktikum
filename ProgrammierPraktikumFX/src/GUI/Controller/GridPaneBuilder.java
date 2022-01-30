@@ -319,12 +319,12 @@ public class GridPaneBuilder {
 
             pane.setOnMouseExited(event -> {
                 redrawPanes(shipPartsPlacingList);
+                Game.toggleCursorHand(false);
             });
 
             pane.setOnMouseClicked(event -> {
                 controller.handlePaneOnMouseClicked(pane, event.getButton());
             });
-
         }
         // Save Grid List
         shipPartsPlacingList = tablePlacing.getChildren().filtered(node -> node instanceof Pane);

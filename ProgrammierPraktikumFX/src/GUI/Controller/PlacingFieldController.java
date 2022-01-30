@@ -470,7 +470,6 @@ public class PlacingFieldController implements Initializable {
                 } else {
                     Game.toggleCursorHand(false);
                 }
-                
                 Game.toggleCursorHand(false);
                 noPlacingAllowed = gridBuilder.hoverShip(states);
 

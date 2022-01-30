@@ -10,7 +10,7 @@ public class WindowsPlatformAppPDF {
      */
     public static void showManual() {
         try {
-            File manual = (new File("src/assets/Manual/Programmierpraktikum_Bericht.pdf"));
+            File manual = (new File("src/assets/Manual/Benutzerhandbuch.pdf"));
             if (manual.exists()) {
                 Desktop.getDesktop().open(manual);
             }
