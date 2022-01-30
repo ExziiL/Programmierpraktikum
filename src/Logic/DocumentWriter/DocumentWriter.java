@@ -23,16 +23,22 @@ public class DocumentWriter {
 
     public static boolean deleteFile(String s) {
         File myObj = new File("src/SaveFiles/" + s);
-        return myObj.delete();
+        if (myObj.exists()) {
+            return myObj.delete();
+        } else {
+            return false;
+        }
     }
 
     public static boolean deleteOnlineFile(String s) {
         File myObj;
+        boolean answer = false;
         myObj = new File("src/SaveFilesOnline/" + s);
-        boolean answer = myObj.delete();
-
-        myObj = new File("src/SaveFilesClient/" + s);
-        myObj.delete();
+        if (myObj.exists()) {
+            answer = myObj.delete();
+            myObj = new File("src/SaveFilesClient/" + s);
+            myObj.delete();
+        }
 
         return answer;
     }

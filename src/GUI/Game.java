@@ -370,8 +370,14 @@ public class Game extends Application {
         dialogVbox.setAlignment(Pos.CENTER);
         Scene dialogScene = new Scene(dialogVbox, 300, 100);
 
-        dialogReconnect.initModality(Modality.APPLICATION_MODAL);
-        dialogReconnect.setScene(dialogScene);
+        try {
+            dialogReconnect.setScene(dialogScene);
+            dialogReconnect.initModality(Modality.APPLICATION_MODAL);
+        } catch (IllegalStateException e) {
+
+        }
+
+
         dialogReconnect.setTitle("Erneut Verbinden");
 
         verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {

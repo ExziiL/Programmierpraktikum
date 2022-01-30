@@ -4,13 +4,11 @@ import GUI.Game;
 import Logic.DocumentWriter.DocumentWriter;
 import Network.Network;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +17,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.net.InetAddress;
@@ -41,6 +40,8 @@ public class LoadGameController implements Initializable {
     ImageView arrowIconLoadGame;
     ArrayList<String> files;
     ArrayList<String> onlineFiles;
+    ObservableList<HBox> games;
+
     Image delete = new Image("assets/Icons/trash.png");
     Image reload = new Image("assets/Icons/reload.png");
 
@@ -48,6 +49,7 @@ public class LoadGameController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         Network.setController(Game.logicController);
         refresh();
+        saveGames.requestFocus();
 
         joinGame.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -99,9 +101,10 @@ public class LoadGameController implements Initializable {
 
     private void deleteGame() {
         String s = getSelectedText();
-
+        s += ".txt";
+        s = s.replace("|Online", "");
         if (files.contains(s)) {
-            s += ".txt";
+
 
             if (Game.logicController.deleteFile(s)) {
                 ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
@@ -109,7 +112,7 @@ public class LoadGameController implements Initializable {
             }
 
         } else if (onlineFiles.contains(s)) {
-            s = s.replace("|Online", ".txt");
+
             if (Game.logicController.deleteOnlineFile(s)) {
                 ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
                 saveGames.getItems().remove(selectedGame.get(0));
@@ -125,8 +128,8 @@ public class LoadGameController implements Initializable {
         ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
         ObservableList<Node> children = selectedGame.get(0).getChildren();
         Node left = children.get(0);
-        if (left.getClass() == HBox.class) {
-            HBox leftBox = (HBox) left;
+        if (left.getClass() == Pane.class) {
+            Pane leftBox = (Pane) left;
             ObservableList<Node> leftBoxChildren = leftBox.getChildren();
 
             for (Node e : leftBoxChildren) {
@@ -141,10 +144,12 @@ public class LoadGameController implements Initializable {
 
     private void refresh() {
 
-        ObservableList<HBox> games = FXCollections.observableArrayList();
-
+        games = saveGames.getItems();
+        games.clear();
         files = Game.logicController.getAllSaveFiles();
         onlineFiles = Game.logicController.getAllOnlineSaveFiles();
+
+        games.add(addFirstLine());
 
         for (String s : files) {
             s = s.replace(".txt", "");
@@ -157,13 +162,22 @@ public class LoadGameController implements Initializable {
             games.add(addLine(s));
         }
 
+
         saveGames.setItems(games);
+        saveGames.requestFocus();
+
+        saveGames.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
 
     }
 
     private HBox addLine(String s) {
-        HBox left = new HBox();
-        HBox right = new HBox();
+        Pane left = new Pane();
+        Pane right = new Pane();
 
         HBox line = new HBox();
         // Set Label with Filename
@@ -176,14 +190,21 @@ public class LoadGameController implements Initializable {
 
         viewDelete.setFitHeight(20);
         viewDelete.setFitWidth(20);
-
+        //   line.setMinWidth(330);
+        //   line.setMaxWidth(330);
+        //   line.setMinHeight(20);
+//
+//
         right.getChildren().add(viewDelete);
         right.setMaxWidth(30);
         right.setMinWidth(30);
-        right.setAlignment(Pos.TOP_RIGHT);
-
+        right.setMinHeight(20);
+//
+//
         left.setMaxWidth(300);
         left.setMinWidth(300);
+        left.setMinHeight(50);
+
 
         line.getChildren().addAll(left, right);
 
@@ -201,6 +222,14 @@ public class LoadGameController implements Initializable {
                 loadGame();
             }
         });
+
+
+        return line;
+    }
+
+
+    private HBox addFirstLine() {
+        HBox line = new HBox();
 
 
         return line;
