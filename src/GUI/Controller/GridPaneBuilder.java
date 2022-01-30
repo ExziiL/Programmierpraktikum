@@ -249,7 +249,7 @@ public class GridPaneBuilder {
     public GridPane createTablePlacingField(GridPane tablePlacing, PlacingFieldController controller) {
         int column = 0;
         int row = 0;
-        double paneSize = (tablePlacing.getPrefHeight() - 15) / Game.logicController.getGameSize();
+        double paneSize = (tablePlacing.getPrefHeight() - 10) / Game.logicController.getGameSize();
 
         // Build up Grid pane and set Events for Panes
         for (int i = 0; i < (size + 1) * (size + 1); i++) {
