@@ -66,6 +66,14 @@ public class PlacingFieldController implements Initializable {
     private ImageView imageView;
     @FXML
     private Text Message;
+    @FXML
+    private ImageView arrowTwo;
+    @FXML
+    private ImageView arrowThree;
+    @FXML
+    private ImageView arrowFour;
+    @FXML
+    private ImageView arrowFive;
     //endregion
 
     //region Variables
