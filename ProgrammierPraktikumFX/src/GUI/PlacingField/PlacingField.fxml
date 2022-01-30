@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="placingField" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@PlacingField.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.PlacingFieldController">
+    <children>
+        <VBox layoutX="679.0" layoutY="79.0" prefHeight="400.0" prefWidth="182.0">
+            <children>
+                <HBox fx:id="BoxTwo" alignment="CENTER" prefHeight="100.0" prefWidth="182.0" spacing="20.0">
+                    <children>
+                        <Label fx:id="labelTwo" text="4x">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <VBox alignment="CENTER" prefHeight="100.0" prefWidth="100.0">
+                            <children>
+                                <ImageView fitHeight="78.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox fx:id="BoxThree" alignment="CENTER" prefHeight="100.0" prefWidth="182.0" spacing="20.0">
+                    <children>
+                        <Label fx:id="labelThree" text="3x">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <VBox alignment="CENTER" prefHeight="63.0" prefWidth="100.0">
+                            <children>
+                                <ImageView fitHeight="63.0" fitWidth="95.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox fx:id="BoxFour" alignment="CENTER" prefHeight="87.0" prefWidth="182.0" spacing="20.0">
+                    <children>
+                        <Label fx:id="labelFour" text="2x">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <VBox alignment="CENTER" prefHeight="95.0" prefWidth="100.0">
+                            <children>
+                                <ImageView fitHeight="61.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox fx:id="BoxFive" alignment="CENTER" prefHeight="100.0" prefWidth="182.0" spacing="20.0">
+                    <children>
+                        <Label fx:id="labelFive" text="2x">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <ImageView fitHeight="64.0" fitWidth="102.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
+                                    </image>
+                                </ImageView>
+                                <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="5er Schiff" />
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <HBox fx:id="placingBox" layoutX="71.0" layoutY="79.0" prefHeight="450.0" prefWidth="450.0" AnchorPane.leftAnchor="71.0" AnchorPane.topAnchor="79.0">
+            <children>
+                <GridPane fx:id="table" prefHeight="450.0" prefWidth="450.0">
+                </GridPane>
+            </children>
+        </HBox>
+      <HBox layoutX="85.0" layoutY="550.0" prefHeight="52.0" prefWidth="524.0">
+         <children>
+            <VBox prefHeight="69.0" prefWidth="744.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="How to Play:" underline="true" wrappingWidth="125.99996948242188">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Text>
+                  <Text fx:id="textLeftClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der linken Maustaste können sie ein Schiff platzieren" wrappingWidth="514.9586181640625" />
+                  <Text fx:id="textRightClick" strokeType="OUTSIDE" strokeWidth="0.0" text="Mit der rechten Maustaste können sie ein Schiff um 90 Grad drehen" wrappingWidth="514.1325073242188" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <Button fx:id="Random" layoutX="534.0" layoutY="430.0" mnemonicParsing="false" styleClass="buttons" text="Zufällig" />
+      <Button fx:id="Clear" layoutX="534.0" layoutY="466.0" mnemonicParsing="false" styleClass="buttons" text="Löschen" />
+      <Text fx:id="textHeader" layoutX="71.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schiffe platzieren" textAlignment="CENTER" wrappingWidth="450.0">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+
+      <ToggleButton id="bearbeiten" fx:id="EditShips" layoutX="534.0" layoutY="502.0" mnemonicParsing="false" styleClass="buttons" text="Bearbeiten" />
+      <Pane layoutX="756.0" layoutY="567.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="30.0">
+         <children>
+      
+                        <ImageView fx:id="Next" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleNext" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+               <image>
+                  <Image url="@../../assets/Icons/angle-double-small-right.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="1.0" layoutY="557.0" prefHeight="35.0" prefWidth="40.0" styleClass="arrowIcon" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="30.0">
+         <children>
+            <ImageView id="arrowIconPlacing" fitHeight="37.0" fitWidth="62.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true" styleClass="arrowIcon">
+               <image>
+                  <Image url="@../../assets/Icons/angle-double-small-left.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Text fx:id="Message" layoutX="351.0" layoutY="667.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="199.0" />
+
+    </children>
+</AnchorPane>

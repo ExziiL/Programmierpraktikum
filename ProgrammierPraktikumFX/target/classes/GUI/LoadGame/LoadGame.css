@@ -1,0 +1,14 @@
+.arrowIcon:hover {
+    -fx-cursor: hand;
+}
+
+.buttons {
+    -fx-cursor: hand;
+    -fx-color: #ffffff;
+    -fx-background-color: #fff;
+    -fx-padding: 4 8;
+    -fx-border-color: #bebebe;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-focus-color: transparent;
+}
