@@ -183,9 +183,7 @@ public class GridPaneBuilder {
             pane.setOnMouseExited(event -> redrawEnemyPanes());
 
             pane.setOnMouseClicked(event -> {
-
                 controller.handleSetOnMouseClicked(event, shipPartsEnemyList.indexOf(pane));
-
             });
 
             tableEnemy.setOnMouseEntered(new EventHandler<MouseEvent>() {

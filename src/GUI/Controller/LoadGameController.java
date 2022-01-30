@@ -31,7 +31,7 @@ public class LoadGameController implements Initializable {
     ListView<HBox> saveGames;
 
     @FXML
-    private Button refresh;
+    private ImageView refresh;
 
     @FXML
     private Button joinGame;
@@ -60,11 +60,8 @@ public class LoadGameController implements Initializable {
             }
         });
 
-        refresh.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                refresh();
-            }
+        refresh.setOnMouseClicked(event -> {
+            refresh();
         });
     }
 
@@ -105,7 +102,6 @@ public class LoadGameController implements Initializable {
         s = s.replace("|Online", "");
         if (files.contains(s)) {
 
-
             if (Game.logicController.deleteFile(s)) {
                 ObservableList<HBox> selectedGame = saveGames.getSelectionModel().getSelectedItems();
                 saveGames.getItems().remove(selectedGame.get(0));
@@ -118,7 +114,6 @@ public class LoadGameController implements Initializable {
                 saveGames.getItems().remove(selectedGame.get(0));
             }
         }
-
 
         saveGames.refresh();
     }
@@ -143,13 +138,10 @@ public class LoadGameController implements Initializable {
     }
 
     private void refresh() {
-
         games = saveGames.getItems();
         games.clear();
         files = Game.logicController.getAllSaveFiles();
         onlineFiles = Game.logicController.getAllOnlineSaveFiles();
-
-        games.add(addFirstLine());
 
         for (String s : files) {
             s = s.replace(".txt", "");
@@ -162,7 +154,6 @@ public class LoadGameController implements Initializable {
             games.add(addLine(s));
         }
 
-
         saveGames.setItems(games);
         saveGames.requestFocus();
 
@@ -172,7 +163,6 @@ public class LoadGameController implements Initializable {
 
             }
         });
-
     }
 
     private HBox addLine(String s) {
@@ -190,24 +180,23 @@ public class LoadGameController implements Initializable {
 
         viewDelete.setFitHeight(20);
         viewDelete.setFitWidth(20);
-        //   line.setMinWidth(330);
-        //   line.setMaxWidth(330);
-        //   line.setMinHeight(20);
-//
-//
+        viewDelete.setStyle("-fx-border-bolor: red;");
+        // line.setMinWidth(330);
+        // line.setMaxWidth(330);
+        // line.setMinHeight(20);
+        //
+        //
         right.getChildren().add(viewDelete);
         right.setMaxWidth(30);
         right.setMinWidth(30);
         right.setMinHeight(20);
-//
-//
+        //
+        //
         left.setMaxWidth(300);
         left.setMinWidth(300);
         left.setMinHeight(50);
 
-
         line.getChildren().addAll(left, right);
-
 
         right.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -223,16 +212,6 @@ public class LoadGameController implements Initializable {
             }
         });
 
-
         return line;
     }
-
-
-    private HBox addFirstLine() {
-        HBox line = new HBox();
-
-
-        return line;
-    }
-
 }
