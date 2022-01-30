@@ -57,7 +57,6 @@ public class GameSettingsController {
     private boolean serverCreated = false;
     private boolean clientCreated = false;
 
-
     @FXML
     void initialize() {
         if (Game.logicController.getGameSize() >= 5) {
@@ -100,7 +99,8 @@ public class GameSettingsController {
                         selectServer();
                         networkThread = new Thread(() -> {
                             netplay = Network.chooseNetworkTyp(true);
-                            if (!(netplay instanceof Server)) selectServer();
+                            if (!(netplay instanceof Server))
+                                selectServer();
                             Platform.runLater(() -> {
                                 Ip.setText(((Server) netplay).getIp());
                             });
@@ -136,7 +136,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(false);
-                    if (!(netplay instanceof Client)) selectClient();
+                    if (!(netplay instanceof Client))
+                        selectClient();
                 });
                 networkThread.start();
             }
@@ -166,7 +167,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(true);
-                    if (!(netplay instanceof Server)) selectServer();
+                    if (!(netplay instanceof Server))
+                        selectServer();
                     Platform.runLater(() -> {
                         Ip.setText(((Server) netplay).getIp());
                     });
@@ -282,7 +284,6 @@ public class GameSettingsController {
         Game.logicController.setEnemyGameGameMode(determineGameMode());
         Game.logicController.createWriter();
 
-
         if (gameMode.getValue().equals("Online")) {
             ErrorMessage.setText("Warte auf Spieler...");
             ErrorMessage.setStyle("-fx-text-fill: green");
@@ -292,7 +293,8 @@ public class GameSettingsController {
             networkThread = new Thread(() -> {
                 // int[] i = {2, 2, 2, 3, 3, 4};
                 if (netplay instanceof Server) {
-                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
+                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(),
+                            setNetworkShip());
 
                 }
                 if (netplay instanceof Client) {
@@ -315,7 +317,6 @@ public class GameSettingsController {
                 });
             });
             networkThread.start();
-
 
         } else {
             ErrorMessage.setText("");

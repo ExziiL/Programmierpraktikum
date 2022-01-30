@@ -18,3 +18,7 @@
 .arrowIcon:hover {
 	-fx-cursor: hand;
 }
+
+.shipBox:hover {
+	-fx-cursor: hand;
+}

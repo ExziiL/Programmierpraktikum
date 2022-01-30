@@ -193,7 +193,7 @@ public class Game extends Application {
         private final Pane contentPane;
 
         public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth,
-                                       Pane contentPane) {
+                Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;
@@ -376,7 +376,6 @@ public class Game extends Application {
         } catch (IllegalStateException e) {
 
         }
-
 
         dialogReconnect.setTitle("Erneut Verbinden");
 
