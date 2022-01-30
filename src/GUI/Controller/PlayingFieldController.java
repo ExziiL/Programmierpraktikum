@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -43,6 +44,12 @@ public class PlayingFieldController implements Initializable {
     private int maxCountFourShips = 0;
     private int maxCountFiveShips = 0;
 
+    private int currentDestroyedTwoShips = 0;
+    private int currentDestroyedThreeShips = 0;
+    private int currentDestroyedFourShips = 0;
+    private int currentDestroyedFiveShips = 0;
+
+
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
     private boolean cancel = false;
@@ -58,6 +65,12 @@ public class PlayingFieldController implements Initializable {
         maxCountThreeShips = Game.logicController.getAllThreeShips();
         maxCountFourShips = Game.logicController.getAllFourShips();
         maxCountFiveShips = Game.logicController.getAllFiveShips();
+
+        currentDestroyedTwoShips = Game.logicController.getDestroyedShips(2);
+        currentDestroyedThreeShips = Game.logicController.getDestroyedShips(5);
+        currentDestroyedFourShips = Game.logicController.getDestroyedShips(4);
+        currentDestroyedFiveShips = Game.logicController.getDestroyedShips(5);
+
 
         tableEnemy = gridBuilder.createTableEnemy(tableEnemy, this);
         tableGamer = gridBuilder.createTableGamer(tableGamer);
@@ -129,9 +142,9 @@ public class PlayingFieldController implements Initializable {
                         Game.logicController.getEnemyElementStatus(index) == LogicConstants.GameElementStatus.MISS) {
                     yourTurn = true;
                 } else {
-                    result = Game.logicController.shoot(index) ;
+                    result = Game.logicController.shoot(index);
 
-                    if(result == -1){
+                    if (result == -1) {
                         Platform.runLater(() -> {
                             Game.showPopUpConnectionClosed(false, "");
                         });
@@ -228,6 +241,52 @@ public class PlayingFieldController implements Initializable {
         labelThree.setText(currentThreeShip + " / " + maxCountThreeShips);
         labelFour.setText(currentFourShip + " / " + maxCountFourShips);
         labelFive.setText(currentFiveShip + " / " + maxCountFiveShips);
+
+
+        // Two
+        if (currentTwoShip < currentDestroyedTwoShips) {
+            labelTwo.setFill(Color.RED);
+        } else if (currentTwoShip == 0) {
+            labelTwo.setFill(Color.BLACK);
+            labelTwo.setStyle("-fx-opacity: 0.3;");
+        } else {
+            labelTwo.setFill(Color.BLACK);
+        }
+
+        //Three
+        if (currentThreeShip < currentDestroyedThreeShips) {
+            labelThree.setFill(Color.RED);
+        } else if (currentThreeShip == 0) {
+            labelThree.setFill(Color.BLACK);
+            labelThree.setStyle("-fx-opacity: 0.3;");
+        } else {
+            labelThree.setFill(Color.BLACK);
+        }
+        //Four
+        if (currentFourShip < currentDestroyedFourShips) {
+            labelFour.setFill(Color.RED);
+        } else if (currentFourShip == 0) {
+            labelFour.setFill(Color.BLACK);
+            labelFour.setStyle("-fx-opacity: 0.3;");
+        } else {
+            labelFour.setFill(Color.BLACK);
+        }
+        //Five
+        if (currentFiveShip < currentDestroyedFiveShips) {
+            labelFive.setFill(Color.RED);
+        } else if (currentFiveShip == 0) {
+            labelFive.setFill(Color.BLACK);
+            labelFive.setStyle("-fx-opacity: 0.3;");
+        } else {
+            labelFive.setFill(Color.BLACK);
+        }
+
+        currentDestroyedTwoShips = currentTwoShip;
+        currentDestroyedThreeShips = currentThreeShip;
+        currentDestroyedFourShips = currentFourShip;
+        currentDestroyedFiveShips = currentFiveShip;
+
+
     }
 
     private void setStatusText() {

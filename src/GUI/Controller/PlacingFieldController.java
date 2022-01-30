@@ -22,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -314,7 +315,7 @@ public class PlacingFieldController implements Initializable {
     public void handleNext(MouseEvent event) throws IOException {
         if (Game.logicController.getGameMode() == LogicConstants.GameMode.ONLINE) {
             Message.setText("Warte auf Spieler...");
-            Message.setStyle("-fx-text-fill: green");
+            Message.setFill(Color.GREEN);
             networkThread = new Thread(() -> {
                 netplay = Network.getNetplay();
                 if (netplay instanceof Server) {
