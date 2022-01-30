@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="700.0" prefWidth="900.0" stylesheets="@StartGame.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.StartGameController">
+   <center>
+      <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="450.0" BorderPane.alignment="CENTER">
+         <columnConstraints>
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleStartGame" prefHeight="159.0" prefWidth="109.0" spacing="5.0">
+               <children>
+                  <ImageView fx:id="startGameIcon" fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/play.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel starten">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Line id="gameStartLine" endX="-11.767768859863281" layoutX="100.0" layoutY="100.0" startX="73.0" strokeWidth="2.5">
+                     <VBox.margin>
+                        <Insets top="-5.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+            <VBox id="paneBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#handleShowManual" prefHeight="159.0" prefWidth="109.0" spacing="5.0" GridPane.columnIndex="1">
+               <children>
+                  <ImageView fx:id="startGameIcon2" fitHeight="50.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/book-alt.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spielanleitung">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Line id="gameStartLine" endX="-11.767768859863281" layoutX="100.0" layoutY="100.0" startX="82.46446228027344" strokeWidth="2.5">
+                     <VBox.margin>
+                        <Insets top="-5.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+            <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleClose" prefHeight="158.0" prefWidth="409.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="startGameIcon21" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/sign-out.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel beenden">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Line id="gameStartLine" endX="-30.445438385009766" startX="67.61674499511719" strokeWidth="2.5">
+                     <VBox.margin>
+                        <Insets top="-5.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+            <VBox id="paneBox" alignment="CENTER" onMouseClicked="#handleLoadGame" prefHeight="173.0" prefWidth="163.0" spacing="5.0" GridPane.rowIndex="1">
+               <children>
+                  <ImageView fx:id="startGameIcon1" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/disk.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Spiel laden">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Line id="gameStartLine" endX="-1.3743705749511719" startX="73.0" strokeWidth="2.5">
+                     <VBox.margin>
+                        <Insets top="-5.0" />
+                     </VBox.margin>
+                  </Line>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets right="-80.0" />
+         </BorderPane.margin>
+      </GridPane>
+   </center>
+   <right>
+      <ImageView fitHeight="606.0" fitWidth="570.0" opacity="0.89" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../../assets/shipBackground.jpg" />
+         </image>
+         <BorderPane.margin>
+            <Insets right="-95.0" />
+         </BorderPane.margin>
+      </ImageView>
+   </right>
+</BorderPane>

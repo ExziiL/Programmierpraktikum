@@ -1,0 +1,20 @@
+.buttons {
+	-fx-cursor: hand;
+	-fx-color: #ffffff;
+	-fx-background-color: #fff;
+	-fx-padding: 4 8;
+	-fx-border-color: #bebebe;
+	-fx-border-radius: 6;
+	-fx-background-radius: 6;
+	-fx-focus-color: transparent;
+}
+
+#bearbeiten:selected {
+	-fx-background-color: rgb(100, 100, 100);
+	-fx-text-fill: white;
+	-fx-font-weight: bold;
+}
+
+.arrowIcon:hover {
+	-fx-cursor: hand;
+}
