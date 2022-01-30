@@ -65,6 +65,10 @@ public abstract class Network {
 
     }
 
+    public static Network getNetplay() {
+        return netplay;
+    }
+
 
     public void save() {
         String message = "save ";
@@ -120,10 +124,6 @@ public abstract class Network {
         }
 
         return false;
-    }
-
-    public static Network getNetplay() {
-        return netplay;
     }
 
     public int shoot(int x, int y) {

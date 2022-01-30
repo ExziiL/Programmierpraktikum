@@ -233,11 +233,14 @@ public class DocumentWriter {
         File folder = new File("src/SaveFiles/");
         ArrayList<String> files = new ArrayList<>();
 
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                files.add(file.getName());
+        if (folder.exists()) {
+            for (File file : folder.listFiles()) {
+                if (!file.isDirectory()) {
+                    files.add(file.getName());
+                }
             }
         }
+
         return files;
     }
 
@@ -245,9 +248,11 @@ public class DocumentWriter {
         File folder = new File("src/SaveFilesOnline/");
         ArrayList<String> files = new ArrayList<>();
 
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                files.add(file.getName());
+        if (folder.exists()) {
+            for (File file : folder.listFiles()) {
+                if (!file.isDirectory()) {
+                    files.add(file.getName());
+                }
             }
         }
         return files;
