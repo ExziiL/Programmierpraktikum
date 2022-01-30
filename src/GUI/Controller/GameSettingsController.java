@@ -26,8 +26,6 @@ public class GameSettingsController {
     @FXML
     private Button connect;
     @FXML
-    private TextField name;
-    @FXML
     private Label labelTwo;
     @FXML
     private Label labelThree;
@@ -75,7 +73,6 @@ public class GameSettingsController {
         BoxOnline.setDisable(true);
         Ip.setPromptText("IP-Adresse eingeben");
 
-        name.setPromptText("Player");
         IpAdresseText.opacityProperty().setValue(0.3);
 
         gameMode.setOnAction(new EventHandler<ActionEvent>() {
@@ -320,7 +317,6 @@ public class GameSettingsController {
 
         } else {
             ErrorMessage.setText("");
-            Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
             Game.showPlacingFieldWindow();
         }
