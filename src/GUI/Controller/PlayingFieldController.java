@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -36,6 +37,14 @@ public class PlayingFieldController implements Initializable {
     private Text labelFive;
     @FXML
     private Text statusText;
+    @FXML
+    private ImageView twoShip;
+    @FXML
+    private ImageView threeShip;
+    @FXML
+    private ImageView fourShip;
+    @FXML
+    private ImageView fiveShip;
     // endregion
 
     // region Variables
@@ -48,7 +57,6 @@ public class PlayingFieldController implements Initializable {
     private int currentDestroyedThreeShips = 0;
     private int currentDestroyedFourShips = 0;
     private int currentDestroyedFiveShips = 0;
-
 
     private int size = Game.logicController.getGameSize();
     private GridPaneBuilder gridBuilder;
@@ -70,7 +78,6 @@ public class PlayingFieldController implements Initializable {
         currentDestroyedThreeShips = Game.logicController.getDestroyedShips(5);
         currentDestroyedFourShips = Game.logicController.getDestroyedShips(4);
         currentDestroyedFiveShips = Game.logicController.getDestroyedShips(5);
-
 
         tableEnemy = gridBuilder.createTableEnemy(tableEnemy, this);
         tableGamer = gridBuilder.createTableGamer(tableGamer);
@@ -203,7 +210,6 @@ public class PlayingFieldController implements Initializable {
             });
         } while (isEnemyTurn != 1);
 
-
     }
 
     public void checkMyWin() {
@@ -242,41 +248,44 @@ public class PlayingFieldController implements Initializable {
         labelFour.setText(currentFourShip + " / " + maxCountFourShips);
         labelFive.setText(currentFiveShip + " / " + maxCountFiveShips);
 
-
         // Two
         if (currentTwoShip < currentDestroyedTwoShips) {
             labelTwo.setFill(Color.RED);
         } else if (currentTwoShip == 0) {
             labelTwo.setFill(Color.BLACK);
             labelTwo.setStyle("-fx-opacity: 0.3;");
+            twoShip.setStyle("-fx-opacity: 0.3;");
         } else {
             labelTwo.setFill(Color.BLACK);
         }
 
-        //Three
+        // Three
         if (currentThreeShip < currentDestroyedThreeShips) {
             labelThree.setFill(Color.RED);
         } else if (currentThreeShip == 0) {
             labelThree.setFill(Color.BLACK);
             labelThree.setStyle("-fx-opacity: 0.3;");
+            threeShip.setStyle("-fx-opacity: 0.3;");
         } else {
             labelThree.setFill(Color.BLACK);
         }
-        //Four
+        // Four
         if (currentFourShip < currentDestroyedFourShips) {
             labelFour.setFill(Color.RED);
         } else if (currentFourShip == 0) {
             labelFour.setFill(Color.BLACK);
             labelFour.setStyle("-fx-opacity: 0.3;");
+            fourShip.setStyle("-fx-opacity: 0.3;");
         } else {
             labelFour.setFill(Color.BLACK);
         }
-        //Five
+        // Five
         if (currentFiveShip < currentDestroyedFiveShips) {
             labelFive.setFill(Color.RED);
         } else if (currentFiveShip == 0) {
             labelFive.setFill(Color.BLACK);
             labelFive.setStyle("-fx-opacity: 0.3;");
+            fiveShip.setStyle("-fx-opacity: 0.3;");
         } else {
             labelFive.setFill(Color.BLACK);
         }
@@ -285,7 +294,6 @@ public class PlayingFieldController implements Initializable {
         currentDestroyedThreeShips = currentThreeShip;
         currentDestroyedFourShips = currentFourShip;
         currentDestroyedFiveShips = currentFiveShip;
-
 
     }
 

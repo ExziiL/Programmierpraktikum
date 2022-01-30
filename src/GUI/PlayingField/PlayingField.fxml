@@ -65,7 +65,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="58.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="twoShip" fitHeight="58.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/2er%20Schiff.jpg" />
                      </image>
@@ -80,7 +80,7 @@
                         <Font size="18.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="56.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="threeShip" fitHeight="56.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/3er%20Schiff.jpg" />
                      </image>
@@ -95,7 +95,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="53.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="fourShip" fitHeight="53.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/4er%20Schiff.jpg" />
                      </image>
@@ -110,7 +110,7 @@
                         <Font size="20.0" />
                      </font>
                   </Text>
-                  <ImageView fitHeight="51.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="fiveShip" fitHeight="51.0" fitWidth="112.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/Schiffe/5er%20Schiff.jpg" />
                      </image>
