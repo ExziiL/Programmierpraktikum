@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -26,8 +27,6 @@ public class GameSettingsController {
     @FXML
     private Button connect;
     @FXML
-    private TextField name;
-    @FXML
     private Label labelTwo;
     @FXML
     private Label labelThree;
@@ -35,6 +34,19 @@ public class GameSettingsController {
     private Label labelFour;
     @FXML
     private Label labelFive;
+
+    @FXML
+    private Pane boxGameSize;
+
+    @FXML
+    private VBox boxTwo;
+    @FXML
+    private VBox boxThree;
+    @FXML
+    private VBox boxFour;
+    @FXML
+    private VBox boxFive;
+
     @FXML
     private Text labelGameFieldSize;
     @FXML
@@ -57,7 +69,6 @@ public class GameSettingsController {
     private boolean serverCreated = false;
     private boolean clientCreated = false;
 
-
     @FXML
     void initialize() {
         if (Game.logicController.getGameSize() >= 5) {
@@ -76,7 +87,6 @@ public class GameSettingsController {
         BoxOnline.setDisable(true);
         Ip.setPromptText("IP-Adresse eingeben");
 
-        name.setPromptText("Player");
         IpAdresseText.opacityProperty().setValue(0.3);
 
         gameMode.setOnAction(new EventHandler<ActionEvent>() {
@@ -84,6 +94,7 @@ public class GameSettingsController {
             public void handle(ActionEvent event) {
                 if (gameMode.getValue().equals("Offline")) {
                     BoxOnline.setDisable(true);
+                    disableGameSizeControls(false);
                     IpAdresseText.opacityProperty().setValue(0.3);
                     slider.setDisable(false);
                 } else if (gameMode.getValue().equals("Online")) {
@@ -100,7 +111,8 @@ public class GameSettingsController {
                         selectServer();
                         networkThread = new Thread(() -> {
                             netplay = Network.chooseNetworkTyp(true);
-                            if (!(netplay instanceof Server)) selectServer();
+                            if (!(netplay instanceof Server))
+                                selectServer();
                             Platform.runLater(() -> {
                                 Ip.setText(((Server) netplay).getIp());
                             });
@@ -136,7 +148,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(false);
-                    if (!(netplay instanceof Client)) selectClient();
+                    if (!(netplay instanceof Client))
+                        selectClient();
                 });
                 networkThread.start();
             }
@@ -166,7 +179,8 @@ public class GameSettingsController {
                 }
                 networkThread = new Thread(() -> {
                     netplay = Network.chooseNetworkTyp(true);
-                    if (!(netplay instanceof Server)) selectServer();
+                    if (!(netplay instanceof Server))
+                        selectServer();
                     Platform.runLater(() -> {
                         Ip.setText(((Server) netplay).getIp());
                     });
@@ -282,7 +296,6 @@ public class GameSettingsController {
         Game.logicController.setEnemyGameGameMode(determineGameMode());
         Game.logicController.createWriter();
 
-
         if (gameMode.getValue().equals("Online")) {
             ErrorMessage.setText("Warte auf Spieler...");
             ErrorMessage.setStyle("-fx-text-fill: green");
@@ -292,7 +305,8 @@ public class GameSettingsController {
             networkThread = new Thread(() -> {
                 // int[] i = {2, 2, 2, 3, 3, 4};
                 if (netplay instanceof Server) {
-                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(), setNetworkShip());
+                    connected = ((Server) netplay).sendInitialisation(Game.logicController.getGameSize(),
+                            setNetworkShip());
 
                 }
                 if (netplay instanceof Client) {
@@ -316,10 +330,8 @@ public class GameSettingsController {
             });
             networkThread.start();
 
-
         } else {
             ErrorMessage.setText("");
-            Game.logicController.setName(name.getCharacters().toString());
             Game.logicController.determineNumberOfShips();
             Game.showPlacingFieldWindow();
         }
@@ -344,7 +356,8 @@ public class GameSettingsController {
     private void selectClient() {
         Ip.setEditable(true);
         Ip.setText("");
-        slider.setDisable(true);
+        disableGameSizeControls(true);
+
         ErrorMessage.setText("");
 
         if (serverCreated == true) {
@@ -359,7 +372,7 @@ public class GameSettingsController {
             InetAddress realIP = InetAddress.getLocalHost();
             Ip.setEditable(false);
             Ip.setText(realIP.getHostAddress());
-            slider.setDisable(false);
+            disableGameSizeControls(false);
             ErrorMessage.setText("");
 
             if (clientCreated == true) {
@@ -404,4 +417,27 @@ public class GameSettingsController {
 
         return s;
     }
+
+    private void disableGameSizeControls(boolean disable) {
+        boxGameSize.setDisable(disable);
+        boxTwo.setDisable(disable);
+        boxThree.setDisable(disable);
+        boxFour.setDisable(disable);
+        boxFive.setDisable(disable);
+        if (!disable) {
+            boxGameSize.setStyle("-fx-opacity: 1");
+            boxTwo.setStyle("-fx-opacity: 1;");
+            boxThree.setStyle("-fx-opacity: 1;");
+            boxFour.setStyle("-fx-opacity: 1;");
+            boxFive.setStyle("-fx-opacity: 1;");
+        } else {
+            boxGameSize.setStyle("-fx-opacity: 0.3");
+            boxTwo.setStyle("-fx-opacity: 0.3;");
+            boxThree.setStyle("-fx-opacity: 0.3;");
+            boxFour.setStyle("-fx-opacity: 0.3;");
+            boxFive.setStyle("-fx-opacity: 0.3;");
+
+        }
+    }
 }
+

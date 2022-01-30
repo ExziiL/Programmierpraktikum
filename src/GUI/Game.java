@@ -370,8 +370,13 @@ public class Game extends Application {
         dialogVbox.setAlignment(Pos.CENTER);
         Scene dialogScene = new Scene(dialogVbox, 300, 100);
 
-        dialogReconnect.initModality(Modality.APPLICATION_MODAL);
-        dialogReconnect.setScene(dialogScene);
+        try {
+            dialogReconnect.setScene(dialogScene);
+            dialogReconnect.initModality(Modality.APPLICATION_MODAL);
+        } catch (IllegalStateException e) {
+
+        }
+
         dialogReconnect.setTitle("Erneut Verbinden");
 
         verbinden.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
@@ -454,6 +459,7 @@ public class Game extends Application {
             @Override
             public void handle(ActionEvent event) {
                 try {
+                    Network.closeNetwork(Network.getNetplay());
                     dialogConnectionClosed.hide();
                     Game.showGameSettingsWindow();
                 } catch (IOException e) {
@@ -494,7 +500,6 @@ public class Game extends Application {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
                 dialogCannotSave.hide();
             }
         });

@@ -23,7 +23,24 @@ public class DocumentWriter {
 
     public static boolean deleteFile(String s) {
         File myObj = new File("src/SaveFiles/" + s);
-        return myObj.delete();
+        if (myObj.exists()) {
+            return myObj.delete();
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean deleteOnlineFile(String s) {
+        File myObj;
+        boolean answer = false;
+        myObj = new File("src/SaveFilesOnline/" + s);
+        if (myObj.exists()) {
+            answer = myObj.delete();
+            myObj = new File("src/SaveFilesClient/" + s);
+            myObj.delete();
+        }
+
+        return answer;
     }
 
     public DocumentWriter(Timestamp t, boolean online) {
@@ -216,11 +233,14 @@ public class DocumentWriter {
         File folder = new File("src/SaveFiles/");
         ArrayList<String> files = new ArrayList<>();
 
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                files.add(file.getName());
+        if (folder.exists()) {
+            for (File file : folder.listFiles()) {
+                if (!file.isDirectory()) {
+                    files.add(file.getName());
+                }
             }
         }
+
         return files;
     }
 
@@ -228,9 +248,11 @@ public class DocumentWriter {
         File folder = new File("src/SaveFilesOnline/");
         ArrayList<String> files = new ArrayList<>();
 
-        for (File file : folder.listFiles()) {
-            if (!file.isDirectory()) {
-                files.add(file.getName());
+        if (folder.exists()) {
+            for (File file : folder.listFiles()) {
+                if (!file.isDirectory()) {
+                    files.add(file.getName());
+                }
             }
         }
         return files;

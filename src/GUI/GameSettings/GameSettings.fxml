@@ -18,7 +18,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@GameSettings.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.GameSettingsController">
     <children>
-      <Pane layoutX="101.0" layoutY="187.0" prefHeight="65.0" prefWidth="729.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="187.0">
+      <Pane fx:id="boxGameSize" layoutX="101.0" layoutY="131.0" prefHeight="65.0" prefWidth="729.0" AnchorPane.leftAnchor="101.0" AnchorPane.topAnchor="131.0">
          <children>
                   <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielfeldgröße">
                <font>
@@ -42,7 +42,7 @@
             </Pane>
          </children>
       </Pane>
-                    <VBox alignment="CENTER" layoutX="226.0" layoutY="280.0" prefHeight="109.0" prefWidth="107.0">
+                    <VBox fx:id="boxTwo" alignment="CENTER" layoutX="226.0" layoutY="224.0" prefHeight="109.0" prefWidth="107.0">
               <children>
                   <Label fx:id="labelTwo" text="0x">
                       <font>
@@ -57,7 +57,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="2er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="372.0" layoutY="284.0">
+          <VBox fx:id="boxThree" alignment="CENTER" layoutX="372.0" layoutY="228.0">
               <children>
                   <Label fx:id="labelThree" alignment="TOP_CENTER" text="0x" textAlignment="JUSTIFY">
                       <font>
@@ -75,7 +75,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="3er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="533.0" layoutY="284.0">
+          <VBox fx:id="boxFour" alignment="CENTER" layoutX="533.0" layoutY="228.0">
               <children>
                   <Label fx:id="labelFour" text="0x">
                       <font>
@@ -90,7 +90,7 @@
                   <Text fill="#7c7c7c" strokeType="OUTSIDE" strokeWidth="0.0" text="4er Schiff" />
               </children>
           </VBox>
-          <VBox alignment="CENTER" layoutX="695.0" layoutY="283.0" prefHeight="97.0" prefWidth="119.0">
+          <VBox fx:id="boxFive" alignment="CENTER" layoutX="695.0" layoutY="227.0" prefHeight="97.0" prefWidth="119.0">
               <children>
                   <Label fx:id="labelFive" text="0x">
                       <font>
@@ -129,7 +129,7 @@
               </ImageView>
          </children>
       </Pane>
-      <Pane fx:id="BoxOnline" layoutX="226.0" layoutY="492.0" prefHeight="150.0" prefWidth="320.0">
+      <Pane fx:id="BoxOnline" layoutX="206.0" layoutY="450.0" prefHeight="150.0" prefWidth="320.0">
          <children>
                   <TextField fx:id="Ip" layoutY="98.0" />
                   <RadioButton fx:id="Server" layoutY="14.0" mnemonicParsing="false" selected="true" text="Spiel erstellen">
@@ -146,7 +146,7 @@
             <Label fx:id="ErrorMessage" layoutY="123.0" prefHeight="25.0" prefWidth="320.0" textAlignment="CENTER" textFill="#f70404" />
          </children>
       </Pane>
-      <Pane layoutX="130.0" layoutY="462.0" prefHeight="30.0" prefWidth="271.0" AnchorPane.leftAnchor="130.0">
+      <Pane layoutX="110.0" layoutY="420.0" prefHeight="30.0" prefWidth="271.0" AnchorPane.leftAnchor="110.0">
          <children>
                   <Text layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Spielmodus">
                <font>
@@ -156,17 +156,7 @@
                   <ComboBox fx:id="gameMode" layoutX="96.0" layoutY="2.0" prefHeight="25.0" prefWidth="150.0" />
          </children>
       </Pane>
-      <Pane layoutX="110.0" layoutY="94.0" prefHeight="46.0" prefWidth="327.0" AnchorPane.leftAnchor="110.0">
-         <children>
-                  <Text layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name eingeben">
-               <font>
-                  <Font size="14.0" />
-               </font>
-                  </Text>
-                  <TextField fx:id="name" layoutX="118.0" layoutY="8.0" onAction="#handleInputName" prefHeight="30.0" />
-         </children>
-      </Pane>
-      <Text layoutX="306.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Einstellungen" textAlignment="CENTER">
+      <Text layoutX="1.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Einstellungen" textAlignment="CENTER" wrappingWidth="900.0">
          <font>
             <Font name="Arial" size="48.0" />
          </font>
