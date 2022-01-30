@@ -157,12 +157,6 @@ public class LoadGameController implements Initializable {
         saveGames.setItems(games);
         saveGames.requestFocus();
 
-        saveGames.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-
-            }
-        });
     }
 
     private HBox addLine(String s) {
