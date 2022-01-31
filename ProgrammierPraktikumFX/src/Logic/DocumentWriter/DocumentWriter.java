@@ -81,14 +81,6 @@ public class DocumentWriter {
         }
     }
 
-    public DocumentWriter(String s, boolean online, boolean client) {
-        this(s, online);
-        String fs = System.getProperty("file.separator");
-        if (client) {
-            path = "src" + fs + "SaveFilesClient" + fs + id + ".txt" + fs;
-        }
-    }
-
     /**
      * Save the Game in its current State, with a Name given from the User the File. If an
      * Online Game is saved, the Directory is a different, than to a normal Game.If the Enemy

@@ -9,6 +9,7 @@ import Network.Server;
 import Utilities.HoverState;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -468,7 +470,7 @@ public class PlacingFieldController implements Initializable {
                 } else {
                     Game.toggleCursorHand(false);
                 }
-
+                Game.toggleCursorHand(false);
                 noPlacingAllowed = gridBuilder.hoverShip(states);
 
             }));
@@ -584,7 +586,7 @@ public class PlacingFieldController implements Initializable {
 
     /**
      * set Select Ship Arrow
-     * @param size of Ship
+     * @param ship Objects of Class Ship
      * @return Image View of Arrow
      */
     private ImageView getSelectedShipArrow(int ship) {

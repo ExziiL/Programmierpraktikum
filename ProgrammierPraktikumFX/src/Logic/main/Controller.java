@@ -387,6 +387,11 @@ public class Controller {
         return DocumentWriter.deleteFile(s);
     }
 
+    public boolean deleteOnlineFile(String s) {
+        return DocumentWriter.deleteOnlineFile(s);
+
+    }
+
     public void setWriter(DocumentWriter writer) {
         this.writer = writer;
     }
